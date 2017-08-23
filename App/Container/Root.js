@@ -8,7 +8,10 @@ import PropTypes from 'prop-types';
 // Styles
 import styles from './styles';
 
-class RootContainer extends Component {
+class Root extends Component {
+  static propTypes = {
+    navigateBack: PropTypes.func
+  };
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.props.navigateBack);
@@ -26,14 +29,10 @@ class RootContainer extends Component {
   }
 }
 
-RootContainer.propTypes = {
-  navigateBack: PropTypes.func
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     navigateBack: () => dispatch(NavigationActions.back())
   };
 };
 
-export default connect(undefined, mapDispatchToProps)(RootContainer);
+export default connect(undefined, mapDispatchToProps)(Root);
