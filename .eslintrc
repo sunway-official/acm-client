@@ -1,0 +1,24 @@
+{
+  "extends": ["prettier"],
+  "plugins": ["prettier", "import", "react", "react-native"],
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      { "singleQuote": true, "trailingComma": "all" }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["tests/**/*.js"]
+      }
+    ]
+  }
+}

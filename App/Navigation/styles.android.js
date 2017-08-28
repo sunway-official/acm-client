@@ -9,7 +9,7 @@ export default StyleSheet.create({
   },
   container: {
     flex: 1,
-    position: 'relative'
+    position: 'relative',
   },
   loadingContainer: {
     position: 'absolute',
@@ -17,6 +17,6 @@ export default StyleSheet.create({
     height: '100%',
     backgroundColor: 'transparent',
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

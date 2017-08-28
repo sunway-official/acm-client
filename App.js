@@ -1,4 +1,4 @@
 import React from 'react';
-import App from './App/Container'; 
+import App from './App/Container';
 
-export default () => <App/>
+export default () => <App />;

@@ -1,0 +1,10 @@
+{
+  "javascript.validate.enable": false,
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.useTabs": false,
+  "prettier.tabWidth": 2,
+  "prettier.eslintIntegration": true,
+  "editor.formatOnSave": true
+}

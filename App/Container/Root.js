@@ -10,28 +10,26 @@ import styles from './styles';
 
 class Root extends Component {
   static propTypes = {
-    navigateBack: PropTypes.func
+    navigateBack: PropTypes.func,
   };
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.props.navigateBack);
   }
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
-        <StatusBar
-          backgroundColor="transparent"
-          translucent/>
-        <AppNavigation/>
+        <StatusBar backgroundColor="transparent" translucent />
+        <AppNavigation />
       </View>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    navigateBack: () => dispatch(NavigationActions.back())
+    navigateBack: () => dispatch(NavigationActions.back()),
   };
 };
 

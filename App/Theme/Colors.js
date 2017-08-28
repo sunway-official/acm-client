@@ -39,5 +39,5 @@ const defaultColor = {
 
 export default {
   ...colors,
-  ...defaultColor
+  ...defaultColor,
 };

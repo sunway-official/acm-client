@@ -6,26 +6,27 @@ import { addNavigationHelpers } from 'react-navigation';
 import styles from './styles';
 import { AppNavigator, KEY } from './Redux';
 
-const AppNavigation = ({nav, dispatch}) => (
+const AppNavigation = ({ nav, dispatch }) =>
   <View style={styles.container}>
     <View style={styles.loadingContainer}>
-      <ActivityIndicator/>
+      <ActivityIndicator />
     </View>
-    <AppNavigator navigation={addNavigationHelpers({
-      dispatch,
-      state: nav,
-    })}/>
-  </View>
-);
+    <AppNavigator
+      navigation={addNavigationHelpers({
+        dispatch,
+        state: nav,
+      })}
+    />
+  </View>;
 
 AppNavigation.propTypes = {
   nav: PropTypes.object,
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    nav: state[KEY].navigation
+    nav: state[KEY].navigation,
   };
 };
 

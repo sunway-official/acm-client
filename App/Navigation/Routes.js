@@ -1,9 +1,9 @@
 import Home from '../Screen/Home';
 
 export const AppRoutes = {
-  'Home': {
+  Home: {
     path: '/',
-    screen: Home
+    screen: Home,
   },
 };
 
@@ -14,7 +14,7 @@ export const DrawerRoutes = [
     name: 'Home',
     icon: {
       name: 'home',
-      type: 'material-community'
-    }
+      type: 'material-community',
+    },
   },
 ];

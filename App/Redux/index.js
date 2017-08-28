@@ -22,5 +22,5 @@ export const getStore = () => {
 };
 
 export default {
-  getStore
+  getStore,
 };

@@ -1,7 +1,7 @@
 const type = {
   base: '',
   bold: '',
-  emphasis: ''
+  emphasis: '',
 };
 
 const size = {
@@ -15,38 +15,38 @@ const size = {
   regular: 17,
   medium: 14,
   small: 12,
-  tiny: 8.5
+  tiny: 8.5,
 };
 
 const style = {
   h1: {
-    fontSize: size.h1
+    fontSize: size.h1,
   },
   h2: {
-    fontSize: size.h2
+    fontSize: size.h2,
   },
   h3: {
-    fontSize: size.h3
+    fontSize: size.h3,
   },
   h4: {
-    fontSize: size.h4
+    fontSize: size.h4,
   },
   h5: {
-    fontSize: size.h5
+    fontSize: size.h5,
   },
   h6: {
-    fontSize: size.h6
+    fontSize: size.h6,
   },
   normal: {
-    fontSize: size.regular
+    fontSize: size.regular,
   },
   description: {
-    fontSize: size.medium
-  }
+    fontSize: size.medium,
+  },
 };
 
 export default {
   type,
   size,
-  style
+  style,
 };

@@ -6,7 +6,7 @@ import { getStore } from '../Redux';
 const store = getStore();
 
 class App extends Component {
-  render () {
+  render() {
     return (
       <Provider store={store}>
         <RootContainer />
