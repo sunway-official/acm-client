@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import NavigationReducer, { KEY as NAVIGATION_KEY } from '../Navigation/Redux';
+import DrawerReducer, { KEY as DRAWER_KEY } from './Drawer';
 
 export default combineReducers({
-  [NAVIGATION_KEY]: NavigationReducer,
+  [DRAWER_KEY]: DrawerReducer,
 });

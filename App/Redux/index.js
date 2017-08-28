@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from './RootReducer';
+import rootReducer from './rootReducer';
 
 const middlewares = [];
 const enhancer = composeWithDevTools(
@@ -14,7 +14,7 @@ export const getStore = () => {
   /*eslint-disable no-undef*/
   if (module.hot) {
     module.hot.accept(() => {
-      store.replaceReducer(require('./RootReducer').default);
+      store.replaceReducer(require('./rootReducer').default);
     });
   }
   /*eslint-enable */
