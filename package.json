@@ -9,7 +9,9 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "postinstall": "rndebugger-open"
+    "lint": "eslint App/**/*.js",
+    "postinstall": "rndebugger-open",
+    "precommit": "npm run lint"
   },
   "dependencies": {
     "expo": "^20.0.0",
@@ -22,12 +24,14 @@
     "redux-devtools-extension": "^2.13.2"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "eslint": "^4.5.0",
     "eslint-config-prettier": "^2.3.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-prettier": "^2.2.0",
     "eslint-plugin-react": "^7.3.0",
     "eslint-plugin-react-native": "^3.0.1",
+    "husky": "^0.14.3",
     "jest-expo": "~20.0.0",
     "prettier": "^1.5.3",
     "prettier-eslint": "^6.4.2",
