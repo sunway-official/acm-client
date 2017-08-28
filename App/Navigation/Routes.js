@@ -1,20 +1,25 @@
-import Home from '../Screen/Home';
+import Home from '../Scene/Home';
+import Login from '../Scene/Login';
 
 export const AppRoutes = {
-  Home: {
+  home: {
+    name: 'Home',
     path: '/',
-    screen: Home,
+    scene: Home,
+    initial: true,
+  },
+  login: {
+    name: 'Login',
+    path: '/login',
+    scene: Login,
   },
 };
 
-export const INITIAL_ROUTE_NAME = 'Home';
-
-export const DrawerRoutes = [
-  {
-    name: 'Home',
+export const DrawerRoutes = {
+  Home: {
     icon: {
       name: 'home',
       type: 'material-community',
     },
   },
-];
+};

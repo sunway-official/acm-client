@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, StatusBar, BackHandler } from 'react-native';
 import AppNavigation from '../Navigation';
-import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
