@@ -1,17 +1,18 @@
 import Home from '../Scene/Home';
-import Login from '../Scene/Login';
+import Auth from '../Scene/Auth';
 
 export const AppRoutes = {
   home: {
     name: 'Home',
     path: '/',
     scene: Home,
-    initial: true,
+    // initial: true,
   },
   login: {
-    name: 'Login',
-    path: '/login',
-    scene: Login,
+    name: 'Auth',
+    path: '/auth',
+    scene: Auth,
+    initial: true,
   },
 };
 

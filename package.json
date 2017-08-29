@@ -26,6 +26,7 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
+    "redux-form": "^7.0.3",
     "subscriptions-transport-ws": "^0.8.2"
   },
   "devDependencies": {
