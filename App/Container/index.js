@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Provider, createStore } from 'react-redux';
 import ApolloProvider from 'react-apollo/ApolloProvider';
 import RootContainer from './Root';
-import { getStore } from '../Redux';
+import initStore from '../Redux';
 import initApollo from '../Config/Apollo';
 
 class App extends Component {
@@ -16,7 +15,7 @@ class App extends Component {
 
   async componentDidMount() {
     const apolloClient = await initApollo();
-    const store = getStore(apolloClient);
+    const store = initStore(apolloClient);
     this.setState({
       apolloClient,
       store,

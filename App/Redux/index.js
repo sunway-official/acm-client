@@ -9,7 +9,7 @@ const enhancer = composeWithDevTools(
   },
 )(applyMiddleware(...middlewares));
 
-export const getStore = apollo => {
+const initStore = apollo => {
   const store = createStore(getReducers(apollo), enhancer);
   /*eslint-disable no-undef*/
   if (module.hot) {
@@ -21,6 +21,4 @@ export const getStore = apollo => {
   return store;
 };
 
-export default {
-  getStore,
-};
+export default initStore;

@@ -1,0 +1,1 @@
+export AppoloConfig from './Apollo';

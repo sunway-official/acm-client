@@ -1,5 +1,5 @@
 {
-  "extends": ["prettier"],
+  "extends": ["plugin:react/recommended", "prettier"],
   "plugins": ["prettier", "import", "react", "react-native"],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -11,6 +11,7 @@
     }
   },
   "rules": {
+    "no-unused-vars": ["warn"],
     "prettier/prettier": [
       "error",
       { "singleQuote": true, "trailingComma": "all" }

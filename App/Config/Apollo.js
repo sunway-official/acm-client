@@ -39,8 +39,8 @@ const create = async (initialState = {}) => {
         let token = undefined;
         let refreshToken = undefined;
         try {
-          const token = await AsyncStorage.getItem('token');
-          const refreshToken = await AsyncStorage.getItem('refreshToken');
+          token = await AsyncStorage.getItem('token');
+          refreshToken = await AsyncStorage.getItem('refreshToken');
         } catch (err) {}
         req.options.headers.authorization = token;
         req.options.headers.refreshToken = refreshToken;
@@ -56,7 +56,6 @@ const create = async (initialState = {}) => {
             await AsyncStorage.removeItem('token');
             await AsyncStorage.removeItem('refreshToken');
             await AsyncStorage.removeItem('id');
-            console.log('Clear');
             next();
           }
         });
@@ -72,7 +71,7 @@ const create = async (initialState = {}) => {
   ]);
   return new ApolloClient({
     initialState,
-    networkInterface: networkInterface,
+    networkInterface: networkInterfaceWithSubscriptions,
   });
 };
 
