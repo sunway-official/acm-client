@@ -14,14 +14,19 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "add-graphql-subscriptions": "^1.0.1",
     "expo": "^20.0.0",
+    "graphql": "^0.11.1",
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.12",
+    "react-apollo": "^1.4.15",
     "react-native": "^0.47.0",
+    "react-native-dotenv": "^0.1.0",
     "react-native-router-flux": "^4.0.0-beta.19",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-devtools-extension": "^2.13.2"
+    "redux-devtools-extension": "^2.13.2",
+    "subscriptions-transport-ws": "^0.8.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
