@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+import { Provider, createStore } from 'react-redux';
+import ApolloProvider from 'react-apollo/ApolloProvider';
 import RootContainer from './Root';
 import { getStore } from '../Redux';
-// create our store
-const store = getStore();
+import initApollo from '../Config/Apollo';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      apolloClient: undefined,
+      store: undefined,
+    };
+  }
+
+  async componentDidMount() {
+    const apolloClient = await initApollo();
+    const store = getStore(apolloClient);
+    this.setState({
+      apolloClient,
+      store,
+    });
+  }
+
   render() {
-    return (
-      <Provider store={store}>
-        <RootContainer />
-      </Provider>
-    );
+    const { apolloClient, store } = this.state;
+    if (apolloClient && store) {
+      return (
+        <ApolloProvider client={apolloClient} store={store}>
+          <RootContainer />
+        </ApolloProvider>
+      );
+    }
+    return null;
   }
 }
 

@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from './rootReducer';
+import getReducers from './rootReducer';
 
 const middlewares = [];
 const enhancer = composeWithDevTools(
@@ -9,12 +9,12 @@ const enhancer = composeWithDevTools(
   },
 )(applyMiddleware(...middlewares));
 
-export const getStore = () => {
-  const store = createStore(rootReducer, enhancer);
+export const getStore = apollo => {
+  const store = createStore(getReducers(apollo), enhancer);
   /*eslint-disable no-undef*/
   if (module.hot) {
     module.hot.accept(() => {
-      store.replaceReducer(require('./rootReducer').default);
+      store.replaceReducer(getReducers(apollo));
     });
   }
   /*eslint-enable */
