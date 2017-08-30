@@ -12,7 +12,7 @@ const IS_RIPPLE_EFFECT_SUPPORTED = Platform.Version >= 21 && IS_ANDROID;
 
 const TouchableView = ({
   isRippleDisabled,
-  rippleColor,
+  // rippleColor,
   children,
   style,
   ...props
@@ -27,7 +27,8 @@ const TouchableView = ({
   } else {
     return (
       <TouchableOpacity {...props} style={style}>
-        {' '}{children}{' '}
+        {' '}
+        {children}{' '}
       </TouchableOpacity>
     );
   }

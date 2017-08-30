@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Field, reduxForm } from 'redux-form';
+import PropTypes from 'prop-types';
+import { reduxForm } from 'redux-form';
 
 let LoginForm = props => {
   const { handleSubmit } = props;
@@ -9,6 +10,10 @@ let LoginForm = props => {
       <Text>This is login form</Text>
     </View>
   );
+};
+
+LoginForm.propTypes = {
+  handleSubmit: PropTypes.func,
 };
 
 LoginForm = reduxForm({

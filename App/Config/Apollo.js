@@ -51,14 +51,17 @@ const create = async (initialState = {}) => {
   networkInterface.useAfter([
     {
       applyAfterware: async ({ response }, next) => {
-        response.clone().json().then(async res => {
-          if (res.errors && res.errors[0].message === 'unauthorized') {
-            await AsyncStorage.removeItem('token');
-            await AsyncStorage.removeItem('refreshToken');
-            await AsyncStorage.removeItem('id');
-            next();
-          }
-        });
+        response
+          .clone()
+          .json()
+          .then(async res => {
+            if (res.errors && res.errors[0].message === 'unauthorized') {
+              await AsyncStorage.removeItem('token');
+              await AsyncStorage.removeItem('refreshToken');
+              await AsyncStorage.removeItem('id');
+              next();
+            }
+          });
         const token = response.headers.get('X-Token');
         const refreshToken = response.headers.get('X-Refresh-Token');
         if (token && refreshToken) {
