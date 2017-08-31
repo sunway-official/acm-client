@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-} from 'react-native';
+import { Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 
 import styles from './styles';
