@@ -1,5 +1,5 @@
 import Home from '../Scene/Home';
-import Auth from '../Scene/Auth';
+import Login from '../Scene/Login';
 
 export const AppRoutes = {
   home: {
@@ -9,9 +9,9 @@ export const AppRoutes = {
     // initial: true,
   },
   login: {
-    name: 'Auth',
-    path: '/auth',
-    scene: Auth,
+    name: 'Login',
+    path: '/login',
+    scene: Login,
     initial: true,
   },
 };
