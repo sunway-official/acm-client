@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import styles from './styles';
 
-export default class App extends React.Component {
+class LoginScene extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -11,3 +11,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default LoginScene;
