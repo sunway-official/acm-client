@@ -6,12 +6,12 @@ export const AppRoutes = {
     name: 'Home',
     path: '/',
     scene: Home,
-    initial: true,
   },
   login: {
     name: 'Login',
     path: '/login',
     scene: Login,
+    initial: true,
   },
 };
 
