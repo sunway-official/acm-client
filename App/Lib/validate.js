@@ -1,22 +1,22 @@
 import constants from './constants';
 
-export const required = value => (value ? undefined : 'Required');
+export const required = value => (value ? undefined : 'This field is required');
 
 export const email = value =>
   value && !constants.EMAIL_REGEX.test(value)
-    ? 'Invalid email address format!'
+    ? 'Please enter a valid email address'
     : undefined;
 
 export const password = value =>
   value && !constants.PASSWORD_REGEX.test(value)
-    ? 'Invalid password format!'
+    ? 'Please enter a valid password'
     : undefined;
 
 export const minValue = min => value =>
-  value && value < min ? `Must be at least ${min}` : undefined;
+  value && value < min ? `Use at least ${min}` : undefined;
 
 export const minLength = min => value =>
-  value && value.length < min ? `Must be ${min} characters or more` : undefined;
+  value && value.length < min ? `Use ${min} characters or more` : undefined;
 
 export const maxLength = max => value =>
-  value && value.length > max ? `Must be ${max} characters or less` : undefined;
+  value && value.length > max ? `Use ${max} characters or less` : undefined;

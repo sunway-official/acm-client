@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Image,
+  View,
+} from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 
 import styles from './styles';
@@ -12,36 +18,46 @@ const submit = values => {
 };
 
 const LoginForm = ({ handleSubmit, submitting }) => (
-  <KeyboardAvoidingView onSubmit={handleSubmit} style={styles.container}>
-    <Field
-      name="email"
-      type="email"
-      label="Email"
-      component={FormInput}
-      validate={[required, email]}
-      placeholder="type your email.."
-      underlineColorAndroid={'transparent'}
-      keyboardType={'email-address'}
-    />
-    <Field
-      name="password"
-      type="password"
-      label="Password"
-      component={FormInput}
-      validate={[required, password]}
-      placeholder="type your password.."
-      underlineColorAndroid={'transparent'}
-      secureTextEntry={true}
-      returnKeyType={'done'}
-    />
-    <TouchableOpacity
-      onPress={handleSubmit(submit)}
-      style={styles.button}
-      disabled={submitting}
-    >
-      <Text style={styles.buttonText}>LOGIN</Text>
-    </TouchableOpacity>
-    <Text style={styles.footerText}>Forgot password?</Text>
+  <KeyboardAvoidingView
+    onSubmit={handleSubmit}
+    style={styles.container}
+    behavior={'position'}
+  >
+    <View style={styles.imageContainer}>
+      <Image
+        style={styles.image}
+        source={{ uri: 'http://placehold.it/250x250' }}
+      />
+    </View>
+    <View style={styles.formContainer}>
+      <Field
+        name="email"
+        type="email"
+        component={FormInput}
+        validate={[required, email]}
+        placeholder="Email"
+        underlineColorAndroid={'transparent'}
+        keyboardType={'email-address'}
+      />
+      <Field
+        name="password"
+        type="password"
+        component={FormInput}
+        validate={[required, password]}
+        placeholder="Password"
+        underlineColorAndroid={'transparent'}
+        secureTextEntry={true}
+        returnKeyType={'done'}
+      />
+      <TouchableOpacity
+        onPress={handleSubmit(submit)}
+        style={styles.button}
+        disabled={submitting}
+      >
+        <Text style={styles.buttonText}>LOGIN</Text>
+      </TouchableOpacity>
+      <Text style={styles.footerText}>Forgot password?</Text>
+    </View>
   </KeyboardAvoidingView>
 );
 
