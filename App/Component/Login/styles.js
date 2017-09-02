@@ -20,11 +20,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingVertical: 5,
   },
-  textInput: {
-    height: 48,
-    borderBottomWidth: 1,
-    borderColor: '#ECF0F3',
-  },
   button: {
     height: 36,
     marginTop: 12,
@@ -43,20 +38,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#000000',
     opacity: 0.38,
-  },
-  warningText: {
-    color: 'orange',
-    fontSize: 12,
-    borderTopWidth: 1,
-    borderColor: 'orange',
-    paddingTop: 5,
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 12,
-    borderTopWidth: 1,
-    borderColor: '#dc4405',
-    paddingTop: 5,
   },
 });
 
