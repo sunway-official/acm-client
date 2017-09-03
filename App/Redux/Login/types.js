@@ -1,0 +1,7 @@
+const SET_LOGGED_IN = 'SET_LOGGED_IN';
+const SET_LOGGED_OUT = 'SET_LOGGED_OUT';
+
+export default {
+  SET_LOGGED_IN,
+  SET_LOGGED_OUT,
+};
