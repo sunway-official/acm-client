@@ -1,47 +1,65 @@
 const type = {
-  base: '',
-  bold: '',
+  base: 'normal',
+  lighter: '100',
+  bold: '700',
   emphasis: '',
 };
 
 const size = {
-  h1: 38,
-  h2: 34,
-  h3: 30,
-  h4: 26,
-  h5: 20,
-  h6: 19,
-  input: 18,
-  regular: 17,
+  h1: 112,
+  h2: 56,
+  h3: 45,
+  h4: 34,
+  h5: 24,
+  h6: 20,
+  regular: 16,
   medium: 14,
   small: 12,
-  tiny: 8.5,
 };
 
 const style = {
   h1: {
     fontSize: size.h1,
+    fontWeight: type.lighter,
   },
   h2: {
     fontSize: size.h2,
+    fontWeight: type.base,
   },
   h3: {
     fontSize: size.h3,
+    fontWeight: type.base,
   },
   h4: {
     fontSize: size.h4,
+    fontWeight: type.base,
   },
   h5: {
     fontSize: size.h5,
+    fontWeight: type.base,
   },
   h6: {
     fontSize: size.h6,
+    fontWeight: type.base,
   },
-  normal: {
-    fontSize: size.regular,
+
+  // ? See more details
+  // ? https://material.io/guidelines/style/typography.html#
+  appbarTitle: {
+    fontSize: size.h6,
+    fontWeight: type.bold,
   },
-  description: {
+  button: {
     fontSize: size.medium,
+    fontWeight: type.bold,
+  },
+  subheading: {
+    fontSize: size.regular,
+    fontWeight: type.base,
+  },
+  body: {
+    fontSize: size.medium,
+    fontWeight: type.base,
   },
 };
 
