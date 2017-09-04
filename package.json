@@ -15,7 +15,14 @@
     "test": "node node_modules/jest/bin/jest.js --watch",
     "lint": "eslint App/**/*.js",
     "postinstall": "rndebugger-open",
-    "precommit": "npm run lint"
+    "lint-staged": "lint-staged",
+    "precommit": "run-s lint-staged lint"
+  },
+  "lint-staged": {
+    "App/**/*.js": [
+      "prettier --single-quote --trailing-comma all --print-width 80 --tab-width 2 --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "add-graphql-subscriptions": "^1.0.1",
@@ -44,6 +51,8 @@
     "eslint-plugin-react-native": "^3.0.1",
     "husky": "^0.14.3",
     "jest-expo": "~20.0.0",
+    "lint-staged": "^4.0.4",
+    "npm-run-all": "^4.1.1",
     "prettier": "^1.5.3",
     "prettier-eslint": "^6.4.2",
     "react-native-debugger-open": "^0.3.12",
