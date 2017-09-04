@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, StatusBar, BackHandler } from 'react-native';
-import AppNavigation from '../Navigation';
+import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import AppNavigation from '../Navigation';
+import Drawer from '../Navigation/Drawer';
 
-// Styles
 import styles from './styles';
 
 class Root extends Component {
@@ -13,23 +14,21 @@ class Root extends Component {
   };
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.props.navigateBack);
+    BackHandler.addEventListener('hardwareBackPress', Actions.pop());
   }
 
   render() {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="transparent" translucent />
-        <AppNavigation />
+        <Drawer>
+          <View style={styles.container}>
+            <AppNavigation />
+          </View>
+        </Drawer>
       </View>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    navigateBack: () => dispatch(NavigationActions.back()),
-  };
-};
-
-export default connect(undefined, mapDispatchToProps)(Root);
+export default Root;

@@ -21,7 +21,7 @@ export default (state = INITIAL_STATE, action) => {
     case TOGGLE_DRAWER:
       return {
         ...state,
-        isOpen: !state.drawer.isOpen,
+        isOpen: !state.isOpen,
       };
     case SET_DRAWER_STATE:
       return {
