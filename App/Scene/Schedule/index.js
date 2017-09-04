@@ -3,18 +3,20 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import PropTypes from 'prop-types';
 import Agenda from './Agenda';
 import MyAgenda from './MyAgenda';
-import CustomTabBar from './CustomTabBar';
+import DefaultTabBar from './CustomTabBar/DefaultTabBar';
 
 class Schedule extends Component {
   render() {
     return (
       <ScrollableTabView
+        locked={true}
         renderTabBar={() =>
-          <CustomTabBar
+          <DefaultTabBar
             tabStyle={{ paddingBottom: 0 }}
             activeTabBackgroundColor="black"
             activeTextColor="white"
             inactiveTabBackgroundColor="white"
+            underlineStyle={{ height: 0 }}
           />}
       >
         <Agenda tabLabel="Agenda" />
