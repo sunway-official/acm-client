@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Router, Stack, Scene } from 'react-native-router-flux';
+import { Scene, Actions, Router, Stack } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import styles from './styles';
 import { AppRoutes } from './routes';
 
@@ -9,18 +10,23 @@ import { AppRoutes } from './routes';
  * If you want to add a new one, take a look at ./routes.js
  */
 
+export const RootScene = (
+  <Stack key="root">
+    {Object.keys(AppRoutes).map(key => {
+      const { name, scene, initial } = AppRoutes[key];
+      return (
+        <Scene key={key} title={name} component={scene} initial={initial} />
+      );
+    })}
+  </Stack>
+);
+
+const navigator = Actions.create(RootScene);
+const ReduxRouter = connect(state => ({ state: state['navigation'] }))(Router);
+
 const AppNavigation = () =>
   <View style={[styles.container, styles.statusBar]}>
-    <Router>
-      <Stack key="root">
-        {Object.keys(AppRoutes).map(key => {
-          const { name, scene, initial } = AppRoutes[key];
-          return (
-            <Scene key={key} title={name} component={scene} initial={initial} />
-          );
-        })}
-      </Stack>
-    </Router>
+    <ReduxRouter navigator={navigator} />
   </View>;
 
 export default AppNavigation;

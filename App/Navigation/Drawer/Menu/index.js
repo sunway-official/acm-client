@@ -65,8 +65,8 @@ class Menu extends PureComponent {
               name={name}
               icon={icon}
               onPress={() => {
-                Actions.jump(key);
-                console.log(key);
+                // Actions.jump(key);
+                // console.log(key);
                 this.props.closeDrawer();
               }}
             />

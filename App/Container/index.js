@@ -25,6 +25,7 @@ class App extends Component {
   render() {
     const { apolloClient, store } = this.state;
     if (apolloClient && store) {
+      console.log(store.getState());
       return (
         <ApolloProvider client={apolloClient} store={store}>
           <RootContainer />
