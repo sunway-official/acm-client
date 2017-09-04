@@ -6,7 +6,9 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 class Agenda extends Component {
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: 'grey' }}>
+      <View
+        style={{ flex: 1, backgroundColor: 'grey', margin: 10, marginTop: 0 }}
+      >
         <Text>Agenda Tab</Text>
       </View>
     );

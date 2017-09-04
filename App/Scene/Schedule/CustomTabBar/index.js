@@ -1,22 +1,53 @@
-import React, { Component } from 'react';
+// const React = require('react');
+// const { ViewPropTypes } = (ReactNative = require('react-native'));
+// const { StyleSheet, Text, View, Animated } = ReactNative;
+import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, Text, Animated, Button } from 'react-native';
+import { StyleSheet, Text, View, Animated, ViewPropTypes } from 'react-native';
+import { Metrics } from '../../../Theme';
+const Button = require('./Button');
 
-class CustomTabBar extends Component {
+const { baseMargin, doubleBaseMargin } = Metrics;
+
+const DefaultTabBar = React.createClass({
+  propTypes: {
+    goToPage: PropTypes.func,
+    activeTab: PropTypes.number,
+    tabs: PropTypes.array,
+    backgroundColor: PropTypes.string,
+    activeTabBackgroundColor: PropTypes.string,
+    inactiveTabBackgroundColor: PropTypes.string,
+    activeTextColor: PropTypes.string,
+    inactiveTextColor: PropTypes.string,
+    textStyle: Text.propTypes.style,
+    tabStyle: ViewPropTypes.style,
+    renderTab: PropTypes.func,
+    underlineStyle: ViewPropTypes.style,
+  },
+
   getDefaultProps() {
     return {
       activeTextColor: 'navy',
       inactiveTextColor: 'black',
       backgroundColor: null,
     };
-  }
+  },
 
-  renderTabOption(name, page) {}
+  renderTabOption(name, page) {},
 
   renderTab(name, page, isTabActive, onPressHandler) {
-    const { activeTextColor, inactiveTextColor, textStyle } = this.props;
+    const {
+      activeTextColor,
+      inactiveTextColor,
+      textStyle,
+      activeTabBackgroundColor,
+      inactiveTabBackgroundColor,
+    } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
     const fontWeight = isTabActive ? 'bold' : 'normal';
+    const tabBackgroundColor = isTabActive
+      ? activeTabBackgroundColor
+      : inactiveTabBackgroundColor;
 
     return (
       <Button
@@ -27,14 +58,20 @@ class CustomTabBar extends Component {
         accessibilityTraits="button"
         onPress={() => onPressHandler(page)}
       >
-        <View style={[styles.tab, this.props.tabStyle]}>
+        <View
+          style={[
+            styles.tab,
+            this.props.tabStyle,
+            { backgroundColor: tabBackgroundColor },
+          ]}
+        >
           <Text style={[{ color: textColor, fontWeight }, textStyle]}>
             {name}
           </Text>
         </View>
       </Button>
     );
-  }
+  },
 
   render() {
     const containerWidth = this.props.containerWidth;
@@ -47,10 +84,10 @@ class CustomTabBar extends Component {
       bottom: 0,
     };
 
-    const left = this.props.scrollValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, containerWidth / numberOfTabs],
-    });
+    // const left = this.props.scrollValue.interpolate({
+    //   inputRange: [0, 1],
+    //   outputRange: [0, containerWidth / numberOfTabs],
+    // });
     return (
       <View
         style={[
@@ -64,27 +101,11 @@ class CustomTabBar extends Component {
           const renderTab = this.props.renderTab || this.renderTab;
           return renderTab(name, page, isTabActive, this.props.goToPage);
         })}
-        <Animated.View
-          style={[tabUnderlineStyle, { left }, this.props.underlineStyle]}
-        />
+        <Animated.View style={[tabUnderlineStyle, this.props.underlineStyle]} />
       </View>
     );
-  }
-}
-
-CustomTabBar.propTypes = {
-  goToPage: PropTypes.func,
-  activeTab: PropTypes.number,
-  tabs: PropTypes.array,
-  backgroundColor: PropTypes.string,
-  activeTextColor: PropTypes.string,
-  inactiveTextColor: PropTypes.string,
-  textStyle: Text.propTypes.style,
-  tabStyle: View.propTypes.style,
-  renderTab: PropTypes.func,
-  underlineStyle: View.propTypes.style,
-  style: View.propTypes.style,
-};
+  },
+});
 
 const styles = StyleSheet.create({
   tab: {
@@ -98,6 +119,8 @@ const styles = StyleSheet.create({
   },
   tabs: {
     height: 50,
+    marginHorizontal: doubleBaseMargin,
+    marginVertical: baseMargin,
     flexDirection: 'row',
     justifyContent: 'space-around',
     borderWidth: 1,
@@ -108,4 +131,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomTabBar;
+module.exports = DefaultTabBar;
