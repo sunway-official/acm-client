@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { View as AninatableView } from 'react-native-animatable';
 import { KEY, setDrawerState } from '../../Redux/Drawer';
+import Menu from './Menu';
 import { Metrics } from '../../Theme';
 import styles from './styles';
 
@@ -23,11 +24,7 @@ class Drawer extends Component {
     const { drawer, setDrawerState } = this.props;
     return (
       <SideMenu
-        menu={
-          <View style={styles.container}>
-            <Text>Hello</Text>
-          </View>
-        }
+        menu={<Menu />}
         isOpen={drawer.isOpen}
         onChange={isOpen => setDrawerState(isOpen)}
         openMenuOffset={Metrics.screenWidth * drawerOffset}

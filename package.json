@@ -18,6 +18,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@expo/vector-icons": "^5.2.0",
     "add-graphql-subscriptions": "^1.0.1",
     "expo": "^20.0.0",
     "graphql": "^0.11.1",
