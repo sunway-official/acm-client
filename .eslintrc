@@ -12,6 +12,7 @@
   },
   "rules": {
     "no-unused-vars": ["warn"],
+    "react/display-name": ["off"],
     "prettier/prettier": [
       "error",
       { "singleQuote": true, "trailingComma": "all" }

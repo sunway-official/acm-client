@@ -11,6 +11,8 @@ const images = {
   eventBusy: require('../Images/Icons/ic_event_busy_black_24dp.png'),
   notification: require('../Images/Icons/ic_notifications_black_24dp.png'),
   search: require('../Images/Icons/ic_search_black_24dp.png'),
+
+  materialBackground: require('../Images/material/background.jpg'),
 };
 
 export default images;

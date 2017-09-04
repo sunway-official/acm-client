@@ -13,21 +13,24 @@ const IS_RIPPLE_EFFECT_SUPPORTED = Platform.Version >= 21 && IS_ANDROID;
 const TouchableView = ({
   isRippleDisabled,
   rippleColor = '#fff',
+  borderless = false,
   children,
   style,
   ...props
 }) => {
   if (IS_RIPPLE_EFFECT_SUPPORTED && !isRippleDisabled) {
-    const background = TouchableNativeFeedback.Ripple(rippleColor);
+    const background = TouchableNativeFeedback.Ripple(rippleColor, borderless);
     return (
       <TouchableNativeFeedback {...props} background={background}>
-        <View style={style}> {children} </View>{' '}
+        <View style={style}>
+          {children}
+        </View>
       </TouchableNativeFeedback>
     );
   } else {
     return (
       <TouchableOpacity {...props} style={style}>
-        {' '}{children}{' '}
+        {children}
       </TouchableOpacity>
     );
   }
@@ -36,6 +39,7 @@ const TouchableView = ({
 TouchableView.propTypes = {
   isRippleDisabled: PropTypes.bool,
   rippleColor: PropTypes.string,
+  borderless: PropTypes.bool,
   children: PropTypes.any,
   style: View.propTypes.style,
 };

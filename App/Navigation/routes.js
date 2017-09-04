@@ -6,12 +6,21 @@ export const AppRoutes = {
     name: 'Home',
     path: '/',
     scene: Home,
+    initial: true,
+    drawer: true,
+    icon: {
+      name: 'home',
+    },
   },
   login: {
     name: 'Login',
     path: '/login',
     scene: Login,
-    initial: true,
+    drawer: true,
+    icon: {
+      name: 'login',
+      type: 'material-community',
+    },
   },
 };
 
