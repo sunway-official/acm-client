@@ -20,16 +20,17 @@ const colors = {
   orange: '#FF9800',
   deepOrange: '#FF5722',
   brown: '#795548',
-  grey: '#9E9E9E',
   blueGrey: '#607D8B',
   black: '#000000',
   white: '#FFFFFF',
 
   // custom colors
+  grey: '#757575',
+  darkGrey: '#494949',
+  lightGrey: '#a4a4a4',
   lightDeepOrange: '#FFAB91', // 200
   darkDeepOrange: '#D84315', // 800
   lightGrey: '#EEEEEE', // 200
-  darkGrey: '#BCBCBC',
   darkRed: '#C62828', // 800
 };
 

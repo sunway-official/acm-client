@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import { View, Text, Image } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { View, Text, Image, ScrollView } from 'react-native';
+import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import TouchableView from '../../../Component/TouchableView';
 import styles from './styles';
-import { Images, Metrics } from '../../../Theme';
+import { Images, Metrics, Colors } from '../../../Theme';
 
 const USER_NAME = 'John Cena';
 const USER_EMAIL = 'unknow@gmail.com';
@@ -20,6 +20,7 @@ class Menu extends PureComponent {
       </View>
     );
   }
+
   _renderDropdownButton() {
     const onPress = () => {};
     return (
@@ -29,13 +30,32 @@ class Menu extends PureComponent {
           borderless={true}
           onPress={onPress}
         >
-          <MaterialIcons
-            style={styles.dropdownButton}
+          <Icon
+            color={Colors.white}
             size={Metrics.icons.small}
             name="arrow-drop-down"
+            type="material-icons"
           />
         </TouchableView>
       </View>
+    );
+  }
+
+  _renderBody() {
+    return (
+      <TouchableView style={styles.menuItem} rippleColor={Colors.primary}>
+        <View style={styles.menuItemIconWrapper}>
+          <Icon
+            color={Colors.grey}
+            size={Metrics.icons.medium}
+            type="material-community"
+            name="calendar"
+          />
+        </View>
+        <View style={styles.menuItemNameWrapper}>
+          <Text style={styles.menuItemNameText}>Schedules</Text>
+        </View>
+      </TouchableView>
     );
   }
   render() {
@@ -62,6 +82,9 @@ class Menu extends PureComponent {
           </Image>
           {this._renderDropdownButton()}
         </View>
+        <ScrollView style={styles.bodyContainer}>
+          {this._renderBody()}
+        </ScrollView>
       </View>
     );
   }

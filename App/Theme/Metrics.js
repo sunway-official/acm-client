@@ -23,7 +23,7 @@ const metrics = {
     small: 24,
     medium: 32,
     large: 48,
-    xl: 56,
+    xl: 64,
   },
   images: {
     small: 24,

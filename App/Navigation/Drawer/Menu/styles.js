@@ -57,8 +57,25 @@ export default StyleSheet.create({
   dropdownButtonTouchableView: {
     padding: Metrics.baseMargin,
   },
-  dropdownButton: {
-    margin: 'auto',
-    color: Colors.white,
+  bodyContainer: {
+    paddingTop: Metrics.baseMargin,
+  },
+  menuItem: {
+    paddingHorizontal: Metrics.doubleBaseMargin,
+    height: Metrics.icons.large,
+    flexDirection: 'row',
+  },
+  menuItemIconWrapper: {
+    width: Metrics.icons.xl,
+    marginRight: Metrics.baseMargin,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  menuItemNameWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  menuItemNameText: {
+    fontSize: Fonts.size.regular,
   },
 });
