@@ -15,7 +15,6 @@ class Schedule extends Component {
             activeTabBackgroundColor="black"
             activeTextColor="white"
             inactiveTabBackgroundColor="white"
-            underlineStyle={{ backgroundColor: 'transparent' }}
           />}
       >
         <Agenda tabLabel="Agenda" />

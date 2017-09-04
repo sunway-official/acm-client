@@ -76,13 +76,13 @@ const DefaultTabBar = React.createClass({
   render() {
     const containerWidth = this.props.containerWidth;
     const numberOfTabs = this.props.tabs.length;
-    const tabUnderlineStyle = {
-      position: 'absolute',
-      width: containerWidth / numberOfTabs,
-      height: 4,
-      backgroundColor: 'navy',
-      bottom: 0,
-    };
+    // const tabUnderlineStyle = {
+    //   position: 'absolute',
+    //   width: containerWidth / numberOfTabs,
+    //   height: 4,
+    //   backgroundColor: 'navy',
+    //   bottom: 0,
+    // };
 
     // const left = this.props.scrollValue.interpolate({
     //   inputRange: [0, 1],
@@ -101,7 +101,7 @@ const DefaultTabBar = React.createClass({
           const renderTab = this.props.renderTab || this.renderTab;
           return renderTab(name, page, isTabActive, this.props.goToPage);
         })}
-        <Animated.View style={[tabUnderlineStyle, this.props.underlineStyle]} />
+        <Animated.View style={[this.props.underlineStyle]} />
       </View>
     );
   },
@@ -112,13 +112,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 10,
   },
   flexOne: {
     flex: 1,
   },
   tabs: {
-    height: 50,
+    height: 40,
     marginHorizontal: doubleBaseMargin,
     marginVertical: baseMargin,
     flexDirection: 'row',
