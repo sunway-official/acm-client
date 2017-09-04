@@ -59,11 +59,15 @@ export default StyleSheet.create({
   },
   bodyContainer: {
     paddingTop: Metrics.baseMargin,
+    flex: 1,
   },
   menuItem: {
     paddingHorizontal: Metrics.doubleBaseMargin,
     height: Metrics.icons.large,
     flexDirection: 'row',
+  },
+  menuItemActive: {
+    backgroundColor: Colors.lightGrey,
   },
   menuItemIconWrapper: {
     width: Metrics.icons.xl,
@@ -77,5 +81,8 @@ export default StyleSheet.create({
   },
   menuItemNameText: {
     fontSize: Fonts.size.regular,
+  },
+  menuItemNameTextActive: {
+    // fontWeight: Fonts.type.bold,
   },
 });

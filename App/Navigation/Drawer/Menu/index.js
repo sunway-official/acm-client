@@ -1,16 +1,29 @@
 import React, { PureComponent } from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { View, Text, Image } from 'react-native';
+import { Icon } from 'react-native-elements';
+import { Actions, Overlay, Scene, Router } from 'react-native-router-flux';
 import TouchableView from '../../../Component/TouchableView';
 import styles from './styles';
+import { AppRoutes } from '../../routes';
+import { setDrawerState } from '../../../Redux/Drawer';
 import { Images, Metrics, Colors } from '../../../Theme';
+import MenuItem from './Item';
 
 const USER_NAME = 'John Cena';
 const USER_EMAIL = 'unknow@gmail.com';
 
 class Menu extends PureComponent {
-  static propTypes = {};
+  static propTypes = {
+    closeDrawer: PropTypes.func,
+  };
+
+  constructor(props) {
+    super(props);
+
+    this._renderMenu = this._renderMenu.bind(this);
+  }
 
   _renderHeaderImage() {
     return (
@@ -41,23 +54,36 @@ class Menu extends PureComponent {
     );
   }
 
-  _renderBody() {
+  _renderMenu() {
+    let routes = [];
+    Object.keys(AppRoutes).map(key => {
+      const { name, icon, drawer } = AppRoutes[key];
+      if (drawer) {
+        const component = props => {
+          return (
+            <MenuItem
+              name={name}
+              icon={icon}
+              onPress={() => {
+                Actions.jump(key);
+                console.log(key);
+                this.props.closeDrawer();
+              }}
+            />
+          );
+        };
+        routes.push(<Scene hideNavBar key={key} component={component} />);
+      }
+    });
     return (
-      <TouchableView style={styles.menuItem} rippleColor={Colors.primary}>
-        <View style={styles.menuItemIconWrapper}>
-          <Icon
-            color={Colors.grey}
-            size={Metrics.icons.medium}
-            type="material-community"
-            name="calendar"
-          />
-        </View>
-        <View style={styles.menuItemNameWrapper}>
-          <Text style={styles.menuItemNameText}>Schedules</Text>
-        </View>
-      </TouchableView>
+      <Router>
+        <Overlay>
+          {routes}
+        </Overlay>
+      </Router>
     );
   }
+
   render() {
     return (
       <View style={styles.container}>
@@ -82,12 +108,16 @@ class Menu extends PureComponent {
           </Image>
           {this._renderDropdownButton()}
         </View>
-        <ScrollView style={styles.bodyContainer}>
-          {this._renderBody()}
-        </ScrollView>
+        <View style={styles.bodyContainer}>
+          {this._renderMenu()}
+        </View>
       </View>
     );
   }
 }
 
-export default Menu;
+const mapDispatchToProps = dispatch => ({
+  closeDrawer: () => dispatch(setDrawerState(false)),
+});
+
+export default connect(undefined, mapDispatchToProps)(Menu);
