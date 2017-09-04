@@ -9,7 +9,7 @@ import { AppRoutes } from './routes';
  * If you want to add a new one, take a look at ./routes.js
  */
 
-const AppNavigation = () => (
+const AppNavigation = () =>
   <View style={[styles.container, styles.statusBar]}>
     <Router>
       <Stack key="root">
@@ -21,7 +21,6 @@ const AppNavigation = () => (
         })}
       </Stack>
     </Router>
-  </View>
-);
+  </View>;
 
 export default AppNavigation;

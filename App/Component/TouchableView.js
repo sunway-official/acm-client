@@ -10,9 +10,15 @@ import {
 const IS_ANDROID = Platform.OS === 'android';
 const IS_RIPPLE_EFFECT_SUPPORTED = Platform.Version >= 21 && IS_ANDROID;
 
-const TouchableView = ({ isRippleDisabled, children, style, ...props }) => {
+const TouchableView = ({
+  isRippleDisabled,
+  rippleColor = '#fff',
+  children,
+  style,
+  ...props
+}) => {
   if (IS_RIPPLE_EFFECT_SUPPORTED && !isRippleDisabled) {
-    const background = TouchableNativeFeedback.Ripple('#FFF');
+    const background = TouchableNativeFeedback.Ripple(rippleColor);
     return (
       <TouchableNativeFeedback {...props} background={background}>
         <View style={style}> {children} </View>{' '}
@@ -21,8 +27,7 @@ const TouchableView = ({ isRippleDisabled, children, style, ...props }) => {
   } else {
     return (
       <TouchableOpacity {...props} style={style}>
-        {' '}
-        {children}{' '}
+        {' '}{children}{' '}
       </TouchableOpacity>
     );
   }
