@@ -9,6 +9,9 @@ import styles from './styles';
 
 class Header extends Component {
   render() {
+    const headerStyles = {
+      backgroundColor: Colors.primary,
+    };
     const textStyles = {
       color: Colors.white,
     };
@@ -20,7 +23,7 @@ class Header extends Component {
       borderless: true,
     };
     return (
-      <View style={styles.header}>
+      <View style={[styles.header, headerStyles]}>
         <View style={styles.leftWrapper}>
           <TouchableView style={styles.iconWrapper} {...touchableViewStyles}>
             <Icon name="menu" {...iconStyles} />

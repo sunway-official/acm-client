@@ -6,7 +6,6 @@ export default StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: Colors.primary,
     flexDirection: 'row',
   },
   centerWrapper: {
