@@ -7,7 +7,6 @@ const routes = {
     name: 'Home',
     path: '/',
     screen: Home,
-    initial: true,
     drawer: true,
     icon: {
       name: 'home',
@@ -26,7 +25,7 @@ const routes = {
   schedule: {
     name: 'Schedule',
     path: '/schedule',
-    scene: Schedule,
+    screen: Schedule,
     initial: true,
   },
 };

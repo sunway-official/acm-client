@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ScrollableTabView from 'react-native-scrollable-tab-view';
 import PropTypes from 'prop-types';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Agenda from './Agenda';
 import MyAgenda from './MyAgenda';
 import DefaultTabBar from './CustomTabBar/DefaultTabBar';
