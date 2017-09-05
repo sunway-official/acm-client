@@ -11,6 +11,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import styles from './styles';
 import FormInput from '../FormInput';
+import { required, email, password } from '../../Lib/validate';
 
 const submit = values => {
   console.log('submitting form', values);
@@ -33,6 +34,7 @@ const LoginForm = ({ handleSubmit, submitting }) => (
         name="email"
         type="email"
         component={FormInput}
+        validate={[required, email]}
         placeholder="Email"
         underlineColorAndroid={'transparent'}
         keyboardType={'email-address'}
@@ -41,6 +43,7 @@ const LoginForm = ({ handleSubmit, submitting }) => (
         name="password"
         type="password"
         component={FormInput}
+        validate={[required, password]}
         placeholder="Password"
         underlineColorAndroid={'transparent'}
         secureTextEntry={true}
