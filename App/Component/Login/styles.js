@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
+import { Colors, Fonts } from '../../Theme/';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 12,
     paddingTop: 50,
-    backgroundColor: 'white',
+    backgroundColor: Colors.secondaryLight,
   },
   imageContainer: {
     alignItems: 'center',
@@ -24,19 +25,18 @@ const styles = StyleSheet.create({
     height: 36,
     marginTop: 12,
     borderRadius: 2,
-    backgroundColor: '#dc4405',
+    backgroundColor: Colors.darkDeepOrange,
     justifyContent: 'center',
     alignItems: 'center',
   },
   buttonText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: '600',
+    color: Colors.white,
+    fontSize: Fonts.button,
+    fontWeight: Fonts.type.bold,
   },
   footerText: {
     marginTop: 5,
     alignSelf: 'center',
-    color: '#000000',
     opacity: 0.38,
   },
 });

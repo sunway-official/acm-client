@@ -10,6 +10,7 @@ import {
 import { Field, reduxForm } from 'redux-form';
 
 import styles from './styles';
+import { Images } from '../../Theme';
 import FormInput from '../FormInput';
 import { required, email, password } from '../../Lib/validate';
 
@@ -24,10 +25,7 @@ const LoginForm = ({ handleSubmit, submitting }) => (
     behavior={'position'}
   >
     <View style={styles.imageContainer}>
-      <Image
-        style={styles.image}
-        source={{ uri: 'http://placehold.it/250x250' }}
-      />
+      <Image style={styles.image} source={Images.imgDefault250} />
     </View>
     <View style={styles.formContainer}>
       <Field

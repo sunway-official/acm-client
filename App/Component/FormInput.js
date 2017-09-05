@@ -1,25 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
+import { Colors, Fonts } from '../Theme/';
 
 const styles = StyleSheet.create({
   textInput: {
     height: 48,
     borderBottomWidth: 1,
-    borderColor: '#ECF0F3',
+    borderColor: Colors.lightGrey,
   },
   warningText: {
-    color: 'orange',
-    fontSize: 12,
+    color: Colors.warning,
+    fontSize: Fonts.size.small,
     borderTopWidth: 1,
-    borderColor: 'orange',
+    borderColor: Colors.warning,
     paddingTop: 5,
   },
   errorText: {
-    color: 'red',
-    fontSize: 12,
+    color: Colors.danger,
+    fontSize: Fonts.size.small,
     borderTopWidth: 1,
-    borderColor: '#dc4405',
+    borderColor: Colors.danger,
     paddingTop: 5,
   },
 });
