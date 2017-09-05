@@ -2,7 +2,7 @@ import Home from '../Scene/Home';
 import Login from '../Scene/Login';
 import Schedule from '../Scene/Schedule';
 
-const routes = {
+const ROUTES = {
   home: {
     name: 'Home',
     path: '/',
@@ -32,8 +32,8 @@ const routes = {
 
 const getInitialRoute = () => {
   let route = {};
-  Object.keys(routes).map(key => {
-    if (routes[key].initial === true) {
+  Object.keys(ROUTES).map(key => {
+    if (ROUTES[key].initial === true) {
       route = key;
     }
   });
@@ -45,4 +45,20 @@ export const config = {
   initialRouteName: getInitialRoute(),
 };
 
-export default routes;
+let routes = {};
+
+Object.keys(ROUTES).map(key => {
+  let route = ROUTES[key];
+  route.screen.navigationOptions = {
+    ...route.screen.navigationOptions,
+    title: route.name,
+  };
+  routes = {
+    ...routes,
+    [key]: route,
+  };
+});
+
+console.log(routes);
+
+export default ROUTES;
