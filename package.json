@@ -15,7 +15,14 @@
     "test": "node node_modules/jest/bin/jest.js --watch",
     "lint": "eslint App/**/*.js",
     "postinstall": "rndebugger-open",
-    "precommit": "npm run lint"
+    "lint-staged": "lint-staged",
+    "precommit": "run-s lint-staged lint"
+  },
+  "lint-staged": {
+    "App/**/*.js": [
+      "prettier --single-quote --trailing-comma all --print-width 80 --tab-width 2 --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "add-graphql-subscriptions": "^1.0.1",
@@ -28,8 +35,9 @@
     "react-native-animatable": "^1.2.3",
     "react-native-dotenv": "^0.1.0",
     "react-native-elements": "^0.16.0",
-    "react-native-router-flux": "^4.0.0-beta.19",
     "react-native-scrollable-tab-view": "^0.6.7",
+    "react-native-side-menu": "^1.1.0",
+    "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
@@ -46,6 +54,8 @@
     "eslint-plugin-react-native": "^3.0.1",
     "husky": "^0.14.3",
     "jest-expo": "~20.0.0",
+    "lint-staged": "^4.0.4",
+    "npm-run-all": "^4.1.1",
     "prettier": "^1.5.3",
     "prettier-eslint": "^6.4.2",
     "react-native-debugger-open": "^0.3.12",

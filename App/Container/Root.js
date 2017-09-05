@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, StatusBar, BackHandler } from 'react-native';
-import AppNavigation from '../Navigation';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
+import AppNavigation from '../Navigation';
+import Drawer from '../Navigation/Drawer';
 
-// Styles
 import styles from './styles';
 
 class Root extends Component {
@@ -20,7 +21,11 @@ class Root extends Component {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="transparent" translucent />
-        <AppNavigation />
+        <Drawer>
+          <View style={styles.container}>
+            <AppNavigation />
+          </View>
+        </Drawer>
       </View>
     );
   }
