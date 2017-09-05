@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
+import { Toolbar } from 'react-native-material-design';
 import styles from './styles';
 
 class HomeScene extends Component {

@@ -1,3 +1,5 @@
+import { wrapHeader } from './Header/Wraper';
+
 import Home from '../Scene/Home';
 import Login from '../Scene/Login';
 
@@ -24,7 +26,14 @@ const ROUTES = {
   },
 };
 
-const getInitialRoute = () => {
+export const config = {
+  navigationOptions: {
+    header: null,
+  },
+  initialRouteName: getInitialRoute(),
+};
+
+function getInitialRoute() {
   let route = {};
   Object.keys(ROUTES).map(key => {
     if (ROUTES[key].initial === true) {
@@ -32,12 +41,7 @@ const getInitialRoute = () => {
     }
   });
   return route;
-};
-
-export const config = {
-  navigationOptions: {},
-  initialRouteName: getInitialRoute(),
-};
+}
 
 let routes = {};
 
@@ -47,12 +51,14 @@ Object.keys(ROUTES).map(key => {
     ...route.screen.navigationOptions,
     title: route.name,
   };
+  route = {
+    ...route,
+    screen: wrapHeader(route.screen),
+  };
   routes = {
     ...routes,
     [key]: route,
   };
 });
 
-console.log(routes);
-
-export default ROUTES;
+export default routes;
