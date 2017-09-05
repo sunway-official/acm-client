@@ -9,10 +9,14 @@ const enhancer = composeWithDevTools(
   },
 )(applyMiddleware(...middlewares));
 
-const initStore = apolloClient => {
+let apolloClient = null;
+
+const initStore = apollo => {
+  apolloClient = apollo;
   const store = createStore(getReducers(apolloClient), enhancer);
   /*eslint-disable no-undef*/
   if (module.hot) {
+    console.log(apolloClient);
     module.hot.accept(() => {
       store.replaceReducer(getReducers(apolloClient));
     });
