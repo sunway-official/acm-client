@@ -6,7 +6,7 @@ const routes = {
     name: 'Home',
     path: '/',
     screen: Home,
-    initial: true,
+    // initial: true,
     drawer: true,
     icon: {
       name: 'home',
@@ -21,6 +21,7 @@ const routes = {
       name: 'login',
       type: 'material-community',
     },
+    initial: true,
   },
 };
 

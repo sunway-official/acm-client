@@ -1,28 +1,14 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import styles from './styles';
-import {
-  FormInput,
-  FormLabel,
-  FormValidationMessage,
-  Button,
-} from 'react-native-elements';
+
+import LoginForm from '../../Component/Login/LoginForm';
 
 class LoginScene extends Component {
+  submit = values => {
+    console.log(values);
+  };
+
   render() {
-    return (
-      <View style={styles.container}>
-        <FormLabel>Email</FormLabel>
-        <FormInput />
-        <FormValidationMessage>This field is required.</FormValidationMessage>
-        <FormLabel>Password</FormLabel>
-        <FormInput />
-        <FormValidationMessage>This field is required.</FormValidationMessage>
-        <View style={{ marginTop: 10 }}>
-          <Button title="Register" />
-        </View>
-      </View>
-    );
+    return <LoginForm onSubmit={this.submit} />;
   }
 }
 
