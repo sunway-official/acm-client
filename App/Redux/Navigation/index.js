@@ -1,17 +1,16 @@
-import { Reducer, ActionConst } from 'react-native-router-flux';
+import { StackNavigator } from 'react-navigation';
+import routes, { config } from '../../Navigation/routes';
 
 export const KEY = 'navigation';
 
-const defaultReducer = Reducer();
+export const AppNavigator = StackNavigator(routes, config);
 
-export default (state, action) => {
+export const INITIAL_STATE = null;
+
+export default (state = INITIAL_STATE, action) => {
   console.log('Reducing action: ', action.type);
   switch (action.type) {
-    case ActionConst.FOCUS:
-      console.log('FOCUS event fired with scene parameter: ', action.routeName);
-      return defaultReducer(state, action);
-
     default:
-      return defaultReducer(state, action);
+      return AppNavigator.router.getStateForAction(action, state);
   }
 };

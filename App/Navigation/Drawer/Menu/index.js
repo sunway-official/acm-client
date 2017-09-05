@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Text, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Actions, Overlay, Scene, Router } from 'react-native-router-flux';
 import TouchableView from '../../../Component/TouchableView';
 import styles from './styles';
-import { AppRoutes } from '../../routes';
+// import routes from '../../routes';
 import { setDrawerState } from '../../../Redux/Drawer';
 import { Images, Metrics, Colors } from '../../../Theme';
 import MenuItem from './Item';
@@ -55,33 +54,33 @@ class Menu extends PureComponent {
   }
 
   _renderMenu() {
-    let routes = [];
-    Object.keys(AppRoutes).map(key => {
-      const { name, icon, drawer } = AppRoutes[key];
-      if (drawer) {
-        const component = props => {
-          return (
-            <MenuItem
-              name={name}
-              icon={icon}
-              onPress={() => {
-                // Actions.jump(key);
-                // console.log(key);
-                this.props.closeDrawer();
-              }}
-            />
-          );
-        };
-        routes.push(<Scene hideNavBar key={key} component={component} />);
-      }
-    });
-    return (
-      <Router>
-        <Overlay>
-          {routes}
-        </Overlay>
-      </Router>
-    );
+    // let routes = [];
+    // Object.keys(AppRoutes).map(key => {
+    //   const { name, icon, drawer } = AppRoutes[key];
+    //   if (drawer) {
+    //     const component = props => {
+    //       return (
+    //         <MenuItem
+    //           name={name}
+    //           icon={icon}
+    //           onPress={() => {
+    //             // Actions.jump(key);
+    //             // console.log(key);
+    //             this.props.closeDrawer();
+    //           }}
+    //         />
+    //       );
+    //     };
+    //     routes.push(<Scene hideNavBar key={key} component={component} />);
+    //   }
+    // });
+    // return (
+    //   <Router>
+    //     <Overlay>
+    //       {routes}
+    //     </Overlay>
+    //   </Router>
+    // );
   }
 
   render() {
@@ -109,7 +108,7 @@ class Menu extends PureComponent {
           {this._renderDropdownButton()}
         </View>
         <View style={styles.bodyContainer}>
-          {this._renderMenu()}
+          {/*this._renderMenu()*/}
         </View>
       </View>
     );

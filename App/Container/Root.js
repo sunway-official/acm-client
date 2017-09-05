@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, StatusBar, BackHandler } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import AppNavigation from '../Navigation';
 import Drawer from '../Navigation/Drawer';
 
@@ -13,7 +14,7 @@ class Root extends Component {
   };
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', Actions.pop);
+    BackHandler.addEventListener('hardwareBackPress', this.props.navigateBack);
   }
 
   render() {
@@ -30,4 +31,10 @@ class Root extends Component {
   }
 }
 
-export default Root;
+const mapDispatchToProps = dispatch => {
+  return {
+    navigateBack: () => dispatch(NavigationActions.back()),
+  };
+};
+
+export default connect(undefined, mapDispatchToProps)(Root);
