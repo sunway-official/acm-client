@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from '../../../../Theme';
 
 const Detail = StyleSheet.create({
   container: {
@@ -7,12 +8,9 @@ const Detail = StyleSheet.create({
     paddingVertical: 5,
   },
   item: {
-    borderWidth: 1,
-    borderColor: 'black',
+    backgroundColor: Colors.white,
     paddingHorizontal: 8,
     paddingVertical: 4,
-    backgroundColor: 'gray',
-    marginTop: 10,
   },
 });
 

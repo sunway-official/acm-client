@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import ScrollableTabBar from '../CustomTabBar/ScrollableTabBar';
-import Detail from './Detail/detail';
+import Detail from './Detail';
 
 class Agenda extends Component {
   render() {
@@ -13,7 +13,7 @@ class Agenda extends Component {
         renderTabBar={() =>
           <ScrollableTabBar
             underlineStyle={{ height: 0 }}
-            style={{ borderColor: 'black' }}
+            style={{ borderColor: 'black', borderWidth: 2 }}
             activeIcon={true}
           />}
       >
