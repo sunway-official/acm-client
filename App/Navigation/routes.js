@@ -18,7 +18,17 @@ const ROUTES = {
     screen: Login,
     drawer: true,
     icon: {
-      name: 'login',
+      name: 'login-variant',
+      type: 'material-community',
+    },
+  },
+  setting: {
+    name: 'Setting',
+    path: '/setting',
+    screen: Login,
+    secondaryDrawer: true,
+    icon: {
+      name: 'settings',
       type: 'material-community',
     },
   },
