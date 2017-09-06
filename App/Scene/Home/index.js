@@ -4,6 +4,22 @@ import { Toolbar } from 'react-native-material-design';
 import styles from './styles';
 
 class HomeScene extends Component {
+  /**
+   * Header config
+   */
+  static header = {
+    theme: 'light',
+    leftIcon: 'drawer',
+    actions: [
+      {
+        icon: {},
+        onPress: () => {
+          console.log('hello there');
+        },
+      },
+    ],
+  };
+
   render() {
     return (
       <View style={styles.container}>

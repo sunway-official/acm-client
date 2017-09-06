@@ -9,6 +9,21 @@ import {
 } from 'react-native-elements';
 
 class LoginScene extends Component {
+  /**
+   * Header config
+   */
+  static header = {
+    theme: 'dark',
+    leftIcon: 'back',
+    actions: [
+      {
+        icon: {
+          name: 'lock-open',
+        },
+        onPress: () => {},
+      },
+    ],
+  };
   render() {
     return (
       <View style={styles.container}>

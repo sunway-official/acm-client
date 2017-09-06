@@ -47,13 +47,10 @@ let routes = {};
 
 Object.keys(ROUTES).map(key => {
   let route = ROUTES[key];
-  route.screen.navigationOptions = {
-    ...route.screen.navigationOptions,
-    title: route.name,
-  };
   route = {
     ...route,
     screen: wrapHeader(route.screen),
+    header: route.screen.header,
   };
   routes = {
     ...routes,

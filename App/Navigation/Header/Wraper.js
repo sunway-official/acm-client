@@ -5,9 +5,13 @@ import { connect } from 'react-redux';
 import { KEY as NAVIGATION_KEY } from '../../Redux/Navigation';
 import { KEY as DRAWER_KEY, setDrawerState } from '../../Redux/Drawer';
 import { KEY as ROUTES_KEY } from '../../Redux/Routes';
+import { NavigationActions } from 'react-navigation';
 import { Colors } from '../../Theme';
 import Header from './';
 import styles from './styles';
+
+const LEFT_ICON_IS_DRAWER = 'drawer';
+const LEFT_ICON_IS_BACK = 'back';
 
 class Wrapper extends Component {
   static propTypes = {
@@ -16,15 +20,21 @@ class Wrapper extends Component {
     drawer: PropTypes.object,
     routes: PropTypes.object,
     openDrawer: PropTypes.func,
+    navigateBack: PropTypes.func,
   };
   constructor(props) {
     super(props);
 
     this._openDrawer = this._openDrawer.bind(this);
+    this._navigateBack = this._navigateBack.bind(this);
   }
 
   _openDrawer() {
     this.props.openDrawer();
+  }
+
+  _navigateBack() {
+    this.props.navigateBack();
   }
 
   render() {
@@ -32,30 +42,22 @@ class Wrapper extends Component {
     const { routeName } = navigation.routes[navigation.index];
     const route = routes[routeName];
     const title = route ? route.name : '';
-    const actions = [
-      {
-        icon: {
-          name: 'mode-edit',
-        },
-      },
-      {
-        icon: {
-          name: 'music-video',
-        },
-      },
-      {
-        icon: {
-          name: 'notifications-none',
-        },
-      },
-    ];
+    const header = route.header || {};
+
+    let onIconPress = this._openDrawer;
+    let icon = {};
+    if (header.leftIcon === LEFT_ICON_IS_BACK) {
+      onIconPress = this._navigateBack;
+      icon.name = 'keyboard-backspace';
+    }
 
     return (
       <View style={styles.container}>
         <Header
+          {...header}
           title={title}
-          onIconPress={this._openDrawer}
-          actions={actions}
+          icon={icon}
+          onIconPress={onIconPress}
         />
         {this.props.children}
       </View>
@@ -71,6 +73,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   openDrawer: () => dispatch(setDrawerState(true)),
+  navigateBack: () => dispatch(NavigationActions.back()),
 });
 
 const ConnectedWrapper = connect(mapStateToProps, mapDispatchToProps)(Wrapper);
