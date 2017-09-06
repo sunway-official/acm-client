@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { KEY as NAVIGATION_KEY } from '../../Redux/Navigation';
 import { KEY as DRAWER_KEY, setDrawerState } from '../../Redux/Drawer';
 import { KEY as ROUTES_KEY } from '../../Redux/Routes';
 import { NavigationActions } from 'react-navigation';
-import { Colors } from '../../Theme';
 import Header from './';
 import styles from './styles';
 
+/* eslint-disable no-unused-vars */
 const LEFT_ICON_IS_DRAWER = 'drawer';
 const LEFT_ICON_IS_BACK = 'back';
+/* eslint-enable no-unused-vars */
 
 class Wrapper extends Component {
   static propTypes = {

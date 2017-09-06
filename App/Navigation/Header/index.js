@@ -55,12 +55,12 @@ class Header extends Component {
   _getTheme = () => this.props.theme || THEME_DARK;
 
   _wrapperStyles = () => {
-    const theme = this._getTheme();
+    // const theme = this._getTheme();
     return {};
   };
 
   _statusBarStyle = () => {
-    const theme = this._getTheme();
+    // const theme = this._getTheme();
     return 'light-content';
   };
 
