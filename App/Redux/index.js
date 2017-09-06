@@ -1,5 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
+/*eslint-disable import/no-extraneous-dependencies */
 import { composeWithDevTools } from 'redux-devtools-extension';
+/*eslint-enable import/no-extraneous-dependencies */
 import getReducers from './rootReducer';
 
 const middlewares = [];
