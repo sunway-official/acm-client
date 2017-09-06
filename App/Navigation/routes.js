@@ -22,6 +22,17 @@ const ROUTES = {
       type: 'material-community',
     },
   },
+  setting: {
+    name: 'Setting',
+    path: '/setting',
+    screen: Login,
+    drawer: true,
+    secondaryDrawer: true,
+    icon: {
+      name: 'lock',
+      type: 'material-community',
+    },
+  },
 };
 
 export const config = {

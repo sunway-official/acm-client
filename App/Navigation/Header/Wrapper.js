@@ -14,6 +14,8 @@ const LEFT_ICON_IS_DRAWER = 'drawer';
 const LEFT_ICON_IS_BACK = 'back';
 /* eslint-enable no-unused-vars */
 
+const ICON_ON_PRESS_DELAY = 0;
+
 class Wrapper extends Component {
   static propTypes = {
     children: PropTypes.any,
@@ -31,7 +33,7 @@ class Wrapper extends Component {
   }
 
   _openDrawer() {
-    this.props.openDrawer();
+    setTimeout(() => this.props.openDrawer(), ICON_ON_PRESS_DELAY);
   }
 
   _navigateBack() {
