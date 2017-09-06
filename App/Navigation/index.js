@@ -5,6 +5,7 @@ import { addNavigationHelpers } from 'react-navigation';
 import { connect } from 'react-redux';
 import styles from './styles';
 import { AppNavigator, KEY } from '../Redux/Navigation';
+import Drawer from './Drawer';
 import Header from './Header/Wrapper';
 
 /**
@@ -14,11 +15,13 @@ import Header from './Header/Wrapper';
 
 const AppNavigation = ({ navigation, dispatch }) =>
   <View style={styles.container}>
-    <Header>
-      <AppNavigator
-        navigation={addNavigationHelpers({ dispatch, state: navigation })}
-      />
-    </Header>
+    <Drawer>
+      <Header>
+        <AppNavigator
+          navigation={addNavigationHelpers({ dispatch, state: navigation })}
+        />
+      </Header>
+    </Drawer>
   </View>;
 
 AppNavigation.propTypes = {

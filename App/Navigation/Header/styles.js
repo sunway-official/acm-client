@@ -33,4 +33,13 @@ export default StyleSheet.create({
     fontWeight: Fonts.type.bold,
     fontSize: Fonts.size.regular,
   },
+  relativeContainer: {
+    position: 'relative',
+  },
+  backdrop: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+  },
 });

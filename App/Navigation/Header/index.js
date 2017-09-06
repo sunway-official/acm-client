@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, StatusBar, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
-
+import { View as AninatableView } from 'react-native-animatable';
 import TouchableView from '../../Component/TouchableView';
 import { Colors, Metrics, Icons } from '../../Theme';
 import styles from './styles';
@@ -10,6 +10,9 @@ import styles from './styles';
 const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
+
+const BACKDROP_ANIMATION_NAME = 'fadeIn';
+const BACKDROP_ANIMATION_DELAY = 300;
 
 class Header extends Component {
   static propTypes = {
@@ -32,6 +35,9 @@ class Header extends Component {
         // counter: PropTypes.shape(),
       }),
     ),
+    drawer: PropTypes.shape({
+      isOpen: PropTypes.bool,
+    }),
   };
 
   constructor(props) {
@@ -111,7 +117,14 @@ class Header extends Component {
   }
 
   render() {
-    const { title, float, theme, icon, onIconPress, actions = [] } = this.props;
+    const {
+      title,
+      float,
+      drawer,
+      icon,
+      onIconPress,
+      actions = [],
+    } = this.props;
     const containerStyle = this.props.style;
 
     let wrapperStyles = this._wrapperStyles();
@@ -158,6 +171,12 @@ class Header extends Component {
             {actions.map(this._renderAction.bind(this))}
           </View>
         </View>
+        {drawer.isOpen &&
+          <AninatableView
+            animation={BACKDROP_ANIMATION_NAME}
+            style={styles.backdrop}
+            duration={BACKDROP_ANIMATION_DELAY}
+          />}
       </View>
     );
   }

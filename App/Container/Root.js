@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import AppNavigation from '../Navigation';
-import Drawer from '../Navigation/Drawer';
 
 import styles from './styles';
 
@@ -20,11 +19,7 @@ class Root extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Drawer>
-          <View style={styles.container}>
-            <AppNavigation />
-          </View>
-        </Drawer>
+        <AppNavigation />
       </View>
     );
   }

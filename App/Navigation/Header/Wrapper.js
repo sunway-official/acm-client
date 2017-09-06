@@ -52,12 +52,13 @@ class Wrapper extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, styles.relativeContainer]}>
         <Header
           {...header}
           title={title}
           icon={icon}
           onIconPress={onIconPress}
+          drawer={drawer}
         />
         {this.props.children}
       </View>
