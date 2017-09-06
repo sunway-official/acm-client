@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Text, View, Button } from 'react-native';
 import { Toolbar } from 'react-native-material-design';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import styles from './styles';
 
 class HomeScene extends Component {
@@ -19,16 +22,35 @@ class HomeScene extends Component {
     ],
   };
 
+  static propTypes = {
+    login: PropTypes.func,
+  };
+
   render() {
+    const text = [
+      'Welcome to cem-client!',
+      'We are under developement.',
+      'Shake your phone to open the developer menu.',
+      'Press Menu button on the top left corner',
+      'to connect to other scene.',
+    ];
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-        <Button title="Hit me" onPress={() => {}} />
+        <View style={styles.centerText}>
+          {text.map((text, index) =>
+            <Text key={index}>
+              {text}
+            </Text>,
+          )}
+        </View>
+        <Button title="Login" onPress={this.props.login} />
       </View>
     );
   }
 }
 
-export default HomeScene;
+const mapDispatchToProps = dispatch => ({
+  login: () => dispatch(NavigationActions.navigate({ routeName: 'login' })),
+});
+
+export default connect(undefined, mapDispatchToProps)(HomeScene);
