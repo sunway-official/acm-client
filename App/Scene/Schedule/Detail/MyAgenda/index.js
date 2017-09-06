@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, FlatList } from 'react-native';
+import { Colors } from '../../../../Theme';
 import ListView from '../ListView';
 import Fixture from '../../fixture';
 import styles from './styles';
+
+const calendarIcon = {
+  type: 'material-community',
+  name: 'calendar-check',
+  color: Colors.black,
+  size: 30,
+};
 
 class Detail extends Component {
   _renderScheduleOfDate({ item, index }) {
@@ -14,7 +22,11 @@ class Detail extends Component {
             {item.date}
           </Text>
         </View>
-        <ListView listAnimation="fadeInLeft" detail={item.activities} />
+        <ListView
+          listAnimation="fadeInLeft"
+          detail={item.activities}
+          calendarIcon={calendarIcon}
+        />
       </View>
     );
   }

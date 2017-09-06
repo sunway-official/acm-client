@@ -26,6 +26,11 @@ const ROUTES = {
     name: 'Schedule',
     path: '/schedule',
     screen: Schedule,
+    drawer: true,
+    icon: {
+      name: 'calendar',
+      type: 'material-community',
+    },
     initial: true,
   },
 };

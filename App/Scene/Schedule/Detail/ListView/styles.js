@@ -21,6 +21,9 @@ const Detail = StyleSheet.create({
   title: {
     fontWeight: Fonts.type.bold,
   },
+  icon: {
+    justifyContent: 'center',
+  },
 });
 
 export default Detail;
