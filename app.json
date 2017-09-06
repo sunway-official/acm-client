@@ -1,5 +1,9 @@
 {
   "expo": {
+    "name": "ACM",
+    "slug": "acm",
+    "privacy": "public",
+    "orientation": "portrait",
     "sdkVersion": "20.0.0",
     "ios": {
       "bundleIdentifier": "com.sunway.cemclient"

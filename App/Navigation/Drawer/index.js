@@ -32,7 +32,7 @@ class Drawer extends Component {
       >
         <View style={[styles.container, styles.relativeContainer]}>
           {this.props.children}
-          {!drawer.isOpen ||
+          {drawer.isOpen &&
             <AninatableView
               animation={BACKDROP_ANIMATION_NAME}
               style={styles.backdrop}

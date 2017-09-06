@@ -30,7 +30,17 @@ const ROUTES = {
   },
 };
 
-const getInitialRoute = () => {
+export const config = {
+  navigationOptions: {
+    header: null,
+  },
+  initialRouteName: getInitialRoute(),
+  cardStyle: {
+    shadowOpacity: 0,
+  },
+};
+
+function getInitialRoute() {
   let route = {};
   Object.keys(ROUTES).map(key => {
     if (ROUTES[key].initial === true) {
@@ -38,20 +48,15 @@ const getInitialRoute = () => {
     }
   });
   return route;
-};
-
-export const config = {
-  navigationOptions: {},
-  initialRouteName: getInitialRoute(),
-};
+}
 
 let routes = {};
 
 Object.keys(ROUTES).map(key => {
   let route = ROUTES[key];
-  route.screen.navigationOptions = {
-    ...route.screen.navigationOptions,
-    title: route.name,
+  route = {
+    ...route,
+    header: route.screen.header,
   };
   routes = {
     ...routes,
@@ -59,6 +64,4 @@ Object.keys(ROUTES).map(key => {
   };
 });
 
-console.log(routes);
-
-export default ROUTES;
+export default routes;
