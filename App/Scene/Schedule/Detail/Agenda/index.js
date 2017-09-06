@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Colors } from '../../../../Theme';
 import ListView from '../ListView';
 
 class Detail extends Component {
-  static navigationOptions = {
-    tabBarLabel: 'Tue Sep 5, 2017',
-  };
-
   render() {
-    return <ListView listAnimation="fadeInLeft" />;
+    const { schedule } = this.props;
+    return <ListView listAnimation="fadeInLeft" detail={schedule.activities} />;
   }
 }
 
-Detail.propTypes = {};
+Detail.propTypes = {
+  schedule: PropTypes.object,
+};
 
 export default Detail;

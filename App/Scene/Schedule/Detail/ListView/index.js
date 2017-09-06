@@ -6,23 +6,18 @@ import * as Animatable from 'react-native-animatable';
 import { Colors } from '../../../../Theme';
 import styles from './styles';
 
-const data = [1, 2, 3, 4, 5];
-
 class ListView extends Component {
   _renderItem({ item, index }) {
-    const marginBottom = index === data.length - 1 ? 0 : 1;
     return (
-      <View
-        style={[
-          styles.item,
-          {
-            marginBottom: marginBottom,
-          },
-        ]}
-      >
-        <Text>
-          {item}
-        </Text>
+      <View style={styles.item}>
+        <View>
+          <Text>
+            {item.title}
+          </Text>
+          <Text>
+            {item.shortDescription}
+          </Text>
+        </View>
         <View>
           <Icon name="calendar" type="entypo" color={Colors.black} size={30} />
         </View>
@@ -30,12 +25,12 @@ class ListView extends Component {
     );
   }
   render() {
-    const { listAnimation } = this.props;
+    const { listAnimation, detail } = this.props;
     return (
       <View style={styles.container}>
         <Animatable.View animation={listAnimation}>
           <FlatList
-            data={data}
+            data={detail}
             keyExtractor={(item, index) => index}
             renderItem={this._renderItem}
           />
@@ -47,6 +42,8 @@ class ListView extends Component {
 
 ListView.propTypes = {
   listAnimation: PropTypes.string,
+  detail: PropTypes.array,
+  listStyle: View.propTypes.style,
 };
 
 export default ListView;

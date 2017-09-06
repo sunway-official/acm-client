@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { TabNavigator } from 'react-navigation';
 import Detail from '../Detail/Agenda';
 
-const schedule = [
+const schedules = [
   {
     date: 'Mon Sep 4, 2017',
     activities: [
@@ -45,33 +45,34 @@ const schedule = [
   },
 ];
 
-const TabsView = TabNavigator(
-  {
-    Day1: { screen: Detail },
-    Day2: { screen: Detail },
-    Day3: { screen: Detail },
-    Day4: { screen: Detail },
-    Day5: { screen: Detail },
-    Day6: { screen: Detail },
-    Day7: { screen: Detail },
-  },
-  {
-    tabBarPosition: 'top',
-    swipeEnabled: true,
-    animationEnabled: true,
-    tabBarOptions: {
-      scrollEnabled: true,
-      indicatorStyle: {
-        backgroundColor: 'black',
-      },
-      style: {
-        backgroundColor: 'transparent',
-      },
-      labelStyle: { margin: 0, color: 'black' },
-      upperCaseLabel: false,
+const tabs = {};
+schedules.map((schedule, index) => {
+  let key = 'Day ' + (index + 1);
+  tabs = {
+    ...tabs,
+    [key]: {
+      screen: () => <Detail schedule={schedule} />,
+      navigationOptions: { tabBarLabel: schedule.date },
     },
+  };
+});
+
+const TabsView = TabNavigator(tabs, {
+  tabBarPosition: 'top',
+  swipeEnabled: true,
+  animationEnabled: true,
+  tabBarOptions: {
+    scrollEnabled: true,
+    indicatorStyle: {
+      backgroundColor: 'black',
+    },
+    style: {
+      backgroundColor: 'transparent',
+    },
+    labelStyle: { margin: 0, color: 'black' },
+    upperCaseLabel: false,
   },
-);
+});
 
 class Agenda extends Component {
   render() {
