@@ -84,8 +84,9 @@ class Menu extends PureComponent {
         <View style={styles.headerContainer}>
           <Image
             source={Images.materialBackground}
-            style={[styles.headerBackground, styles.statusBar]}
+            style={[styles.headerBackground]}
           >
+            <View style={styles.statusBar} />
             {this._renderHeaderImage()}
             <View style={styles.headerInfo}>
               <View style={styles.line}>
