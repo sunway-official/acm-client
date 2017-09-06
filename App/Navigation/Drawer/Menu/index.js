@@ -14,7 +14,8 @@ import MenuItem from './Item';
 
 const USER_NAME = 'John Cena';
 const USER_EMAIL = 'unknow@gmail.com';
-const MENU_ITEMS_ANIMATION_NAME = 'fadeInUp';
+const MENU_ITEMS_ANIMATION = 'fadeInUp';
+const DROPDOWN_ICON_ANIMATION = 'rotate';
 const ANIMATION_DELAY = 300;
 
 class Menu extends Component {
@@ -45,9 +46,9 @@ class Menu extends Component {
   }
 
   _renderDropdownButton() {
-    let icon = null;
+    let icon = null; // AnimatableView ref
     const onPress = () => {
-      icon.rotate(ANIMATION_DELAY * 2);
+      icon[DROPDOWN_ICON_ANIMATION](ANIMATION_DELAY * 2);
       this.setState({
         secondaryMenu: !this.state.secondaryMenu,
       });
@@ -117,7 +118,7 @@ class Menu extends Component {
   _renderMenuWrapper(element) {
     return (
       <AnimatableView
-        animation={MENU_ITEMS_ANIMATION_NAME}
+        animation={MENU_ITEMS_ANIMATION}
         duration={ANIMATION_DELAY}
       >
         {element}
