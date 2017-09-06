@@ -13,12 +13,12 @@ class LoginScene extends Component {
    * Header config
    */
   static header = {
-    theme: 'dark',
+    theme: 'light',
     leftIcon: 'back',
     actions: [
       {
         icon: {
-          name: 'lock-open',
+          name: 'lock',
         },
         onPress: () => {},
       },

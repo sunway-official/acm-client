@@ -1,5 +1,3 @@
-import { wrapHeader } from './Header/Wraper';
-
 import Home from '../Scene/Home';
 import Login from '../Scene/Login';
 
@@ -49,7 +47,6 @@ Object.keys(ROUTES).map(key => {
   let route = ROUTES[key];
   route = {
     ...route,
-    screen: wrapHeader(route.screen),
     header: route.screen.header,
   };
   routes = {

@@ -8,7 +8,6 @@ class HomeScene extends Component {
    * Header config
    */
   static header = {
-    theme: 'light',
     leftIcon: 'drawer',
     actions: [
       {
