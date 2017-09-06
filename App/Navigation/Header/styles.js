@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
   rightWrapper: {
     marginLeft: 'auto',
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
   },
   iconWrapper: {
     padding: Metrics.doubleBaseMargin,

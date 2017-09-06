@@ -2,10 +2,8 @@ export const KEY = 'routes';
 
 export const INITIAL_STATE = {};
 
-export default (state = INITIAL_STATE, action) => {
+export default (state = require('../../Navigation/routes').default, action) => {
   switch (action.type) {
-    case '@@INIT':
-      return require('../../Navigation/routes').default;
     default:
       return state;
   }

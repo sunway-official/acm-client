@@ -24,20 +24,39 @@ class Wrapper extends Component {
   }
 
   _openDrawer() {
-    console.log('hello');
     this.props.openDrawer();
   }
 
   render() {
     const { navigation, drawer, routes } = this.props;
-    const routeName = navigation.routes[navigation.index].routeName;
-    const { name } = routes[routeName];
+    const { routeName } = navigation.routes[navigation.index];
+    const route = routes[routeName];
+    const title = route ? route.name : '';
+    const actions = [
+      {
+        icon: {
+          name: 'mode-edit',
+        },
+      },
+      {
+        icon: {
+          name: 'music-video',
+        },
+      },
+      {
+        icon: {
+          name: 'notifications-none',
+        },
+      },
+    ];
 
     return (
       <View style={styles.container}>
-        <Header>
-          {name}
-        </Header>
+        <Header
+          title={title}
+          onIconPress={this._openDrawer}
+          actions={actions}
+        />
         {this.props.children}
       </View>
     );

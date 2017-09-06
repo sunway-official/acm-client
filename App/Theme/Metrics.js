@@ -18,6 +18,7 @@ const metrics = {
   navBarHeight: Platform.OS === 'ios' ? 64 : 54,
   buttonRadius: 4,
   circleRadius: 500,
+  iOSStatusBarHeight: 20,
   icons: {
     tiny: 16,
     small: 24,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StatusBar, BackHandler } from 'react-native';
+import { View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
@@ -20,7 +20,6 @@ class Root extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor="transparent" translucent />
         <Drawer>
           <View style={styles.container}>
             <AppNavigation />
