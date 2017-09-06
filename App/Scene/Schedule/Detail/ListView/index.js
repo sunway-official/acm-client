@@ -7,12 +7,15 @@ import { Colors } from '../../../../Theme';
 import styles from './styles';
 
 class ListView extends Component {
-  _renderItem({ item, index }) {
+  _renderItem({ item }) {
     return (
       <View style={styles.item}>
         <View>
-          <Text>
+          <Text style={styles.title}>
             {item.title}
+          </Text>
+          <Text>
+            {item.time}
           </Text>
           <Text>
             {item.shortDescription}
@@ -43,7 +46,6 @@ class ListView extends Component {
 ListView.propTypes = {
   listAnimation: PropTypes.string,
   detail: PropTypes.array,
-  listStyle: View.propTypes.style,
 };
 
 export default ListView;

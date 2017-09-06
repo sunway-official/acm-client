@@ -1,18 +1,25 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../../../Theme';
+import { Colors, Metrics, Fonts } from '../../../../Theme';
+
+const { white } = Colors;
+const { baseMargin, smallMargin } = Metrics;
 
 const Detail = StyleSheet.create({
   container: {
-    paddingHorizontal: 5,
-    paddingVertical: 5,
+    paddingHorizontal: baseMargin,
+    paddingBottom: baseMargin,
+    paddingTop: smallMargin,
   },
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: Colors.white,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    marginBottom: 1,
+    backgroundColor: white,
+    paddingHorizontal: baseMargin,
+    paddingVertical: smallMargin,
+    marginBottom: smallMargin,
+  },
+  title: {
+    fontWeight: Fonts.type.bold,
   },
 });
 

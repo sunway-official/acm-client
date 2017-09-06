@@ -1,24 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, Animated, ViewPropTypes } from 'react-native';
-import { Metrics } from '../../../Theme';
+const React = require('react');
+const { ViewPropTypes } = (ReactNative = require('react-native'));
+const { StyleSheet, Text, View, Animated } = ReactNative;
 const Button = require('./Button');
+import { Metrics } from '../../../Theme';
 
 const { baseMargin, doubleBaseMargin } = Metrics;
 
+/* eslint-disable react/no-deprecated */
 const DefaultTabBar = React.createClass({
   propTypes: {
-    goToPage: PropTypes.func,
-    activeTab: PropTypes.number,
-    tabs: PropTypes.array,
-    backgroundColor: PropTypes.string,
-    activeTabBackgroundColor: PropTypes.string,
-    inactiveTabBackgroundColor: PropTypes.string,
-    activeTextColor: PropTypes.string,
-    inactiveTextColor: PropTypes.string,
+    goToPage: React.PropTypes.func,
+    activeTab: React.PropTypes.number,
+    tabs: React.PropTypes.array,
+    backgroundColor: React.PropTypes.string,
+    activeTabBackgroundColor: React.PropTypes.string,
+    inactiveTabBackgroundColor: React.PropTypes.string,
+    activeTextColor: React.PropTypes.string,
+    inactiveTextColor: React.PropTypes.string,
     textStyle: Text.propTypes.style,
     tabStyle: ViewPropTypes.style,
-    renderTab: PropTypes.func,
+    renderTab: React.PropTypes.func,
     underlineStyle: ViewPropTypes.style,
   },
 
@@ -81,10 +82,10 @@ const DefaultTabBar = React.createClass({
       bottom: 0,
     };
 
-    // const left = this.props.scrollValue.interpolate({
-    //   inputRange: [0, 1],
-    //   outputRange: [0, containerWidth / numberOfTabs],
-    // });
+    const left = this.props.scrollValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, containerWidth / numberOfTabs],
+    });
     return (
       <View
         style={[
@@ -103,6 +104,8 @@ const DefaultTabBar = React.createClass({
     );
   },
 });
+
+/* eslint-enable react/no-deprecated */
 
 const styles = StyleSheet.create({
   tab: {
