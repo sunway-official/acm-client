@@ -44,6 +44,7 @@ class Header extends Component {
     super(props);
 
     this._getTheme = this._getTheme.bind(this);
+    this._statusBarStyle = this._statusBarStyle.bind(this);
     this._wrapperStyles = this._wrapperStyles.bind(this);
     this._headerStyles = this._headerStyles.bind(this);
     this._textStyles = this._textStyles.bind(this);
@@ -55,22 +56,29 @@ class Header extends Component {
 
   _wrapperStyles = () => {
     const theme = this._getTheme();
-    return {
-      elevation: 20,
-    };
+    return {};
+  };
+
+  _statusBarStyle = () => {
+    const theme = this._getTheme();
+    return 'light-content';
   };
 
   _headerStyles = () => {
     const theme = this._getTheme();
     return {
       backgroundColor: theme === THEME_DARK ? Colors.primary : Colors.secondary,
-      // For Android
-      paddingTop: IS_ANDROID ? StatusBar.currentHeight : 0,
-      // For iOS
-      borderTopWidth: IS_ANDROID ? 0 : Metrics.iOSStatusBarHeight,
+
+      borderTopWidth: IS_ANDROID
+        ? // For Android
+          StatusBar.currentHeight
+        : // For iOS
+          Metrics.iOSStatusBarHeight,
       borderTopColor: IS_ANDROID
-        ? null
-        : theme === THEME_DARK ? Colors.primaryDark : Colors.secondaryDark,
+        ? // For Android
+          theme === THEME_DARK ? Colors.primary : Colors.secondaryDark
+        : // For iOS
+          theme === THEME_DARK ? Colors.primaryDark : Colors.secondaryDark,
     };
   };
   _textStyles = () => {
@@ -140,7 +148,7 @@ class Header extends Component {
       <View style={wrapperStyles}>
         <StatusBar
           backgroundColor={Colors.primaryDark}
-          barStyle="light-content"
+          barStyle={this._statusBarStyle()}
         />
         <View
           style={[styles.header, this._headerStyles(), containerStyle]}

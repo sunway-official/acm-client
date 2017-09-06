@@ -29,6 +29,9 @@ export const config = {
     header: null,
   },
   initialRouteName: getInitialRoute(),
+  cardStyle: {
+    shadowOpacity: 0,
+  },
 };
 
 function getInitialRoute() {
