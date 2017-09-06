@@ -1,7 +1,49 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TabNavigator } from 'react-navigation';
-import Detail from './Detail';
+import Detail from '../Detail/Agenda';
+
+const schedule = [
+  {
+    date: 'Mon Sep 4, 2017',
+    activities: [
+      {
+        title: 'Breakfast',
+        shortDescription: 'something',
+      },
+      {
+        title: 'Short Talk',
+        shortDescription: 'something',
+      },
+      {
+        title: 'Music',
+        shortDescription: 'something',
+      },
+    ],
+  },
+  {
+    date: 'Tue Sep 5, 2017',
+    activities: [
+      {
+        title: 'Breakfast 1',
+        shortDescription: 'something',
+      },
+      {
+        title: 'Short Talk 1',
+        shortDescription: 'something',
+      },
+    ],
+  },
+  {
+    date: 'Wed Sep 6, 2017',
+    activities: [
+      {
+        title: 'Short Talk',
+        shortDescription: 'something',
+      },
+    ],
+  },
+];
 
 const TabsView = TabNavigator(
   {
@@ -11,6 +53,7 @@ const TabsView = TabNavigator(
     Day4: { screen: Detail },
     Day5: { screen: Detail },
     Day6: { screen: Detail },
+    Day7: { screen: Detail },
   },
   {
     tabBarPosition: 'top',

@@ -8,11 +8,7 @@ import styles from './styles';
 
 const data = [1, 2, 3, 4, 5];
 
-class Detail extends Component {
-  static navigationOptions = {
-    tabBarLabel: 'Tue Sep 5, 2017',
-  };
-
+class ListView extends Component {
   _renderItem({ item, index }) {
     const marginBottom = index === data.length - 1 ? 0 : 1;
     return (
@@ -34,9 +30,10 @@ class Detail extends Component {
     );
   }
   render() {
+    const { listAnimation } = this.props;
     return (
       <View style={styles.container}>
-        <Animatable.View animation="fadeInLeft">
+        <Animatable.View animation={listAnimation}>
           <FlatList
             data={data}
             keyExtractor={(item, index) => index}
@@ -48,6 +45,8 @@ class Detail extends Component {
   }
 }
 
-Detail.propTypes = {};
+ListView.propTypes = {
+  listAnimation: PropTypes.string,
+};
 
-export default Detail;
+export default ListView;
