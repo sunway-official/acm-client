@@ -1,6 +1,6 @@
-import Home from '../Scene/Home';
-import Login from '../Scene/Login';
-import Schedule from '../Scene/Schedule';
+import Home from '~/Scene/Home';
+import Login from '~/Scene/Login';
+import Schedule from '~/Scene/Schedule';
 
 const ROUTES = {
   home: {
@@ -18,7 +18,17 @@ const ROUTES = {
     screen: Login,
     drawer: true,
     icon: {
-      name: 'login',
+      name: 'login-variant',
+      type: 'material-community',
+    },
+  },
+  setting: {
+    name: 'Setting',
+    path: '/setting',
+    screen: Login,
+    secondaryDrawer: true,
+    icon: {
+      name: 'settings',
       type: 'material-community',
     },
   },

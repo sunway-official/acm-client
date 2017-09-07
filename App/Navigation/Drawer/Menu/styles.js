@@ -1,5 +1,5 @@
 import { StyleSheet, StatusBar, Platform } from 'react-native';
-import { Metrics, Fonts, Colors } from '../../../Theme';
+import { Metrics, Fonts, Colors } from '~/Theme';
 
 const IS_ANDROID = Platform.OS === 'android';
 
@@ -55,9 +55,6 @@ export default StyleSheet.create({
     fontSize: Fonts.size.medium,
     color: Colors.white,
   },
-  name: {
-    fontWeight: Fonts.type.bold,
-  },
   dropdownButtonWrapper: {
     position: 'absolute',
     right: Metrics.baseMargin,
@@ -81,7 +78,6 @@ export default StyleSheet.create({
   },
   menuItemIconWrapper: {
     width: Metrics.icons.xl,
-    marginRight: Metrics.baseMargin,
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
@@ -91,6 +87,7 @@ export default StyleSheet.create({
   },
   menuItemNameText: {
     fontSize: Fonts.size.regular,
+    color: Colors.darkGrey,
   },
   menuItemNameTextActive: {
     // fontWeight: Fonts.type.bold,

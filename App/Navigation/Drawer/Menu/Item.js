@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import TouchableView from '../../../Component/TouchableView';
-import { Metrics, Colors, Icons } from '../../../Theme';
+import { Text, TouchableView } from '~/Component';
+import { Metrics, Colors, Icons } from '~/Theme';
 import styles from './styles';
 
 class Item extends Component {
@@ -33,7 +33,7 @@ class Item extends Component {
           />
         </View>
         <View style={styles.menuItemNameWrapper}>
-          <Text style={styles.menuItemNameText}>
+          <Text bold style={styles.menuItemNameText}>
             {name}
           </Text>
         </View>

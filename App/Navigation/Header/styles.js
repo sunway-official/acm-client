@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics, Fonts } from '../../Theme';
+import { Metrics, Fonts } from '~/Theme';
 
 export default StyleSheet.create({
   container: {
@@ -30,7 +30,6 @@ export default StyleSheet.create({
     marginBottom: 18,
   },
   title: {
-    fontWeight: Fonts.type.bold,
     fontSize: Fonts.size.regular,
   },
   relativeContainer: {

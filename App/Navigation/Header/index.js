@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StatusBar, Platform } from 'react-native';
+import { View, StatusBar, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AninatableView } from 'react-native-animatable';
-import TouchableView from '../../Component/TouchableView';
-import { Colors, Metrics, Icons } from '../../Theme';
+import { Text, TouchableView } from '~/Component';
+import { Colors, Metrics, Icons } from '~/Theme';
 import styles from './styles';
 
 const IS_ANDROID = Platform.OS === 'android';
@@ -55,12 +55,12 @@ class Header extends Component {
   _getTheme = () => this.props.theme || THEME_DARK;
 
   _wrapperStyles = () => {
-    const theme = this._getTheme();
+    // const theme = this._getTheme();
     return {};
   };
 
   _statusBarStyle = () => {
-    const theme = this._getTheme();
+    // const theme = this._getTheme();
     return 'light-content';
   };
 
@@ -170,7 +170,7 @@ class Header extends Component {
           </View>
           <View style={styles.centerWrapper}>
             <View style={styles.titleWrapper}>
-              <Text style={[styles.title, this._textStyles()]}>
+              <Text bold style={[styles.title, this._textStyles()]}>
                 {title}
               </Text>
             </View>
