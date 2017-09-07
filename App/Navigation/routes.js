@@ -23,17 +23,17 @@ const ROUTES = {
       name: 'login-variant',
       type: 'material-community',
     },
+    initial: true,
   },
   forgot: {
-    name: 'Forgot',
+    name: 'Forgot Password',
     path: '/forgot',
     screen: ForgotPassword,
     drawer: true,
     icon: {
-      name: 'login',
+      name: 'login-variant',
       type: 'material-community',
     },
-    initial: true,
   },
   setting: {
     name: 'Setting',

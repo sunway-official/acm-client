@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Text,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Image,
-  View,
-} from 'react-native';
+import { Text, KeyboardAvoidingView, Image, View } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
 
 import styles from './styles';
 import { Images } from '../../Theme';
 import FormInput from '../FormInput';
+import TouchableView from '../TouchableView';
 import { required, email, password } from '../../Lib/validate';
 
 const submit = values => {
@@ -47,15 +42,13 @@ const LoginForm = ({ handleSubmit, submitting }) =>
         secureTextEntry={true}
         returnKeyType={'done'}
       />
-      <TouchableOpacity
-        onPress={handleSubmit(submit)}
-        style={styles.button}
-        disabled={submitting}
-      >
-        <Text style={styles.buttonText}>LOGIN</Text>
-      </TouchableOpacity>
-      <Text style={styles.footerText}>Forgot password?</Text>
     </View>
+    <View style={styles.buttonContainer}>
+      <TouchableView onPress={handleSubmit(submit)} style={styles.loginButton}>
+        <Text style={styles.buttonText}>LOGIN</Text>
+      </TouchableView>
+    </View>
+    <Text style={styles.footerText}>Forgot password?</Text>
   </KeyboardAvoidingView>;
 
 LoginForm.defaultProps = {

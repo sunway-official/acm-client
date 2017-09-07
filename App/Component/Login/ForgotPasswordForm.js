@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Text,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Image,
-  View,
-} from 'react-native';
+import { Text, KeyboardAvoidingView, Image, View } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
+// import { View as AnimatableView } from 'react-native-animatable';
 
 import styles from './styles';
 import { Images } from '../../Theme';
 import FormInput from '../FormInput';
+import TouchableView from '../TouchableView';
 import { required, email } from '../../Lib/validate';
 
 const submit = values => {
@@ -26,21 +22,8 @@ const ForgotPasswordForm = ({ handleSubmit, submitting }) =>
   >
     <View style={styles.imageContainer}>
       <Image style={styles.image} source={Images.imgDefault150} />
-      <Text
-        style={{
-          paddingTop: 20,
-          fontSize: 20,
-          fontWeight: 'normal',
-        }}
-      >
-        Forgot Your Password?
-      </Text>
-      <Text
-        style={{
-          fontSize: 12,
-          paddingBottom: 50,
-        }}
-      >
+      <Text style={styles.title}>Forgot Your Password?</Text>
+      <Text style={styles.description}>
         Enter your email below to reset your password
       </Text>
     </View>
@@ -56,20 +39,12 @@ const ForgotPasswordForm = ({ handleSubmit, submitting }) =>
       />
     </View>
     <View style={styles.buttonContainer}>
-      <TouchableOpacity
-        onPress={handleSubmit(submit)}
-        style={styles.sendButton}
-        disabled={submitting}
-      >
+      <TouchableView onPress={handleSubmit(submit)} style={styles.sendButton}>
         <Text style={styles.buttonText}>SEND</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={handleSubmit(submit)}
-        style={styles.backButton}
-        disabled={submitting}
-      >
+      </TouchableView>
+      <TouchableView onPress={handleSubmit(submit)} style={styles.backButton}>
         <Text style={styles.buttonText}>BACK</Text>
-      </TouchableOpacity>
+      </TouchableView>
     </View>
   </KeyboardAvoidingView>;
 
