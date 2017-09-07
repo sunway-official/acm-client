@@ -38,6 +38,10 @@ node_modules/react-native/flow
 flow/
 
 [options]
+
+; babel-plugin-root-import setting
+module.name_mapper='^{rootPathPrefix}/\(.*\)$' -> '<PROJECT_ROOT>{rootPathSuffix}/\1'
+
 module.system=haste
 
 emoji=true
