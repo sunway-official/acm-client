@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StatusBar, Platform } from 'react-native';
+import { View, StatusBar, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AninatableView } from 'react-native-animatable';
-import TouchableView from '~/Component/TouchableView';
+import { Text, TouchableView } from '~/Component';
 import { Colors, Metrics, Icons } from '~/Theme';
 import styles from './styles';
 
@@ -170,7 +170,7 @@ class Header extends Component {
           </View>
           <View style={styles.centerWrapper}>
             <View style={styles.titleWrapper}>
-              <Text style={[styles.title, this._textStyles()]}>
+              <Text bold style={[styles.title, this._textStyles()]}>
                 {title}
               </Text>
             </View>

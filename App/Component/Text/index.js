@@ -23,7 +23,7 @@ class RobotoText extends PureComponent {
     [TYPES.THIN]: PropTypes.bool,
     [TYPES.BLACK]: PropTypes.bool,
     [TYPES.ITALIC]: PropTypes.bool,
-    style: PropTypes.object,
+    style: PropTypes.any,
   };
   render() {
     /* eslint-disable react/prop-types */
@@ -34,7 +34,7 @@ class RobotoText extends PureComponent {
     // Handle BOLD LIGHT MEDIUM THIN BLACK type
     for (let key in TYPES) {
       const type = TYPES[key];
-      if (type === TYPES.ITALIC || type === TYPES.REGULAR) break;
+      if (type === TYPES.ITALIC || type === TYPES.REGULAR) continue;
       if (this.props[type] === true) {
         fontFamily += type;
         break;
@@ -56,7 +56,15 @@ class RobotoText extends PureComponent {
     const textStyle = {
       fontFamily,
     };
-    return <Text {...this.props} style={[styles.text, textStyle, style]} />;
+    let styleProp = [];
+    if (typeof style === 'array') {
+      styleProp = [...style];
+    } else {
+      styleProp = [style];
+    }
+    return (
+      <Text {...this.props} style={[styles.text, textStyle, ...styleProp]} />
+    );
   }
 }
 

@@ -55,9 +55,6 @@ export default StyleSheet.create({
     fontSize: Fonts.size.medium,
     color: Colors.white,
   },
-  name: {
-    fontWeight: Fonts.type.bold,
-  },
   dropdownButtonWrapper: {
     position: 'absolute',
     right: Metrics.baseMargin,
@@ -91,6 +88,7 @@ export default StyleSheet.create({
   },
   menuItemNameText: {
     fontSize: Fonts.size.regular,
+    color: Colors.darkGrey,
   },
   menuItemNameTextActive: {
     // fontWeight: Fonts.type.bold,
