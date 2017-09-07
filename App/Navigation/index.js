@@ -14,15 +14,13 @@ import Header from './Header/Wrapper';
  */
 
 const AppNavigation = ({ navigation, dispatch }) =>
-  <View style={styles.container}>
-    <Drawer>
-      <Header>
-        <AppNavigator
-          navigation={addNavigationHelpers({ dispatch, state: navigation })}
-        />
-      </Header>
-    </Drawer>
-  </View>;
+  <Drawer>
+    <Header>
+      <AppNavigator
+        navigation={addNavigationHelpers({ dispatch, state: navigation })}
+      />
+    </Header>
+  </Drawer>;
 
 AppNavigation.propTypes = {
   navigation: PropTypes.object,

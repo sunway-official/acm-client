@@ -4,7 +4,7 @@ import { Colors } from '~/Theme';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.lightGrey,
   },
   relativeContainer: {
     position: 'relative',

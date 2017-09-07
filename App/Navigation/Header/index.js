@@ -56,6 +56,7 @@ class Header extends Component {
 
   _wrapperStyles = () => {
     // const theme = this._getTheme();
+    if (IS_ANDROID) return {};
     return {};
   };
 
@@ -67,7 +68,7 @@ class Header extends Component {
   _headerStyles = () => {
     const theme = this._getTheme();
     return {
-      backgroundColor: theme === THEME_DARK ? Colors.primary : Colors.secondary,
+      backgroundColor: theme === THEME_DARK ? Colors.primary : Colors.white,
 
       borderTopWidth: IS_ANDROID
         ? // For Android
@@ -79,6 +80,8 @@ class Header extends Component {
           theme === THEME_DARK ? Colors.primary : Colors.secondaryDark
         : // For iOS
           theme === THEME_DARK ? Colors.primaryDark : Colors.secondaryDark,
+      // For Android
+      elevation: 8,
     };
   };
   _textStyles = () => {
