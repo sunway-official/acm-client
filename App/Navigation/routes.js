@@ -1,6 +1,8 @@
 import Home from '../Scene/Home';
 import Login from '../Scene/Login';
 
+import ForgotPassword from '../Component/Login/ForgotPasswordForm';
+
 const routes = {
   home: {
     name: 'Home',
@@ -16,6 +18,16 @@ const routes = {
     name: 'Login',
     path: '/login',
     screen: Login,
+    drawer: true,
+    icon: {
+      name: 'login',
+      type: 'material-community',
+    },
+  },
+  forgot: {
+    name: 'Forgot',
+    path: '/forgot',
+    screen: ForgotPassword,
     drawer: true,
     icon: {
       name: 'login',

@@ -1,5 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { Colors, Fonts } from '../../Theme/';
+
+var width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
   container: {
@@ -13,21 +15,37 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    height: 250,
-    width: 250,
-    borderRadius: 150,
+    height: 150,
+    width: 150,
+    borderRadius: 100,
   },
   formContainer: {
     paddingHorizontal: 30,
     paddingVertical: 5,
   },
-  button: {
-    height: 36,
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'flex-start',
+    paddingHorizontal: 30,
     marginTop: 12,
+  },
+  sendButton: {
+    height: 36,
     borderRadius: 2,
     backgroundColor: Colors.darkDeepOrange,
     justifyContent: 'center',
     alignItems: 'center',
+    width: width / 2.6,
+  },
+  backButton: {
+    height: 36,
+    borderRadius: 2,
+    backgroundColor: Colors.darkDeepOrange,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: width / 2.6,
+    marginLeft: 10,
   },
   buttonText: {
     color: Colors.white,

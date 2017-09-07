@@ -1,0 +1,27 @@
+{
+  "extends": ["plugin:react/recommended", "prettier"],
+  "plugins": ["prettier", "import", "react", "react-native"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "no-unused-vars": ["warn"],
+    "react/display-name": ["off"],
+    "prettier/prettier": [
+      "error",
+      { "singleQuote": true, "trailingComma": "all" }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["tests/**/*.js"]
+      }
+    ]
+  }
+}
