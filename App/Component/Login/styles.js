@@ -1,7 +1,5 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Colors, Fonts } from '../../Theme/';
-
-var width = Dimensions.get('window').width; //full width
 
 const styles = StyleSheet.create({
   container: {

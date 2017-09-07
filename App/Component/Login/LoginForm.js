@@ -13,7 +13,7 @@ const submit = values => {
   console.log('submitting form', values);
 };
 
-const LoginForm = ({ handleSubmit, submitting }) =>
+const LoginForm = ({ handleSubmit }) =>
   <KeyboardAvoidingView
     onSubmit={handleSubmit}
     style={styles.container}
@@ -58,7 +58,6 @@ LoginForm.defaultProps = {
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func,
   reset: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   error: PropTypes.string,

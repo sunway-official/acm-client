@@ -14,7 +14,7 @@ const submit = values => {
   console.log('submitting form', values);
 };
 
-const ForgotPasswordForm = ({ handleSubmit, submitting }) =>
+const ForgotPasswordForm = ({ handleSubmit }) =>
   <KeyboardAvoidingView
     onSubmit={handleSubmit}
     style={styles.container}
@@ -55,7 +55,6 @@ ForgotPasswordForm.defaultProps = {
 ForgotPasswordForm.propTypes = {
   handleSubmit: PropTypes.func,
   reset: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   error: PropTypes.string,
