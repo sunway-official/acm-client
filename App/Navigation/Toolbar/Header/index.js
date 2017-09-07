@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, StatusBar, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -14,7 +14,7 @@ const THEME_LIGHT = 'light';
 const BACKDROP_ANIMATION_NAME = 'fadeIn';
 const BACKDROP_ANIMATION_DELAY = 300;
 
-class Header extends Component {
+class Header extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
     float: PropTypes.bool,

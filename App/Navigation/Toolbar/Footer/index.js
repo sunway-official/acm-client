@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { View, StatusBar, Platform } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { View, Platform } from 'react-native';
 import { View as AninatableView } from 'react-native-animatable';
-import { Text, TouchableView } from '~/Component';
-import { Colors, Metrics, Icons, Fonts } from '~/Theme';
-import tabs from './fixture';
+import { Colors } from '~/Theme';
+import { connect } from 'react-redux';
+import { KEY as ROUTE_KEY } from '~/Redux/Routes';
+import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
+
+import { NavigationActions } from 'react-navigation';
+import Tab from './Tab';
 import styles from './styles';
 
 const IS_ANDROID = Platform.OS === 'android';
@@ -15,24 +18,18 @@ const THEME_LIGHT = 'light';
 const BACKDROP_ANIMATION_NAME = 'fadeIn';
 const BACKDROP_ANIMATION_DELAY = 300;
 
-class Header extends Component {
+class Footer extends PureComponent {
   static propTypes = {
     float: PropTypes.bool,
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),
     style: View.propTypes.style,
-    tabs: PropTypes.arrayOf(
-      PropTypes.shape({
-        icon: PropTypes.PropTypes.shape({
-          name: PropTypes.string,
-          type: PropTypes.oneOf(Icons.ICON_TYPE),
-        }).isRequired,
-        onPress: PropTypes.func.isRequired,
-        // counter: PropTypes.shape(),
-      }),
-    ),
     drawer: PropTypes.shape({
       isOpen: PropTypes.bool,
     }),
+    routes: PropTypes.object,
+    navigation: PropTypes.object,
+    navigate: PropTypes.func,
+    reset: PropTypes.func,
   };
 
   constructor(props) {
@@ -41,9 +38,6 @@ class Header extends Component {
     this._getTheme = this._getTheme.bind(this);
     this._wrapperStyles = this._wrapperStyles.bind(this);
     this._footerStyles = this._footerStyles.bind(this);
-    this._textStyles = this._textStyles.bind(this);
-    this._iconStyles = this._iconStyles.bind(this);
-    this._touchableViewStyles = this._touchableViewStyles.bind(this);
   }
 
   _getTheme = () => this.props.theme || THEME_DARK;
@@ -65,59 +59,40 @@ class Header extends Component {
     return styles;
   };
 
-  _textStyles = color => {
-    const theme = this._getTheme();
-    return {
-      color: color || (theme === THEME_DARK ? Colors.white : Colors.darkGrey),
-      textAlign: 'center',
-      fontSize: Fonts.size.small,
-    };
-  };
-
-  _iconStyles = color => {
-    const theme = this._getTheme();
-    return {
-      color: color || (theme === THEME_DARK ? Colors.white : Colors.darkGrey),
-      size: Metrics.icons.small,
-    };
-  };
-
-  _touchableViewStyles = color => {
-    const theme = this._getTheme();
-    return {
-      rippleColor:
-        color || (theme === THEME_DARK ? Colors.white : Colors.darkGrey),
-      borderless: true,
-    };
-  };
-
   _renderTabs() {
-    return tabs.map(({ title, icon, activeColor, active, onPress }, index) => {
-      return (
-        <TouchableView
-          key={index}
-          {...this._touchableViewStyles(activeColor)}
-          style={[styles.tabWrapper]}
-          onPress={onPress}
-        >
-          <Icon
-            name="more-vert"
-            {...icon}
-            onPress={undefined}
-            {...this._iconStyles(active && activeColor)}
-          />
-          <Text
-            style={[styles.tabLabel, this._textStyles(active && activeColor)]}
-          >
-            {title}
-          </Text>
-        </TouchableView>
-      );
+    const { routes, theme, navigation, reset } = this.props;
+    const { routeName } = navigation.routes[navigation.index];
+    let tabs = [];
+    Object.keys(routes).map(key => {
+      const { name, footer, icon } = routes[key];
+      if (footer) {
+        const onPress = () => {
+          if (routeName === key) {
+          } else {
+            reset({
+              index: 0,
+              actions: [NavigationActions.navigate({ routeName: key })],
+            });
+          }
+        };
+        tabs.push(
+          <Tab
+            theme={theme}
+            key={key}
+            title={name}
+            icon={icon}
+            option={footer}
+            onPress={onPress}
+            active={routeName === key}
+          />,
+        );
+      }
     });
+    return tabs;
   }
 
   render() {
-    const { float, drawer, tabs = [] } = this.props;
+    const { float, drawer } = this.props;
     const containerStyle = this.props.style;
 
     let wrapperStyles = this._wrapperStyles();
@@ -148,4 +123,14 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => ({
+  routes: state[ROUTE_KEY],
+  navigation: state[NAVIGATION_KEY],
+});
+
+const mapDispatchToProps = dispatch => ({
+  navigate: routeName => dispatch(NavigationActions.navigate({ routeName })),
+  reset: option => dispatch(NavigationActions.reset(option)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);
