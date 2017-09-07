@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import TouchableView from '../../../Component/TouchableView';
-import { Metrics, Colors } from '../../../Theme';
+import { Metrics, Colors, Icons } from '../../../Theme';
 import styles from './styles';
 
 class Item extends Component {
@@ -11,17 +11,7 @@ class Item extends Component {
     name: PropTypes.string,
     icon: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      type: PropTypes.oneOf([
-        'material-community',
-        'font-awesome',
-        'octicon',
-        'ionicon',
-        'foundation',
-        'evilicon',
-        'simple-line-icon',
-        'zocial',
-        'entypo',
-      ]),
+      type: PropTypes.oneOf(Icons.ICON_TYPE),
     }),
     onPress: PropTypes.func,
   };
@@ -43,9 +33,7 @@ class Item extends Component {
           />
         </View>
         <View style={styles.menuItemNameWrapper}>
-          <Text style={styles.menuItemNameText}>
-            {name}
-          </Text>
+          <Text style={styles.menuItemNameText}>{name}</Text>
         </View>
       </TouchableView>
     );

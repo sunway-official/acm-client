@@ -12,7 +12,7 @@ import {
 
 let apolloClient = null;
 
-const create = async (initialState = {}) => {
+const create = (initialState = {}, { token, refreshToken }) => {
   const networkInterface = createNetworkInterface({
     uri: APOLLO_SERVER_ENDPOINT,
     opts: {
@@ -22,8 +22,8 @@ const create = async (initialState = {}) => {
   const wsClient = new SubscriptionClient(APOLLO_SERVER_SUBSCRIPTION_ENDPOINT, {
     reconnect: true,
     connectionParams: {
-      authToken: await AsyncStorage.getItem('token'),
-      refreshToken: await AsyncStorage.getItem('refreshToken'),
+      authToken: token,
+      refreshToken: refreshToken,
     },
   });
   const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
@@ -32,16 +32,12 @@ const create = async (initialState = {}) => {
   );
   networkInterface.use([
     {
-      applyMiddleware: async (req, next) => {
+      applyMiddleware: (req, next) => {
         if (!req.options.headers) {
           req.options.headers = {}; // Create the header object if needed.
         }
-        let token = undefined;
-        let refreshToken = undefined;
-        try {
-          token = await AsyncStorage.getItem('token');
-          refreshToken = await AsyncStorage.getItem('refreshToken');
-        } catch (err) {}
+        const token = token;
+        const refreshToken = refreshToken;
         req.options.headers.authorization = token;
         req.options.headers.refreshToken = refreshToken;
         next();
@@ -50,22 +46,27 @@ const create = async (initialState = {}) => {
   ]);
   networkInterface.useAfter([
     {
-      applyAfterware: async ({ response }, next) => {
-        response.clone().json().then(async res => {
-          if (res.errors && res.errors[0].message === 'unauthorized') {
-            await AsyncStorage.removeItem('token');
-            await AsyncStorage.removeItem('refreshToken');
-            await AsyncStorage.removeItem('id');
-            next();
-          }
-        });
+      applyAfterware: ({ response }, next) => {
+        response
+          .clone()
+          .json()
+          .then(res => {
+            if (res.errors && res.errors[0].message === 'unauthorized') {
+              AsyncStorage.multiRemove(['id', 'token', 'refreshToken']).then(
+                next,
+              );
+            }
+          });
         const token = response.headers.get('X-Token');
         const refreshToken = response.headers.get('X-Refresh-Token');
         if (token && refreshToken) {
-          await AsyncStorage.setItem('token', token);
-          await AsyncStorage.setItem('refreshToken', refreshToken);
+          AsyncStorage.multiSet([
+            ['token', token],
+            ['refreshToken', refreshToken],
+          ]).then(next);
+        } else {
+          next();
         }
-        next();
       },
     },
   ]);
@@ -75,9 +76,9 @@ const create = async (initialState = {}) => {
   });
 };
 
-export default async (initialState = {}) => {
+export default (token = {}) => {
   if (!apolloClient) {
-    apolloClient = await create(initialState);
+    apolloClient = create(undefined, token);
   }
   return apolloClient;
 };

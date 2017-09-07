@@ -1,13 +1,23 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar, Platform } from 'react-native';
 import { Metrics, Fonts, Colors } from '../../../Theme';
-import { Constants } from 'expo';
+
+const IS_ANDROID = Platform.OS === 'android';
+
+const statusBarMargin = Metrics.doubleBaseMargin * -1;
 
 export default StyleSheet.create({
   container: {
     flex: 1,
   },
   statusBar: {
-    paddingTop: Constants.statusBarHeight,
+    // paddingTop: Constants.statusBarHeight,
+    height: IS_ANDROID
+      ? // For Android
+        StatusBar.currentHeight
+      : // For iOS
+        Metrics.iOSStatusBarHeight,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    marginHorizontal: statusBarMargin,
   },
   headerContainer: {
     position: 'relative',

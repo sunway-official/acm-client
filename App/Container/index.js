@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import ApolloProvider from 'react-apollo/ApolloProvider';
+import { ApolloProvider } from 'react-apollo';
+import { AsyncStorage } from 'react-native';
 import RootContainer from './Root';
 import initStore from '../Redux';
 import initApollo from '../Config/Apollo';
+
+/**
+ * old App with async await for apolloClient
+ */
 
 // class App extends Component {
 //   constructor(props) {
@@ -15,9 +20,7 @@ import initApollo from '../Config/Apollo';
 
 //   async componentDidMount() {
 //     const apolloClient = await initApollo();
-//     console.log(apolloClient.reducer());
-//     const store = await initStore(apolloClient);
-//     console.log(store);
+//     const store = initStore();
 //     this.setState({
 //       apolloClient,
 //       store,
@@ -26,9 +29,7 @@ import initApollo from '../Config/Apollo';
 
 //   render() {
 //     const { apolloClient, store } = this.state;
-//     console.log('render');
 //     if (apolloClient && store) {
-//       console.log(apolloClient, store);
 //       return (
 //         <ApolloProvider client={apolloClient} store={store}>
 //           <RootContainer />
@@ -39,14 +40,40 @@ import initApollo from '../Config/Apollo';
 //   }
 // }
 
-import { Provider } from 'react-redux';
+/**
+ * new App without async await for apolloClient
+ */
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: undefined,
+      refreshToken: undefined,
+    };
+  }
+  async componentDidMount() {
+    const token = await AsyncStorage.getItem('token');
+    const refreshToken = await AsyncStorage.getItem('refreshToken');
+    console.log('Token: ', token, 'Refresh token:', refreshToken);
+    this.setState({
+      token,
+      refreshToken,
+    });
+  }
+
   render() {
-    return (
-      <Provider store={initStore()}>
-        <RootContainer />
-      </Provider>
-    );
+    const { token, refreshToken } = this.state;
+    if (token !== undefined && refreshToken !== undefined) {
+      const apolloClient = initApollo({ token, refreshToken });
+      return (
+        <ApolloProvider client={apolloClient} store={initStore(apolloClient)}>
+          <RootContainer />
+        </ApolloProvider>
+      );
+    }
+    console.log('No token');
+    return null;
   }
 }
 

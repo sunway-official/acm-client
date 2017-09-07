@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import SideMenu from 'react-native-side-menu';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -32,12 +32,13 @@ class Drawer extends Component {
       >
         <View style={[styles.container, styles.relativeContainer]}>
           {this.props.children}
-          {!drawer.isOpen ||
+          {drawer.isOpen && (
             <AninatableView
               animation={BACKDROP_ANIMATION_NAME}
               style={styles.backdrop}
               duration={BACKDROP_ANIMATION_DELAY}
-            />}
+            />
+          )}
         </View>
       </SideMenu>
     );

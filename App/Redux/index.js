@@ -1,5 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
+/*eslint-disable import/no-extraneous-dependencies */
 import { composeWithDevTools } from 'redux-devtools-extension';
+/*eslint-enable import/no-extraneous-dependencies */
 import getReducers from './rootReducer';
 
 const middlewares = [];
@@ -9,12 +11,12 @@ const enhancer = composeWithDevTools(
   },
 )(applyMiddleware(...middlewares));
 
-const initStore = apolloClient => {
-  const store = createStore(getReducers(apolloClient), enhancer);
+const initStore = apollo => {
+  const store = createStore(getReducers(apollo), enhancer);
   /*eslint-disable no-undef*/
   if (module.hot) {
     module.hot.accept(() => {
-      store.replaceReducer(getReducers(apolloClient));
+      store.replaceReducer(getReducers(apollo));
     });
   }
   /*eslint-enable */

@@ -3,7 +3,7 @@ import Login from '../Scene/Login';
 
 import ForgotPassword from '../Component/Login/ForgotPasswordForm';
 
-const routes = {
+const ROUTES = {
   home: {
     name: 'Home',
     path: '/',
@@ -20,7 +20,7 @@ const routes = {
     screen: Login,
     drawer: true,
     icon: {
-      name: 'login',
+      name: 'login-variant',
       type: 'material-community',
     },
   },
@@ -35,21 +35,50 @@ const routes = {
     },
     initial: true,
   },
+  setting: {
+    name: 'Setting',
+    path: '/setting',
+    screen: Login,
+    secondaryDrawer: true,
+    icon: {
+      name: 'settings',
+      type: 'material-community',
+    },
+  },
 };
 
-const getInitialRoute = () => {
+export const config = {
+  navigationOptions: {
+    header: null,
+  },
+  initialRouteName: getInitialRoute(),
+  cardStyle: {
+    shadowOpacity: 0,
+  },
+};
+
+function getInitialRoute() {
   let route = {};
-  Object.keys(routes).map(key => {
-    if (routes[key].initial === true) {
+  Object.keys(ROUTES).map(key => {
+    if (ROUTES[key].initial === true) {
       route = key;
     }
   });
   return route;
-};
+}
 
-export const config = {
-  navigationOptions: {},
-  initialRouteName: getInitialRoute(),
-};
+let routes = {};
+
+Object.keys(ROUTES).map(key => {
+  let route = ROUTES[key];
+  route = {
+    ...route,
+    header: route.screen.header,
+  };
+  routes = {
+    ...routes,
+    [key]: route,
+  };
+});
 
 export default routes;

@@ -2,6 +2,10 @@
 
 Client Project for CEM build with React-native, Redux & Apollo.
 
+## Releases
+
+- Expo: https://expo.io/@pvtri96/cem-client
+
 ## Instruction
 
 - Clone the project: `git clone https://github.com/sunway-team/cem-client.git`

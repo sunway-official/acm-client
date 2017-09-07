@@ -19,6 +19,21 @@ class LoginScene extends Component {
     console.log(this.props.navigation);
   };
 
+  /**
+   * Header config
+   */
+  static header = {
+    theme: 'light',
+    leftIcon: 'back',
+    actions: [
+      {
+        icon: {
+          name: 'lock',
+        },
+        onPress: () => {},
+      },
+    ],
+  };
   render() {
     return <LoginForm onSubmit={this.submit} />;
   }
