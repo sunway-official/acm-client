@@ -18,7 +18,7 @@ const submit = values => {
   console.log('submitting form', values);
 };
 
-const LoginForm = ({ handleSubmit, submitting }) => (
+const LoginForm = ({ handleSubmit, submitting }) =>
   <KeyboardAvoidingView
     onSubmit={handleSubmit}
     style={styles.container}
@@ -56,8 +56,7 @@ const LoginForm = ({ handleSubmit, submitting }) => (
       </TouchableOpacity>
       <Text style={styles.footerText}>Forgot password?</Text>
     </View>
-  </KeyboardAvoidingView>
-);
+  </KeyboardAvoidingView>;
 
 LoginForm.defaultProps = {
   error: null,

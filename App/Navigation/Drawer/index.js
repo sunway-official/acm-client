@@ -4,9 +4,9 @@ import SideMenu from 'react-native-side-menu';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { View as AninatableView } from 'react-native-animatable';
-import { KEY, setDrawerState } from '../../Redux/Drawer';
+import { KEY, setDrawerState } from '~/Redux/Drawer';
 import Menu from './Menu';
-import { Metrics } from '../../Theme';
+import { Metrics } from '~/Theme';
 import styles from './styles';
 
 const drawerOffset = 0.8;
@@ -32,13 +32,12 @@ class Drawer extends Component {
       >
         <View style={[styles.container, styles.relativeContainer]}>
           {this.props.children}
-          {drawer.isOpen && (
+          {drawer.isOpen &&
             <AninatableView
               animation={BACKDROP_ANIMATION_NAME}
               style={styles.backdrop}
               duration={BACKDROP_ANIMATION_DELAY}
-            />
-          )}
+            />}
         </View>
       </SideMenu>
     );

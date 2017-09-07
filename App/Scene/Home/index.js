@@ -36,7 +36,11 @@ class HomeScene extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.centerText}>
-          {text.map((text, index) => <Text key={index}>{text}</Text>)}
+          {text.map((text, index) =>
+            <Text key={index}>
+              {text}
+            </Text>,
+          )}
         </View>
         <Button title="Login" onPress={this.props.login} />
       </View>

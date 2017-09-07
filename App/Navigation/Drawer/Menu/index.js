@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { View, Text, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
-import TouchableView from '../../../Component/TouchableView';
-import styles from './styles';
+import TouchableView from '~/Component/TouchableView';
 import { NavigationActions } from 'react-navigation';
-import { KEY as ROUTES_KEY } from '../../../Redux/Routes';
-import { KEY as NAVIGATION_KEY } from '../../../Redux/Navigation';
-import { setDrawerState } from '../../../Redux/Drawer';
-import { Images, Metrics, Colors } from '../../../Theme';
+import { KEY as ROUTES_KEY } from '~/Redux/Routes';
+import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
+import { setDrawerState } from '~/Redux/Drawer';
+import { Images, Metrics, Colors } from '~/Theme';
+import styles from './styles';
 import MenuItem from './Item';
 
 const USER_NAME = 'John Cena';
@@ -149,10 +149,14 @@ class Menu extends Component {
             {this._renderHeaderImage()}
             <View style={styles.headerInfo}>
               <View style={styles.line}>
-                <Text style={[styles.text, styles.name]}>{USER_NAME}</Text>
+                <Text style={[styles.text, styles.name]}>
+                  {USER_NAME}
+                </Text>
               </View>
               <View style={styles.line}>
-                <Text style={[styles.text, styles.email]}>{USER_EMAIL}</Text>
+                <Text style={[styles.text, styles.email]}>
+                  {USER_EMAIL}
+                </Text>
               </View>
             </View>
           </Image>

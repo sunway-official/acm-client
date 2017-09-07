@@ -1,5 +1,5 @@
-import Home from '../Scene/Home';
-import Login from '../Scene/Login';
+import Home from '~/Scene/Home';
+import Login from '~/Scene/Login';
 
 import ForgotPassword from '../Component/Login/ForgotPasswordForm';
 

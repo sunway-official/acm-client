@@ -25,14 +25,19 @@ const styles = StyleSheet.create({
   },
 });
 
-const FormInput = ({ input, meta: { touched, error, warning }, ...custom }) => (
+const FormInput = ({ input, meta: { touched, error, warning }, ...custom }) =>
   <View>
     <TextInput style={styles.textInput} {...input} {...custom} />
     {touched &&
-      ((error && <Text style={styles.errorText}>{error}</Text>) ||
-        (warning && <Text style={styles.warningText}>{warning}</Text>))}
-  </View>
-);
+      ((error &&
+        <Text style={styles.errorText}>
+          {error}
+        </Text>) ||
+        (warning &&
+          <Text style={styles.warningText}>
+            {warning}
+          </Text>))}
+  </View>;
 
 FormInput.propTypes = {
   input: PropTypes.object,

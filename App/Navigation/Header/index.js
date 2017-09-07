@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { View, Text, StatusBar, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AninatableView } from 'react-native-animatable';
-import TouchableView from '../../Component/TouchableView';
-import { Colors, Metrics, Icons } from '../../Theme';
+import TouchableView from '~/Component/TouchableView';
+import { Colors, Metrics, Icons } from '~/Theme';
 import styles from './styles';
 
 const IS_ANDROID = Platform.OS === 'android';
@@ -170,20 +170,21 @@ class Header extends Component {
           </View>
           <View style={styles.centerWrapper}>
             <View style={styles.titleWrapper}>
-              <Text style={[styles.title, this._textStyles()]}>{title}</Text>
+              <Text style={[styles.title, this._textStyles()]}>
+                {title}
+              </Text>
             </View>
           </View>
           <View style={styles.rightWrapper}>
             {actions.map(this._renderAction.bind(this))}
           </View>
         </View>
-        {drawer.isOpen && (
+        {drawer.isOpen &&
           <AninatableView
             animation={BACKDROP_ANIMATION_NAME}
             style={styles.backdrop}
             duration={BACKDROP_ANIMATION_DELAY}
-          />
-        )}
+          />}
       </View>
     );
   }

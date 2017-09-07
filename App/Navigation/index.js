@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { addNavigationHelpers } from 'react-navigation';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { AppNavigator, KEY } from '../Redux/Navigation';
+import { AppNavigator, KEY } from '~/Redux/Navigation';
 import Drawer from './Drawer';
 import Header from './Header/Wrapper';
 
@@ -13,7 +13,7 @@ import Header from './Header/Wrapper';
  * If you want to add a new one, take a look at ./routes.js
  */
 
-const AppNavigation = ({ navigation, dispatch }) => (
+const AppNavigation = ({ navigation, dispatch }) =>
   <View style={styles.container}>
     <Drawer>
       <Header>
@@ -22,8 +22,7 @@ const AppNavigation = ({ navigation, dispatch }) => (
         />
       </Header>
     </Drawer>
-  </View>
-);
+  </View>;
 
 AppNavigation.propTypes = {
   navigation: PropTypes.object,

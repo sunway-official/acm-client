@@ -18,7 +18,7 @@ const submit = values => {
   console.log('submitting form', values);
 };
 
-const ForgotPasswordForm = ({ handleSubmit, submitting }) => (
+const ForgotPasswordForm = ({ handleSubmit, submitting }) =>
   <KeyboardAvoidingView
     onSubmit={handleSubmit}
     style={styles.container}
@@ -71,8 +71,7 @@ const ForgotPasswordForm = ({ handleSubmit, submitting }) => (
         <Text style={styles.buttonText}>BACK</Text>
       </TouchableOpacity>
     </View>
-  </KeyboardAvoidingView>
-);
+  </KeyboardAvoidingView>;
 
 ForgotPasswordForm.defaultProps = {
   error: null,

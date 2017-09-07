@@ -15,13 +15,16 @@
     "react/display-name": ["off"],
     "prettier/prettier": [
       "error",
-      { "singleQuote": true, "trailingComma": "all" }
-    ],
-    "import/no-extraneous-dependencies": [
-      "error",
       {
-        "devDependencies": ["tests/**/*.js"]
+        "singleQuote": true,
+        "trailingComma": "all"
       }
     ]
+
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-root-import": {}
+    }
   }
 }
