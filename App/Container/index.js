@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { AsyncStorage } from 'react-native';
+import { Font } from 'expo';
+import fonts from '~/Asset/Font';
 import RootContainer from './Root';
 import initStore from '~/Redux';
 import initApollo from '~/Config/Apollo';
@@ -14,8 +16,15 @@ class App extends Component {
     };
   }
   async componentDidMount() {
-    const token = await AsyncStorage.getItem('token');
-    const refreshToken = await AsyncStorage.getItem('refreshToken');
+    const tokens = await Promise.all([
+      AsyncStorage.getItem('token'),
+      AsyncStorage.getItem('refreshToken'),
+      ...fonts.map(font => Font.loadAsync(font)),
+    ]);
+
+    const token = tokens[0];
+    const refreshToken = tokens[1];
+
     this.setState({
       token,
       refreshToken,
