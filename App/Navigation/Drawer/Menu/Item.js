@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
-import TouchableView from '~/App/Component/TouchableView';
-import { Metrics, Colors, Icons } from '~/App/Theme';
+import TouchableView from '~/Component/TouchableView';
+import { Metrics, Colors, Icons } from '~/Theme';
 import styles from './styles';
 
 class Item extends Component {

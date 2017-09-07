@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { View, Text, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
-import TouchableView from '~/App/Component/TouchableView';
+import TouchableView from '~/Component/TouchableView';
 import { NavigationActions } from 'react-navigation';
-import { KEY as ROUTES_KEY } from '~/App/Redux/Routes';
-import { KEY as NAVIGATION_KEY } from '~/App/Redux/Navigation';
-import { setDrawerState } from '~/App/Redux/Drawer';
-import { Images, Metrics, Colors } from '~/App/Theme';
+import { KEY as ROUTES_KEY } from '~/Redux/Routes';
+import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
+import { setDrawerState } from '~/Redux/Drawer';
+import { Images, Metrics, Colors } from '~/Theme';
 import styles from './styles';
 import MenuItem from './Item';
 

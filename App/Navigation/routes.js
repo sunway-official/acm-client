@@ -1,5 +1,5 @@
-import Home from '~/App/Scene/Home';
-import Login from '~/App/Scene/Login';
+import Home from '~/Scene/Home';
+import Login from '~/Scene/Login';
 
 const ROUTES = {
   home: {

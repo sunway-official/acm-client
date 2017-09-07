@@ -4,9 +4,9 @@ import SideMenu from 'react-native-side-menu';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { View as AninatableView } from 'react-native-animatable';
-import { KEY, setDrawerState } from '~/App/Redux/Drawer';
+import { KEY, setDrawerState } from '~/Redux/Drawer';
 import Menu from './Menu';
-import { Metrics } from '~/App/Theme';
+import { Metrics } from '~/Theme';
 import styles from './styles';
 
 const drawerOffset = 0.8;

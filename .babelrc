@@ -1,6 +1,13 @@
 {
   "presets": ["babel-preset-expo", "react-native-dotenv"],
-  "plugins": [["babel-plugin-root-import"]],
+  "plugins": [
+    [
+      "babel-plugin-root-import",
+      {
+        "rootPathSuffix": "App"
+      }
+    ]
+  ],
   "env": {
     "development": {
       "plugins": ["transform-react-jsx-source"]
