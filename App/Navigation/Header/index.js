@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { View, Text, StatusBar, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AninatableView } from 'react-native-animatable';
-import TouchableView from '../../Component/TouchableView';
-import { Colors, Metrics, Icons } from '../../Theme';
+import TouchableView from '~/App/Component/TouchableView';
+import { Colors, Metrics, Icons } from '~/App/Theme';
 import styles from './styles';
 
 const IS_ANDROID = Platform.OS === 'android';

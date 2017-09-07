@@ -1,5 +1,5 @@
 import { StackNavigator } from 'react-navigation';
-import routes, { config } from '../../Navigation/routes';
+import routes, { config } from '~/App/Navigation/routes';
 
 export const KEY = 'navigation';
 

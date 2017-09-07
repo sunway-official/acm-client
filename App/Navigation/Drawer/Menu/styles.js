@@ -1,5 +1,5 @@
 import { StyleSheet, StatusBar, Platform } from 'react-native';
-import { Metrics, Fonts, Colors } from '../../../Theme';
+import { Metrics, Fonts, Colors } from '~/App/Theme';
 
 const IS_ANDROID = Platform.OS === 'android';
 

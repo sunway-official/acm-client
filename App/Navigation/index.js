@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { addNavigationHelpers } from 'react-navigation';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { AppNavigator, KEY } from '../Redux/Navigation';
+import { AppNavigator, KEY } from '~/App/Redux/Navigation';
 import Drawer from './Drawer';
 import Header from './Header/Wrapper';
 
