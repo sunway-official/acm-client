@@ -78,7 +78,6 @@ export default StyleSheet.create({
   },
   menuItemIconWrapper: {
     width: Metrics.icons.xl,
-    marginRight: Metrics.baseMargin,
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
