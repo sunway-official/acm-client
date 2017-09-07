@@ -62,6 +62,7 @@ class Wrapper extends Component {
           icon={icon}
           onIconPress={onIconPress}
           drawer={drawer}
+          float
         />
         {this.props.children}
         <Footer
@@ -70,6 +71,7 @@ class Wrapper extends Component {
           icon={icon}
           onIconPress={onIconPress}
           drawer={drawer}
+          theme="light"
         />
       </View>
     );

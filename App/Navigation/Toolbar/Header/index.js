@@ -69,7 +69,7 @@ class Header extends Component {
 
   _headerStyles = () => {
     const theme = this._getTheme();
-    return {
+    let styles = {
       backgroundColor: theme === THEME_DARK ? Colors.primary : Colors.white,
 
       borderTopWidth: IS_ANDROID
@@ -82,16 +82,20 @@ class Header extends Component {
           theme === THEME_DARK ? Colors.primary : Colors.secondaryDark
         : // For iOS
           theme === THEME_DARK ? Colors.primaryDark : Colors.secondaryDark,
-      // For Android
-      elevation: 8,
     };
+    if (IS_ANDROID && this.props.drawer.isOpen === false) {
+      styles.elevation = 8;
+    }
+    return styles;
   };
+
   _textStyles = () => {
     const theme = this._getTheme();
     return {
       color: theme === THEME_DARK ? Colors.white : Colors.darkGrey,
     };
   };
+
   _iconStyles = () => {
     const theme = this._getTheme();
     return {
@@ -99,6 +103,7 @@ class Header extends Component {
       size: Metrics.icons.small,
     };
   };
+
   _touchableViewStyles = () => {
     const theme = this._getTheme();
     return {
@@ -149,7 +154,6 @@ class Header extends Component {
         right: 0,
       };
     }
-    console.log(drawer);
     return (
       <View style={wrapperStyles}>
         <StatusBar

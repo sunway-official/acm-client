@@ -1,8 +1,9 @@
 import React from 'react';
-// import { View } from 'react-native';
+import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import { addNavigationHelpers } from 'react-navigation';
 import { connect } from 'react-redux';
+import styles from './styles';
 import { AppNavigator, KEY } from '~/Redux/Navigation';
 import Drawer from './Drawer';
 import ToolbarWrapper from './Toolbar/Wrapper';
@@ -13,13 +14,15 @@ import ToolbarWrapper from './Toolbar/Wrapper';
  */
 
 const AppNavigation = ({ navigation, dispatch }) =>
-  <Drawer>
-    <ToolbarWrapper>
-      <AppNavigator
-        navigation={addNavigationHelpers({ dispatch, state: navigation })}
-      />
-    </ToolbarWrapper>
-  </Drawer>;
+  <View style={styles.container}>
+    <Drawer>
+      <ToolbarWrapper>
+        <AppNavigator
+          navigation={addNavigationHelpers({ dispatch, state: navigation })}
+        />
+      </ToolbarWrapper>
+    </Drawer>
+  </View>;
 
 AppNavigation.propTypes = {
   navigation: PropTypes.object,

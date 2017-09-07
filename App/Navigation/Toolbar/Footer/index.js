@@ -4,7 +4,8 @@ import { View, StatusBar, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AninatableView } from 'react-native-animatable';
 import { Text, TouchableView } from '~/Component';
-import { Colors, Metrics, Icons } from '~/Theme';
+import { Colors, Metrics, Icons, Fonts } from '~/Theme';
+import tabs from './fixture';
 import styles from './styles';
 
 const IS_ANDROID = Platform.OS === 'android';
@@ -16,16 +17,10 @@ const BACKDROP_ANIMATION_DELAY = 300;
 
 class Header extends Component {
   static propTypes = {
-    title: PropTypes.string,
     float: PropTypes.bool,
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),
     style: View.propTypes.style,
-    icon: PropTypes.shape({
-      name: PropTypes.string,
-      type: PropTypes.oneOf(Icons.ICON_TYPE),
-    }),
-    onIconPress: PropTypes.func,
-    actions: PropTypes.arrayOf(
+    tabs: PropTypes.arrayOf(
       PropTypes.shape({
         icon: PropTypes.PropTypes.shape({
           name: PropTypes.string,
@@ -44,9 +39,8 @@ class Header extends Component {
     super(props);
 
     this._getTheme = this._getTheme.bind(this);
-    this._statusBarStyle = this._statusBarStyle.bind(this);
     this._wrapperStyles = this._wrapperStyles.bind(this);
-    this._headerStyles = this._headerStyles.bind(this);
+    this._footerStyles = this._footerStyles.bind(this);
     this._textStyles = this._textStyles.bind(this);
     this._iconStyles = this._iconStyles.bind(this);
     this._touchableViewStyles = this._touchableViewStyles.bind(this);
@@ -60,71 +54,71 @@ class Header extends Component {
     return {};
   };
 
-  _statusBarStyle = () => {
-    // const theme = this._getTheme();
-    return 'light-content';
+  _footerStyles = () => {
+    const theme = this._getTheme();
+    let styles = {
+      backgroundColor: theme === THEME_DARK ? Colors.black : Colors.white,
+    };
+    if (IS_ANDROID && this.props.drawer.isOpen === false) {
+      styles.elevation = 8;
+    }
+    return styles;
   };
 
-  _headerStyles = () => {
+  _textStyles = color => {
     const theme = this._getTheme();
     return {
-      backgroundColor: theme === THEME_DARK ? Colors.primary : Colors.white,
-      // For Android
-      elevation: 8,
+      color: color || (theme === THEME_DARK ? Colors.white : Colors.darkGrey),
+      textAlign: 'center',
+      fontSize: Fonts.size.small,
     };
   };
-  _textStyles = () => {
+
+  _iconStyles = color => {
     const theme = this._getTheme();
     return {
-      color: theme === THEME_DARK ? Colors.white : Colors.darkGrey,
-    };
-  };
-  _iconStyles = () => {
-    const theme = this._getTheme();
-    return {
-      color: theme === THEME_DARK ? Colors.white : Colors.darkGrey,
+      color: color || (theme === THEME_DARK ? Colors.white : Colors.darkGrey),
       size: Metrics.icons.small,
     };
   };
-  _touchableViewStyles = () => {
+
+  _touchableViewStyles = color => {
     const theme = this._getTheme();
     return {
-      rippleColor: theme === THEME_DARK ? Colors.white : Colors.darkGrey,
+      rippleColor:
+        color || (theme === THEME_DARK ? Colors.white : Colors.darkGrey),
       borderless: true,
     };
   };
 
-  _renderAction({ icon, onPress }, index) {
-    let actionWrapperStyles = [styles.rightIconWrapper];
-    if (index === 0) {
-      actionWrapperStyles = [...actionWrapperStyles, styles.firstRightIcon];
-    }
-    return (
-      <TouchableView
-        key={index}
-        {...this._touchableViewStyles()}
-        style={[actionWrapperStyles]}
-        onPress={onPress}
-      >
-        <Icon
-          name="more-vert"
-          {...icon}
-          onPress={undefined}
-          {...this._iconStyles()}
-        />
-      </TouchableView>
-    );
+  _renderTabs() {
+    return tabs.map(({ title, icon, activeColor, active, onPress }, index) => {
+      return (
+        <TouchableView
+          key={index}
+          {...this._touchableViewStyles(activeColor)}
+          style={[styles.tabWrapper]}
+          onPress={onPress}
+        >
+          <Icon
+            name="more-vert"
+            {...icon}
+            onPress={undefined}
+            {...this._iconStyles(active && activeColor)}
+          />
+          <Text
+            light
+            style={[styles.tabLabel, this._textStyles(active && activeColor)]}
+          >
+            {title}
+          </Text>
+        </TouchableView>
+      );
+    });
   }
 
   render() {
-    const {
-      title,
-      float,
-      drawer,
-      icon,
-      onIconPress,
-      actions = [],
-    } = this.props;
+    const { float, drawer, tabs = [] } = this.props;
     const containerStyle = this.props.style;
 
     let wrapperStyles = this._wrapperStyles();
@@ -138,38 +132,11 @@ class Header extends Component {
     }
     return (
       <View style={wrapperStyles}>
-        <StatusBar
-          backgroundColor={Colors.primaryDark}
-          barStyle={this._statusBarStyle()}
-        />
         <View
-          style={[styles.header, this._headerStyles(), containerStyle]}
+          style={[styles.footer, this._footerStyles(), containerStyle]}
           // onLayout={event => (this._headerContainer = event.nativeEvent.layout)}
         >
-          <View style={styles.leftWrapper}>
-            <TouchableView
-              style={styles.iconWrapper}
-              {...this._touchableViewStyles()}
-              onPress={onIconPress}
-            >
-              <Icon
-                name="menu"
-                {...icon}
-                onPress={undefined}
-                {...this._iconStyles()}
-              />
-            </TouchableView>
-          </View>
-          <View style={styles.centerWrapper}>
-            <View style={styles.titleWrapper}>
-              <Text bold style={[styles.title, this._textStyles()]}>
-                {title}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.rightWrapper}>
-            {actions.map(this._renderAction.bind(this))}
-          </View>
+          {this._renderTabs()}
         </View>
         {drawer.isOpen &&
           <AninatableView

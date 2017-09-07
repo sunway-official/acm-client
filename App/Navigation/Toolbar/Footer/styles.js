@@ -2,33 +2,15 @@ import { StyleSheet } from 'react-native';
 import { Metrics, Fonts } from '~/Theme';
 
 export default StyleSheet.create({
-  header: {
+  footer: {
     flexDirection: 'row',
+    height: 56,
   },
-  centerWrapper: {
-    marginLeft: Metrics.baseMargin,
+  tabWrapper: {
+    flex: 1,
+    justifyContent: 'center',
   },
-  rightWrapper: {
-    marginLeft: 'auto',
-    flexDirection: 'row-reverse',
-  },
-  iconWrapper: {
-    padding: Metrics.doubleBaseMargin,
-  },
-  rightIconWrapper: {
-    paddingVertical: Metrics.doubleBaseMargin,
-    paddingHorizontal: Metrics.baseMargin,
-  },
-  firstRightIcon: {
-    paddingRight: Metrics.doubleBaseMargin,
-  },
-  titleWrapper: {
-    marginTop: 'auto',
-    marginBottom: 18,
-  },
-  title: {
-    fontSize: Fonts.size.regular,
-  },
+  iconWrapper: {},
   backdrop: {
     position: 'absolute',
     width: '100%',
