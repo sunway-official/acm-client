@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TabNavigator } from 'react-navigation';
-import { Colors, Metrics } from '../../../Theme';
+import { Colors, Metrics } from '~/Theme';
 import Detail from '../Detail/Agenda';
 import Fixture from '../fixture';
 

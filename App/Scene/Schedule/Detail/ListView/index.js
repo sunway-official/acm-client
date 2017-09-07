@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import styles from './styles';
@@ -26,14 +26,14 @@ class ListView extends Component {
             {item.shortDescription}
           </Text>
         </View>
-        <View style={styles.icon}>
+        <TouchableOpacity style={[styles.icon]}>
           <Icon
             name={calendarIcon.name}
             type={calendarIcon.type}
             color={calendarIcon.color}
             size={calendarIcon.size}
           />
-        </View>
+        </TouchableOpacity>
       </View>
     );
   }

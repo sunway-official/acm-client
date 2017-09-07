@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, FlatList } from 'react-native';
-import { Colors } from '../../../../Theme';
+import { Colors } from '~/Theme';
 import ListView from '../ListView';
-import Fixture from '../../fixture';
+import Fixture from '~/Scene/Schedule/fixture';
 import styles from './styles';
 
 const calendarIcon = {

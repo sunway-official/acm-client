@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Colors } from '../../../../Theme';
+import { Colors } from '~/Theme';
 import ListView from '../ListView';
 
 const calendarIcon = {
