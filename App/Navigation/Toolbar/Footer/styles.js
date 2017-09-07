@@ -2,9 +2,6 @@ import { StyleSheet } from 'react-native';
 import { Metrics, Fonts } from '~/Theme';
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   header: {
     flexDirection: 'row',
   },
@@ -31,9 +28,6 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: Fonts.size.regular,
-  },
-  relativeContainer: {
-    position: 'relative',
   },
   backdrop: {
     position: 'absolute',

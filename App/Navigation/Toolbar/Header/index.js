@@ -57,7 +57,9 @@ class Header extends Component {
   _wrapperStyles = () => {
     // const theme = this._getTheme();
     if (IS_ANDROID) return {};
-    return {};
+    return {
+      position: 'relative',
+    };
   };
 
   _statusBarStyle = () => {
@@ -147,6 +149,7 @@ class Header extends Component {
         right: 0,
       };
     }
+    console.log(drawer);
     return (
       <View style={wrapperStyles}>
         <StatusBar
