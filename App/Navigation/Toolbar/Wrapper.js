@@ -51,7 +51,7 @@ class Wrapper extends Component {
     let icon = {};
     if (header.leftIcon === LEFT_ICON_IS_BACK) {
       onIconPress = this._navigateBack;
-      icon.name = 'keyboard-backspace';
+      icon.name = 'arrow-back';
     }
 
     return (

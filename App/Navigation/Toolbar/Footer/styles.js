@@ -10,7 +10,6 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  iconWrapper: {},
   backdrop: {
     position: 'absolute',
     width: '100%',

@@ -107,7 +107,6 @@ class Header extends Component {
             {...this._iconStyles(active && activeColor)}
           />
           <Text
-            light
             style={[styles.tabLabel, this._textStyles(active && activeColor)]}
           >
             {title}
