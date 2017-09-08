@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { Colors } from '~/Theme';
 import { TouchableView } from '~/Component';
 import styles from './styles';
 
@@ -14,7 +15,7 @@ class ListView extends Component {
   _renderItem({ item }) {
     const { calendarIcon } = this.props;
     return (
-      <TouchableView style={styles.item}>
+      <TouchableView rippleColor={Colors.grey} style={styles.item}>
         <View>
           <Text style={styles.title}>
             {item.title}
