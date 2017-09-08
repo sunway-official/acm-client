@@ -30,7 +30,6 @@ export default StyleSheet.create({
     marginBottom: 18,
   },
   title: {
-    fontWeight: Fonts.type.bold,
     fontSize: Fonts.size.regular,
   },
   relativeContainer: {
