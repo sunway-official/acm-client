@@ -60,7 +60,7 @@ class Footer extends PureComponent {
     const { routeName } = navigation.routes[navigation.index];
     let tabs = [];
     Object.keys(routes).map(key => {
-      const { name, footer, icon } = routes[key];
+      const { name, footer, icon, activeIcon } = routes[key];
       if (footer) {
         const onPress = () => {
           if (routeName === key) {
@@ -77,6 +77,7 @@ class Footer extends PureComponent {
             key={key}
             title={name}
             icon={icon}
+            activeIcon={activeIcon}
             option={footer}
             onPress={onPress}
             active={routeName === key}

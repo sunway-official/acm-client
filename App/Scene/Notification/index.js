@@ -8,9 +8,6 @@ import styles from './styles';
 import { Colors } from '~/Theme';
 
 class NotificationScene extends Component {
-  /**
-   * Header config
-   */
   static header = {
     leftIcon: 'drawer',
     theme: 'dark',
@@ -45,7 +42,7 @@ class NotificationScene extends Component {
             </Text>,
           )}
         </View>
-        <Button title="Home" onPress={this.props.home} />
+        <Button title="Home" color={Colors.purple} onPress={this.props.home} />
       </View>
     );
   }

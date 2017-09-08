@@ -62,9 +62,6 @@ ForgotPasswordForm = reduxForm({
 })(ForgotPasswordForm);
 
 class ForgotPasswordScene extends Component {
-  /**
-     * Header config
-     */
   static header = {
     leftIcon: 'back',
     actions: [

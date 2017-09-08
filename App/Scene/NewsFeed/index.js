@@ -8,9 +8,6 @@ import styles from './styles';
 import { Colors } from '~/Theme';
 
 class NewsFeedScene extends Component {
-  /**
-   * Header config
-   */
   static header = {
     leftIcon: 'drawer',
     theme: 'dark',

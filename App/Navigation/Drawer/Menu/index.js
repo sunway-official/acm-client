@@ -92,7 +92,7 @@ class Menu extends Component {
     let items = [];
     Object.keys(routes).map(key => {
       const { name, icon, drawer } = routes[key];
-      if (drawer) {
+      if (drawer && drawer.primary) {
         items.push(
           <MenuItem
             key={key}
@@ -111,8 +111,8 @@ class Menu extends Component {
 
     let items = [];
     Object.keys(routes).map(key => {
-      const { name, icon, secondaryDrawer } = routes[key];
-      if (secondaryDrawer) {
+      const { name, icon, drawer } = routes[key];
+      if (drawer && drawer.secondary) {
         items.push(
           <MenuItem
             key={key}
@@ -149,12 +149,12 @@ class Menu extends Component {
             {this._renderHeaderImage()}
             <View style={styles.headerInfo}>
               <View style={styles.line}>
-                <Text bold style={[styles.text, styles.name]}>
+                <Text bold style={[styles.text]}>
                   {USER_NAME}
                 </Text>
               </View>
               <View style={styles.line}>
-                <Text style={[styles.text, styles.email]}>
+                <Text style={[styles.text]}>
                   {USER_EMAIL}
                 </Text>
               </View>

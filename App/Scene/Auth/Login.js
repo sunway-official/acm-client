@@ -84,6 +84,10 @@ LoginForm = reduxForm({
 })(LoginForm);
 
 class LoginScene extends Component {
+  static drawer = {
+    primary: true,
+  };
+
   submit = values => {
     console.log(values);
     this.props.setLoggedIn();
