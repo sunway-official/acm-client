@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, StatusBar, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { View as AninatableView } from 'react-native-animatable';
 import { Text, TouchableView } from '~/Component';
 import { Colors, Metrics, Icons } from '~/Theme';
 import styles from './styles';
@@ -10,9 +9,6 @@ import styles from './styles';
 const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
-
-const BACKDROP_ANIMATION_NAME = 'fadeIn';
-const BACKDROP_ANIMATION_DELAY = 300;
 
 class Header extends PureComponent {
   static propTypes = {
@@ -135,14 +131,7 @@ class Header extends PureComponent {
   }
 
   render() {
-    const {
-      title,
-      float,
-      drawer,
-      icon,
-      onIconPress,
-      actions = [],
-    } = this.props;
+    const { title, float, icon, onIconPress, actions = [] } = this.props;
     const containerStyle = this.props.style;
 
     let wrapperStyles = this._wrapperStyles();
