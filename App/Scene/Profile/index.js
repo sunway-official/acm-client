@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
 import { Text } from '~/Component';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import styles from './styles';
 import { Colors } from '~/Theme';
+import ProfileHeader from './Header';
+import styles from './styles';
 
 class ProfileScene extends Component {
-  /**
-   * Header config
-   */
   static header = {
     leftIcon: 'drawer',
     actions: [
@@ -33,17 +31,16 @@ class ProfileScene extends Component {
   };
 
   render() {
-    const text = ['Welcome to User Profile!'];
     return (
       <View style={styles.container}>
-        <View style={styles.centerText}>
-          {text.map((text, index) =>
-            <Text key={index}>
-              {text}
-            </Text>,
-          )}
+        <ProfileHeader
+          avatar="https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png"
+          fullname="Dung Le Thi Thuy"
+          address="Duy Tan University"
+        />
+        <View style={{ flex: 1, backgroundColor: 'blue' }}>
+          <Text>Content</Text>
         </View>
-        <Button title="Home" onPress={this.props.home} />
       </View>
     );
   }
