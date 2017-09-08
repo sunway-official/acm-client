@@ -17,7 +17,6 @@ const metrics = {
   screenHeight: (width < height ? height : width) - statusBarHeight,
   navBarHeight: Platform.OS === 'ios' ? 64 : 54,
   buttonRadius: 4,
-  circleRadius: 500,
   iOSStatusBarHeight: 20,
   icons: {
     tiny: 16,

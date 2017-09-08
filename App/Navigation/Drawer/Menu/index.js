@@ -149,12 +149,12 @@ class Menu extends Component {
             {this._renderHeaderImage()}
             <View style={styles.headerInfo}>
               <View style={styles.line}>
-                <Text bold style={[styles.text, styles.name]}>
+                <Text bold style={[styles.text]}>
                   {USER_NAME}
                 </Text>
               </View>
               <View style={styles.line}>
-                <Text style={[styles.text, styles.email]}>
+                <Text style={[styles.text]}>
                   {USER_EMAIL}
                 </Text>
               </View>

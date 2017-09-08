@@ -39,21 +39,22 @@ export default StyleSheet.create({
   profileImage: {
     width: Metrics.images.large,
     height: Metrics.images.large,
-    borderRadius: Metrics.circleRadius,
+    borderRadius: Metrics.images.large / 2,
   },
   conferenceImage: {
     width: Metrics.images.medium,
     height: Metrics.images.medium,
-    borderRadius: Metrics.circleRadius,
+    borderRadius: Metrics.images.medium / 2,
     marginLeft: 'auto',
   },
   line: {
-    width: '100%',
+    // width: '100%',
     flexDirection: 'row',
   },
   text: {
     fontSize: Fonts.size.medium,
     color: Colors.white,
+    backgroundColor: 'transparent',
   },
   dropdownButtonWrapper: {
     position: 'absolute',
