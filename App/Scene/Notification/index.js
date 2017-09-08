@@ -5,6 +5,7 @@ import { Text } from '~/Component';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import styles from './styles';
+import { Colors } from '~/Theme';
 
 class NotificationScene extends Component {
   /**
@@ -22,8 +23,12 @@ class NotificationScene extends Component {
     ],
   };
 
+  static footer = {
+    activeColor: Colors.purple,
+  };
+
   static propTypes = {
-    login: PropTypes.func,
+    home: PropTypes.func,
   };
 
   render() {
@@ -37,14 +42,14 @@ class NotificationScene extends Component {
             </Text>,
           )}
         </View>
-        <Button title="Login" onPress={this.props.login} />
+        <Button title="Home" onPress={this.props.home} />
       </View>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  login: () => dispatch(NavigationActions.navigate({ routeName: 'login' })),
+  home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
 });
 
 export default connect(undefined, mapDispatchToProps)(NotificationScene);
