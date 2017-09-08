@@ -1,5 +1,6 @@
 import Home from '~/Scene/Home';
-import Login from '~/Scene/Login';
+import Login from '~/Scene/Auth/Login';
+import ForgotPassword from '~/Scene/Auth/ForgotPassword';
 import NewsFeed from '~/Scene/NewsFeed';
 import Notification from '~/Scene/Notification';
 import People from '~/Scene/People';
@@ -26,6 +27,17 @@ const ROUTES = {
       name: 'login-variant',
       type: 'material-community',
     },
+    initial: true,
+  },
+  forgot: {
+    name: 'Forgot Password',
+    path: '/forgot-password',
+    screen: ForgotPassword,
+    // drawer: true,
+    icon: {
+      name: 'login-variant',
+      type: 'material-community',
+    },
   },
   setting: {
     name: 'Setting',
@@ -41,7 +53,7 @@ const ROUTES = {
     name: 'News Feed',
     path: '/news-feed',
     screen: NewsFeed,
-    initial: true,
+    // initial: true,
     icon: {
       name: 'newspaper',
       type: 'material-community',
