@@ -8,19 +8,11 @@ import styles from './styles';
 import { Colors } from '~/Theme';
 
 class ProfileScene extends Component {
-  /**
-   * Header config
-   */
   static header = {
     leftIcon: 'drawer',
-    actions: [
-      {
-        icon: {},
-        onPress: () => {
-          console.log('hello there');
-        },
-      },
-    ],
+    theme: 'dark',
+    backgroundColor: Colors.red,
+    statusBarBackgroundColor: Colors.red,
   };
 
   static footer = {
@@ -43,7 +35,7 @@ class ProfileScene extends Component {
             </Text>,
           )}
         </View>
-        <Button title="Home" onPress={this.props.home} />
+        <Button title="Home" color={Colors.red} onPress={this.props.home} />
       </View>
     );
   }

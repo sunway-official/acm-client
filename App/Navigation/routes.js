@@ -13,7 +13,6 @@ const ROUTES = {
     name: 'Home',
     path: '/',
     screen: Home,
-    drawer: true,
     icon: {
       name: 'home',
     },
@@ -22,7 +21,6 @@ const ROUTES = {
     name: 'Login',
     path: '/login',
     screen: Login,
-    drawer: true,
     icon: {
       name: 'login-variant',
       type: 'material-community',
@@ -32,7 +30,6 @@ const ROUTES = {
     name: 'Forgot Password',
     path: '/forgot-password',
     screen: ForgotPassword,
-    // drawer: true,
     icon: {
       name: 'login-variant',
       type: 'material-community',
@@ -42,7 +39,6 @@ const ROUTES = {
     name: 'Setting',
     path: '/setting',
     screen: Setting,
-    secondaryDrawer: true,
     icon: {
       name: 'settings',
       type: 'material-community',
@@ -63,7 +59,11 @@ const ROUTES = {
     path: '/schedule',
     screen: Schedule,
     icon: {
-      name: 'calendar',
+      name: 'calendar-blank',
+      type: 'material-community',
+    },
+    activeIcon: {
+      name: 'calendar-text',
       type: 'material-community',
     },
     initial: true,
@@ -73,8 +73,10 @@ const ROUTES = {
     path: '/people',
     screen: People,
     icon: {
+      name: 'people-outline',
+    },
+    activeIcon: {
       name: 'people',
-      type: 'simple-line-icon',
     },
   },
   profile: {
@@ -92,6 +94,9 @@ const ROUTES = {
     screen: Notification,
     icon: {
       name: 'notifications-none',
+    },
+    activeIcon: {
+      name: 'notifications',
     },
   },
 };
@@ -122,6 +127,7 @@ Object.keys(ROUTES).map(key => {
   let route = ROUTES[key];
   route = {
     ...route,
+    drawer: route.screen.drawer,
     header: route.screen.header,
     footer: route.screen.footer,
   };

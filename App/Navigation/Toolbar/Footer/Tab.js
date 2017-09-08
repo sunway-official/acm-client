@@ -13,6 +13,10 @@ class FooterTab extends Component {
       name: PropTypes.string,
       type: PropTypes.oneOf(Icons.ICON_TYPE),
     }).isRequired,
+    activeIcon: PropTypes.PropTypes.shape({
+      name: PropTypes.string,
+      type: PropTypes.oneOf(Icons.ICON_TYPE),
+    }),
     active: PropTypes.bool,
     option: PropTypes.object,
     onPress: PropTypes.func,
@@ -58,6 +62,8 @@ class FooterTab extends Component {
   render() {
     const { title, icon, onPress, option, active } = this.props;
     const { activeColor } = option;
+    console.log(this.props.activeIcon);
+    const activeIcon = this.props.activeIcon || icon;
     return (
       <TouchableView
         {...this._touchableViewStyles(activeColor)}
@@ -66,7 +72,7 @@ class FooterTab extends Component {
       >
         <Icon
           name="more-vert"
-          {...icon}
+          {...(active ? activeIcon : icon)}
           onPress={undefined}
           {...this._iconStyles(active && activeColor)}
         />

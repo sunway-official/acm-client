@@ -8,9 +8,10 @@ import { Colors } from '~/Theme';
 import styles from './styles';
 
 class HomeScene extends Component {
-  /**
-   * Header config
-   */
+  static drawer = {
+    primary: true,
+  };
+
   static header = {
     leftIcon: 'drawer',
     float: true,

@@ -8,9 +8,6 @@ import styles from './styles';
 import { Colors } from '~/Theme';
 
 class PeopleScene extends Component {
-  /**
-   * Header config
-   */
   static header = {
     leftIcon: 'drawer',
     theme: 'dark',
@@ -36,7 +33,7 @@ class PeopleScene extends Component {
   };
 
   render() {
-    const text = ['People Scene!'];
+    const text = ['Welcome to People!', 'We are under developement.'];
     return (
       <View style={styles.container}>
         <View style={styles.centerText}>
