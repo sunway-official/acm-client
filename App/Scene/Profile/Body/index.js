@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, TabBarTop } from 'react-navigation';
 import { Metrics, Colors } from '~/Theme';
 import { Text } from '~/Component';
 import { About, Activity, Networking } from './Content';
@@ -9,9 +9,9 @@ import styles from './styles';
 
 const TabsView = TabNavigator(
   {
-    About: About,
-    Activity: Activity,
-    Networking: Networking,
+    About: { screen: About },
+    Activity: { screen: Activity },
+    Networking: { screen: Networking },
   },
   {
     tabBarComponent: TabBarTop,
@@ -19,13 +19,11 @@ const TabsView = TabNavigator(
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      scrollEnabled: true,
       indicatorStyle: {
         backgroundColor: 'black',
       },
       style: {
-        backgroundColor: 'transparent',
-        marginBottom: Metrics.smallMargin,
+        backgroundColor: 'white',
       },
       labelStyle: { margin: 0, color: Colors.black },
       upperCaseLabel: false,

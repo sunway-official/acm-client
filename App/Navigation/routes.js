@@ -66,7 +66,6 @@ const ROUTES = {
       name: 'calendar',
       type: 'material-community',
     },
-    initial: true,
   },
   people: {
     name: 'People',
@@ -85,6 +84,7 @@ const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
+    initial: true,
   },
   notification: {
     name: 'Notification',

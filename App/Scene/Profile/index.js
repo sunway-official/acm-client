@@ -12,6 +12,10 @@ import styles from './styles';
 class ProfileScene extends Component {
   static header = {
     leftIcon: 'drawer',
+    float: true,
+    theme: 'dark',
+    backgroundColor: 'rgba(0,0,0,0)',
+    statusBarBackgroundColor: Colors.black,
     actions: [
       {
         icon: {},
@@ -35,7 +39,7 @@ class ProfileScene extends Component {
     return (
       <View style={styles.container}>
         <ProfileHeader
-          avatar="https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png"
+          avatar="https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png"
           username="Dung Le"
           address="Duy Tan University"
         />

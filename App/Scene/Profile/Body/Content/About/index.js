@@ -8,7 +8,7 @@ class About extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{ flex: 1, marginTop: 10, backgroundColor: 'white' }}>
         <Text>About</Text>
       </View>
     );

@@ -56,14 +56,21 @@ class Header extends Component {
 
   render() {
     return (
-      <View style={styles.profileHeader}>
-        <View style={[styles.centerScale, { flexDirection: 'row' }]}>
+      <View style={styles.container}>
+        <View style={styles.fakeView} />
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingHorizontal: 36,
+          }}
+        >
           {this._renderIcon('EMAIL', 'email', 'material-community', 'red', [
             styles.icon,
             styles.centerScale,
             { borderColor: 'red' },
           ])}
-          {this._renderAvatar(styles.avatar)}
           {this._renderIcon(
             'EDIT',
             'lead-pencil',
@@ -71,6 +78,9 @@ class Header extends Component {
             'blue',
             [styles.icon, styles.centerScale, { borderColor: 'blue' }],
           )}
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          {this._renderAvatar(styles.avatar)}
         </View>
         {this._renderInfo()}
       </View>
