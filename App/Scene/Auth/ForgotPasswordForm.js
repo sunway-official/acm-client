@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, KeyboardAvoidingView, Image, View } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
-// import { View as AnimatableView } from 'react-native-animatable';
+import { required, email } from '~/Lib/validate';
 
+import { Text, KeyboardAvoidingView, Image, View } from 'react-native';
+import { Images } from '~/Theme';
+import FormInput from '~/Component/FormInput';
+import TouchableView from '~/Component/TouchableView';
 import styles from './styles';
-import { Images } from '../../Theme';
-import FormInput from '../FormInput';
-import TouchableView from '../TouchableView';
-import { required, email } from '../../Lib/validate';
 
 const submit = values => {
   console.log('submitting form', values);
@@ -61,7 +60,7 @@ ForgotPasswordForm.propTypes = {
 };
 
 ForgotPasswordForm = reduxForm({
-  form: 'login',
+  form: 'forgotPassword',
 })(ForgotPasswordForm);
 
 export default ForgotPasswordForm;

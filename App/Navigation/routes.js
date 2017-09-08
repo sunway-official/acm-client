@@ -1,7 +1,6 @@
 import Home from '~/Scene/Home';
-import Login from '~/Scene/Login';
-
-import ForgotPassword from '../Component/Login/ForgotPasswordForm';
+import Login from '~/Scene/Auth/LoginForm';
+import ForgotPassword from '~/Scene/Auth/ForgotPasswordForm';
 
 const ROUTES = {
   home: {

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Text, KeyboardAvoidingView, Image, View } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Field, reduxForm } from 'redux-form';
+import { required, email, password } from '~/Lib/validate';
+import { KEY, setLoggedIn } from '~/Redux/Login';
 
+import { Text, KeyboardAvoidingView, Image, View } from 'react-native';
+import { Images } from '~/Theme';
+import FormInput from '~/Component/FormInput';
+import TouchableView from '~/Component/TouchableView';
 import styles from './styles';
-import { Images } from '../../Theme';
-import FormInput from '../FormInput';
-import TouchableView from '../TouchableView';
-import { required, email, password } from '../../Lib/validate';
 
 const submit = values => {
   console.log('submitting form', values);
@@ -67,4 +70,47 @@ LoginForm = reduxForm({
   form: 'login',
 })(LoginForm);
 
-export default LoginForm;
+class LoginScene extends Component {
+  submit = values => {
+    console.log(values);
+    this.props.setLoggedIn();
+    console.log(this.props.navigation);
+  };
+
+  /**
+     * Header config
+     */
+  static header = {
+    theme: 'light',
+    leftIcon: 'back',
+    actions: [
+      {
+        icon: {
+          name: 'lock',
+        },
+        onPress: () => {},
+      },
+    ],
+  };
+  render() {
+    return <LoginForm onSubmit={this.submit} />;
+  }
+}
+
+LoginScene.propTypes = {
+  login: PropTypes.object,
+  setLoggedIn: PropTypes.func,
+  navigation: PropTypes.object,
+};
+
+const mapStateToProps = state => ({
+  login: state[KEY],
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setLoggedIn: bindActionCreators(setLoggedIn, dispatch),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScene);
