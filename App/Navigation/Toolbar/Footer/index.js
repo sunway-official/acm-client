@@ -112,12 +112,6 @@ class Footer extends PureComponent {
         >
           {this._renderTabs()}
         </View>
-        {drawer.isOpen &&
-          <AninatableView
-            animation={BACKDROP_ANIMATION_NAME}
-            style={styles.backdrop}
-            duration={BACKDROP_ANIMATION_DELAY}
-          />}
       </View>
     );
   }

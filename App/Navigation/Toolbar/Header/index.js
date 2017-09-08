@@ -189,12 +189,6 @@ class Header extends PureComponent {
             {actions.map(this._renderAction.bind(this))}
           </View>
         </View>
-        {drawer.isOpen &&
-          <AninatableView
-            animation={BACKDROP_ANIMATION_NAME}
-            style={styles.backdrop}
-            duration={BACKDROP_ANIMATION_DELAY}
-          />}
       </View>
     );
   }
