@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '~/Theme';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
+  },
+  relativeContainer: {
     position: 'relative',
-    backgroundColor: Colors.lightGrey,
   },
 });

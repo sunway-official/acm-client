@@ -1,7 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
+const Schedule = StyleSheet.create({
   container: {
     flex: 1,
   },
 });
+
+export default Schedule;

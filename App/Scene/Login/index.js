@@ -23,7 +23,7 @@ class LoginScene extends Component {
    * Header config
    */
   static header = {
-    theme: 'light',
+    theme: 'dark',
     leftIcon: 'back',
     actions: [
       {

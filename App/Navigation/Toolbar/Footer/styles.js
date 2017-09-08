@@ -1,13 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '~/Theme';
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.lightGrey,
+  footer: {
+    flexDirection: 'row',
+    height: 56,
   },
-  relativeContainer: {
-    position: 'relative',
+  tabWrapper: {
+    flex: 1,
+    justifyContent: 'center',
   },
   backdrop: {
     position: 'absolute',

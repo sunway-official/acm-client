@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, StatusBar, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -14,7 +14,7 @@ const THEME_LIGHT = 'light';
 const BACKDROP_ANIMATION_NAME = 'fadeIn';
 const BACKDROP_ANIMATION_DELAY = 300;
 
-class Header extends Component {
+class Header extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
     float: PropTypes.bool,
@@ -56,7 +56,10 @@ class Header extends Component {
 
   _wrapperStyles = () => {
     // const theme = this._getTheme();
-    return {};
+    if (IS_ANDROID) return {};
+    return {
+      position: 'relative',
+    };
   };
 
   _statusBarStyle = () => {
@@ -66,8 +69,8 @@ class Header extends Component {
 
   _headerStyles = () => {
     const theme = this._getTheme();
-    return {
-      backgroundColor: theme === THEME_DARK ? Colors.primary : Colors.secondary,
+    let styles = {
+      backgroundColor: theme === THEME_DARK ? Colors.primary : Colors.white,
 
       borderTopWidth: IS_ANDROID
         ? // For Android
@@ -80,13 +83,19 @@ class Header extends Component {
         : // For iOS
           theme === THEME_DARK ? Colors.primaryDark : Colors.secondaryDark,
     };
+    if (IS_ANDROID && this.props.drawer.isOpen === false) {
+      styles.elevation = 8;
+    }
+    return styles;
   };
+
   _textStyles = () => {
     const theme = this._getTheme();
     return {
       color: theme === THEME_DARK ? Colors.white : Colors.darkGrey,
     };
   };
+
   _iconStyles = () => {
     const theme = this._getTheme();
     return {
@@ -94,6 +103,7 @@ class Header extends Component {
       size: Metrics.icons.small,
     };
   };
+
   _touchableViewStyles = () => {
     const theme = this._getTheme();
     return {
@@ -179,12 +189,6 @@ class Header extends Component {
             {actions.map(this._renderAction.bind(this))}
           </View>
         </View>
-        {drawer.isOpen &&
-          <AninatableView
-            animation={BACKDROP_ANIMATION_NAME}
-            style={styles.backdrop}
-            duration={BACKDROP_ANIMATION_DELAY}
-          />}
       </View>
     );
   }
