@@ -33,7 +33,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
   },
-  fullname: {
+  username: {
     fontSize: Fonts.size.h6,
   },
 });

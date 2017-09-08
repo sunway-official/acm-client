@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { Colors } from '~/Theme';
 import ProfileHeader from './Header';
+import ProfileBody from './Body';
 import styles from './styles';
 
 class ProfileScene extends Component {
@@ -35,12 +36,10 @@ class ProfileScene extends Component {
       <View style={styles.container}>
         <ProfileHeader
           avatar="https://d30y9cdsu7xlg0.cloudfront.net/png/15724-200.png"
-          fullname="Dung Le Thi Thuy"
+          username="Dung Le"
           address="Duy Tan University"
         />
-        <View style={{ flex: 1, backgroundColor: 'blue' }}>
-          <Text>Content</Text>
-        </View>
+        <ProfileBody />
       </View>
     );
   }
