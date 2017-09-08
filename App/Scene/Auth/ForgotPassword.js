@@ -66,7 +66,6 @@ class ForgotPasswordScene extends Component {
      * Header config
      */
   static header = {
-    theme: 'light',
     leftIcon: 'back',
     actions: [
       {
