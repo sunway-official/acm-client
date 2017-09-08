@@ -13,6 +13,9 @@ class PeopleScene extends Component {
    */
   static header = {
     leftIcon: 'drawer',
+    theme: 'dark',
+    backgroundColor: Colors.green,
+    statusBarBackgroundColor: Colors.green,
     actions: [
       {
         icon: {},
@@ -29,7 +32,7 @@ class PeopleScene extends Component {
   };
 
   static propTypes = {
-    home: PropTypes.func,
+    // home: PropTypes.func,
   };
 
   render() {
@@ -43,14 +46,13 @@ class PeopleScene extends Component {
             </Text>,
           )}
         </View>
-        <Button title="Home" onPress={this.props.home} />
       </View>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
-});
+// const mapDispatchToProps = dispatch => ({
+//   home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
+// });
 
-export default connect(undefined, mapDispatchToProps)(PeopleScene);
+export default connect()(PeopleScene);

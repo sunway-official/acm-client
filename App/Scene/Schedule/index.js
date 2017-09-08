@@ -7,16 +7,14 @@ import { Colors } from '~/Theme';
 
 class Schedule extends Component {
   static header = {
-    theme: 'dark',
-    float: true,
-    backgroundColor: 'rgba(0,0,0,0)',
-    statusBarBackgroundColor: 'rgba(0,0,0,0)',
-    hideTitle: true,
+    // theme: 'dark',
+    // backgroundColor: Colors.brown,
+    // statusBarBackgroundColor: Colors.brown,
   };
 
   static footer = {
     show: true,
-    activeColor: Colors.deepOrange,
+    activeColor: Colors.brown,
   };
 
   static propTypes = {};
@@ -28,7 +26,7 @@ class Schedule extends Component {
         renderTabBar={() =>
           <DefaultTabBar
             tabStyle={{ paddingBottom: 0 }}
-            activeTabBackgroundColor="black"
+            activeTabBackgroundColor={Colors.brown}
             activeTextColor="white"
             inactiveTabBackgroundColor="white"
             underlineStyle={{ height: 0 }}

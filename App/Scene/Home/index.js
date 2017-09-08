@@ -4,6 +4,7 @@ import { View, Button } from 'react-native';
 import { Text } from '~/Component';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+import { Colors } from '~/Theme';
 import styles from './styles';
 
 class HomeScene extends Component {
@@ -12,6 +13,10 @@ class HomeScene extends Component {
    */
   static header = {
     leftIcon: 'drawer',
+    float: true,
+    theme: 'dark',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    statusBarBackgroundColor: 'rgba(0,0,0,0.5)',
     actions: [
       {
         icon: {},

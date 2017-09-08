@@ -13,6 +13,9 @@ class NewsFeedScene extends Component {
    */
   static header = {
     leftIcon: 'drawer',
+    theme: 'dark',
+    backgroundColor: Colors.blue,
+    statusBarBackgroundColor: Colors.blue,
     actions: [
       {
         icon: {},

@@ -51,7 +51,7 @@ class Header extends PureComponent {
     this._touchableViewStyles = this._touchableViewStyles.bind(this);
   }
 
-  _getTheme = () => this.props.theme || THEME_DARK;
+  _getTheme = () => this.props.theme || THEME_LIGHT;
 
   _wrapperStyles = () => {
     // const theme = this._getTheme();

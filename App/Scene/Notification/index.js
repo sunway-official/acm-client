@@ -13,6 +13,9 @@ class NotificationScene extends Component {
    */
   static header = {
     leftIcon: 'drawer',
+    theme: 'dark',
+    backgroundColor: Colors.purple,
+    statusBarBackgroundColor: Colors.purple,
     actions: [
       {
         icon: {},
