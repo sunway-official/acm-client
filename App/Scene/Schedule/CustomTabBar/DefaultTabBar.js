@@ -30,7 +30,7 @@ const DefaultTabBar = React.createClass({
     };
   },
 
-  renderTabOption(name, page) {},
+  // renderTabOption(name, page) {},
 
   renderTab(name, page, isTabActive, onPressHandler) {
     const {
@@ -81,10 +81,10 @@ const DefaultTabBar = React.createClass({
       bottom: 0,
     };
 
-    const left = this.props.scrollValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, containerWidth / numberOfTabs],
-    });
+    // const left = this.props.scrollValue.interpolate({
+    //   inputRange: [0, 1],
+    //   outputRange: [0, containerWidth / numberOfTabs],
+    // });
     return (
       <View
         style={[

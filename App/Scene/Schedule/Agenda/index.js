@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { TabNavigator } from 'react-navigation';
 import { Colors, Metrics } from '~/Theme';
 import Detail from '../Detail/Agenda';
@@ -36,11 +36,10 @@ const TabsView = TabNavigator(tabs, {
 });
 
 class Agenda extends Component {
+  static propTypes = {};
   render() {
     return <TabsView />;
   }
 }
-
-Agenda.propTypes = {};
 
 export default Agenda;

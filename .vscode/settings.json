@@ -6,5 +6,8 @@
   "prettier.useTabs": false,
   "prettier.tabWidth": 2,
   "prettier.eslintIntegration": true,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "path-intellisense.mappings": {
+    "~": "${workspaceRoot}/App"
+  }
 }
