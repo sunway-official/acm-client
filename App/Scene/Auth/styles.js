@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   image: {
     height: 150,
     width: 150,
-    borderRadius: 100,
+    borderRadius: 75,
   },
   title: {
     paddingTop: 20,
