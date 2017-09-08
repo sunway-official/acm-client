@@ -11,7 +11,7 @@ import {
   ViewPropTypes,
 } from 'react-native';
 import { Metrics } from '../../../Theme';
-const Button = require('./Button');
+import Button from './Button';
 
 const WINDOW_WIDTH = Metrics.screenWidth;
 

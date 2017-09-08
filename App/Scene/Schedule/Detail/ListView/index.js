@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
-import * as Animatable from 'react-native-animatable';
+import { TouchableView } from '~/Component';
 import styles from './styles';
 
 class ListView extends Component {
@@ -14,7 +14,7 @@ class ListView extends Component {
   _renderItem({ item }) {
     const { calendarIcon } = this.props;
     return (
-      <View style={styles.item}>
+      <TouchableView style={styles.item}>
         <View>
           <Text style={styles.title}>
             {item.title}
@@ -34,27 +34,24 @@ class ListView extends Component {
             size={calendarIcon.size}
           />
         </TouchableOpacity>
-      </View>
+      </TouchableView>
     );
   }
   render() {
-    const { listAnimation, detail } = this.props;
+    const { detail } = this.props;
     return (
       <View style={styles.container}>
-        <Animatable.View animation={listAnimation}>
-          <FlatList
-            data={detail}
-            keyExtractor={(item, index) => index}
-            renderItem={this._renderItem}
-          />
-        </Animatable.View>
+        <FlatList
+          data={detail}
+          keyExtractor={(item, index) => index}
+          renderItem={this._renderItem}
+        />
       </View>
     );
   }
 }
 
 ListView.propTypes = {
-  listAnimation: PropTypes.string,
   detail: PropTypes.array,
   calendarIcon: PropTypes.object,
 };

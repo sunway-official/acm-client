@@ -14,11 +14,7 @@ class Detail extends Component {
   render() {
     const { schedule } = this.props;
     return (
-      <ListView
-        listAnimation="fadeInLeft"
-        detail={schedule.activities}
-        calendarIcon={calendarIcon}
-      />
+      <ListView detail={schedule.activities} calendarIcon={calendarIcon} />
     );
   }
 }

@@ -22,11 +22,7 @@ class Detail extends Component {
             {item.date}
           </Text>
         </View>
-        <ListView
-          listAnimation="fadeInLeft"
-          detail={item.activities}
-          calendarIcon={calendarIcon}
-        />
+        <ListView detail={item.activities} calendarIcon={calendarIcon} />
       </View>
     );
   }

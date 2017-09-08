@@ -1,8 +1,7 @@
-const React = require('react');
-const { ViewPropTypes } = (ReactNative = require('react-native'));
-const { StyleSheet, Text, View, Animated } = ReactNative;
-const Button = require('./Button');
+import React from 'react';
+import { ViewPropTypes, StyleSheet, Text, View, Animated } from 'react-native';
 import { Metrics } from '../../../Theme';
+import Button from './Button';
 
 const { baseMargin, doubleBaseMargin } = Metrics;
 

@@ -8,7 +8,6 @@ const MyAgenda = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    // fontWeight: Fonts.type.bold,
     marginHorizontal: Metrics.baseMargin,
   },
 });
