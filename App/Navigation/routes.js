@@ -1,5 +1,10 @@
 import Home from '~/Scene/Home';
 import Login from '~/Scene/Login';
+import NewsFeed from '~/Scene/NewsFeed';
+import Notification from '~/Scene/Notification';
+import People from '~/Scene/People';
+import Profile from '~/Scene/Profile';
+import Setting from '~/Scene/Setting';
 import Schedule from '~/Scene/Schedule';
 
 const ROUTES = {
@@ -25,10 +30,20 @@ const ROUTES = {
   setting: {
     name: 'Setting',
     path: '/setting',
-    screen: Login,
+    screen: Setting,
     secondaryDrawer: true,
     icon: {
       name: 'settings',
+      type: 'material-community',
+    },
+  },
+  'news-feed': {
+    name: 'News Feed',
+    path: '/news-feed',
+    screen: NewsFeed,
+    initial: true,
+    icon: {
+      name: 'newspaper',
       type: 'material-community',
     },
   },
@@ -36,12 +51,36 @@ const ROUTES = {
     name: 'Schedule',
     path: '/schedule',
     screen: Schedule,
-    drawer: true,
     icon: {
       name: 'calendar',
       type: 'material-community',
     },
-    initial: true,
+  },
+  people: {
+    name: 'People',
+    path: '/people',
+    screen: People,
+    icon: {
+      name: 'people',
+      type: 'simple-line-icon',
+    },
+  },
+  profile: {
+    name: 'Profile',
+    path: '/profile',
+    screen: Profile,
+    icon: {
+      name: 'face-profile',
+      type: 'material-community',
+    },
+  },
+  notification: {
+    name: 'Notification',
+    path: '/notification',
+    screen: Notification,
+    icon: {
+      name: 'notifications-none',
+    },
   },
 };
 
@@ -72,6 +111,7 @@ Object.keys(ROUTES).map(key => {
   route = {
     ...route,
     header: route.screen.header,
+    footer: route.screen.footer,
   };
   routes = {
     ...routes,

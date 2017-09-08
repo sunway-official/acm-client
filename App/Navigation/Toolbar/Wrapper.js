@@ -6,7 +6,7 @@ import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { KEY as DRAWER_KEY, setDrawerState } from '~/Redux/Drawer';
 import { KEY as ROUTES_KEY } from '~/Redux/Routes';
 import { NavigationActions } from 'react-navigation';
-import Header from './';
+import { Header, Footer } from './';
 import styles from './styles';
 
 /* eslint-disable no-unused-vars */
@@ -51,7 +51,7 @@ class Wrapper extends Component {
     let icon = {};
     if (header.leftIcon === LEFT_ICON_IS_BACK) {
       onIconPress = this._navigateBack;
-      icon.name = 'keyboard-backspace';
+      icon.name = 'arrow-back';
     }
 
     return (
@@ -62,8 +62,17 @@ class Wrapper extends Component {
           icon={icon}
           onIconPress={onIconPress}
           drawer={drawer}
+          float
         />
         {this.props.children}
+        <Footer
+          {...header}
+          title={title}
+          icon={icon}
+          onIconPress={onIconPress}
+          drawer={drawer}
+          theme="light"
+        />
       </View>
     );
   }

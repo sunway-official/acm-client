@@ -27,7 +27,7 @@ const colors = {
   // custom colors
   grey: '#757575',
   darkGrey: '#494949',
-  lightGrey: '#a4a4a4',
+  lightGrey: '#fafafa',
   lightDeepOrange: '#FFAB91', // 200
   darkDeepOrange: '#D84315', // 800
   lightGrey: '#EEEEEE', // 200

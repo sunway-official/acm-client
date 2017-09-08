@@ -4,8 +4,15 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Agenda from './Agenda';
 import MyAgenda from './MyAgenda';
 import DefaultTabBar from './CustomTabBar/DefaultTabBar';
+import { Colors } from '~/Theme';
 
 class Schedule extends Component {
+  static footer = {
+    show: true,
+    activeColor: Colors.deepOrange,
+  };
+
+  static propTypes = {};
   render() {
     return (
       <ScrollableTabView
@@ -25,7 +32,5 @@ class Schedule extends Component {
     );
   }
 }
-
-Schedule.propTypes = {};
 
 export default Schedule;
