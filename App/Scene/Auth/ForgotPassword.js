@@ -39,11 +39,8 @@ const ForgotPasswordForm = ({ handleSubmit }) =>
       />
     </View>
     <View style={styles.buttonContainer}>
-      <TouchableView onPress={handleSubmit(submit)} style={styles.sendButton}>
+      <TouchableView onPress={handleSubmit(submit)} style={styles.submitButton}>
         <Text style={styles.buttonText}>SEND</Text>
-      </TouchableView>
-      <TouchableView onPress={handleSubmit(submit)} style={styles.backButton}>
-        <Text style={styles.buttonText}>BACK</Text>
       </TouchableView>
     </View>
   </KeyboardAvoidingView>;

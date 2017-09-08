@@ -51,13 +51,16 @@ const LoginForm = ({ onLogin, onNavigate, handleSubmit }) =>
       />
     </View>
     <View style={styles.buttonContainer}>
-      <TouchableView onPress={handleSubmit(submit)} style={styles.loginButton}>
+      <TouchableView onPress={handleSubmit(submit)} style={styles.submitButton}>
         <Text style={styles.buttonText}>LOGIN</Text>
       </TouchableView>
     </View>
     <View>
       <TouchableView onPress={onNavigate}>
         <Text style={styles.footerText}>Forgot password?</Text>
+        <Text style={styles.signUpText}>
+          {"Don't have an account? Register one.."}
+        </Text>
       </TouchableView>
     </View>
   </KeyboardAvoidingView>;

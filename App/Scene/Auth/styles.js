@@ -36,28 +36,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginTop: 12,
   },
-  loginButton: {
+  submitButton: {
     height: 36,
     backgroundColor: Colors.deepOrange,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    marginHorizontal: 10,
-  },
-  sendButton: {
-    height: 36,
-    backgroundColor: Colors.deepOrange,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '45%',
-    marginHorizontal: 10,
-  },
-  backButton: {
-    backgroundColor: Colors.deepOrange,
-    height: 36,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '45%',
     marginHorizontal: 10,
   },
   buttonText: {
@@ -70,6 +54,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignSelf: 'center',
     opacity: 0.38,
+  },
+  signUpText: {
+    marginTop: 30,
+    alignSelf: 'center',
   },
 });
 
