@@ -14,7 +14,7 @@ class Schedule extends Component {
 
   static footer = {
     show: true,
-    activeColor: Colors.brown,
+    activeColor: Colors.black,
   };
 
   static propTypes = {};
@@ -26,7 +26,7 @@ class Schedule extends Component {
         renderTabBar={() =>
           <DefaultTabBar
             tabStyle={{ paddingBottom: 0 }}
-            activeTabBackgroundColor={Colors.brown}
+            activeTabBackgroundColor={Colors.black}
             activeTextColor="white"
             inactiveTabBackgroundColor="white"
             underlineStyle={{ height: 0 }}

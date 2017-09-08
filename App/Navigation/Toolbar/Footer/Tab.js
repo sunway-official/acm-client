@@ -33,8 +33,7 @@ class FooterTab extends Component {
   _touchableViewStyles = color => {
     const theme = this._getTheme();
     return {
-      rippleColor:
-        color || (theme === THEME_DARK ? Colors.white : Colors.darkGrey),
+      rippleColor: color || (theme === THEME_DARK ? Colors.white : Colors.grey),
       borderless: true,
     };
   };
@@ -42,7 +41,7 @@ class FooterTab extends Component {
   _textStyles = color => {
     const theme = this._getTheme();
     return {
-      color: color || (theme === THEME_DARK ? Colors.white : Colors.darkGrey),
+      color: color || (theme === THEME_DARK ? Colors.white : Colors.grey),
       textAlign: 'center',
       fontSize: Fonts.size.small,
     };
@@ -51,7 +50,7 @@ class FooterTab extends Component {
   _iconStyles = color => {
     const theme = this._getTheme();
     return {
-      color: color || (theme === THEME_DARK ? Colors.white : Colors.darkGrey),
+      color: color || (theme === THEME_DARK ? Colors.white : Colors.grey),
       size: Metrics.icons.small,
     };
   };
