@@ -27,7 +27,6 @@ const ROUTES = {
       name: 'login-variant',
       type: 'material-community',
     },
-    initial: true,
   },
   forgot: {
     name: 'Forgot Password',
@@ -67,6 +66,7 @@ const ROUTES = {
       name: 'calendar',
       type: 'material-community',
     },
+    initial: true,
   },
   people: {
     name: 'People',
