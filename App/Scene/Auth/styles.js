@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Fonts } from '../../Theme/';
+import { Colors, Fonts } from '~/Theme/';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 12,
     paddingTop: 50,
+    backgroundColor: Colors.secondaryLight,
   },
   imageContainer: {
     alignItems: 'center',
