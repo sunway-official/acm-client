@@ -7,9 +7,10 @@ import { NavigationActions } from 'react-navigation';
 import styles from './styles';
 
 class SettingScene extends Component {
-  /**
-   * Header config
-   */
+  static drawer = {
+    secondary: true,
+  };
+
   static header = {
     leftIcon: 'drawer',
     actions: [
