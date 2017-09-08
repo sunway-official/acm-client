@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { NavigationActions } from 'react-navigation';
 import { Field, reduxForm } from 'redux-form';
 import { required, email, password } from '~/Lib/validate';
 import { KEY, setLoggedIn } from '~/Redux/Login';
 
 import { KeyboardAvoidingView, Image, View } from 'react-native';
+// import routes from '~/routes';
 import { Images } from '~/Theme';
 import FormInput from '~/Component/FormInput';
 import TouchableView from '~/Component/TouchableView';
@@ -17,9 +19,10 @@ const submit = values => {
   console.log('submitting form', values);
 };
 
-const LoginForm = ({ handleSubmit }) =>
+const LoginForm = ({ onLogin, onNavigate, handleSubmit }) =>
   <KeyboardAvoidingView
-    onSubmit={handleSubmit}
+    onLogin={handleSubmit(onLogin)}
+    onNavigate={handleSubmit(onNavigate)}
     style={styles.container}
     behavior={'position'}
   >
@@ -52,7 +55,11 @@ const LoginForm = ({ handleSubmit }) =>
         <Text style={styles.buttonText}>LOGIN</Text>
       </TouchableView>
     </View>
-    <Text style={styles.footerText}>Forgot password?</Text>
+    <View>
+      <TouchableView onPress={onNavigate}>
+        <Text style={styles.footerText}>Forgot password?</Text>
+      </TouchableView>
+    </View>
   </KeyboardAvoidingView>;
 
 LoginForm.defaultProps = {
@@ -60,7 +67,10 @@ LoginForm.defaultProps = {
 };
 
 LoginForm.propTypes = {
+  onLogin: PropTypes.func,
+  onNavigate: PropTypes.func,
   handleSubmit: PropTypes.func,
+  handleNavigate: PropTypes.func,
   reset: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
@@ -75,7 +85,6 @@ class LoginScene extends Component {
   submit = values => {
     console.log(values);
     this.props.setLoggedIn();
-    console.log(this.props.navigation);
   };
 
   /**
@@ -94,24 +103,29 @@ class LoginScene extends Component {
     ],
   };
   render() {
-    return <LoginForm onSubmit={this.submit} />;
+    return (
+      <LoginForm
+        onLogin={this.submit}
+        onNavigate={this.props.navigateForgotPassword}
+      />
+    );
   }
 }
 
 LoginScene.propTypes = {
   login: PropTypes.object,
   setLoggedIn: PropTypes.func,
-  navigation: PropTypes.object,
+  navigateForgotPassword: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   login: state[KEY],
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setLoggedIn: bindActionCreators(setLoggedIn, dispatch),
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  setLoggedIn: bindActionCreators(setLoggedIn, dispatch),
+  navigateForgotPassword: () =>
+    dispatch(NavigationActions.navigate({ routeName: 'forgot' })),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScene);
