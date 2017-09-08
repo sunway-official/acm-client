@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, email } from '~/Lib/validate';
@@ -64,4 +64,25 @@ ForgotPasswordForm = reduxForm({
   form: 'forgotPassword',
 })(ForgotPasswordForm);
 
-export default ForgotPasswordForm;
+class ForgotPasswordScene extends Component {
+  /**
+     * Header config
+     */
+  static header = {
+    theme: 'light',
+    leftIcon: 'back',
+    actions: [
+      {
+        icon: {
+          name: 'lock',
+        },
+        onPress: () => {},
+      },
+    ],
+  };
+  render() {
+    return <ForgotPasswordForm />;
+  }
+}
+
+export default ForgotPasswordScene;

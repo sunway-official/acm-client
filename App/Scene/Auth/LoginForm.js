@@ -70,7 +70,6 @@ LoginForm.propTypes = {
   onLogin: PropTypes.func,
   onNavigate: PropTypes.func,
   handleSubmit: PropTypes.func,
-  handleNavigate: PropTypes.func,
   reset: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
@@ -87,21 +86,6 @@ class LoginScene extends Component {
     this.props.setLoggedIn();
   };
 
-  /**
-     * Header config
-     */
-  static header = {
-    theme: 'light',
-    leftIcon: 'back',
-    actions: [
-      {
-        icon: {
-          name: 'lock',
-        },
-        onPress: () => {},
-      },
-    ],
-  };
   render() {
     return (
       <LoginForm

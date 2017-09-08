@@ -31,9 +31,9 @@ const ROUTES = {
   },
   forgot: {
     name: 'Forgot Password',
-    path: '/forgot',
+    path: '/forgot-password',
     screen: ForgotPassword,
-    drawer: true,
+    // drawer: true,
     icon: {
       name: 'login-variant',
       type: 'material-community',
@@ -53,7 +53,7 @@ const ROUTES = {
     name: 'News Feed',
     path: '/news-feed',
     screen: NewsFeed,
-    initial: true,
+    // initial: true,
     icon: {
       name: 'newspaper',
       type: 'material-community',
