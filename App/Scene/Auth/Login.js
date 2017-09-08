@@ -57,9 +57,9 @@ const LoginForm = ({ onLogin, onNavigate, handleSubmit }) =>
     </View>
     <View>
       <TouchableView onPress={onNavigate}>
-        <Text style={styles.footerText}>Forgot password?</Text>
+        <Text style={styles.footerText}>Forgot your password.</Text>
         <Text style={styles.signUpText}>
-          {"Don't have an account? Register one.."}
+          {"Don't have an account. Register"}
         </Text>
       </TouchableView>
     </View>
