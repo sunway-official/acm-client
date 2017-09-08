@@ -6,10 +6,11 @@ import { Field, reduxForm } from 'redux-form';
 import { required, email, password } from '~/Lib/validate';
 import { KEY, setLoggedIn } from '~/Redux/Login';
 
-import { Text, KeyboardAvoidingView, Image, View } from 'react-native';
+import { KeyboardAvoidingView, Image, View } from 'react-native';
 import { Images } from '~/Theme';
 import FormInput from '~/Component/FormInput';
 import TouchableView from '~/Component/TouchableView';
+import Text from '~./Component/Text';
 import styles from './styles';
 
 const submit = values => {
