@@ -1,5 +1,3 @@
-import { Colors } from '~/Theme';
-
 import Home from '~/Scene/Home';
 import Login from '~/Scene/Login';
 import NewsFeed from '~/Scene/NewsFeed';
@@ -7,13 +5,13 @@ import Notification from '~/Scene/Notification';
 import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
 import Setting from '~/Scene/Setting';
+import Schedule from '~/Scene/Schedule';
 
 const ROUTES = {
   home: {
     name: 'Home',
     path: '/',
     screen: Home,
-    initial: true,
     drawer: true,
     icon: {
       name: 'home',
@@ -43,13 +41,19 @@ const ROUTES = {
     name: 'News Feed',
     path: '/news-feed',
     screen: NewsFeed,
+    initial: true,
     icon: {
       name: 'newspaper',
       type: 'material-community',
     },
-    footer: {
-      show: true,
-      activeColor: Colors.blue,
+  },
+  schedule: {
+    name: 'Schedule',
+    path: '/schedule',
+    screen: Schedule,
+    icon: {
+      name: 'calendar',
+      type: 'material-community',
     },
   },
   people: {
@@ -60,10 +64,6 @@ const ROUTES = {
       name: 'people',
       type: 'simple-line-icon',
     },
-    footer: {
-      show: true,
-      activeColor: Colors.green,
-    },
   },
   profile: {
     name: 'Profile',
@@ -73,10 +73,6 @@ const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    footer: {
-      show: true,
-      activeColor: Colors.red,
-    },
   },
   notification: {
     name: 'Notification',
@@ -84,10 +80,6 @@ const ROUTES = {
     screen: Notification,
     icon: {
       name: 'notifications-none',
-    },
-    footer: {
-      show: true,
-      activeColor: Colors.purple,
     },
   },
 };
@@ -119,6 +111,7 @@ Object.keys(ROUTES).map(key => {
   route = {
     ...route,
     header: route.screen.header,
+    footer: route.screen.footer,
   };
   routes = {
     ...routes,
