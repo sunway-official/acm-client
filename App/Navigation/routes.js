@@ -1,12 +1,12 @@
 import Home from '~/Scene/Home';
 import Login from '~/Scene/Login';
+import Schedule from '~/Scene/Schedule';
 
 const ROUTES = {
   home: {
     name: 'Home',
     path: '/',
     screen: Home,
-    initial: true,
     drawer: true,
     icon: {
       name: 'home',
@@ -31,6 +31,17 @@ const ROUTES = {
       name: 'settings',
       type: 'material-community',
     },
+  },
+  schedule: {
+    name: 'Schedule',
+    path: '/schedule',
+    screen: Schedule,
+    drawer: true,
+    icon: {
+      name: 'calendar',
+      type: 'material-community',
+    },
+    initial: true,
   },
 };
 
