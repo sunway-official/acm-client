@@ -29,7 +29,7 @@ class PeopleScene extends Component {
   };
 
   static propTypes = {
-    // home: PropTypes.func,
+    home: PropTypes.func,
   };
 
   render() {
@@ -43,13 +43,14 @@ class PeopleScene extends Component {
             </Text>,
           )}
         </View>
+        <Button color={Colors.green} title="Home" onPress={this.props.home} />
       </View>
     );
   }
 }
 
-// const mapDispatchToProps = dispatch => ({
-//   home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
-// });
+const mapDispatchToProps = dispatch => ({
+  home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
+});
 
-export default connect()(PeopleScene);
+export default connect(undefined, mapDispatchToProps)(PeopleScene);
