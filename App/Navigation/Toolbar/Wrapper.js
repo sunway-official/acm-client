@@ -16,6 +16,13 @@ const LEFT_ICON_IS_BACK = 'back';
 
 const ICON_ON_PRESS_DELAY = 0;
 
+const ABSOLUTE_CONTAINER = {
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  width: '100%',
+};
+
 class Wrapper extends Component {
   static propTypes = {
     children: PropTypes.any,
@@ -30,6 +37,8 @@ class Wrapper extends Component {
 
     this._openDrawer = this._openDrawer.bind(this);
     this._navigateBack = this._navigateBack.bind(this);
+    this._floatFooterStyles = this._floatFooterStyles.bind(this);
+    this._floatHeaderStyles = this._floatHeaderStyles.bind(this);
   }
 
   _openDrawer() {
@@ -38,6 +47,20 @@ class Wrapper extends Component {
 
   _navigateBack() {
     this.props.navigateBack();
+  }
+
+  _floatHeaderStyles() {
+    return {
+      ...ABSOLUTE_CONTAINER,
+      top: 0,
+    };
+  }
+
+  _floatFooterStyles() {
+    return {
+      ...ABSOLUTE_CONTAINER,
+      bottom: 0,
+    };
   }
 
   render() {
@@ -56,23 +79,26 @@ class Wrapper extends Component {
 
     return (
       <View style={[styles.container, styles.relativeContainer]}>
-        <Header
-          {...header}
-          title={title}
-          icon={icon}
-          onIconPress={onIconPress}
-          drawer={drawer}
-          float
-        />
+        <View style={this._floatHeaderStyles()}>
+          <Header
+            {...header}
+            title={title}
+            icon={icon}
+            onIconPress={onIconPress}
+            drawer={drawer}
+          />
+        </View>
         {this.props.children}
-        <Footer
-          {...header}
-          title={title}
-          icon={icon}
-          onIconPress={onIconPress}
-          drawer={drawer}
-          theme="light"
-        />
+        <View style={this._floatFooterStyles()}>
+          <Footer
+            {...header}
+            title={title}
+            icon={icon}
+            onIconPress={onIconPress}
+            drawer={drawer}
+            theme="light"
+          />
+        </View>
       </View>
     );
   }
