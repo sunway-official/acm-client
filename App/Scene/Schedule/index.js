@@ -7,7 +7,11 @@ import { Colors } from '~/Theme';
 
 class Schedule extends Component {
   static header = {
-    theme: 'light',
+    theme: 'dark',
+    float: true,
+    backgroundColor: 'rgba(0,0,0,0)',
+    statusBarBackgroundColor: 'rgba(0,0,0,0)',
+    hideTitle: true,
   };
 
   static footer = {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, StatusBar, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { KEY as DRAWER_KEY, setDrawerState } from '~/Redux/Drawer';
@@ -8,11 +8,17 @@ import { KEY as ROUTES_KEY } from '~/Redux/Routes';
 import { NavigationActions } from 'react-navigation';
 import { Header, Footer } from './';
 import styles from './styles';
+import { Metrics } from '~/Theme';
 
 /* eslint-disable no-unused-vars */
 const LEFT_ICON_IS_DRAWER = 'drawer';
 const LEFT_ICON_IS_BACK = 'back';
 /* eslint-enable no-unused-vars */
+
+const IS_ANDROID = Platform.OS === 'android';
+const STATUS_BAR_HEIGHT = IS_ANDROID
+  ? StatusBar.currentHeight
+  : Metrics.iOSStatusBarHeight;
 
 const ICON_ON_PRESS_DELAY = 0;
 
@@ -32,13 +38,19 @@ class Wrapper extends Component {
     openDrawer: PropTypes.func,
     navigateBack: PropTypes.func,
   };
+
   constructor(props) {
     super(props);
 
+    this.state = {
+      header: {},
+      footer: {},
+    };
+
     this._openDrawer = this._openDrawer.bind(this);
     this._navigateBack = this._navigateBack.bind(this);
-    this._floatFooterStyles = this._floatFooterStyles.bind(this);
-    this._floatHeaderStyles = this._floatHeaderStyles.bind(this);
+    this._floatToolbarStyles = this._floatToolbarStyles.bind(this);
+    this._childrenStyles = this._childrenStyles.bind(this);
   }
 
   _openDrawer() {
@@ -49,18 +61,35 @@ class Wrapper extends Component {
     this.props.navigateBack();
   }
 
-  _floatHeaderStyles() {
-    return {
+  _floatToolbarStyles() {
+    const { drawer } = this.props;
+    let styles = {
       ...ABSOLUTE_CONTAINER,
-      top: 0,
+      zIndex: 1,
     };
+    if (drawer.isOpen) {
+      return {
+        ...styles,
+        zIndex: 0,
+      };
+    }
+    return styles;
   }
 
-  _floatFooterStyles() {
-    return {
-      ...ABSOLUTE_CONTAINER,
-      bottom: 0,
+  _childrenStyles(headerFloat, footerFloat) {
+    const { drawer } = this.props;
+    const { header, footer } = this.state;
+    let styles = {
+      paddingTop: headerFloat ? STATUS_BAR_HEIGHT : header.height || 0,
+      paddingBottom: footerFloat ? 0 : footer.height || 0,
     };
+    if (drawer.isOpen) {
+      return {
+        ...styles,
+        zIndex: -1,
+      };
+    }
+    return styles;
   }
 
   render() {
@@ -79,7 +108,11 @@ class Wrapper extends Component {
 
     return (
       <View style={[styles.container, styles.relativeContainer]}>
-        <View style={this._floatHeaderStyles()}>
+        <View
+          style={{ ...this._floatToolbarStyles(), top: 0 }}
+          onLayout={event =>
+            this.setState({ header: event.nativeEvent.layout })}
+        >
           <Header
             {...header}
             title={title}
@@ -88,8 +121,14 @@ class Wrapper extends Component {
             drawer={drawer}
           />
         </View>
-        {this.props.children}
-        <View style={this._floatFooterStyles()}>
+        <View style={[styles.container, this._childrenStyles(header.float)]}>
+          {this.props.children}
+        </View>
+        <View
+          style={{ ...this._floatToolbarStyles(), bottom: 0 }}
+          onLayout={event =>
+            this.setState({ footer: event.nativeEvent.layout })}
+        >
           <Footer
             {...header}
             title={title}

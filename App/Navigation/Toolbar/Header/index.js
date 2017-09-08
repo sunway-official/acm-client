@@ -13,7 +13,10 @@ const THEME_LIGHT = 'light';
 class Header extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
+    hideTitle: PropTypes.bool,
     float: PropTypes.bool,
+    backgroundColor: PropTypes.string,
+    statusBarBackgroundColor: PropTypes.string,
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),
     style: View.propTypes.style,
     icon: PropTypes.shape({
@@ -65,6 +68,7 @@ class Header extends PureComponent {
 
   _headerStyles = () => {
     const theme = this._getTheme();
+    const { backgroundColor, statusBarBackgroundColor, float } = this.props;
     let styles = {
       backgroundColor: theme === THEME_DARK ? Colors.primary : Colors.white,
 
@@ -79,7 +83,19 @@ class Header extends PureComponent {
         : // For iOS
           theme === THEME_DARK ? Colors.primaryDark : Colors.secondaryDark,
     };
-    if (IS_ANDROID && this.props.drawer.isOpen === false) {
+    if (backgroundColor) {
+      styles = {
+        ...styles,
+        backgroundColor,
+      };
+    }
+    if (statusBarBackgroundColor) {
+      styles = {
+        ...styles,
+        borderTopColor: statusBarBackgroundColor,
+      };
+    }
+    if (IS_ANDROID && !float && this.props.drawer.isOpen === false) {
       styles.elevation = 8;
     }
     return styles;
@@ -131,7 +147,14 @@ class Header extends PureComponent {
   }
 
   render() {
-    const { title, float, icon, onIconPress, actions = [] } = this.props;
+    const {
+      title,
+      hideTitle,
+      float,
+      icon,
+      onIconPress,
+      actions = [],
+    } = this.props;
     const containerStyle = this.props.style;
 
     let wrapperStyles = this._wrapperStyles();
@@ -167,13 +190,15 @@ class Header extends PureComponent {
               />
             </TouchableView>
           </View>
-          <View style={styles.centerWrapper}>
-            <View style={styles.titleWrapper}>
-              <Text bold style={[styles.title, this._textStyles()]}>
-                {title}
-              </Text>
-            </View>
-          </View>
+          {hideTitle ||
+            <View style={styles.centerWrapper}>
+              <View style={styles.titleWrapper}>
+                <Text bold style={[styles.title, this._textStyles()]}>
+                  {title}
+                </Text>
+              </View>
+            </View>}
+
           <View style={styles.rightWrapper}>
             {actions.map(this._renderAction.bind(this))}
           </View>
