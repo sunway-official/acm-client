@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { Colors } from '~/Theme';
+import { Text } from '~/Component';
 import ListView from '../ListView';
 import Fixture from '~/Scene/Schedule/fixture';
 import styles from './styles';
@@ -14,6 +15,10 @@ const calendarIcon = {
 };
 
 class Detail extends Component {
+  static propTypes = {
+    schedule: PropTypes.object,
+  };
+
   _renderScheduleOfDate({ item, index }) {
     return (
       <View key={index}>
@@ -37,9 +42,5 @@ class Detail extends Component {
     );
   }
 }
-
-Detail.propTypes = {
-  schedule: PropTypes.object,
-};
 
 export default Detail;

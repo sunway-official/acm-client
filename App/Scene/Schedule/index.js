@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Agenda from './Agenda';
 import MyAgenda from './MyAgenda';
@@ -17,6 +16,7 @@ class Schedule extends Component {
   };
 
   static propTypes = {};
+
   render() {
     return (
       <ScrollableTabView

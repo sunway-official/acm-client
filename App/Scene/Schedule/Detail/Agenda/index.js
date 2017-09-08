@@ -11,6 +11,10 @@ const calendarIcon = {
 };
 
 class Detail extends Component {
+  static propTypes = {
+    schedule: PropTypes.object,
+  };
+
   render() {
     const { schedule } = this.props;
     return (
@@ -18,9 +22,5 @@ class Detail extends Component {
     );
   }
 }
-
-Detail.propTypes = {
-  schedule: PropTypes.object,
-};
 
 export default Detail;

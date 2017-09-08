@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View, TouchableOpacity, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Colors } from '~/Theme';
-import { TouchableView } from '~/Component';
+import { TouchableView, Text } from '~/Component';
 import styles from './styles';
 
 class ListView extends Component {
+  static propTypes = {
+    detail: PropTypes.array,
+    calendarIcon: PropTypes.object,
+  };
+
   constructor(props, context) {
     super(props, context);
     this._renderItem = this._renderItem.bind(this);
@@ -51,10 +56,5 @@ class ListView extends Component {
     );
   }
 }
-
-ListView.propTypes = {
-  detail: PropTypes.array,
-  calendarIcon: PropTypes.object,
-};
 
 export default ListView;

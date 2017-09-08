@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, TabBarTop } from 'react-navigation';
 import { Colors, Metrics } from '~/Theme';
 import Detail from '../Detail/Agenda';
 import Fixture from '../fixture';
@@ -18,6 +17,7 @@ Fixture.map((schedule, index) => {
 });
 
 const TabsView = TabNavigator(tabs, {
+  tabBarComponent: TabBarTop,
   tabBarPosition: 'top',
   swipeEnabled: true,
   animationEnabled: true,
