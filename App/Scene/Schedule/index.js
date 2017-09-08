@@ -7,6 +7,10 @@ import DefaultTabBar from './CustomTabBar/DefaultTabBar';
 import { Colors } from '~/Theme';
 
 class Schedule extends Component {
+  static header = {
+    theme: 'light',
+  };
+
   static footer = {
     show: true,
     activeColor: Colors.deepOrange,
