@@ -60,7 +60,6 @@ class Header extends Component {
         <View style={styles.fakeView} />
         <View
           style={{
-            flex: 1,
             flexDirection: 'row',
             justifyContent: 'space-between',
             paddingHorizontal: 36,
@@ -71,6 +70,7 @@ class Header extends Component {
             styles.centerScale,
             { borderColor: 'red' },
           ])}
+          {this._renderAvatar(styles.avatar)}
           {this._renderIcon(
             'EDIT',
             'lead-pencil',
@@ -78,9 +78,6 @@ class Header extends Component {
             'blue',
             [styles.icon, styles.centerScale, { borderColor: 'blue' }],
           )}
-        </View>
-        <View style={{ alignItems: 'center' }}>
-          {this._renderAvatar(styles.avatar)}
         </View>
         {this._renderInfo()}
       </View>

@@ -22,7 +22,7 @@ class ListView extends Component {
     return (
       <TouchableView rippleColor={Colors.grey} style={styles.item}>
         <View>
-          <Text style={styles.title}>
+          <Text bold style={styles.title}>
             {item.title}
           </Text>
           <Text>

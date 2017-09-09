@@ -6,11 +6,7 @@ import DefaultTabBar from './CustomTabBar/DefaultTabBar';
 import { Colors } from '~/Theme';
 
 class Schedule extends Component {
-  static header = {
-    // theme: 'dark',
-    // backgroundColor: Colors.brown,
-    // statusBarBackgroundColor: Colors.brown,
-  };
+  static header = {};
 
   static footer = {
     show: true,

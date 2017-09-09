@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Metrics, Fonts, Colors } from '../../../Theme';
 
-const { doubleBaseMargin, baseMargin, icons, section } = Metrics;
+const { doubleBaseMargin, baseMargin, icons } = Metrics;
 const avatarWidth = 120;
 
 export default StyleSheet.create({
@@ -27,7 +27,7 @@ export default StyleSheet.create({
   },
   iconContainer: {
     alignItems: 'center',
-    marginTop: baseMargin,
+    marginTop: doubleBaseMargin,
   },
   icon: {
     width: icons.large,
