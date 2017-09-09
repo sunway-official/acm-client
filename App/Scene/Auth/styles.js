@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   title: {
     paddingTop: 20,
     fontSize: 20,
-    fontWeight: 'normal',
+    fontFamily: Fonts.type.bold,
   },
   description: {
     fontSize: 12,
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     color: Colors.white,
     fontSize: Fonts.button,
-    fontWeight: Fonts.type.bold,
+    fontFamily: Fonts.type.bold,
   },
   footerText: {
     marginTop: 10,
