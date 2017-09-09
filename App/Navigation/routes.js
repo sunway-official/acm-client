@@ -34,6 +34,7 @@ const ROUTES = {
       name: 'login-variant',
       type: 'material-community',
     },
+    initial: true,
   },
   setting: {
     name: 'Setting',
@@ -66,7 +67,7 @@ const ROUTES = {
       name: 'calendar-text',
       type: 'material-community',
     },
-    initial: true,
+    // initial: true,
   },
   people: {
     name: 'People',

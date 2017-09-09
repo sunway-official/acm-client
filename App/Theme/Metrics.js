@@ -31,6 +31,13 @@ const metrics = {
     large: 64,
     logo: 256,
   },
+  circle: {
+    height: 150,
+    width: 150,
+    borderRadius: 75,
+  },
+  opacity: 0.38,
+  largeButtonHeight: 36,
 };
 
 export default metrics;
