@@ -1,6 +1,6 @@
 import Home from '~/Scene/Home';
-import Login from '~/Scene/Auth/Login';
-import ForgotPassword from '~/Scene/Auth/ForgotPassword';
+import Login from '~/Scene/Auth/Login/';
+import ForgotPassword from '~/Scene/Auth/ForgotPassword/';
 import NewsFeed from '~/Scene/NewsFeed';
 import Notification from '~/Scene/Notification';
 import People from '~/Scene/People';
@@ -48,7 +48,7 @@ const ROUTES = {
     name: 'News Feed',
     path: '/news-feed',
     screen: NewsFeed,
-    // initial: true,
+    initial: true,
     icon: {
       name: 'newspaper',
       type: 'material-community',
@@ -66,7 +66,7 @@ const ROUTES = {
       name: 'calendar-text',
       type: 'material-community',
     },
-    initial: true,
+    // initial: true,
   },
   people: {
     name: 'People',

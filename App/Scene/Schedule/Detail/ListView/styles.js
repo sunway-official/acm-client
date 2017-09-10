@@ -19,7 +19,7 @@ const Detail = StyleSheet.create({
     marginBottom: smallMargin,
   },
   title: {
-    fontWeight: Fonts.type.bold,
+    fontFamily: Fonts.type.bold,
   },
   icon: {
     justifyContent: 'center',

@@ -1,9 +1,6 @@
-const type = {
-  base: 'normal',
-  lighter: '100',
-  bold: '700',
-  emphasis: '',
-};
+import '~/Asset/Font';
+
+const type = {};
 
 const size = {
   h1: 112,
@@ -20,46 +17,46 @@ const size = {
 const style = {
   h1: {
     fontSize: size.h1,
-    fontWeight: type.lighter,
+    fontFamily: type.light,
   },
   h2: {
     fontSize: size.h2,
-    fontWeight: type.base,
+    fontFamily: type.regular,
   },
   h3: {
     fontSize: size.h3,
-    fontWeight: type.base,
+    fontFamily: type.regular,
   },
   h4: {
     fontSize: size.h4,
-    fontWeight: type.base,
+    fontFamily: type.regular,
   },
   h5: {
     fontSize: size.h5,
-    fontWeight: type.base,
+    fontFamily: type.regular,
   },
   h6: {
     fontSize: size.h6,
-    fontWeight: type.base,
+    fontFamily: type.regular,
   },
 
   // ? See more details
   // ? https://material.io/guidelines/style/typography.html#
   appbarTitle: {
     fontSize: size.h6,
-    fontWeight: type.bold,
+    fontFamily: type.bold,
   },
   button: {
     fontSize: size.medium,
-    fontWeight: type.bold,
+    fontFamily: type.bold,
   },
   subheading: {
     fontSize: size.regular,
-    fontWeight: type.base,
+    fontFamily: type.regular,
   },
   body: {
     fontSize: size.medium,
-    fontWeight: type.base,
+    fontFamily: type.regular,
   },
 };
 

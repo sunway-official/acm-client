@@ -1,12 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Detail from '../Detail/MyAgenda';
 
-class MyAgenda extends Component {
-  static propTypes = {};
-
-  render() {
-    return <Detail />;
-  }
-}
+const MyAgenda = () => <Detail />;
 
 export default MyAgenda;

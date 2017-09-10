@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Platform } from 'react-native';
 import { Colors } from '~/Theme';
@@ -14,7 +14,7 @@ const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
 
-class Footer extends PureComponent {
+class Footer extends Component {
   static propTypes = {
     float: PropTypes.bool,
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),

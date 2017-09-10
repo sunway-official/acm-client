@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Button } from 'react-native';
 import { Text } from '~/Component';
@@ -7,39 +7,35 @@ import { NavigationActions } from 'react-navigation';
 import styles from './styles';
 import { Colors } from '~/Theme';
 
-class ProfileScene extends Component {
-  static header = {
-    leftIcon: 'drawer',
-    theme: 'dark',
-    backgroundColor: Colors.red,
-    statusBarBackgroundColor: Colors.red,
-  };
+const text = ['Welcome to User Profile!'];
 
-  static footer = {
-    show: true,
-    activeColor: Colors.red,
-  };
+const ProfileScene = ({ home }) =>
+  <View style={styles.container}>
+    <View style={styles.centerText}>
+      {text.map((text, index) =>
+        <Text key={index}>
+          {text}
+        </Text>,
+      )}
+    </View>
+    <Button title="Home" color={Colors.red} onPress={home} />
+  </View>;
 
-  static propTypes = {
-    home: PropTypes.func,
-  };
+ProfileScene.header = {
+  leftIcon: 'drawer',
+  theme: 'dark',
+  backgroundColor: Colors.red,
+  statusBarBackgroundColor: Colors.red,
+};
 
-  render() {
-    const text = ['Welcome to User Profile!'];
-    return (
-      <View style={styles.container}>
-        <View style={styles.centerText}>
-          {text.map((text, index) =>
-            <Text key={index}>
-              {text}
-            </Text>,
-          )}
-        </View>
-        <Button title="Home" color={Colors.red} onPress={this.props.home} />
-      </View>
-    );
-  }
-}
+ProfileScene.footer = {
+  show: true,
+  activeColor: Colors.red,
+};
+
+ProfileScene.propTypes = {
+  home: PropTypes.func,
+};
 
 const mapDispatchToProps = dispatch => ({
   home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),

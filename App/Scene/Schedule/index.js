@@ -1,42 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Agenda from './Agenda';
 import MyAgenda from './MyAgenda';
 import DefaultTabBar from './CustomTabBar/DefaultTabBar';
 import { Colors } from '~/Theme';
 
-class Schedule extends Component {
-  static header = {
-    // theme: 'dark',
-    // backgroundColor: Colors.brown,
-    // statusBarBackgroundColor: Colors.brown,
-  };
+const Schedule = () =>
+  <ScrollableTabView
+    locked={true}
+    renderTabBar={() =>
+      <DefaultTabBar
+        tabStyle={{ paddingBottom: 0 }}
+        activeTabBackgroundColor={Colors.black}
+        activeTextColor="white"
+        inactiveTabBackgroundColor="white"
+        underlineStyle={{ height: 0 }}
+      />}
+  >
+    <Agenda tabLabel="Agenda" />
+    <MyAgenda tabLabel="My Agenda" />
+  </ScrollableTabView>;
 
-  static footer = {
-    show: true,
-    activeColor: Colors.black,
-  };
+Schedule.header = {
+  // theme: 'dark',
+  // backgroundColor: Colors.brown,
+  // statusBarBackgroundColor: Colors.brown,
+};
 
-  static propTypes = {};
-
-  render() {
-    return (
-      <ScrollableTabView
-        locked={true}
-        renderTabBar={() =>
-          <DefaultTabBar
-            tabStyle={{ paddingBottom: 0 }}
-            activeTabBackgroundColor={Colors.black}
-            activeTextColor="white"
-            inactiveTabBackgroundColor="white"
-            underlineStyle={{ height: 0 }}
-          />}
-      >
-        <Agenda tabLabel="Agenda" />
-        <MyAgenda tabLabel="My Agenda" />
-      </ScrollableTabView>
-    );
-  }
-}
+Schedule.footer = {
+  show: true,
+  activeColor: Colors.black,
+};
 
 export default Schedule;
