@@ -20,11 +20,9 @@ const styles = StyleSheet.create({
   title: {
     paddingTop: Metrics.doubleBaseMargin,
     fontSize: Fonts.size.h6,
-    fontFamily: Fonts.type.bold,
   },
   description: {
     fontSize: Fonts.size.small,
-    fontFamily: Fonts.type.light,
     paddingBottom: Metrics.doubleBaseMargin,
   },
   formContainer: {
@@ -36,18 +34,16 @@ const styles = StyleSheet.create({
     marginTop: Metrics.doubleBaseMargin,
   },
   submitButton: {
-    height: Metrics.largeButtonHeight,
+    height: Metrics.buttonHeight,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 2,
+    borderRadius: Metrics.buttonCornerRadius,
     backgroundColor: Colors.deepOrange,
     marginHorizontal: Metrics.baseMargin,
   },
   buttonText: {
     color: Colors.white,
-    fontSize: Fonts.button,
-    fontFamily: Fonts.type.bold,
   },
   footerText: {
     alignSelf: 'center',
@@ -57,7 +53,6 @@ const styles = StyleSheet.create({
   signUpText: {
     alignSelf: 'center',
     marginTop: Metrics.doubleBaseMargin,
-    fontFamily: Fonts.type.regular,
     opacity: Metrics.opacity,
   },
 });

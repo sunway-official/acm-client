@@ -34,7 +34,6 @@ const ROUTES = {
       name: 'login-variant',
       type: 'material-community',
     },
-    initial: true,
   },
   setting: {
     name: 'Setting',
@@ -49,7 +48,7 @@ const ROUTES = {
     name: 'News Feed',
     path: '/news-feed',
     screen: NewsFeed,
-    // initial: true,
+    initial: true,
     icon: {
       name: 'newspaper',
       type: 'material-community',

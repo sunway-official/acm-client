@@ -22,8 +22,10 @@ const ForgotPasswordForm = ({ handleSubmit }) =>
   >
     <View style={styles.imageContainer}>
       <Image style={styles.image} source={Images.imgDefault150} />
-      <Text style={styles.title}>Forgot Your Password?</Text>
-      <Text style={styles.description}>
+      <Text bold style={styles.title}>
+        Forgot Your Password?
+      </Text>
+      <Text light style={styles.description}>
         Enter your email below to reset your password
       </Text>
     </View>
@@ -40,7 +42,9 @@ const ForgotPasswordForm = ({ handleSubmit }) =>
     </View>
     <View style={styles.buttonContainer}>
       <TouchableView onPress={handleSubmit(submit)} style={styles.submitButton}>
-        <Text style={styles.buttonText}>SEND</Text>
+        <Text bold style={styles.buttonText}>
+          SEND
+        </Text>
       </TouchableView>
     </View>
   </KeyboardAvoidingView>;

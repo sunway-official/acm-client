@@ -1,10 +1,6 @@
 import '~/Asset/Font';
 
-const type = {
-  light: 'roboto-light',
-  regular: 'roboto-regular',
-  bold: 'roboto-medium',
-};
+const type = {};
 
 const size = {
   h1: 112,
