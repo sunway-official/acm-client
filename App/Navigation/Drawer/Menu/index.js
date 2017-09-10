@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Image } from 'react-native';
@@ -19,7 +19,7 @@ const MENU_ITEMS_ANIMATION = 'fadeInUp';
 const DROPDOWN_ICON_ANIMATION = 'rotate';
 const ANIMATION_DELAY = 300;
 
-class Menu extends Component {
+class Menu extends PureComponent {
   static propTypes = {
     closeDrawer: PropTypes.func,
     navigate: PropTypes.func,

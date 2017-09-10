@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, Button } from 'react-native';
 import { Text } from '~/Component';
@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import styles from './styles';
 
-class SettingScene extends Component {
+class SettingScene extends PureComponent {
   static drawer = {
     secondary: true,
   };

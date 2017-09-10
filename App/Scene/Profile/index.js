@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, Button } from 'react-native';
 import { Text } from '~/Component';
@@ -7,7 +7,7 @@ import { NavigationActions } from 'react-navigation';
 import styles from './styles';
 import { Colors } from '~/Theme';
 
-class ProfileScene extends Component {
+class ProfileScene extends PureComponent {
   static header = {
     leftIcon: 'drawer',
     theme: 'dark',

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, email } from '~/Lib/validate';
@@ -65,7 +65,7 @@ ForgotPasswordForm = reduxForm({
   form: 'forgotPassword',
 })(ForgotPasswordForm);
 
-class ForgotPasswordScene extends Component {
+class ForgotPasswordScene extends PureComponent {
   static header = {
     leftIcon: 'back',
     actions: [

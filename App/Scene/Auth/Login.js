@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -85,7 +85,7 @@ LoginForm = reduxForm({
   form: 'login',
 })(LoginForm);
 
-class LoginScene extends Component {
+class LoginScene extends PureComponent {
   static drawer = {
     primary: true,
   };

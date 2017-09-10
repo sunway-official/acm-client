@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Agenda from './Agenda';
 import MyAgenda from './MyAgenda';
 import DefaultTabBar from './CustomTabBar/DefaultTabBar';
 import { Colors } from '~/Theme';
 
-class Schedule extends Component {
+class Schedule extends PureComponent {
   static header = {
     // theme: 'dark',
     // backgroundColor: Colors.brown,

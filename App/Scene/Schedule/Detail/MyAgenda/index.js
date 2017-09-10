@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
 import { Colors } from '~/Theme';
@@ -14,7 +14,7 @@ const calendarIcon = {
   size: 30,
 };
 
-class Detail extends Component {
+class Detail extends PureComponent {
   static propTypes = {
     schedule: PropTypes.object,
   };

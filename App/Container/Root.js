@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import AppNavigation from '~/Navigation';
 
 import styles from './styles';
 
-class Root extends Component {
+class Root extends PureComponent {
   static propTypes = {
     navigateBack: PropTypes.func,
   };

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Detail from '../Detail/MyAgenda';
 
-class MyAgenda extends Component {
+class MyAgenda extends PureComponent {
   static propTypes = {};
 
   render() {
