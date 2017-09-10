@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, email, password } from '~/Lib/validate';
@@ -42,49 +42,37 @@ const _renderForm = () =>
     />
   </View>;
 
-const _renderButton = handleSubmit => {
-  return (
-    <View style={styles.buttonContainer}>
-      <TouchableView onPress={handleSubmit(submit)} style={styles.submitButton}>
-        <Text bold style={styles.buttonText}>
-          LOGIN
-        </Text>
-      </TouchableView>
-    </View>
-  );
-};
+const _renderButton = handleSubmit =>
+  <View style={styles.buttonContainer}>
+    <TouchableView onPress={handleSubmit(submit)} style={styles.submitButton}>
+      <Text bold style={styles.buttonText}>
+        LOGIN
+      </Text>
+    </TouchableView>
+  </View>;
 
-const _renderFooter = onNavigate => {
-  return (
-    <View>
-      <TouchableView onPress={onNavigate}>
-        <Text style={styles.footerText}>Forgot your password.</Text>
-        <Text medium style={styles.signUpText}>
-          {"Don't have an account. Register"}
-        </Text>
-      </TouchableView>
-    </View>
-  );
-};
+const _renderFooter = onNavigate =>
+  <View>
+    <TouchableView onPress={onNavigate}>
+      <Text style={styles.footerText}>Forgot your password.</Text>
+      <Text medium style={styles.signUpText}>
+        {"Don't have an account. Register"}
+      </Text>
+    </TouchableView>
+  </View>;
 
-class LoginForm extends PureComponent {
-  render() {
-    const { onLogin, onNavigate, handleSubmit } = this.props;
-    return (
-      <KeyboardAvoidingView
-        onLogin={handleSubmit(onLogin)}
-        onNavigate={handleSubmit(onNavigate)}
-        style={styles.container}
-        behavior={'position'}
-      >
-        {_renderHeaderImage()}
-        {_renderForm()}
-        {_renderButton(handleSubmit)}
-        {_renderFooter(onNavigate)}
-      </KeyboardAvoidingView>
-    );
-  }
-}
+const LoginForm = ({ onLogin, onNavigate, handleSubmit }) =>
+  <KeyboardAvoidingView
+    onLogin={handleSubmit(onLogin)}
+    onNavigate={handleSubmit(onNavigate)}
+    style={styles.container}
+    behavior={'position'}
+  >
+    {_renderHeaderImage()}
+    {_renderForm()}
+    {_renderButton(handleSubmit)}
+    {_renderFooter(onNavigate)}
+  </KeyboardAvoidingView>;
 
 LoginForm.defaultProps = {
   error: null,

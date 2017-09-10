@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,31 +7,23 @@ import { KEY, setLoggedIn } from '~/Redux/Login';
 
 import LoginForm from '../Login/Form';
 
-class LoginScene extends PureComponent {
-  static propTypes = {
-    login: PropTypes.object,
-    setLoggedIn: PropTypes.func,
-    navigateForgotPassword: PropTypes.func,
-  };
+submit = ({ values }, setLoggedIn) => {
+  console.log(values);
+  setLoggedIn();
+};
 
-  static drawer = {
-    primary: true,
-  };
+const LoginScene = ({ navigateForgotPassword }) =>
+  <LoginForm onLogin={submit} onNavigate={navigateForgotPassword} />;
 
-  submit = values => {
-    console.log(values);
-    this.props.setLoggedIn();
-  };
+LoginScene.propTypes = {
+  login: PropTypes.object,
+  setLoggedIn: PropTypes.func,
+  navigateForgotPassword: PropTypes.func,
+};
 
-  render() {
-    return (
-      <LoginForm
-        onLogin={this.submit}
-        onNavigate={this.props.navigateForgotPassword}
-      />
-    );
-  }
-}
+LoginScene.drawer = {
+  primary: true,
+};
 
 const mapStateToProps = state => ({
   login: state[KEY],

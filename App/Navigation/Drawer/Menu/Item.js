@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -6,7 +6,7 @@ import { Text, TouchableView } from '~/Component';
 import { Metrics, Colors, Icons } from '~/Theme';
 import styles from './styles';
 
-class Item extends PureComponent {
+class Item extends Component {
   static propTypes = {
     name: PropTypes.string,
     icon: PropTypes.shape({

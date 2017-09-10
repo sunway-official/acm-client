@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Button } from 'react-native';
 import { Text } from '~/Component';
@@ -7,46 +7,42 @@ import { NavigationActions } from 'react-navigation';
 import styles from './styles';
 import { Colors } from '~/Theme';
 
-class NotificationScene extends PureComponent {
-  static header = {
-    leftIcon: 'drawer',
-    theme: 'dark',
-    backgroundColor: Colors.purple,
-    statusBarBackgroundColor: Colors.purple,
-    actions: [
-      {
-        icon: {},
-        onPress: () => {
-          console.log('hello there');
-        },
+const text = ['Welcome to Notification!'];
+
+const NotificationScene = ({ home }) =>
+  <View style={styles.container}>
+    <View style={styles.centerText}>
+      {text.map((text, index) =>
+        <Text key={index}>
+          {text}
+        </Text>,
+      )}
+    </View>
+    <Button title="Home" color={Colors.purple} onPress={home} />
+  </View>;
+
+NotificationScene.header = {
+  leftIcon: 'drawer',
+  theme: 'dark',
+  backgroundColor: Colors.purple,
+  statusBarBackgroundColor: Colors.purple,
+  actions: [
+    {
+      icon: {},
+      onPress: () => {
+        console.log('hello there');
       },
-    ],
-  };
+    },
+  ],
+};
 
-  static footer = {
-    activeColor: Colors.purple,
-  };
+NotificationScene.footer = {
+  activeColor: Colors.purple,
+};
 
-  static propTypes = {
-    home: PropTypes.func,
-  };
-
-  render() {
-    const text = ['Welcome to Notification!'];
-    return (
-      <View style={styles.container}>
-        <View style={styles.centerText}>
-          {text.map((text, index) =>
-            <Text key={index}>
-              {text}
-            </Text>,
-          )}
-        </View>
-        <Button title="Home" color={Colors.purple} onPress={this.props.home} />
-      </View>
-    );
-  }
-}
+NotificationScene.propTypes = {
+  home: PropTypes.func,
+};
 
 const mapDispatchToProps = dispatch => ({
   home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),

@@ -1,25 +1,20 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import ForgotPasswordForm from './Form';
 
-class ForgotPasswordScene extends PureComponent {
-  static propTypes = {};
+const ForgotPasswordScene = () => <ForgotPasswordForm />;
 
-  static header = {
-    leftIcon: 'back',
-    actions: [
-      {
-        icon: {
-          name: 'lock',
-        },
-        onPress: () => {},
+ForgotPasswordScene.header = {
+  leftIcon: 'back',
+  actions: [
+    {
+      icon: {
+        name: 'lock',
       },
-    ],
-  };
-  render() {
-    return <ForgotPasswordForm />;
-  }
-}
+      onPress: () => {},
+    },
+  ],
+};
 
 export default ForgotPasswordScene;

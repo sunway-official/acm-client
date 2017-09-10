@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -6,7 +6,7 @@ import { Colors } from '~/Theme';
 import { TouchableView, Text } from '~/Component';
 import styles from './styles';
 
-class ListView extends PureComponent {
+class ListView extends Component {
   static propTypes = {
     detail: PropTypes.array,
     calendarIcon: PropTypes.object,

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { Colors, Metrics } from '~/Theme';
 import Detail from '../Detail/Agenda';
@@ -35,7 +35,7 @@ const TabsView = TabNavigator(tabs, {
   },
 });
 
-class Agenda extends PureComponent {
+class Agenda extends Component {
   static propTypes = {};
   render() {
     return <TabsView />;

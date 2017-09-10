@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { View } from 'react-native';
 import SideMenu from 'react-native-side-menu';
 import { connect } from 'react-redux';
@@ -13,7 +13,7 @@ const drawerOffset = 0.8;
 const BACKDROP_ANIMATION_NAME = 'fadeIn';
 const BACKDROP_ANIMATION_DELAY = 300;
 
-class Drawer extends PureComponent {
+class Drawer extends Component {
   static propTypes = {
     drawer: PropTypes.object,
     setDrawerState: PropTypes.func,
