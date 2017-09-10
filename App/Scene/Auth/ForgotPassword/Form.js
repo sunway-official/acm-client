@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, email } from '~/Lib/validate';
@@ -14,61 +14,61 @@ const submit = values => {
   console.log('submitting form', values);
 };
 
-class ForgotPasswordForm extends PureComponent {
-  static defaultProps = {
-    error: null,
-  };
+const _renderHeaderImage = () =>
+  <View style={styles.imageContainer}>
+    <Image style={styles.image} source={Images.imgDefault150} />
+    <Text bold style={styles.title}>
+      Forgot Your Password?
+    </Text>
+    <Text light style={styles.description}>
+      Enter your email below to reset your password
+    </Text>
+  </View>;
 
-  static propTypes = {
-    handleSubmit: PropTypes.func,
-    reset: PropTypes.func.isRequired,
-    pristine: PropTypes.bool.isRequired,
-    invalid: PropTypes.bool.isRequired,
-    error: PropTypes.string,
-  };
+const _renderForm = () =>
+  <View style={styles.formContainer}>
+    <Field
+      name="email"
+      type="email"
+      component={FormInput}
+      validate={[required, email]}
+      placeholder="Type your Email"
+      underlineColorAndroid={'transparent'}
+      keyboardType={'email-address'}
+    />
+  </View>;
 
-  render() {
-    const { handleSubmit } = this.props;
-    return (
-      <KeyboardAvoidingView
-        onSubmit={handleSubmit}
-        style={styles.container}
-        behavior={'position'}
-      >
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={Images.imgDefault150} />
-          <Text bold style={styles.title}>
-            Forgot Your Password?
-          </Text>
-          <Text light style={styles.description}>
-            Enter your email below to reset your password
-          </Text>
-        </View>
-        <View style={styles.formContainer}>
-          <Field
-            name="email"
-            type="email"
-            component={FormInput}
-            validate={[required, email]}
-            placeholder="Type your Email"
-            underlineColorAndroid={'transparent'}
-            keyboardType={'email-address'}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableView
-            onPress={handleSubmit(submit)}
-            style={styles.submitButton}
-          >
-            <Text bold style={styles.buttonText}>
-              SEND
-            </Text>
-          </TouchableView>
-        </View>
-      </KeyboardAvoidingView>
-    );
-  }
-}
+const _renderButton = handleSubmit =>
+  <View style={styles.buttonContainer}>
+    <TouchableView onPress={handleSubmit(submit)} style={styles.submitButton}>
+      <Text bold style={styles.buttonText}>
+        SEND
+      </Text>
+    </TouchableView>
+  </View>;
+
+const ForgotPasswordForm = ({ handleSubmit }) =>
+  <KeyboardAvoidingView
+    onSubmit={handleSubmit}
+    style={styles.container}
+    behavior={'position'}
+  >
+    {_renderHeaderImage()}
+    {_renderForm()}
+    {_renderButton(handleSubmit)}
+  </KeyboardAvoidingView>;
+
+ForgotPasswordForm.defaultProps = {
+  error: null,
+};
+
+ForgotPasswordForm.propTypes = {
+  handleSubmit: PropTypes.func,
+  reset: PropTypes.func.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+};
 
 ForgotPasswordForm = reduxForm({
   form: 'forgotPassword',
