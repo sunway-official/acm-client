@@ -17,54 +17,6 @@ const DATA = [
     image:
       'http://www.adamscraftycreations.com/wp-content/uploads/2016/04/icon-special-events.png',
   },
-  {
-    title: 'Title 3',
-    shortDescription: 'something',
-    image:
-      'http://www.adamscraftycreations.com/wp-content/uploads/2016/04/icon-special-events.png',
-  },
-  {
-    title: 'Title 3',
-    shortDescription: 'something',
-    image:
-      'http://www.adamscraftycreations.com/wp-content/uploads/2016/04/icon-special-events.png',
-  },
-  {
-    title: 'Title 3',
-    shortDescription: 'something',
-    image:
-      'http://www.adamscraftycreations.com/wp-content/uploads/2016/04/icon-special-events.png',
-  },
-  {
-    title: 'Title 3',
-    shortDescription: 'something',
-    image:
-      'http://www.adamscraftycreations.com/wp-content/uploads/2016/04/icon-special-events.png',
-  },
-  {
-    title: 'Title 3',
-    shortDescription: 'something',
-    image:
-      'http://www.adamscraftycreations.com/wp-content/uploads/2016/04/icon-special-events.png',
-  },
-  {
-    title: 'Title 3',
-    shortDescription: 'something',
-    image:
-      'http://www.adamscraftycreations.com/wp-content/uploads/2016/04/icon-special-events.png',
-  },
-  {
-    title: 'Title 3',
-    shortDescription: 'something',
-    image:
-      'http://www.adamscraftycreations.com/wp-content/uploads/2016/04/icon-special-events.png',
-  },
-  {
-    title: 'Title 4',
-    shortDescription: 'something',
-    image:
-      'http://www.adamscraftycreations.com/wp-content/uploads/2016/04/icon-special-events.png',
-  },
 ];
 
 export default DATA;

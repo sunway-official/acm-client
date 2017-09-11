@@ -1,35 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
-import { TabNavigator, TabBarTop } from 'react-navigation';
-import { Metrics, Colors } from '~/Theme';
+import { View } from 'react-native';
 import { Text, TouchableView } from '~/Component';
 import Content from './Content';
 import styles from './styles';
-
-// const TabsView = TabNavigator(
-//   {
-//     About: { screen: About },
-//     Activity: { screen: Activity },
-//     Networking: { screen: Networking },
-//   },
-//   {
-//     tabBarComponent: TabBarTop,
-//     tabBarPosition: 'top',
-//     swipeEnabled: true,
-//     animationEnabled: true,
-//     tabBarOptions: {
-//       indicatorStyle: {
-//         backgroundColor: 'black',
-//       },
-//       style: {
-//         backgroundColor: 'white',
-//       },
-//       labelStyle: { margin: 0, color: Colors.black },
-//       upperCaseLabel: false,
-//     },
-//   },
-// );
 
 class Body extends Component {
   static propTypes = {};
@@ -99,13 +73,7 @@ class Body extends Component {
     return (
       <TouchableView
         style={[
-          {
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: 8,
-            borderBottomWidth: 2,
-          },
+          styles.tabContainer,
           tab.isActive || tab.initial
             ? { borderBottomColor: 'black' }
             : { borderBottomColor: 'transparent' },
@@ -121,10 +89,11 @@ class Body extends Component {
   }
 
   _renderContent() {
+    const { tabs } = this.state;
     let tab = '';
-    Object.keys(this.state.tabs).forEach(key => {
-      if (this.state.tabs[key].isActive || this.state.tabs[key].initial) {
-        tab = this.state.tabs[key].title;
+    Object.keys(tabs).forEach(key => {
+      if (tabs[key].isActive || tabs[key].initial) {
+        tab = tabs[key].title;
       }
     });
     return <Content tab={tab} />;
@@ -132,14 +101,8 @@ class Body extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            backgroundColor: 'white',
-          }}
-        >
+      <View style={styles.container}>
+        <View style={styles.tabsContainer}>
           {Object.keys(this.state.tabs).map((key, index) =>
             this._renderTab(key, index),
           )}

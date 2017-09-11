@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import About from './About';
 import Activity from './Activity';
 import Networking from './Networking';
@@ -22,17 +22,12 @@ class Content extends Component {
       case 'Networking':
         return <Networking />;
       default:
-        return (
-          <View>
-            <Text>Hello</Text>
-          </View>
-        );
+        return <View />;
     }
   }
 
   render() {
     const { tab } = this.props;
-    console.log('tab: ', tab);
     return (
       <View>
         {this._renderContent(tab)}
