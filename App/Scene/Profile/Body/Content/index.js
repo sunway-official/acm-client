@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import About from './About';
 import Activity from './Activity';
 import Networking from './Networking';
+import styles from './styles';
 
 class Content extends Component {
   static propTypes = { tab: PropTypes.string };
@@ -29,7 +30,7 @@ class Content extends Component {
   render() {
     const { tab } = this.props;
     return (
-      <View>
+      <View style={styles.container}>
         {this._renderContent(tab)}
       </View>
     );

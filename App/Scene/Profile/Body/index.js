@@ -81,9 +81,13 @@ class Body extends Component {
         key={index}
         onPress={() => this._handlePress(key)}
       >
-        <Text>
-          {tab.title}
-        </Text>
+        {tab.isActive || tab.initial
+          ? <Text bold>
+              {tab.title}
+            </Text>
+          : <Text light>
+              {tab.title}
+            </Text>}
       </TouchableView>
     );
   }

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { Colors, Metrics, Fonts } from '../../../../Theme';
 
 const { white } = Colors;
-const { baseMargin, smallMargin } = Metrics;
+const { baseMargin, smallMargin, doubleBaseMargin } = Metrics;
 
 const Detail = StyleSheet.create({
   container: {
@@ -14,8 +14,9 @@ const Detail = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: white,
-    padding: baseMargin,
-    marginBottom: smallMargin,
+    paddingHorizontal: doubleBaseMargin,
+    paddingVertical: baseMargin,
+    marginBottom: 1,
   },
   title: {
     fontSize: Fonts.size.regular,

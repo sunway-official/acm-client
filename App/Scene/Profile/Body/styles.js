@@ -8,7 +8,7 @@ const Body = StyleSheet.create({
   tabsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
   },
   tabContainer: {
     flex: 1,

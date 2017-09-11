@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import { Text } from '~/Component';
 import Fixture from '../../../fixture';
+import styles from './styles';
 
 class About extends Component {
   static propTypes = {};
@@ -14,27 +15,13 @@ class About extends Component {
 
   _renderItem(item, index) {
     return (
-      <View
-        key={index}
-        style={{
-          flexDirection: 'row',
-          paddingHorizontal: 16,
-          paddingVertical: 8,
-          marginBottom: 1,
-          backgroundColor: 'white',
-        }}
-      >
-        <View>
-          <Image
-            source={{ uri: item.image }}
-            style={{ width: 50, height: 50, marginRight: 16 }}
-          />
-        </View>
+      <View key={index} style={styles.itemContainer}>
+        <Image source={{ uri: item.image }} style={styles.image} />
         <View style={{ justifyContent: 'center' }}>
-          <Text bold style={{ fontSize: 16 }}>
+          <Text bold style={styles.title}>
             {item.title}
           </Text>
-          <Text style={{ color: 'grey' }}>
+          <Text style={styles.description}>
             {item.shortDescription}
           </Text>
         </View>
@@ -44,27 +31,13 @@ class About extends Component {
 
   render() {
     return (
-      <View
-        style={{
-          marginTop: 8,
-          marginHorizontal: 8,
-          flex: 1,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginBottom: 1,
-            padding: 8,
-            backgroundColor: 'white',
-          }}
-        >
+      <View>
+        <View style={styles.topicContainer}>
           <View>
-            <Text bold style={{ fontSize: 16 }}>
+            <Text bold style={styles.title}>
               Achievements
             </Text>
-            <Text style={{ color: 'grey' }}>You have 15 out of 27</Text>
+            <Text style={styles.description}>You have 15 out of 27</Text>
           </View>
           <Text bold>View All</Text>
         </View>
