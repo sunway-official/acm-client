@@ -13,6 +13,9 @@ const images = {
   search: require('~/Images/Icons/ic_search_black_24dp.png'),
 
   materialBackground: require('~/Images/material/background.jpg'),
+
+  login: require('~/Images/LargeIcons/login.png'),
+  forgotPassword: require('~/Images/LargeIcons/forgot_password.png'),
 };
 
 export default images;
