@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, StatusBar, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -10,7 +10,7 @@ const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
 
-class Header extends PureComponent {
+class Header extends Component {
   static propTypes = {
     title: PropTypes.string,
     hideTitle: PropTypes.bool,

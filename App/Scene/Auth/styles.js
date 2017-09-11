@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Fonts } from '~/Theme/';
+import { Colors, Fonts, Metrics } from '~/Theme/';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 12,
-    paddingTop: 50,
+    paddingHorizontal: Metrics.largeMargin,
+    paddingTop: Metrics.largeMargin,
     backgroundColor: Colors.secondaryLight,
   },
   imageContainer: {
@@ -13,51 +13,47 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    height: 150,
-    width: 150,
-    borderRadius: 75,
+    height: Metrics.circle.height,
+    width: Metrics.circle.width,
+    borderRadius: Metrics.circle.borderRadius,
   },
   title: {
-    paddingTop: 20,
-    fontSize: 20,
-    fontWeight: 'normal',
+    paddingTop: Metrics.doubleBaseMargin,
+    fontSize: Fonts.size.h6,
   },
   description: {
-    fontSize: 12,
-    paddingBottom: 50,
+    fontSize: Fonts.size.small,
+    paddingBottom: Metrics.doubleBaseMargin,
   },
   formContainer: {
-    paddingHorizontal: 30,
-    paddingVertical: 5,
+    paddingVertical: Metrics.smallMargin,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    paddingHorizontal: 30,
-    marginTop: 12,
+    marginTop: Metrics.doubleBaseMargin,
   },
   submitButton: {
-    height: 36,
-    backgroundColor: Colors.deepOrange,
+    height: Metrics.buttonHeight,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    marginHorizontal: 10,
+    borderRadius: Metrics.buttonCornerRadius,
+    backgroundColor: Colors.deepOrange,
+    marginHorizontal: Metrics.baseMargin,
   },
   buttonText: {
-    borderRadius: 2,
     color: Colors.white,
-    fontSize: Fonts.button,
-    fontWeight: Fonts.type.bold,
   },
   footerText: {
-    marginTop: 10,
     alignSelf: 'center',
-    opacity: 0.38,
+    marginTop: Metrics.baseMargin,
+    opacity: Metrics.opacity,
   },
   signUpText: {
-    marginTop: 30,
     alignSelf: 'center',
+    marginTop: Metrics.doubleBaseMargin,
+    opacity: Metrics.opacity,
   },
 });
 

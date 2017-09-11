@@ -10,6 +10,7 @@ const metrics = {
   doubleBaseMargin: 16,
   smallMargin: 4,
   largeMargin: 64,
+
   section: 25,
   doubleSection: 50,
   horizontalLineHeight: 1,
@@ -31,6 +32,17 @@ const metrics = {
     large: 64,
     logo: 256,
   },
+  circle: {
+    height: 150,
+    width: 150,
+    borderRadius: 75,
+  },
+  opacity: 0.38,
+
+  // Buttons
+  buttonCornerRadius: 2,
+  buttonHeight: 36,
+  buttonPaddingHorizontal: 16,
 };
 
 export default metrics;

@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { View, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { Colors } from '~/Theme';
 import ProfileHeader from './Header';
 import ProfileBody from './Body';
-import styles from './styles';
-import About from './Body/Content/About';
 
 class ProfileScene extends Component {
   static header = {
@@ -30,10 +27,6 @@ class ProfileScene extends Component {
   static footer = {
     show: true,
     activeColor: Colors.red,
-  };
-
-  static propTypes = {
-    home: PropTypes.func,
   };
 
   render() {

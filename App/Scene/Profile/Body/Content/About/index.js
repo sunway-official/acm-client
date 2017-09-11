@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { View, Image, ScrollView, FlatList } from 'react-native';
+// import PropTypes from 'prop-types';
+import { View, Image } from 'react-native';
 import { Text } from '~/Component';
 import Fixture from '../../../fixture';
 

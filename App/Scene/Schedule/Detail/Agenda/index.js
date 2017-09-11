@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Colors } from '~/Theme';
 import ListView from '../ListView';
@@ -10,17 +10,11 @@ const calendarIcon = {
   size: 30,
 };
 
-class Detail extends Component {
-  static propTypes = {
-    schedule: PropTypes.object,
-  };
+const Detail = ({ schedule }) =>
+  <ListView detail={schedule.activities} calendarIcon={calendarIcon} />;
 
-  render() {
-    const { schedule } = this.props;
-    return (
-      <ListView detail={schedule.activities} calendarIcon={calendarIcon} />
-    );
-  }
-}
+Detail.propTypes = {
+  schedule: PropTypes.object,
+};
 
 export default Detail;

@@ -13,8 +13,6 @@ class Schedule extends Component {
     activeColor: Colors.black,
   };
 
-  static propTypes = {};
-
   render() {
     return (
       <ScrollableTabView
