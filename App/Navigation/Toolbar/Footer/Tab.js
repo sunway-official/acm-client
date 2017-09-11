@@ -62,7 +62,7 @@ class FooterTab extends Component {
   render() {
     const { title, icon, onPress, option, active } = this.props;
     const { activeColor } = option;
-    console.log(this.props.activeIcon);
+    // console.log(this.props.activeIcon);
     const activeIcon = this.props.activeIcon || icon;
     return (
       <TouchableView
