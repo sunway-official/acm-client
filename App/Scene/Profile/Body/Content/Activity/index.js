@@ -4,21 +4,36 @@ import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Text } from '~/Component';
 import styles from './styles';
+import Comment from './Comment';
 
 class Activity extends Component {
   static propTypes = {};
+
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      showCommentBox: false,
+      loveColor: false,
+    };
+    this._handlePressOfComment = this._handlePressOfComment.bind(this);
+    this._handlePressOfLove = this._handlePressOfLove.bind(this);
+  }
+
+  _handlePressOfComment() {
+    this.setState({ showCommentBox: !this.state.showCommentBox }, () => {
+      console.log('object: ', this.state.showCommentBox);
+    });
+  }
+
+  _handlePressOfLove() {
+    this.setState({ loveColor: !this.state.loveColor });
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.postHeader}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 8,
-            }}
-          >
+          <View style={styles.rightPostHeader}>
             <Image
               source={{
                 uri:
@@ -49,9 +64,18 @@ class Activity extends Component {
             style={styles.photo}
           />
           <View style={styles.interactionContainer}>
-            <Icon name="comment" type="evilicon" />
-            <Icon name="heart" type="material-community" />
+            <TouchableOpacity onPress={this._handlePressOfComment}>
+              <Icon name="comment" type="evilicon" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._handlePressOfLove}>
+              <Icon
+                name="heart"
+                type="material-community"
+                color={this.state.loveColor ? 'red' : 'black'}
+              />
+            </TouchableOpacity>
           </View>
+          {this.state.showCommentBox ? <Comment /> : <View />}
         </View>
       </View>
     );

@@ -23,11 +23,11 @@ class Body extends Component {
         About: {
           title: 'About',
           isActive: false,
-          initial: true,
         },
         Activity: {
           title: 'Activity',
           isActive: false,
+          initial: true,
         },
         Networking: {
           title: 'Networking',
@@ -41,7 +41,6 @@ class Body extends Component {
   _resetState(callbackFunc) {
     this.setState(
       {
-        ...this._getInitialState(),
         tabs: {
           ...this._getInitialState().tabs,
           About: {

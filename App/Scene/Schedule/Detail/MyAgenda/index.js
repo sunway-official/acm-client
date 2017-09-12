@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
 import { Colors } from '~/Theme';
@@ -14,33 +14,31 @@ const calendarIcon = {
   size: 30,
 };
 
-class Detail extends Component {
-  static propTypes = {
-    schedule: PropTypes.object,
-  };
-
-  _renderScheduleOfDate({ item, index }) {
-    return (
-      <View key={index}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>
-            {item.date}
-          </Text>
-        </View>
-        <ListView detail={item.activities} calendarIcon={calendarIcon} />
+const _renderScheduleOfDate = (item, index) => {
+  return (
+    <View key={index}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>
+          {item.date}
+        </Text>
       </View>
-    );
-  }
+      <ListView detail={item.activities} calendarIcon={calendarIcon} />
+    </View>
+  );
+};
 
-  render() {
-    return (
-      <FlatList
-        data={Fixture}
-        keyExtractor={(item, index) => index}
-        renderItem={this._renderScheduleOfDate}
-      />
-    );
-  }
-}
+const Detail = () => {
+  return (
+    <FlatList
+      data={Fixture}
+      keyExtractor={(item, index) => index}
+      renderItem={({ item, index }) => _renderScheduleOfDate(item, index)}
+    />
+  );
+};
+
+Detail.propTypes = {
+  schedule: PropTypes.object,
+};
 
 export default Detail;
