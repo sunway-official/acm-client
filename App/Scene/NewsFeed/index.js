@@ -7,6 +7,8 @@ import { NavigationActions } from 'react-navigation';
 import styles from './styles';
 import { Colors } from '~/Theme';
 
+import Dialog from '~/Component/Dialog';
+
 const text = ['Welcome to News Feed!', 'We are under developement.'];
 
 const NewsFeedScene = ({ home }) =>
@@ -19,6 +21,30 @@ const NewsFeedScene = ({ home }) =>
       )}
     </View>
     <Button title="Home" onPress={home} />
+    <Dialog
+      header={'Are you sure?'}
+      content={
+        <Text
+          style={{
+            color: 'black',
+          }}
+        >
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industrys standard dummy text ever
+          since the 1500s
+        </Text>
+      }
+      actions={[
+        {
+          name: 'TEST',
+          handleSubmit: () => console.log('clicked test!'),
+        },
+        {
+          name: 'CONFIRM',
+          handleSubmit: () => console.log('clicked discard!'),
+        },
+      ]}
+    />
   </View>;
 
 NewsFeedScene.header = {
