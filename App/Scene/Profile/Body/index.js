@@ -25,12 +25,12 @@ class Body extends Component {
           isActive: false,
           initial: true,
         },
-        Activity: {
-          title: 'Activity',
+        Activities: {
+          title: 'Activities',
           isActive: false,
         },
-        Networking: {
-          title: 'Networking',
+        Followers: {
+          title: 'Followers',
           isActive: false,
         },
       },

@@ -5,7 +5,7 @@ const { baseMargin, doubleBaseMargin, screenWidth } = Metrics;
 const { white, grey } = Colors;
 const photoHeight = screenWidth / 1.8; // (screenWidth / (photoWidth / photoHeight))
 
-const Activity = StyleSheet.create({
+const Activities = StyleSheet.create({
   container: {
     backgroundColor: white,
     padding: baseMargin,
@@ -41,4 +41,4 @@ const Activity = StyleSheet.create({
   },
 });
 
-export default Activity;
+export default Activities;

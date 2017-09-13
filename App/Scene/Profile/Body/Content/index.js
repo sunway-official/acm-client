@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import About from './About';
-import Activity from './Activity';
-import Networking from './Networking';
+import Activities from './Activities';
+import Followers from './Followers';
 import styles from './styles';
 
 class Content extends Component {
@@ -18,10 +18,10 @@ class Content extends Component {
     switch (tab) {
       case 'About':
         return <About />;
-      case 'Activity':
-        return <Activity />;
-      case 'Networking':
-        return <Networking />;
+      case 'Activities':
+        return <Activities />;
+      case 'Followers':
+        return <Followers />;
       default:
         return <View />;
     }

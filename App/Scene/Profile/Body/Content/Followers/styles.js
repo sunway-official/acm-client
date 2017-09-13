@@ -4,7 +4,7 @@ import { Colors, Metrics } from '../../../../../Theme';
 const { baseMargin, smallMargin } = Metrics;
 const { white, grey, red } = Colors;
 
-const Networking = StyleSheet.create({
+const Followers = StyleSheet.create({
   followerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -27,4 +27,4 @@ const Networking = StyleSheet.create({
   },
 });
 
-export default Networking;
+export default Followers;

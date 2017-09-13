@@ -6,7 +6,7 @@ import { Text } from '~/Component';
 import styles from './styles';
 import Comment from './Comment';
 
-class Activity extends Component {
+class Activities extends Component {
   static propTypes = {};
 
   constructor(props, context) {
@@ -84,4 +84,4 @@ class Activity extends Component {
   }
 }
 
-export default Activity;
+export default Activities;

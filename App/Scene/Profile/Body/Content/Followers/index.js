@@ -7,7 +7,7 @@ import followers from './fixture';
 import styles from './styles';
 import { Colors, Metrics } from '../../../../../Theme';
 
-class Networking extends Component {
+class Follower extends Component {
   static propTypes = {};
 
   constructor(props) {
@@ -67,4 +67,4 @@ class Networking extends Component {
   }
 }
 
-export default Networking;
+export default Follower;
