@@ -20,9 +20,6 @@ const Activity = StyleSheet.create({
     marginBottom: 8,
   },
   avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
     marginRight: doubleBaseMargin,
   },
   username: {

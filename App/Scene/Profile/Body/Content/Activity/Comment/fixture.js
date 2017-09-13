@@ -6,6 +6,7 @@ const comments = [
     comment:
       'If we Stop employing foreign engineers especially from India then there will be another Microsoft in India.',
     time: '5 minutes ago',
+    love: 10,
   },
   {
     username: 'Donald Trump',
@@ -13,6 +14,7 @@ const comments = [
     comment:
       'And I think he’s done such damage to the Canadian presidency that they should rename it to like, prime minister or something more Canadian-sounding, like emir or emperor.',
     time: 'an hour ago',
+    love: 18,
   },
 ];
 

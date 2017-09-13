@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { View, Image, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon, Avatar } from 'react-native-elements';
 import { Text } from '~/Component';
 import styles from './styles';
 import Comment from './Comment';
@@ -34,12 +34,14 @@ class Activity extends Component {
       <View style={styles.container}>
         <View style={styles.postHeader}>
           <View style={styles.rightPostHeader}>
-            <Image
+            <Avatar
+              medium
+              rounded
               source={{
                 uri:
                   'https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png',
               }}
-              style={styles.avatar}
+              containerStyle={styles.avatar}
             />
             <View>
               <Text bold style={styles.username}>
@@ -64,15 +66,15 @@ class Activity extends Component {
             style={styles.photo}
           />
           <View style={styles.interactionContainer}>
-            <TouchableOpacity onPress={this._handlePressOfComment}>
-              <Icon name="comment" type="evilicon" />
-            </TouchableOpacity>
             <TouchableOpacity onPress={this._handlePressOfLove}>
               <Icon
                 name="heart"
                 type="material-community"
                 color={this.state.loveColor ? 'red' : 'black'}
               />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._handlePressOfComment}>
+              <Icon name="comment" type="evilicon" />
             </TouchableOpacity>
           </View>
           {this.state.showCommentBox ? <Comment /> : <View />}
