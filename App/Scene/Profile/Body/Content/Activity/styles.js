@@ -17,7 +17,7 @@ const Activity = StyleSheet.create({
   rightPostHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: baseMargin,
   },
   avatar: {
     marginRight: doubleBaseMargin,

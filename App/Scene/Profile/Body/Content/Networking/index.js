@@ -4,6 +4,8 @@ import { View } from 'react-native';
 import { Avatar, Badge } from 'react-native-elements';
 import { Text } from '~/Component';
 import followers from './fixture';
+import styles from './styles';
+import { Colors, Metrics } from '../../../../../Theme';
 
 class Networking extends Component {
   static propTypes = {};
@@ -23,23 +25,8 @@ class Networking extends Component {
 
   _renderFollower(follower, index) {
     return (
-      <View
-        key={index}
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          backgroundColor: 'white',
-          padding: 8,
-          marginBottom: 1,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
+      <View key={index} style={styles.followerContainer}>
+        <View style={styles.leftOfFollowerContainer}>
           <Avatar
             medium
             rounded
@@ -47,23 +34,22 @@ class Networking extends Component {
               uri: follower.avatar,
             }}
           />
-          <View marginHorizontal={8}>
+          <View marginHorizontal={Metrics.baseMargin}>
             <Text bold>
               {follower.username}
             </Text>
-            <Text style={{ color: 'grey', fontSize: 12, marginTop: 4 }}>
+            <Text style={styles.numberOfFollowerText}>
               {follower.followers} followers
             </Text>
           </View>
         </View>
         <Badge
           value={this.state.follow ? 'Following' : 'Follow'}
-          textStyle={{ color: this.state.follow ? 'red' : 'white' }}
-          containerStyle={{
-            borderWidth: 1,
-            borderColor: 'red',
-            backgroundColor: this.state.follow ? 'transparent' : 'red',
-          }}
+          textStyle={{ color: this.state.follow ? Colors.red : Colors.white }}
+          containerStyle={[
+            styles.badgeContainer,
+            { backgroundColor: this.state.follow ? 'transparent' : Colors.red },
+          ]}
           onPress={() => this._handleFollowPress()}
         />
       </View>
