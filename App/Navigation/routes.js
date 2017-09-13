@@ -8,7 +8,7 @@ import Profile from '~/Scene/Profile';
 import Setting from '~/Scene/Setting';
 import Schedule from '~/Scene/Schedule';
 
-const ROUTES = {
+export const ROUTES = {
   home: {
     name: 'Home',
     path: '/',
@@ -105,36 +105,12 @@ export const config = {
   navigationOptions: {
     header: null,
   },
-  initialRouteName: getInitialRoute(),
   cardStyle: {
     shadowOpacity: 0,
   },
 };
 
-function getInitialRoute() {
-  let route = {};
-  Object.keys(ROUTES).map(key => {
-    if (ROUTES[key].initial === true) {
-      route = key;
-    }
-  });
-  return route;
-}
-
-let routes = {};
-
-Object.keys(ROUTES).map(key => {
-  let route = ROUTES[key];
-  route = {
-    ...route,
-    drawer: route.screen.drawer,
-    header: route.screen.header,
-    footer: route.screen.footer,
-  };
-  routes = {
-    ...routes,
-    [key]: route,
-  };
-});
-
-export default routes;
+export default {
+  ROUTES,
+  config,
+};

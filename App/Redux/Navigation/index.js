@@ -1,9 +1,9 @@
 import { StackNavigator } from 'react-navigation';
-import routes, { config } from '~/Navigation/routes';
+import { generateConfig, generateRoutes } from '~/Navigation/resolver';
 
 export const KEY = 'navigation';
 
-export const AppNavigator = StackNavigator(routes, config);
+export const AppNavigator = StackNavigator(generateRoutes(), generateConfig());
 
 export const INITIAL_STATE = null;
 
