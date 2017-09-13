@@ -28,6 +28,9 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
   },
+  contentText: {
+    color: 'black',
+  },
   actionContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',

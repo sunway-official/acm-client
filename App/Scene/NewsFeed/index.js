@@ -23,17 +23,9 @@ const NewsFeedScene = ({ home }) =>
     <Button title="Home" onPress={home} />
     <Dialog
       header={'Are you sure?'}
-      content={
-        <Text
-          style={{
-            color: 'black',
-          }}
-        >
-          Lorem Ipsum is simply dummy text of the printing and typesetting
+      content="Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s
-        </Text>
-      }
+          since the 1500s"
       actions={[
         {
           name: 'TEST',

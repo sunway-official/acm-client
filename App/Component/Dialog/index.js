@@ -13,8 +13,19 @@ class Dialog extends Component {
 
   static propTypes = {
     header: PropTypes.string,
-    content: PropTypes.object,
+    content: PropTypes.string,
     actions: PropTypes.array,
+  };
+
+  static defaultProps = {
+    header: 'Welcome',
+    content: 'This is content',
+    actions: [
+      {
+        name: 'CONFIRM',
+        handleSubmit: () => console.log('clicked confirm!'),
+      },
+    ],
   };
 
   _renderActions(actions) {
@@ -66,7 +77,9 @@ class Dialog extends Component {
               </View>
 
               <View style={styles.contentContainer}>
-                {content}
+                <Text style={styles.contentText}>
+                  {content}
+                </Text>
               </View>
 
               <View style={styles.actionContainer}>
