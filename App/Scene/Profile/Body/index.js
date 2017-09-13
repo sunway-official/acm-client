@@ -23,11 +23,11 @@ class Body extends Component {
         About: {
           title: 'About',
           isActive: false,
+          initial: true,
         },
         Activity: {
           title: 'Activity',
           isActive: false,
-          initial: true,
         },
         Networking: {
           title: 'Networking',
