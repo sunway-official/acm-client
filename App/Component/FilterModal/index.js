@@ -13,7 +13,7 @@ const randomColor = ['red', 'blue', 'green', 'pink'];
 class FilterModal extends Component {
   state = {
     modalVisible: false,
-    isCheck: false,
+    isCheck: Array(this.props.contents.length).fill(false),
   };
 
   static propTypes = {
@@ -35,11 +35,18 @@ class FilterModal extends Component {
 
   _renderContents(contents) {
     var contentsButton = [];
-    let isCheck = this.state.isCheck;
-    var iconRadioButton =
-      isCheck === false ? 'radio-button-unchecked' : 'radio-button-checked';
+    var isCheck = this.state.isCheck;
 
-    contents.map((content, index) =>
+    contents.map((content, index) => {
+      var iconCheck =
+        isCheck[index] === true
+          ? <Icon
+              name={'check-circle-outline'}
+              type={'material-community'}
+              size={15}
+            />
+          : undefined;
+
       contentsButton.push(
         <TouchableView
           key={index}
@@ -48,7 +55,7 @@ class FilterModal extends Component {
             styles.filterContentContainer,
             { borderLeftColor: randomColor[index] },
           ]}
-          onPress={() => this.setRadioCheck(!isCheck)}
+          onPress={() => this.setRadioCheck(!isCheck[index], index)}
         >
           <View>
             <Text>
@@ -56,11 +63,11 @@ class FilterModal extends Component {
             </Text>
           </View>
           <TouchableOpacity style={styles.filterContentIcon}>
-            <Icon name={iconRadioButton} type={'material-icons'} size={20} />
+            {iconCheck}
           </TouchableOpacity>
         </TouchableView>,
-      ),
-    );
+      );
+    });
     return contentsButton;
   }
 
@@ -86,8 +93,10 @@ class FilterModal extends Component {
     this.setState({ modalVisible: visible });
   }
 
-  setRadioCheck(check) {
-    this.setState({ isCheck: check });
+  setRadioCheck(check, index) {
+    let newIsCheck = this.state.isCheck;
+    newIsCheck[index] = check;
+    this.setState({ isCheck: newIsCheck });
   }
 
   render() {
