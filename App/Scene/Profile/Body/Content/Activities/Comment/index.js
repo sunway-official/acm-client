@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import { Icon, Avatar } from 'react-native-elements';
 import { Text } from '~/Component';
 import { Colors, Metrics } from '../../../../../../Theme';
 import comments from './fixture';
 import styles from './styles';
+
+const DEFAULT_AVATAR =
+  'https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png';
 
 class Comment extends Component {
   static propTypes = {};
@@ -24,16 +27,22 @@ class Comment extends Component {
     this.setState({ loveComment: !this.state.loveComment });
   }
 
+  _renderAvatar(avatarURL) {
+    return (
+      <Avatar
+        small
+        rounded
+        source={{
+          uri: avatarURL,
+        }}
+      />
+    );
+  }
+
   _renderComments(comment, index) {
     return (
       <View style={styles.commentContainer} key={index}>
-        <Avatar
-          medium
-          rounded
-          source={{
-            uri: comment.avatar,
-          }}
-        />
+        {this._renderAvatar(comment.avatar)}
         <View style={styles.rightOfComment}>
           <View flexDirection="row">
             <Text bold>
@@ -84,16 +93,19 @@ class Comment extends Component {
   _renderCommentInputBox() {
     return (
       <View style={styles.commentInputBoxContainer}>
-        <TextInput
-          placeholder="Type a comment ..."
-          placeholderTextColor={Colors.grey}
-          multiline={true}
-          underlineColorAndroid="rgba(0,0,0,0)"
-          style={styles.textInputStyle}
-        />
-        <TouchableOpacity style={styles.commentSubmitButton}>
-          <Icon name="arrow-right" type="material-community" size={20} />
-        </TouchableOpacity>
+        {this._renderAvatar(DEFAULT_AVATAR)}
+        <View style={styles.commentInputBox}>
+          <TextInput
+            placeholder="Type a comment ..."
+            placeholderTextColor={Colors.grey}
+            multiline={true}
+            underlineColorAndroid="rgba(0,0,0,0)"
+            style={styles.textInputStyle}
+          />
+          <TouchableOpacity style={styles.commentSubmitButton}>
+            <Text>Send</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

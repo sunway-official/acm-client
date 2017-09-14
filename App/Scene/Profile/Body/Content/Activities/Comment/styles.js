@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { Colors, Metrics } from '../../../../../../Theme';
 
 const { baseMargin, doubleBaseMargin, doubleSection } = Metrics;
-const { primaryLight, primaryDark, grey } = Colors;
+const { grey } = Colors;
 
 const Comment = StyleSheet.create({
   commentContainer: {
@@ -22,17 +22,22 @@ const Comment = StyleSheet.create({
   commentInputBoxContainer: {
     flex: 1,
     flexDirection: 'row',
-    height: doubleSection,
-    marginHorizontal: -baseMargin,
+    alignItems: 'center',
     marginTop: baseMargin,
-    marginBottom: -baseMargin,
-    backgroundColor: primaryLight,
   },
-  textInputStyle: { flex: 1, paddingHorizontal: baseMargin },
+  commentInputBox: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderRadius: doubleSection,
+    borderColor: 'grey',
+    marginLeft: doubleBaseMargin,
+    height: 40,
+  },
+  textInputStyle: { flex: 1, paddingHorizontal: doubleBaseMargin },
   commentSubmitButton: {
     justifyContent: 'center',
-    backgroundColor: primaryDark,
-    paddingHorizontal: 20,
+    paddingHorizontal: doubleBaseMargin,
   },
 });
 
