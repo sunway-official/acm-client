@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
+import { View, Button, TouchableOpacity } from 'react-native';
 import { Text } from '~/Component';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
@@ -8,6 +8,8 @@ import styles from './styles';
 import { Colors } from '~/Theme';
 
 import Dialog from '~/Component/Dialog';
+import FilterModal from '~/Component/FilterModal';
+import TouchableView from '~/Component/TouchableView';
 
 const text = ['Welcome to News Feed!', 'We are under developement.'];
 
@@ -34,6 +36,34 @@ const NewsFeedScene = ({ home }) =>
         {
           name: 'CONFIRM',
           handleSubmit: () => console.log('clicked discard!'),
+        },
+      ]}
+    />
+
+    <FilterModal
+      header={'Filter'}
+      contents={[
+        {
+          name: 'Leadership',
+        },
+        {
+          name: 'Program Assessment',
+        },
+        {
+          name: 'Citizen Tech',
+        },
+        {
+          name: 'Accreditation',
+        },
+      ]}
+      actions={[
+        {
+          name: 'CLEAR',
+          handleSubmit: () => console.log('clicked CLEAR!'),
+        },
+        {
+          name: 'APPLY',
+          handleSubmit: () => console.log('clicked APPLY!'),
         },
       ]}
     />
