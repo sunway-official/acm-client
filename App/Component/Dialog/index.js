@@ -62,13 +62,7 @@ class Dialog extends Component {
             this.setModalVisible(false);
           }}
         >
-          <TouchableOpacity
-            style={styles.container}
-            activeOpacity={1}
-            onPressOut={() => {
-              this.setModalVisible(false);
-            }}
-          >
+          <TouchableOpacity style={styles.container} activeOpacity={1}>
             <View style={styles.cardModalContainer}>
               <View style={styles.headerContainer}>
                 <Text bold style={styles.headerText}>
