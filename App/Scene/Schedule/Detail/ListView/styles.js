@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics, Fonts } from '~/Theme';
+import { Colors, Metrics, Fonts } from '../../../../Theme';
 
 const { white } = Colors;
-const { baseMargin, smallMargin } = Metrics;
+const { baseMargin, smallMargin, doubleBaseMargin } = Metrics;
 
 const Detail = StyleSheet.create({
   container: {
@@ -14,12 +14,12 @@ const Detail = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: white,
-    paddingHorizontal: baseMargin,
-    paddingVertical: smallMargin,
-    marginBottom: smallMargin,
+    paddingHorizontal: doubleBaseMargin,
+    paddingVertical: baseMargin,
+    marginBottom: 1,
   },
   title: {
-    fontFamily: Fonts.type.bold,
+    fontSize: Fonts.size.regular,
   },
   icon: {
     justifyContent: 'center',

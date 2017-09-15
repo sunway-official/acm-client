@@ -1,44 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
-import { Text } from '~/Component';
-import { connect } from 'react-redux';
-import { NavigationActions } from '~/Redux/Navigation';
-import styles from './styles';
+import React, { Component } from 'react';
+import { ScrollView } from 'react-native';
 import { Colors } from '~/Theme';
+import ProfileHeader from './Header';
+import ProfileBody from './Body';
+import { defaultUserAvatar } from './fixture';
 
-const text = ['Welcome to User Profile!'];
+class ProfileScene extends Component {
+  static header = {
+    leftIcon: 'drawer',
+    hideTitle: true,
+    float: true,
+    theme: 'dark',
+    backgroundColor: 'rgba(0,0,0,0)',
+    statusBarBackgroundColor: Colors.black,
+    actions: [
+      {
+        icon: {},
+        onPress: () => {
+          console.log('hello there');
+        },
+      },
+    ],
+  };
 
-const ProfileScene = ({ home }) =>
-  <View style={styles.container}>
-    <View style={styles.centerText}>
-      {text.map((text, index) =>
-        <Text key={index}>
-          {text}
-        </Text>,
-      )}
-    </View>
-    <Button title="Home" color={Colors.red} onPress={home} />
-  </View>;
+  static footer = {
+    show: true,
+    activeColor: Colors.red,
+  };
 
-ProfileScene.header = {
-  leftIcon: 'drawer',
-  theme: 'dark',
-  backgroundColor: Colors.red,
-  statusBarBackgroundColor: Colors.red,
-};
+  render() {
+    return (
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+      >
+        <ProfileHeader
+          avatar={defaultUserAvatar}
+          username="Dung Le"
+          address="Duy Tan University"
+        />
+        <ProfileBody />
+      </ScrollView>
+    );
+  }
+}
 
-ProfileScene.footer = {
-  show: true,
-  activeColor: Colors.red,
-};
-
-ProfileScene.propTypes = {
-  home: PropTypes.func,
-};
-
-const mapDispatchToProps = dispatch => ({
-  home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
-});
-
-export default connect(undefined, mapDispatchToProps)(ProfileScene);
+export default ProfileScene;

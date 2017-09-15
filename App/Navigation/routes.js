@@ -1,5 +1,5 @@
 import Home from '~/Scene/Home';
-import Login from '~/Scene/Auth/Login/';
+import Login from '~/Scene/Auth/Login';
 import ForgotPassword from '~/Scene/Auth/ForgotPassword/';
 import NewsFeed from '~/Scene/NewsFeed';
 import Notification from '~/Scene/Notification';
@@ -66,7 +66,6 @@ export const ROUTES = {
       name: 'calendar-text',
       type: 'material-community',
     },
-    // initial: true,
   },
   people: {
     name: 'People',
@@ -87,6 +86,7 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
+    initial: true,
   },
   notification: {
     name: 'Notification',
