@@ -48,7 +48,9 @@ class Follower extends Component {
           textStyle={{ color: this.state.follow ? Colors.red : Colors.white }}
           containerStyle={[
             styles.badgeContainer,
-            { backgroundColor: this.state.follow ? 'transparent' : Colors.red },
+            {
+              backgroundColor: this.state.follow ? 'transparent' : Colors.red,
+            },
           ]}
           onPress={() => this._handleFollowPress()}
         />

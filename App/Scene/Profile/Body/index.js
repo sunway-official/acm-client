@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Text, TouchableView } from '~/Component';
+import { Colors } from '../../../Theme';
 import Content from './Content';
 import styles from './styles';
 
@@ -74,7 +75,7 @@ class Body extends Component {
         style={[
           styles.tabContainer,
           tab.isActive || tab.initial
-            ? { borderBottomColor: 'black' }
+            ? { borderBottomColor: Colors.black }
             : { borderBottomColor: 'transparent' },
         ]}
         key={index}

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '../../../../../Theme';
+import { Metrics, Colors, Fonts } from '../../../Theme';
 
 const { baseMargin, doubleBaseMargin, screenWidth } = Metrics;
 const { white, grey } = Colors;
@@ -25,7 +25,7 @@ const Activities = StyleSheet.create({
   username: {
     fontSize: doubleBaseMargin,
   },
-  time: {
+  textStyle: {
     color: grey,
     fontSize: Fonts.size.small,
   },
@@ -35,8 +35,9 @@ const Activities = StyleSheet.create({
     resizeMode: 'contain',
     marginVertical: baseMargin,
   },
-  interactionContainer: {
+  interactionBarContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-around',
   },
 });
