@@ -18,33 +18,18 @@ import FilterModal from '~/Component/FilterModal';
 const text = ['Welcome to News Feed!', 'We are under developement.'];
 
 class NewsFeedScene extends Component {
-  firstTimeout = null;
-  secondTimeout = null;
-
-  componentDidMount() {
-    this.props.setTitle('Old feed');
-
-    this.firstTimeout = setTimeout(() => {
-      this.props.toggleHeader();
-      this.props.toggleFooter();
-
-      this.secondTimeout = setTimeout(() => {
-        this.props.toggleHeader();
-        this.props.toggleFooter();
-      }, 1500);
-    }, 1500);
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.firstTimeout);
-    clearTimeout(this.secondTimeout);
-  }
-
   render() {
     const { home } = this.props;
 
     return (
       <View style={styles.container}>
+        <Button
+          title="Hide navigation"
+          onPress={() => {
+            this.props.toggleHeader();
+            this.props.toggleFooter();
+          }}
+        />
         <View style={styles.centerText}>
           {text.map((text, index) =>
             <Text key={index}>
