@@ -1,5 +1,5 @@
 import { NavigationActions } from 'react-navigation';
-import { setHeaderOptions, setFooterOptions } from '../Toolbar/action';
+import { resetHeaderOptions, resetFooterOptions } from '../Toolbar/action';
 
 const dispatcher = type => {
   return options => async (dispatch, getState) => {
@@ -9,8 +9,8 @@ const dispatcher = type => {
     const { routeName } = navigation.routes[navigation.index];
     const route = routes[routeName] || {};
 
-    await dispatch(setHeaderOptions(route.header));
-    await dispatch(setFooterOptions(route.footer));
+    await dispatch(resetHeaderOptions(route.header));
+    await dispatch(resetFooterOptions(route.footer));
   };
 };
 

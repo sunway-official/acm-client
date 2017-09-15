@@ -3,8 +3,10 @@ import {
   TOGGLE_HEADER,
   SET_FOOTER_STATE,
   SET_HEADER_STATE,
-  SET_HEADER_OPTIONS,
-  SET_FOOTER_OPTIONS,
+  ADD_HEADER_OPTIONS,
+  ADD_FOOTER_OPTIONS,
+  RESET_HEADER_OPTIONS,
+  RESET_FOOTER_OPTIONS,
 } from './action';
 
 export const KEY = 'toolbar';
@@ -34,7 +36,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         header: {
           ...state.header,
-          isOpen: !state.isOpen,
+          isOpen: !state.header.isOpen,
         },
       };
     case SET_HEADER_STATE:
@@ -42,10 +44,10 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         header: {
           ...state.header,
-          isOpen: action.isOpen,
+          isOpen: action.header.isOpen,
         },
       };
-    case SET_HEADER_OPTIONS:
+    case RESET_HEADER_OPTIONS:
       return {
         ...state,
         header: {
@@ -53,12 +55,23 @@ export default (state = INITIAL_STATE, action) => {
           options: action.payload,
         },
       };
+    case ADD_HEADER_OPTIONS:
+      return {
+        ...state,
+        header: {
+          ...state.header,
+          options: {
+            ...state.header.options,
+            ...action.payload,
+          },
+        },
+      };
     case TOGGLE_FOOTER:
       return {
         ...state,
         footer: {
           ...state.footer,
-          isOpen: !state.isOpen,
+          isOpen: !state.footer.isOpen,
         },
       };
     case SET_FOOTER_STATE:
@@ -66,15 +79,26 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         footer: {
           ...state.footer,
-          isOpen: action.isOpen,
+          isOpen: action.footer.isOpen,
         },
       };
-    case SET_FOOTER_OPTIONS:
+    case RESET_FOOTER_OPTIONS:
       return {
         ...state,
         footer: {
           ...state.footer,
           options: action.payload,
+        },
+      };
+    case ADD_FOOTER_OPTIONS:
+      return {
+        ...state,
+        footer: {
+          ...state.footer,
+          options: {
+            ...state.footer.options,
+            ...action.payload,
+          },
         },
       };
     default:

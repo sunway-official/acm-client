@@ -99,10 +99,11 @@ class HeaderWrapper extends Component {
     const { navigation, drawer, routes, toolbar } = this.props;
     const { routeName } = navigation.routes[navigation.index];
     const route = routes[routeName];
-    const title = route ? route.name : '';
 
     const header = toolbar.header.options;
     const footer = toolbar.footer.options;
+
+    const title = route ? toolbar.header.options.title || route.name : '';
 
     let onIconPress = this._openDrawer;
     let icon = {};
@@ -124,6 +125,7 @@ class HeaderWrapper extends Component {
             icon={icon}
             onIconPress={onIconPress}
             drawer={drawer}
+            visible={toolbar.header.isOpen}
           />
         </View>
         <View style={[styles.container, this._childrenStyles(header.float)]}>
@@ -141,6 +143,7 @@ class HeaderWrapper extends Component {
             onIconPress={onIconPress}
             drawer={drawer}
             theme="light"
+            visible={toolbar.footer.isOpen}
           />
         </View>
       </View>
