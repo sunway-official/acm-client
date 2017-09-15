@@ -3,6 +3,7 @@ import { ScrollView } from 'react-native';
 import { Colors } from '~/Theme';
 import ProfileHeader from './Header';
 import ProfileBody from './Body';
+import { defaultUserAvatar } from './fixture';
 
 class ProfileScene extends Component {
   static header = {
@@ -35,7 +36,7 @@ class ProfileScene extends Component {
         }}
       >
         <ProfileHeader
-          avatar="https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png"
+          avatar={defaultUserAvatar}
           username="Dung Le"
           address="Duy Tan University"
         />

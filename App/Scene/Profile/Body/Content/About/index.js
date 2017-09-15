@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { View, Image } from 'react-native';
 import { Text } from '~/Component';
-import { achievements } from '../../fixture';
+import { achievements } from '~/Scene/Profile/fixture';
 import styles from './styles';
 
 class About extends Component {

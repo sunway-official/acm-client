@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Avatar, Badge } from 'react-native-elements';
-import { Text } from '~/Component';
-import { followers } from '../../fixture';
-import styles from './styles';
 import { Colors, Metrics } from '../../../../../Theme';
+import { Text } from '~/Component';
+import { followers } from '~/Scene/Profile/fixture';
+import styles from './styles';
 
 class Follower extends Component {
   static propTypes = {};
