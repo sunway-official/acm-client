@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Avatar, Badge } from 'react-native-elements';
 import { Text } from '~/Component';
-import followers from './fixture';
+import { followers } from '../../fixture';
 import styles from './styles';
 import { Colors, Metrics } from '../../../../../Theme';
 

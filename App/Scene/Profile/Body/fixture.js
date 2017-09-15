@@ -35,8 +35,7 @@ export const news = [
     username: 'Dung Le',
     avatar: defaultUserAvatar,
     status: 'Hello guys ~~',
-    photo:
-      'http://3oohwq3ybklb1b1ri41mvgfo.wpengine.netdna-cdn.com/wp-content/uploads/Conference-Past-w.jpg',
+    photo: 'http://globalageing.org/wp-content/uploads/2015/09/EVP_0141.jpg',
     time: '5 minutes ago',
     love: 200,
     comments: [

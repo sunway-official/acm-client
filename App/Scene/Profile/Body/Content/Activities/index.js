@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import { View } from 'react-native';
 import { NewsFeed } from '~/Component';
 import { news } from '../../fixture';
 
