@@ -12,7 +12,7 @@ const randomColor = ['red', 'blue', 'green', 'pink'];
 
 class FilterModal extends Component {
   state = {
-    modalVisible: false,
+    modalVisible: this.props.isOpen,
     isCheck: Array(this.props.contents.length).fill(false),
   };
 
@@ -20,6 +20,7 @@ class FilterModal extends Component {
     header: PropTypes.string,
     contents: PropTypes.array,
     actions: PropTypes.array,
+    isOpen: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -69,7 +70,11 @@ class FilterModal extends Component {
 
   _renderActions(actions) {
     var actionsButton = [];
-    actions.map((action, i) =>
+    actions.map((action, i) => {
+      action.name === 'Cancel'
+        ? (action.handleSubmit = () => this.setModalVisible(false))
+        : action.handleSubmit;
+
       actionsButton.push(
         <TouchableView
           key={i}
@@ -80,8 +85,8 @@ class FilterModal extends Component {
             {action.name}
           </Text>
         </TouchableView>,
-      ),
-    );
+      );
+    });
     return actionsButton;
   }
 
@@ -120,15 +125,6 @@ class FilterModal extends Component {
               </View>
 
               <View style={styles.actionContainer}>
-                <TouchableView
-                  style={styles.actionButton}
-                  onPress={() => this.setModalVisible(false)}
-                >
-                  <Text medium style={styles.actionText}>
-                    CANCEL
-                  </Text>
-                </TouchableView>
-
                 {this._renderActions(actions)}
               </View>
             </View>

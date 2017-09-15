@@ -24,23 +24,24 @@ const NewsFeedScene = ({ home }) =>
     </View>
     <Button title="Home" onPress={home} />
     <Dialog
+      isOpen={false}
       header={'Are you sure?'}
       content="Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industrys standard dummy text ever
           since the 1500s"
       actions={[
         {
-          name: 'TEST',
-          handleSubmit: () => console.log('clicked test!'),
+          name: 'Cancel',
         },
         {
-          name: 'CONFIRM',
+          name: 'Confirm',
           handleSubmit: () => console.log('clicked discard!'),
         },
       ]}
     />
 
     <FilterModal
+      isOpen={false}
       header={'Filter'}
       contents={[
         {
@@ -58,11 +59,10 @@ const NewsFeedScene = ({ home }) =>
       ]}
       actions={[
         {
-          name: 'CLEAR',
-          handleSubmit: () => console.log('clicked CLEAR!'),
+          name: 'Cancel',
         },
         {
-          name: 'APPLY',
+          name: 'Apply',
           handleSubmit: () => console.log('clicked APPLY!'),
         },
       ]}

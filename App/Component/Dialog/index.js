@@ -8,13 +8,14 @@ import Text from '../Text';
 
 class Dialog extends Component {
   state = {
-    modalVisible: false,
+    modalVisible: this.props.isOpen,
   };
 
   static propTypes = {
     header: PropTypes.string,
     content: PropTypes.string,
     actions: PropTypes.array,
+    isOpen: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -30,7 +31,11 @@ class Dialog extends Component {
 
   _renderActions(actions) {
     var actionsButton = [];
-    actions.map((action, i) =>
+    actions.map((action, i) => {
+      action.name === 'Cancel'
+        ? (action.handleSubmit = () => this.setModalVisible(false))
+        : action.handleSubmit;
+
       actionsButton.push(
         <TouchableView
           key={i}
@@ -41,8 +46,8 @@ class Dialog extends Component {
             {action.name}
           </Text>
         </TouchableView>,
-      ),
-    );
+      );
+    });
     return actionsButton;
   }
 
@@ -77,15 +82,6 @@ class Dialog extends Component {
               </View>
 
               <View style={styles.actionContainer}>
-                <TouchableView
-                  style={styles.actionButton}
-                  onPress={() => this.setModalVisible(false)}
-                >
-                  <Text medium style={styles.actionText}>
-                    CANCEL
-                  </Text>
-                </TouchableView>
-
                 {this._renderActions(actions)}
               </View>
             </View>
