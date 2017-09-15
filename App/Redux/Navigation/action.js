@@ -3,14 +3,14 @@ import { setHeaderOptions, setFooterOptions } from '../Toolbar/action';
 
 const dispatcher = type => {
   return options => async (dispatch, getState) => {
+    await dispatch(NavigationActions[type](options));
+
     const { navigation, routes } = getState();
     const { routeName } = navigation.routes[navigation.index];
     const route = routes[routeName] || {};
 
-    dispatch(setHeaderOptions(route.header));
-    dispatch(setFooterOptions(route.footer));
-
-    return dispatch(NavigationActions[type](options));
+    await dispatch(setHeaderOptions(route.header));
+    await dispatch(setFooterOptions(route.footer));
   };
 };
 

@@ -96,11 +96,13 @@ class HeaderWrapper extends Component {
   }
 
   render() {
-    const { navigation, drawer, routes } = this.props;
+    const { navigation, drawer, routes, toolbar } = this.props;
     const { routeName } = navigation.routes[navigation.index];
     const route = routes[routeName];
     const title = route ? route.name : '';
-    const header = route.header || {};
+
+    const header = toolbar.header.options;
+    const footer = toolbar.footer.options;
 
     let onIconPress = this._openDrawer;
     let icon = {};
@@ -133,7 +135,7 @@ class HeaderWrapper extends Component {
             this.setState({ footer: event.nativeEvent.layout })}
         >
           <Footer
-            {...header}
+            {...footer}
             title={title}
             icon={icon}
             onIconPress={onIconPress}

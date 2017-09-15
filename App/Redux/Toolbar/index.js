@@ -9,14 +9,21 @@ import {
 
 export const KEY = 'toolbar';
 
+const routes = require('~/Navigation/resolver').generateRoutes();
+const initialRoute = {};
+
+Object.keys(routes).map(key => {
+  if (routes[key].initial) initialRoute = routes[key];
+});
+
 const INITIAL_STATE = {
   header: {
     isOpen: true,
-    options: {},
+    options: initialRoute.header,
   },
   footer: {
     isOpen: true,
-    options: {},
+    options: initialRoute.footer,
   },
 };
 
