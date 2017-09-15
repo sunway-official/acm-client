@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { View, Button, TouchableOpacity } from 'react-native';
 import { Text } from '~/Component';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions } from '~/Redux/Navigation';
+import { addHeaderOptions, toggleHeader } from '~/Redux/Toolbar/action';
 import styles from './styles';
 import { Colors } from '~/Theme';
 
@@ -13,61 +14,72 @@ import TouchableView from '~/Component/TouchableView';
 
 const text = ['Welcome to News Feed!', 'We are under developement.'];
 
-const NewsFeedScene = ({ home }) =>
-  <View style={styles.container}>
-    <View style={styles.centerText}>
-      {text.map((text, index) =>
-        <Text key={index}>
-          {text}
-        </Text>,
-      )}
-    </View>
-    <Button title="Home" onPress={home} />
-    <Dialog
-      isOpen={false}
-      header={'Are you sure?'}
-      content="Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industrys standard dummy text ever
-          since the 1500s"
-      actions={[
-        {
-          name: 'Cancel',
-        },
-        {
-          name: 'Confirm',
-          handleSubmit: () => console.log('clicked discard!'),
-        },
-      ]}
-    />
+class NewsFeedScene extends PureComponent {
+  componentDidMount() {
+    this.props.setTitle('Old feed');
+  }
 
-    <FilterModal
-      isOpen={false}
-      header={'Filter'}
-      contents={[
-        {
-          name: 'Leadership',
-        },
-        {
-          name: 'Program Assessment',
-        },
-        {
-          name: 'Citizen Tech',
-        },
-        {
-          name: 'Accreditation',
-        },
-      ]}
-      actions={[
-        {
-          name: 'Cancel',
-        },
-        {
-          name: 'Apply',
-          handleSubmit: () => console.log('clicked APPLY!'),
-        },
-      ]}
-    />
-  </View>;
+  render() {
+    const { home } = this.props;
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.centerText}>
+          {text.map((text, index) =>
+            <Text key={index}>
+              {text}
+            </Text>,
+          )}
+        </View>
+        <Button title="Home" onPress={home} />
+        <Dialog
+          isOpen={false}
+          header={'Are you sure?'}
+          content="Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industrys standard dummy text ever
+            since the 1500s"
+          actions={[
+            {
+              name: 'Cancel',
+            },
+            {
+              name: 'Confirm',
+              handleSubmit: () => console.log('clicked discard!'),
+            },
+          ]}
+        />
+
+        <FilterModal
+          isOpen={false}
+          header={'Filter'}
+          contents={[
+            {
+              name: 'Leadership',
+            },
+            {
+              name: 'Program Assessment',
+            },
+            {
+              name: 'Citizen Tech',
+            },
+            {
+              name: 'Accreditation',
+            },
+          ]}
+          actions={[
+            {
+              name: 'Cancel',
+            },
+            {
+              name: 'Apply',
+              handleSubmit: () => console.log('clicked APPLY!'),
+            },
+          ]}
+        />
+      </View>
+    );
+  }
+}
 
 NewsFeedScene.header = {
   leftIcon: 'drawer',
@@ -91,10 +103,13 @@ NewsFeedScene.footer = {
 
 NewsFeedScene.propTypes = {
   home: PropTypes.func,
+  setTitle: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
   home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
+  setTitle: title => dispatch(addHeaderOptions({ title })),
+  toggleHeader: () => dispatch(toggleHeader()),
 });
 
 export default connect(undefined, mapDispatchToProps)(NewsFeedScene);
