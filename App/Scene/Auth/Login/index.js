@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions } from '~/Redux/Navigation';
 import { KEY, setLoggedIn } from '~/Redux/Login';
 
 import LoginForm from '../Login/Form';

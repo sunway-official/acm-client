@@ -1,5 +1,6 @@
 import { StackNavigator } from 'react-navigation';
 import { generateConfig, generateRoutes } from '~/Navigation/resolver';
+export { default as NavigationActions } from './action';
 
 export const KEY = 'navigation';
 
