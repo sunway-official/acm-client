@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
+import { View, Button, TouchableOpacity } from 'react-native';
 import { Text } from '~/Component';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
@@ -8,16 +8,15 @@ import { addHeaderOptions, toggleHeader } from '~/Redux/Toolbar/action';
 import styles from './styles';
 import { Colors } from '~/Theme';
 
+import Dialog from '~/Component/Dialog';
+import FilterModal from '~/Component/FilterModal';
+import TouchableView from '~/Component/TouchableView';
+
 const text = ['Welcome to News Feed!', 'We are under developement.'];
 
 class NewsFeedScene extends PureComponent {
   componentDidMount() {
     this.props.setTitle('Old feed');
-    // console.log('start hiding');
-    // setTimeout(() => {
-    //   console.log('triggered');
-    //   this.props.toggleHeader();
-    // }, 2000);
   }
 
   render() {
@@ -33,6 +32,50 @@ class NewsFeedScene extends PureComponent {
           )}
         </View>
         <Button title="Home" onPress={home} />
+        <Dialog
+          isOpen={false}
+          header={'Are you sure?'}
+          content="Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industrys standard dummy text ever
+            since the 1500s"
+          actions={[
+            {
+              name: 'Cancel',
+            },
+            {
+              name: 'Confirm',
+              handleSubmit: () => console.log('clicked discard!'),
+            },
+          ]}
+        />
+
+        <FilterModal
+          isOpen={false}
+          header={'Filter'}
+          contents={[
+            {
+              name: 'Leadership',
+            },
+            {
+              name: 'Program Assessment',
+            },
+            {
+              name: 'Citizen Tech',
+            },
+            {
+              name: 'Accreditation',
+            },
+          ]}
+          actions={[
+            {
+              name: 'Cancel',
+            },
+            {
+              name: 'Apply',
+              handleSubmit: () => console.log('clicked APPLY!'),
+            },
+          ]}
+        />
       </View>
     );
   }
