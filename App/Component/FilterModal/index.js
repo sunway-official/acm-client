@@ -40,12 +40,8 @@ class FilterModal extends Component {
     contents.map((content, index) => {
       var iconCheck =
         isCheck[index] === true
-          ? <Icon
-              name={'check-circle-outline'}
-              type={'material-community'}
-              size={15}
-            />
-          : undefined;
+          ? <Icon name={'md-radio-button-on'} type={'ionicon'} size={15} />
+          : <Icon name={'md-radio-button-off'} type={'ionicon'} size={15} />;
 
       contentsButton.push(
         <TouchableView
