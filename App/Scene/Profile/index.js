@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
-import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
 import { Colors } from '~/Theme';
 import ProfileHeader from './Header';
 import ProfileBody from './Body';
@@ -47,8 +45,4 @@ class ProfileScene extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
-});
-
-export default connect(undefined, mapDispatchToProps)(ProfileScene);
+export default ProfileScene;

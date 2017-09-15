@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions } from '~/Redux/Navigation';
 import AppNavigation from '~/Navigation';
 
 import styles from './styles';

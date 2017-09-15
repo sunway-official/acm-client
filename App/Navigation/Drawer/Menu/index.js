@@ -5,7 +5,7 @@ import { View, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Text, TouchableView } from '~/Component';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions } from '~/Redux/Navigation';
 import { KEY as ROUTES_KEY } from '~/Redux/Routes';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { setDrawerState } from '~/Redux/Drawer';

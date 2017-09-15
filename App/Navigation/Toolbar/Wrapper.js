@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { KEY as DRAWER_KEY, setDrawerState } from '~/Redux/Drawer';
 import { KEY as ROUTES_KEY } from '~/Redux/Routes';
-import { NavigationActions } from 'react-navigation';
+import { KEY as TOOLBAR_KEY } from '~/Redux/Toolbar';
+
+import { NavigationActions } from '~/Redux/Navigation';
 import { Header, Footer } from './';
 import styles from './styles';
 import { Metrics } from '~/Theme';
@@ -29,12 +31,13 @@ const ABSOLUTE_CONTAINER = {
   width: '100%',
 };
 
-class Wrapper extends Component {
+class HeaderWrapper extends Component {
   static propTypes = {
     children: PropTypes.any,
     navigation: PropTypes.object,
     drawer: PropTypes.object,
     routes: PropTypes.object,
+    toolbar: PropTypes.object,
     openDrawer: PropTypes.func,
     navigateBack: PropTypes.func,
   };
@@ -93,11 +96,14 @@ class Wrapper extends Component {
   }
 
   render() {
-    const { navigation, drawer, routes } = this.props;
+    const { navigation, drawer, routes, toolbar } = this.props;
     const { routeName } = navigation.routes[navigation.index];
     const route = routes[routeName];
-    const title = route ? route.name : '';
-    const header = route.header || {};
+
+    const header = toolbar.header.options;
+    const footer = toolbar.footer.options;
+
+    const title = route ? toolbar.header.options.title || route.name : '';
 
     let onIconPress = this._openDrawer;
     let icon = {};
@@ -119,6 +125,7 @@ class Wrapper extends Component {
             icon={icon}
             onIconPress={onIconPress}
             drawer={drawer}
+            visible={toolbar.header.isOpen}
           />
         </View>
         <View style={[styles.container, this._childrenStyles(header.float)]}>
@@ -130,12 +137,13 @@ class Wrapper extends Component {
             this.setState({ footer: event.nativeEvent.layout })}
         >
           <Footer
-            {...header}
+            {...footer}
             title={title}
             icon={icon}
             onIconPress={onIconPress}
             drawer={drawer}
             theme="light"
+            visible={toolbar.footer.isOpen}
           />
         </View>
       </View>
@@ -147,6 +155,7 @@ const mapStateToProps = state => ({
   navigation: state[NAVIGATION_KEY],
   drawer: state[DRAWER_KEY],
   routes: state[ROUTES_KEY],
+  toolbar: state[TOOLBAR_KEY],
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -154,13 +163,4 @@ const mapDispatchToProps = dispatch => ({
   navigateBack: () => dispatch(NavigationActions.back()),
 });
 
-const ConnectedWrapper = connect(mapStateToProps, mapDispatchToProps)(Wrapper);
-
-export default ConnectedWrapper;
-
-export const wrapHeader = Scene => {
-  return () =>
-    <ConnectedWrapper>
-      <Scene />
-    </ConnectedWrapper>;
-};
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderWrapper);
