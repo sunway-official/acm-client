@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { Colors, Fonts, Metrics } from '~/Theme/';
 
 const styles = StyleSheet.create({
@@ -7,7 +7,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  backdrop: {
     backgroundColor: 'rgba(52, 52, 52, 0.8)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
   },
   cardModalContainer: {
     backgroundColor: 'white',
@@ -16,13 +23,13 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
   },
   headerContainer: {
-    paddingTop: 10,
+    paddingTop: 20,
     paddingBottom: 10,
     paddingLeft: 20,
   },
   headerText: {
     color: 'black',
-    fontSize: 16,
+    fontSize: Fonts.size.regular,
   },
   contentContainer: {
     paddingLeft: 20,
@@ -35,15 +42,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     paddingTop: 20,
-    paddingBottom: 10,
+    paddingBottom: 20,
     paddingRight: 10,
   },
   actionButton: {
-    marginHorizontal: 5,
+    paddingHorizontal: 15,
   },
   actionText: {
     color: Colors.deepOrange,
-    fontSize: 13,
+    fontSize: Fonts.size.regular,
   },
 });
 
