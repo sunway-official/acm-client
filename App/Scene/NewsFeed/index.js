@@ -1,22 +1,43 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button, TouchableOpacity } from 'react-native';
+import { View, Button } from 'react-native';
 import { Text } from '~/Component';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
-import { addHeaderOptions, toggleHeader } from '~/Redux/Toolbar/action';
+import {
+  addHeaderOptions,
+  toggleHeader,
+  toggleFooter,
+} from '~/Redux/Toolbar/action';
 import styles from './styles';
 import { Colors } from '~/Theme';
 
 import Dialog from '~/Component/Dialog';
 import FilterModal from '~/Component/FilterModal';
-import TouchableView from '~/Component/TouchableView';
 
 const text = ['Welcome to News Feed!', 'We are under developement.'];
 
-class NewsFeedScene extends PureComponent {
+class NewsFeedScene extends Component {
+  firstTimeout = null;
+  secondTimeout = null;
+
   componentDidMount() {
     this.props.setTitle('Old feed');
+
+    this.firstTimeout = setTimeout(() => {
+      this.props.toggleHeader();
+      this.props.toggleFooter();
+
+      this.secondTimeout = setTimeout(() => {
+        this.props.toggleHeader();
+        this.props.toggleFooter();
+      }, 1500);
+    }, 1500);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.firstTimeout);
+    clearTimeout(this.secondTimeout);
   }
 
   render() {
@@ -104,12 +125,15 @@ NewsFeedScene.footer = {
 NewsFeedScene.propTypes = {
   home: PropTypes.func,
   setTitle: PropTypes.func,
+  toggleHeader: PropTypes.func,
+  toggleFooter: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
   home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
   setTitle: title => dispatch(addHeaderOptions({ title })),
   toggleHeader: () => dispatch(toggleHeader()),
+  toggleFooter: () => dispatch(toggleFooter()),
 });
 
 export default connect(undefined, mapDispatchToProps)(NewsFeedScene);

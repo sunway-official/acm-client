@@ -5,6 +5,7 @@ import { Colors } from '~/Theme';
 import { connect } from 'react-redux';
 import { KEY as ROUTE_KEY } from '~/Redux/Routes';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
+import { View as AnimatableView } from 'react-native-animatable';
 
 import { NavigationActions } from '~/Redux/Navigation';
 import { NavigationActions as ReactNavigationActions } from 'react-navigation';
@@ -16,10 +17,12 @@ const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
 
+const HIDDING_DELAY = 300;
+
 class Footer extends Component {
   static propTypes = {
-    float: PropTypes.bool,
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),
+    visible: PropTypes.bool,
     style: View.propTypes.style,
     drawer: PropTypes.shape({
       isOpen: PropTypes.bool,
@@ -91,26 +94,18 @@ class Footer extends Component {
   }
 
   render() {
-    const { float } = this.props;
+    const { visible } = this.props;
     const containerStyle = this.props.style;
 
-    let wrapperStyles = this._wrapperStyles();
-    if (float) {
-      wrapperStyle = {
-        ...wrapperStyles,
-        position: 'absolute',
-        left: 0,
-        right: 0,
-      };
-    }
     return (
-      <View style={wrapperStyles}>
-        <View
+      <View style={this._wrapperStyles()}>
+        <AnimatableView
           style={[styles.footer, this._footerStyles(), containerStyle]}
-          // onLayout={event => (this._headerContainer = event.nativeEvent.layout)}
+          animation={visible ? 'slideInUp' : 'slideOutDown'}
+          duration={HIDDING_DELAY}
         >
           {this._renderTabs()}
-        </View>
+        </AnimatableView>
       </View>
     );
   }

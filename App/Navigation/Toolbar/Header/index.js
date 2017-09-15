@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, StatusBar, Platform } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { View as AnimatableView } from 'react-native-animatable';
 import { Text, TouchableView } from '~/Component';
 import { Colors, Metrics, Icons } from '~/Theme';
 import styles from './styles';
@@ -9,11 +10,13 @@ import styles from './styles';
 const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
+const HIDDING_DELAY = 300;
 
 class Header extends Component {
   static propTypes = {
     title: PropTypes.string,
     hideTitle: PropTypes.bool,
+    visible: PropTypes.bool,
     float: PropTypes.bool,
     backgroundColor: PropTypes.string,
     statusBarBackgroundColor: PropTypes.string,
@@ -54,24 +57,10 @@ class Header extends Component {
   _getTheme = () => this.props.theme || THEME_LIGHT;
 
   _wrapperStyles = () => {
-    // const theme = this._getTheme();
-    if (IS_ANDROID) return {};
-    return {
-      position: 'relative',
-    };
-  };
-
-  _statusBarStyle = () => {
-    // const theme = this._getTheme();
-    return 'light-content';
-  };
-
-  _headerStyles = () => {
     const theme = this._getTheme();
-    const { backgroundColor, statusBarBackgroundColor, float } = this.props;
-    let styles = {
-      backgroundColor: theme === THEME_DARK ? Colors.primary : Colors.white,
 
+    const { statusBarBackgroundColor } = this.props;
+    let styles = {
       borderTopWidth: IS_ANDROID
         ? // For Android
           StatusBar.currentHeight
@@ -83,16 +72,30 @@ class Header extends Component {
         : // For iOS
           theme === THEME_DARK ? Colors.primaryDark : Colors.secondaryDark,
     };
-    if (backgroundColor) {
-      styles = {
-        ...styles,
-        backgroundColor,
-      };
-    }
     if (statusBarBackgroundColor) {
       styles = {
         ...styles,
         borderTopColor: statusBarBackgroundColor,
+      };
+    }
+    return styles;
+  };
+
+  _statusBarStyle = () => {
+    // const theme = this._getTheme();
+    return 'light-content';
+  };
+
+  _headerStyles = () => {
+    const theme = this._getTheme();
+    const { backgroundColor, float } = this.props;
+    let styles = {
+      backgroundColor: theme === THEME_DARK ? Colors.primary : Colors.white,
+    };
+    if (backgroundColor) {
+      styles = {
+        ...styles,
+        backgroundColor,
       };
     }
     if (IS_ANDROID && !float && this.props.drawer.isOpen === false) {
@@ -150,31 +153,23 @@ class Header extends Component {
     const {
       title,
       hideTitle,
-      float,
+      visible,
       icon,
       onIconPress,
       actions = [],
     } = this.props;
     const containerStyle = this.props.style;
 
-    let wrapperStyles = this._wrapperStyles();
-    if (float) {
-      wrapperStyle = {
-        ...wrapperStyles,
-        position: 'absolute',
-        left: 0,
-        right: 0,
-      };
-    }
     return (
-      <View style={wrapperStyles}>
+      <View style={this._wrapperStyles()}>
         <StatusBar
           backgroundColor={Colors.primaryDark}
           barStyle={this._statusBarStyle()}
         />
-        <View
+        <AnimatableView
           style={[styles.header, this._headerStyles(), containerStyle]}
-          // onLayout={event => (this._headerContainer = event.nativeEvent.layout)}
+          animation={visible ? 'slideInDown' : 'slideOutUp'}
+          duration={HIDDING_DELAY}
         >
           <View style={styles.leftWrapper}>
             <TouchableView
@@ -202,7 +197,7 @@ class Header extends Component {
           <View style={styles.rightWrapper}>
             {actions.map(this._renderAction.bind(this))}
           </View>
-        </View>
+        </AnimatableView>
       </View>
     );
   }
