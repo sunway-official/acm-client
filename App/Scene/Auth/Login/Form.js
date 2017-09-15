@@ -16,7 +16,7 @@ const submit = values => {
 
 const _renderHeaderImage = () =>
   <View style={styles.imageContainer}>
-    <Image style={styles.image} source={Images.imgDefault250} />
+    <Image style={styles.image} source={Images.login} />
   </View>;
 
 const _renderForm = () =>

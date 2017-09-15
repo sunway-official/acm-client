@@ -1,11 +1,15 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
+import { View, Button, TouchableOpacity } from 'react-native';
 import { Text } from '~/Component';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import styles from './styles';
 import { Colors } from '~/Theme';
+
+import Dialog from '~/Component/Dialog';
+import FilterModal from '~/Component/FilterModal';
+import TouchableView from '~/Component/TouchableView';
 
 const text = ['Welcome to News Feed!', 'We are under developement.'];
 
@@ -19,6 +23,50 @@ const NewsFeedScene = ({ home }) =>
       )}
     </View>
     <Button title="Home" onPress={home} />
+    <Dialog
+      isOpen={false}
+      header={'Are you sure?'}
+      content="Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industrys standard dummy text ever
+          since the 1500s"
+      actions={[
+        {
+          name: 'Cancel',
+        },
+        {
+          name: 'Confirm',
+          handleSubmit: () => console.log('clicked discard!'),
+        },
+      ]}
+    />
+
+    <FilterModal
+      isOpen={false}
+      header={'Filter'}
+      contents={[
+        {
+          name: 'Leadership',
+        },
+        {
+          name: 'Program Assessment',
+        },
+        {
+          name: 'Citizen Tech',
+        },
+        {
+          name: 'Accreditation',
+        },
+      ]}
+      actions={[
+        {
+          name: 'Cancel',
+        },
+        {
+          name: 'Apply',
+          handleSubmit: () => console.log('clicked APPLY!'),
+        },
+      ]}
+    />
   </View>;
 
 NewsFeedScene.header = {

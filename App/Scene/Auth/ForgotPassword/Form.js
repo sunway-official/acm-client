@@ -16,7 +16,7 @@ const submit = values => {
 
 const _renderHeaderImage = () =>
   <View style={styles.imageContainer}>
-    <Image style={styles.image} source={Images.imgDefault150} />
+    <Image style={styles.image} source={Images.forgotPassword} />
     <Text bold style={styles.title}>
       Forgot Your Password?
     </Text>
