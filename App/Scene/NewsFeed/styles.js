@@ -10,6 +10,6 @@ export default StyleSheet.create({
   centerText: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: Metrics.doubleBaseMargin,
+    marginVertical: Metrics.doubleBaseMargin,
   },
 });

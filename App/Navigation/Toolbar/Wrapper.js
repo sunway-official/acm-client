@@ -6,7 +6,6 @@ import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { KEY as DRAWER_KEY, setDrawerState } from '~/Redux/Drawer';
 import { KEY as ROUTES_KEY } from '~/Redux/Routes';
 import { KEY as TOOLBAR_KEY } from '~/Redux/Toolbar';
-
 import { NavigationActions } from '~/Redux/Navigation';
 import { Header, Footer } from './';
 import styles from './styles';
@@ -80,12 +79,24 @@ class HeaderWrapper extends Component {
   }
 
   _childrenStyles(headerFloat, footerFloat) {
-    const { drawer } = this.props;
+    const { drawer, toolbar } = this.props;
     const { header, footer } = this.state;
     let styles = {
       paddingTop: headerFloat ? STATUS_BAR_HEIGHT : header.height || 0,
       paddingBottom: footerFloat ? 0 : footer.height || 0,
     };
+    if (!toolbar.header.visible) {
+      styles = {
+        ...styles,
+        paddingTop: STATUS_BAR_HEIGHT,
+      };
+    }
+    if (!toolbar.footer.visible) {
+      styles = {
+        ...styles,
+        paddingBottom: 0,
+      };
+    }
     if (drawer.isOpen) {
       return {
         ...styles,
@@ -103,11 +114,15 @@ class HeaderWrapper extends Component {
     const header = toolbar.header.options;
     const footer = toolbar.footer.options;
 
-    const title = route ? toolbar.header.options.title || route.name : '';
+    let title = route ? route.name : '';
+
+    if (toolbar.header.options && toolbar.header.options.title) {
+      title = toolbar.header.options.title;
+    }
 
     let onIconPress = this._openDrawer;
     let icon = {};
-    if (header.leftIcon === LEFT_ICON_IS_BACK) {
+    if (header && header.leftIcon === LEFT_ICON_IS_BACK) {
       onIconPress = this._navigateBack;
       icon.name = 'arrow-back';
     }
@@ -125,10 +140,15 @@ class HeaderWrapper extends Component {
             icon={icon}
             onIconPress={onIconPress}
             drawer={drawer}
-            visible={toolbar.header.isOpen}
+            visible={toolbar.header.visible}
           />
         </View>
-        <View style={[styles.container, this._childrenStyles(header.float)]}>
+        <View
+          style={[
+            styles.container,
+            this._childrenStyles(header && header.float),
+          ]}
+        >
           {this.props.children}
         </View>
         <View
@@ -143,7 +163,7 @@ class HeaderWrapper extends Component {
             onIconPress={onIconPress}
             drawer={drawer}
             theme="light"
-            visible={toolbar.footer.isOpen}
+            visible={toolbar.footer.visible}
           />
         </View>
       </View>

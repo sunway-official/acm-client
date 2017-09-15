@@ -34,9 +34,10 @@ HomeScene.drawer = {
 HomeScene.header = {
   leftIcon: 'drawer',
   float: true,
+  title: 'home',
   theme: 'dark',
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  statusBarBackgroundColor: 'rgba(0,0,0,0.5)',
+  backgroundColor: 'rgba(0,0,0,0.4)',
+  statusBarBackgroundColor: 'rgba(0,0,0,0.7)',
   actions: [
     {
       icon: {},

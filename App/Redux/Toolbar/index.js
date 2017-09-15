@@ -20,11 +20,11 @@ Object.keys(routes).map(key => {
 
 const INITIAL_STATE = {
   header: {
-    isOpen: true,
+    visible: true,
     options: initialRoute.header,
   },
   footer: {
-    isOpen: true,
+    visible: true,
     options: initialRoute.footer,
   },
 };
@@ -36,7 +36,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         header: {
           ...state.header,
-          isOpen: !state.header.isOpen,
+          visible: !state.header.visible,
         },
       };
     case SET_HEADER_STATE:
@@ -44,7 +44,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         header: {
           ...state.header,
-          isOpen: action.header.isOpen,
+          visible: action.header.visible,
         },
       };
     case RESET_HEADER_OPTIONS:
@@ -71,7 +71,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         footer: {
           ...state.footer,
-          isOpen: !state.footer.isOpen,
+          visible: !state.footer.visible,
         },
       };
     case SET_FOOTER_STATE:
@@ -79,7 +79,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         footer: {
           ...state.footer,
-          isOpen: action.footer.isOpen,
+          visible: action.footer.visible,
         },
       };
     case RESET_FOOTER_OPTIONS:
