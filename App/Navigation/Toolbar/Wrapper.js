@@ -85,13 +85,13 @@ class HeaderWrapper extends Component {
       paddingTop: headerFloat ? STATUS_BAR_HEIGHT : header.height || 0,
       paddingBottom: footerFloat ? 0 : footer.height || 0,
     };
-    if (!toolbar.header.isOpen) {
+    if (!toolbar.header.visible) {
       styles = {
         ...styles,
         paddingTop: STATUS_BAR_HEIGHT,
       };
     }
-    if (!toolbar.footer.isOpen) {
+    if (!toolbar.footer.visible) {
       styles = {
         ...styles,
         paddingBottom: 0,
@@ -140,7 +140,7 @@ class HeaderWrapper extends Component {
             icon={icon}
             onIconPress={onIconPress}
             drawer={drawer}
-            visible={toolbar.header.isOpen}
+            visible={toolbar.header.visible}
           />
         </View>
         <View
@@ -163,7 +163,7 @@ class HeaderWrapper extends Component {
             onIconPress={onIconPress}
             drawer={drawer}
             theme="light"
-            visible={toolbar.footer.isOpen}
+            visible={toolbar.footer.visible}
           />
         </View>
       </View>
