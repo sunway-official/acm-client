@@ -15,7 +15,10 @@ class ProfileScene extends Component {
     statusBarBackgroundColor: Colors.black,
     actions: [
       {
-        icon: {},
+        icon: {
+          name: 'lead-pencil',
+          type: 'material-community',
+        },
         onPress: () => {
           console.log('hello there');
         },

@@ -34,17 +34,21 @@ class Header extends Component {
   }
 
   _renderAvatar() {
-    return <Image source={{ uri: this.props.avatar }} style={styles.avatar} />;
+    return (
+      <View style={styles.avatarSection}>
+        <Image source={{ uri: this.props.avatar }} style={styles.avatar} />
+      </View>
+    );
   }
 
   _renderInfo() {
     const { username, address } = this.props;
     return (
       <View style={styles.infoContainer}>
-        <Text style={styles.username} bold>
+        <Text style={[styles.primaryTextColor, styles.username]} bold>
           {username}
         </Text>
-        <Text>
+        <Text style={styles.primaryTextColor}>
           {address}
         </Text>
       </View>
@@ -54,31 +58,15 @@ class Header extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.fakeView}>
-          <Image
-            source={Images.materialBackground}
-            style={{ width: '100%', height: '100%' }}
-          />
-          <View style={styles.coverPhoto} />
-        </View>
-        <View style={styles.avatarSection}>
-          {this._renderIcon({
-            name: 'email',
-            type: 'material-community',
-            color: Colors.white,
-            style: {
-              backgroundColor: Colors.primary,
-            },
-          })}
-          {this._renderAvatar()}
-          {this._renderIcon({
-            name: 'lead-pencil',
-            type: 'material-community',
-            color: Colors.white,
-            style: { backgroundColor: Colors.blue },
-          })}
-        </View>
-        {this._renderInfo()}
+        <Image
+          source={Images.materialBackground}
+          style={styles.backgroundImage}
+        >
+          <View style={styles.coverPhoto}>
+            {this._renderAvatar()}
+            {this._renderInfo()}
+          </View>
+        </Image>
       </View>
     );
   }
