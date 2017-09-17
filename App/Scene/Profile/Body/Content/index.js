@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import About from './About';
 import Activities from './Activities';
 import Followers from './Followers';
+import Following from './Following';
 import styles from './styles';
 
 class Content extends Component {
@@ -16,12 +17,14 @@ class Content extends Component {
 
   _renderContent(tab) {
     switch (tab) {
-      case 'ABOUT':
+      case 'About':
         return <About />;
-      case 'POSTS':
+      case 'Posts':
         return <Activities />;
-      case 'FOLLOWERS':
+      case 'Followers':
         return <Followers />;
+      case 'Following':
+        return <Following />;
       default:
         return <View />;
     }

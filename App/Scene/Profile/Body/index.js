@@ -23,18 +23,23 @@ class Body extends Component {
     const initialState = {
       tabs: {
         About: {
-          title: 'ABOUT',
+          title: 'About',
           isActive: false,
           quantity: 0,
           initial: true,
         },
         Activities: {
-          title: 'POSTS',
+          title: 'Posts',
           isActive: false,
           quantity: news.length,
         },
         Followers: {
-          title: 'FOLLOWERS',
+          title: 'Followers',
+          isActive: false,
+          quantity: followers.length,
+        },
+        Following: {
+          title: 'Following',
           isActive: false,
           quantity: followers.length,
         },

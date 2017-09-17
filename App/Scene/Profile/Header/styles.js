@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { Metrics, Fonts, Colors } from '../../../Theme';
 
-const { doubleBaseMargin, baseMargin, icons } = Metrics;
+const { smallMargin, doubleBaseMargin, baseMargin, icons, circle } = Metrics;
 const avatarWidth = 120;
+const halfHeightOfAvatar = avatarWidth / 2;
 
 export default StyleSheet.create({
   container: {
@@ -13,32 +14,39 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   fakeView: {
-    height: 60,
-    backgroundColor: Colors.black,
+    height: circle.height,
+    position: 'relative',
+  },
+  coverPhoto: {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+  avatarSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    paddingHorizontal: doubleBaseMargin,
+    marginTop: -halfHeightOfAvatar,
   },
   avatar: {
     width: avatarWidth,
     height: avatarWidth,
     borderWidth: 3,
-    borderRadius: avatarWidth / 2,
     borderColor: Colors.white,
+    borderRadius: halfHeightOfAvatar,
     resizeMode: 'cover',
-    marginTop: -40,
-  },
-  iconContainer: {
-    alignItems: 'center',
-    marginTop: doubleBaseMargin,
   },
   icon: {
     width: icons.large,
     height: icons.large,
-    borderWidth: 0.5,
     borderRadius: icons.large / 2,
-    marginBottom: 5,
   },
   infoContainer: {
     alignItems: 'center',
-    marginTop: baseMargin,
+    marginTop: smallMargin,
     marginBottom: doubleBaseMargin,
   },
   username: {

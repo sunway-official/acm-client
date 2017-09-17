@@ -25,6 +25,7 @@ UserAvatar.propTypes = {
   [TYPE.KEY]: PropTypes.string,
   avatar: PropTypes.string,
   containerStyle: PropTypes.any,
+  overlayContainerStyle: PropTypes.any,
 };
 
 export default UserAvatar;
