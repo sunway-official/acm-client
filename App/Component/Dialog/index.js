@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Modal, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './style';
-import { Images } from '~/Theme';
 
 import TouchableView from '../TouchableView';
 import Text from '../Text';
@@ -14,6 +13,7 @@ class Dialog extends Component {
 
   static propTypes = {
     header: PropTypes.string,
+    headerImage: PropTypes.number,
     content: PropTypes.string,
     actions: PropTypes.array,
     visible: PropTypes.bool,
@@ -58,7 +58,7 @@ class Dialog extends Component {
   }
 
   render() {
-    const { header, content, actions, buttonClick } = this.props;
+    const { header, headerImage, content, actions, buttonClick } = this.props;
     return (
       <View style={{ marginTop: 22 }}>
         <Modal
@@ -79,7 +79,7 @@ class Dialog extends Component {
             />
             <View style={styles.cardModalContainer}>
               <View style={styles.headerContainer}>
-                <Image style={styles.headerImage} source={Images.smile} />
+                <Image style={styles.headerImage} source={headerImage} />
                 <Text bold medium style={styles.headerText}>
                   {header}
                 </Text>

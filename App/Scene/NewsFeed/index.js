@@ -10,7 +10,7 @@ import {
   toggleFooter,
 } from '~/Redux/Toolbar/action';
 import styles from './styles';
-import { Colors } from '~/Theme';
+import { Colors, Images } from '~/Theme';
 
 import Dialog from '~/Component/Dialog';
 import FilterModal from '~/Component/FilterModal';
@@ -42,6 +42,7 @@ class NewsFeedScene extends Component {
         <Dialog
           visible={true}
           header={'Are you sure?'}
+          headerImage={Images.smile}
           content="Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industrys standard dummy text ever
             since the 1500s"
