@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Avatar, Badge } from 'react-native-elements';
 import { Colors, Metrics } from '../../../../../Theme';
-import { Text } from '~/Component';
+import { Text, UserAvatar } from '~/Component';
 import { followers } from '~/Scene/Profile/fixture';
 import styles from './styles';
 
@@ -27,13 +27,7 @@ class Follower extends Component {
     return (
       <View key={index} style={styles.followerContainer}>
         <View style={styles.leftOfFollowerContainer}>
-          <Avatar
-            medium
-            rounded
-            source={{
-              uri: follower.avatar,
-            }}
-          />
+          <UserAvatar medium avatar={follower.avatar} />
           <View marginHorizontal={Metrics.baseMargin}>
             <Text bold>
               {follower.username}

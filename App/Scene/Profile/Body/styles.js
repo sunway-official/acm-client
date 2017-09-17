@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics } from '../../../Theme';
+import { Colors, Metrics, Fonts } from '../../../Theme';
 
 const Body = StyleSheet.create({
   container: {
@@ -16,6 +16,13 @@ const Body = StyleSheet.create({
     alignItems: 'center',
     padding: Metrics.baseMargin,
     borderBottomWidth: 2,
+  },
+  numberStyle: {
+    fontSize: Fonts.size.h6,
+  },
+  textStyle: {
+    color: Colors.grey,
+    fontSize: Fonts.size.small,
   },
 });
 

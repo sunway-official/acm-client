@@ -5,6 +5,7 @@ import { Text, TouchableView } from '~/Component';
 import { Colors } from '../../../Theme';
 import Content from './Content';
 import styles from './styles';
+import { news, followers } from '../fixture';
 
 class Body extends Component {
   static propTypes = {};
@@ -22,17 +23,20 @@ class Body extends Component {
     const initialState = {
       tabs: {
         About: {
-          title: 'About',
+          title: 'ABOUT',
           isActive: false,
+          quantity: 0,
           initial: true,
         },
         Activities: {
-          title: 'Activities',
+          title: 'POSTS',
           isActive: false,
+          quantity: news.length,
         },
         Followers: {
-          title: 'Followers',
+          title: 'FOLLOWERS',
           isActive: false,
+          quantity: followers.length,
         },
       },
     };
@@ -82,12 +86,15 @@ class Body extends Component {
         onPress={() => this._handlePress(key)}
       >
         {tab.isActive || tab.initial
-          ? <Text bold>
-              {tab.title}
+          ? <Text bold style={styles.numberStyle}>
+              {tab.quantity}
             </Text>
-          : <Text light>
-              {tab.title}
+          : <Text light style={styles.numberStyle}>
+              {tab.quantity}
             </Text>}
+        <Text style={styles.textStyle}>
+          {tab.title}
+        </Text>
       </TouchableView>
     );
   }

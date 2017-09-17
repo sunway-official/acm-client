@@ -16,11 +16,11 @@ class Content extends Component {
 
   _renderContent(tab) {
     switch (tab) {
-      case 'About':
+      case 'ABOUT':
         return <About />;
-      case 'Activities':
+      case 'POSTS':
         return <Activities />;
-      case 'Followers':
+      case 'FOLLOWERS':
         return <Followers />;
       default:
         return <View />;
