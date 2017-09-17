@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors } from '../../../../../Theme';
+import { Metrics, Colors, Fonts } from '../../../../../Theme';
 
 const { baseMargin, doubleBaseMargin } = Metrics;
 const { white, grey } = Colors;
@@ -22,6 +22,7 @@ const About = StyleSheet.create({
   },
   description: {
     color: grey,
+    fontSize: Fonts.size.small,
   },
   itemContainer: {
     flexDirection: 'row',

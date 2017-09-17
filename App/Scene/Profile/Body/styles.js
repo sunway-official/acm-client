@@ -20,7 +20,7 @@ const Body = StyleSheet.create({
   numberStyle: {
     fontSize: Fonts.size.h6,
   },
-  textStyle: {
+  secondaryText: {
     color: Colors.grey,
     fontSize: Fonts.size.small,
   },

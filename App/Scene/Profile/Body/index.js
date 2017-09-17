@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { Text, TouchableView } from '~/Component';
 import { Colors } from '../../../Theme';
 import Content from './Content';
@@ -25,8 +26,10 @@ class Body extends Component {
         About: {
           title: 'About',
           isActive: false,
-          quantity: 0,
           initial: true,
+          icon: {
+            name: 'person',
+          },
         },
         Activities: {
           title: 'Posts',
@@ -90,14 +93,12 @@ class Body extends Component {
         key={index}
         onPress={() => this._handlePress(key)}
       >
-        {tab.isActive || tab.initial
-          ? <Text bold style={styles.numberStyle}>
-              {tab.quantity}
-            </Text>
-          : <Text light style={styles.numberStyle}>
-              {tab.quantity}
-            </Text>}
-        <Text style={styles.textStyle}>
+        {tab.icon && <Icon name={tab.icon.name} type={tab.icon.type} />}
+        {tab.quantity !== undefined &&
+          <Text bold={tab.isActive || tab.initial} style={styles.numberStyle}>
+            {tab.quantity}
+          </Text>}
+        <Text style={styles.secondaryText}>
           {tab.title}
         </Text>
       </TouchableView>

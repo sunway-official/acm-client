@@ -25,7 +25,7 @@ const Activities = StyleSheet.create({
   username: {
     fontSize: doubleBaseMargin,
   },
-  textStyle: {
+  secondaryText: {
     color: grey,
     fontSize: Fonts.size.small,
   },

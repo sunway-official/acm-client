@@ -44,10 +44,10 @@ class News extends Component {
             containerStyle={styles.avatar}
           />
           <View>
-            <Text bold style={styles.username}>
+            <Text style={styles.username}>
               {item.username}
             </Text>
-            <Text style={styles.textStyle}>
+            <Text style={styles.secondaryText}>
               {item.time}
             </Text>
           </View>
@@ -81,7 +81,7 @@ class News extends Component {
         <TouchableOpacity onPress={onPressHandler}>
           {icon}
         </TouchableOpacity>
-        <Text style={styles.textStyle}>
+        <Text style={styles.secondaryText}>
           {text}
         </Text>
       </View>
