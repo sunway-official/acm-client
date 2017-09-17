@@ -14,6 +14,7 @@ import { Colors } from '~/Theme';
 
 import Dialog from '~/Component/Dialog';
 import FilterModal from '~/Component/FilterModal';
+import TouchableView from '~/Component/TouchableView';
 
 const text = ['Welcome to News Feed!', 'We are under developement.'];
 
@@ -39,7 +40,7 @@ class NewsFeedScene extends Component {
         </View>
         <Button title="Home" onPress={home} />
         <Dialog
-          isOpen={false}
+          visible={true}
           header={'Are you sure?'}
           content="Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industrys standard dummy text ever
@@ -53,6 +54,11 @@ class NewsFeedScene extends Component {
               handleSubmit: () => console.log('clicked discard!'),
             },
           ]}
+          buttonClick={
+            <View>
+              <Text>Show Dialog</Text>
+            </View>
+          }
         />
 
         <FilterModal

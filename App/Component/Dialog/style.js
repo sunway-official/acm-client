@@ -19,34 +19,43 @@ const styles = StyleSheet.create({
   cardModalContainer: {
     backgroundColor: 'white',
     width: 300,
-    borderRadius: Metrics.buttonCornerRadius,
+    borderRadius: 15,
     borderWidth: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   headerContainer: {
-    paddingTop: 20,
+    paddingTop: 30,
     paddingBottom: 10,
-    paddingLeft: 20,
+    alignItems: 'center',
+  },
+  headerImage: {
+    width: 50,
+    height: 50,
   },
   headerText: {
+    paddingTop: 10,
     color: 'black',
     fontSize: Fonts.size.regular,
   },
   contentContainer: {
     paddingLeft: 20,
     paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 0.5,
+    alignItems: 'center',
   },
   contentText: {
     color: 'black',
   },
   actionContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
     paddingTop: 20,
     paddingBottom: 20,
-    paddingRight: 10,
   },
   actionButton: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 30,
   },
   actionText: {
     color: Colors.deepOrange,

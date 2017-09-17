@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import { View, Modal, TouchableOpacity } from 'react-native';
+import { View, Modal, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './style';
+import { Images } from '~/Theme';
 
 import TouchableView from '../TouchableView';
 import Text from '../Text';
 
 class Dialog extends Component {
   state = {
-    modalVisible: this.props.isOpen,
+    modalVisible: this.props.visible,
   };
 
   static propTypes = {
     header: PropTypes.string,
     content: PropTypes.string,
     actions: PropTypes.array,
-    isOpen: PropTypes.bool,
+    visible: PropTypes.bool,
+    buttonClick: PropTypes.object,
   };
 
   static defaultProps = {
@@ -42,7 +44,7 @@ class Dialog extends Component {
           style={styles.actionButton}
           onPress={action.handleSubmit}
         >
-          <Text medium style={styles.actionText}>
+          <Text lighter style={styles.actionText}>
             {action.name}
           </Text>
         </TouchableView>,
@@ -56,7 +58,7 @@ class Dialog extends Component {
   }
 
   render() {
-    const { header, content, actions } = this.props;
+    const { header, content, actions, buttonClick } = this.props;
     return (
       <View style={{ marginTop: 22 }}>
         <Modal
@@ -77,17 +79,16 @@ class Dialog extends Component {
             />
             <View style={styles.cardModalContainer}>
               <View style={styles.headerContainer}>
-                <Text bold style={styles.headerText}>
+                <Image style={styles.headerImage} source={Images.smile} />
+                <Text bold medium style={styles.headerText}>
                   {header}
                 </Text>
               </View>
-
               <View style={styles.contentContainer}>
                 <Text style={styles.contentText}>
                   {content}
                 </Text>
               </View>
-
               <View style={styles.actionContainer}>
                 {this._renderActions(actions)}
               </View>
@@ -100,7 +101,7 @@ class Dialog extends Component {
             this.setModalVisible(true);
           }}
         >
-          <Text>Show Dialog</Text>
+          {buttonClick}
         </TouchableView>
       </View>
     );
