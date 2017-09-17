@@ -116,7 +116,7 @@ class HeaderWrapper extends Component {
 
     let title = route ? route.name : '';
 
-    if (toolbar.header.options && toolbar.header.options.title) {
+    if (toolbar.header.options && toolbar.header.options.title !== undefined) {
       title = toolbar.header.options.title;
     }
 

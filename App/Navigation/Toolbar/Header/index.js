@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, StatusBar, Platform } from 'react-native';
+import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Text, TouchableView } from '~/Component';
@@ -10,7 +11,7 @@ import styles from './styles';
 const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
-const HIDDING_DELAY = 300;
+const HIDDING_DELAY = 150;
 
 class Header extends Component {
   static propTypes = {
@@ -20,6 +21,7 @@ class Header extends Component {
     float: PropTypes.bool,
     backgroundColor: PropTypes.string,
     statusBarBackgroundColor: PropTypes.string,
+    borderBottomColor: PropTypes.string,
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),
     style: View.propTypes.style,
     icon: PropTypes.shape({
@@ -40,6 +42,7 @@ class Header extends Component {
     drawer: PropTypes.shape({
       isOpen: PropTypes.bool,
     }),
+    dispatch: PropTypes.func,
   };
 
   constructor(props) {
@@ -52,6 +55,7 @@ class Header extends Component {
     this._textStyles = this._textStyles.bind(this);
     this._iconStyles = this._iconStyles.bind(this);
     this._touchableViewStyles = this._touchableViewStyles.bind(this);
+    this._renderAction = this._renderAction.bind(this);
   }
 
   _getTheme = () => this.props.theme || THEME_LIGHT;
@@ -59,7 +63,7 @@ class Header extends Component {
   _wrapperStyles = () => {
     const theme = this._getTheme();
 
-    const { statusBarBackgroundColor } = this.props;
+    const { statusBarBackgroundColor, borderBottomColor } = this.props;
     let styles = {
       borderTopWidth: IS_ANDROID
         ? // For Android
@@ -71,7 +75,16 @@ class Header extends Component {
           theme === THEME_DARK ? Colors.primary : Colors.secondaryDark
         : // For iOS
           theme === THEME_DARK ? Colors.primaryDark : Colors.secondaryDark,
+      borderBottomWidth: theme === THEME_DARK ? 0 : 1,
+      borderBottomColor: 'rgba(0,0,0,0.075)',
     };
+    if (borderBottomColor) {
+      styles = {
+        ...styles,
+        borderBottomWidth: 1,
+        borderBottomColor: borderBottomColor,
+      };
+    }
     if (statusBarBackgroundColor) {
       styles = {
         ...styles,
@@ -97,9 +110,6 @@ class Header extends Component {
         ...styles,
         backgroundColor,
       };
-    }
-    if (IS_ANDROID && !float && this.props.drawer.isOpen === false) {
-      styles.elevation = 8;
     }
     return styles;
   };
@@ -129,6 +139,8 @@ class Header extends Component {
 
   _renderAction({ icon, onPress }, index) {
     let actionWrapperStyles = [styles.rightIconWrapper];
+
+    const { dispatch } = this.props;
     if (index === 0) {
       actionWrapperStyles = [...actionWrapperStyles, styles.firstRightIcon];
     }
@@ -137,7 +149,7 @@ class Header extends Component {
         key={index}
         {...this._touchableViewStyles()}
         style={[actionWrapperStyles]}
-        onPress={onPress}
+        onPress={() => onPress(dispatch)}
       >
         <Icon
           name="more-vert"
@@ -203,4 +215,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default connect()(Header);
