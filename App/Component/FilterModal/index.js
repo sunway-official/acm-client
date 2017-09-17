@@ -12,7 +12,7 @@ const randomColor = ['red', 'blue', 'green', 'pink'];
 
 class FilterModal extends Component {
   state = {
-    modalVisible: this.props.isOpen,
+    modalVisible: this.props.visible,
     isCheck: Array(this.props.contents.length).fill(false),
   };
 
@@ -20,7 +20,8 @@ class FilterModal extends Component {
     header: PropTypes.string,
     contents: PropTypes.array,
     actions: PropTypes.array,
-    isOpen: PropTypes.bool,
+    visible: PropTypes.bool,
+    buttonClick: PropTypes.object,
   };
 
   static defaultProps = {
@@ -101,7 +102,7 @@ class FilterModal extends Component {
   }
 
   render() {
-    const { header, contents, actions } = this.props;
+    const { header, contents, actions, buttonClick } = this.props;
     return (
       <View style={{ marginTop: 22 }}>
         <Modal
@@ -122,7 +123,7 @@ class FilterModal extends Component {
             />
             <View style={styles.cardModalContainer}>
               <View style={styles.headerContainer}>
-                <Text bold style={styles.headerText}>
+                <Text medium style={styles.headerText}>
                   {header}
                 </Text>
               </View>
@@ -143,7 +144,7 @@ class FilterModal extends Component {
             this.setModalVisible(true);
           }}
         >
-          <Text>Show Filter Modal</Text>
+          {buttonClick}
         </TouchableView>
       </View>
     );

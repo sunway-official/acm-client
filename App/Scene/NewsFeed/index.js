@@ -40,7 +40,7 @@ class NewsFeedScene extends Component {
         </View>
         <Button title="Home" onPress={home} />
         <Dialog
-          visible={true}
+          visible={false}
           header={'Are you sure?'}
           headerImage={Images.smile}
           content="Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -63,7 +63,7 @@ class NewsFeedScene extends Component {
         />
 
         <FilterModal
-          isOpen={false}
+          visible={true}
           header={'Filter'}
           contents={[
             {
@@ -88,6 +88,11 @@ class NewsFeedScene extends Component {
               handleSubmit: () => console.log('clicked APPLY!'),
             },
           ]}
+          buttonClick={
+            <View>
+              <Text>Show Filter</Text>
+            </View>
+          }
         />
       </View>
     );
