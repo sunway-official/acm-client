@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'react-native-elements';
 import { View, Image } from 'react-native';
 import { Text } from '~/Component';
-import { Images, Colors } from '~/Theme';
+import { Images } from '~/Theme';
 import styles from './styles';
 
 class Header extends Component {
@@ -17,20 +16,6 @@ class Header extends Component {
     super(props, context);
     this._renderAvatar = this._renderAvatar.bind(this);
     this._renderInfo = this._renderInfo.bind(this);
-  }
-
-  _renderIcon({ name, type, color, style }) {
-    return (
-      <View style={styles.iconContainer}>
-        <Icon
-          name={name}
-          type={type}
-          color={color}
-          size={23}
-          style={[styles.icon, styles.centerScale, style]}
-        />
-      </View>
-    );
   }
 
   _renderAvatar() {

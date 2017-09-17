@@ -1,15 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Fonts, Colors } from '../../../Theme';
+import { Metrics, Fonts, Colors } from '~/Theme';
 
-const { smallMargin, doubleBaseMargin, baseMargin, icons, section } = Metrics;
+const { smallMargin, doubleBaseMargin, section } = Metrics;
 const avatarWidth = 120;
 const halfHeightOfAvatar = avatarWidth / 2;
 
 export default StyleSheet.create({
-  centerScale: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   container: {
     flex: 1,
   },
@@ -23,7 +19,6 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingHorizontal: doubleBaseMargin,
-    // marginTop: halfHeightOfAvatar,
   },
   avatar: {
     width: avatarWidth,
@@ -32,11 +27,6 @@ export default StyleSheet.create({
     borderColor: Colors.white,
     borderRadius: halfHeightOfAvatar,
     resizeMode: 'cover',
-  },
-  icon: {
-    width: icons.large,
-    height: icons.large,
-    borderRadius: icons.large / 2,
   },
   infoContainer: {
     alignItems: 'center',
