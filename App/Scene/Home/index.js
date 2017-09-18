@@ -4,6 +4,7 @@ import { View, Button } from 'react-native';
 import { Text } from '~/Component';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
+import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import { Colors } from '~/Theme';
 import styles from './styles';
 
@@ -15,7 +16,7 @@ const text = [
   'to connect to other scene.',
 ];
 
-const HomeScene = ({ login }) =>
+const HomeScene = ({ showSearch, hideSearch }) =>
   <View style={styles.container}>
     <View style={styles.centerText}>
       {text.map((text, index) =>
@@ -24,7 +25,9 @@ const HomeScene = ({ login }) =>
         </Text>,
       )}
     </View>
-    <Button title="Login" onPress={login} />
+    <Button title="Show search box" onPress={showSearch} />
+    <View marginBottom={24} />
+    <Button title="Hide search box" onPress={hideSearch} />
   </View>;
 
 HomeScene.drawer = {
@@ -35,14 +38,9 @@ HomeScene.header = {
   leftIcon: 'drawer',
   float: true,
   title: null,
-  search: {
-    value: '',
-    placeholder: 'Search something',
-    enable: true,
-  },
-  theme: 'light',
-  backgroundColor: 'rgba(0,0,0,0)',
-  statusBarBackgroundColor: 'rgba(0,0,0,0.5)',
+  theme: 'dark',
+  backgroundColor: Colors.blue,
+  statusBarBackgroundColor: Colors.blue,
   actions: [
     {
       icon: {},
@@ -69,11 +67,27 @@ HomeScene.header = {
 };
 
 HomeScene.propTypes = {
-  login: PropTypes.func,
+  showSearch: PropTypes.func,
+  hideSearch: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
-  login: () => dispatch(NavigationActions.navigate({ routeName: 'login' })),
+  showSearch: () =>
+    dispatch(
+      addHeaderOptions({
+        search: {
+          value: '',
+          placeholder: 'Search something',
+          enable: true,
+        },
+      }),
+    ),
+  hideSearch: () =>
+    dispatch(
+      addHeaderOptions({
+        search: {},
+      }),
+    ),
 });
 
 export default connect(undefined, mapDispatchToProps)(HomeScene);
