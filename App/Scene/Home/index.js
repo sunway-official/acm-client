@@ -35,6 +35,11 @@ HomeScene.header = {
   leftIcon: 'drawer',
   float: true,
   title: null,
+  search: {
+    value: '',
+    placeholder: 'Search something',
+    enable: true,
+  },
   theme: 'light',
   backgroundColor: 'rgba(0,0,0,0)',
   statusBarBackgroundColor: 'rgba(0,0,0,0.5)',

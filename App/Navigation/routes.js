@@ -16,6 +16,7 @@ export const ROUTES = {
     icon: {
       name: 'home',
     },
+    initial: true,
   },
   login: {
     name: 'Login',
@@ -48,7 +49,6 @@ export const ROUTES = {
     name: 'News Feed',
     path: '/news-feed',
     screen: NewsFeed,
-    initial: true,
     icon: {
       name: 'newspaper',
       type: 'material-community',

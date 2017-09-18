@@ -6,6 +6,8 @@ import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Text, TouchableView } from '~/Component';
 import { Colors, Metrics, Icons } from '~/Theme';
+import SearchContent from './Search';
+import DefaultContent from './Default';
 import styles from './styles';
 
 const IS_ANDROID = Platform.OS === 'android';
@@ -42,6 +44,11 @@ class Header extends Component {
     drawer: PropTypes.shape({
       isOpen: PropTypes.bool,
     }),
+    search: PropTypes.shape({
+      enable: PropTypes.bool,
+      value: PropTypes.string,
+      placeholder: PropTypes.string,
+    }),
     dispatch: PropTypes.func,
   };
 
@@ -52,10 +59,6 @@ class Header extends Component {
     this._statusBarStyle = this._statusBarStyle.bind(this);
     this._wrapperStyles = this._wrapperStyles.bind(this);
     this._headerStyles = this._headerStyles.bind(this);
-    this._textStyles = this._textStyles.bind(this);
-    this._iconStyles = this._iconStyles.bind(this);
-    this._touchableViewStyles = this._touchableViewStyles.bind(this);
-    this._renderAction = this._renderAction.bind(this);
   }
 
   _getTheme = () => this.props.theme || THEME_LIGHT;
@@ -114,62 +117,8 @@ class Header extends Component {
     return styles;
   };
 
-  _textStyles = () => {
-    const theme = this._getTheme();
-    return {
-      color: theme === THEME_DARK ? Colors.white : Colors.darkGrey,
-    };
-  };
-
-  _iconStyles = () => {
-    const theme = this._getTheme();
-    return {
-      color: theme === THEME_DARK ? Colors.white : Colors.darkGrey,
-      size: Metrics.icons.small,
-    };
-  };
-
-  _touchableViewStyles = () => {
-    const theme = this._getTheme();
-    return {
-      rippleColor: theme === THEME_DARK ? Colors.white : Colors.darkGrey,
-      borderless: true,
-    };
-  };
-
-  _renderAction({ icon, onPress }, index) {
-    let actionWrapperStyles = [styles.rightIconWrapper];
-
-    const { dispatch } = this.props;
-    if (index === 0) {
-      actionWrapperStyles = [...actionWrapperStyles, styles.firstRightIcon];
-    }
-    return (
-      <TouchableView
-        key={index}
-        {...this._touchableViewStyles()}
-        style={[actionWrapperStyles]}
-        onPress={() => onPress(dispatch)}
-      >
-        <Icon
-          name="more-vert"
-          {...icon}
-          onPress={undefined}
-          {...this._iconStyles()}
-        />
-      </TouchableView>
-    );
-  }
-
   render() {
-    const {
-      title,
-      hideTitle,
-      visible,
-      icon,
-      onIconPress,
-      actions = [],
-    } = this.props;
+    const { search = {}, visible } = this.props;
     const containerStyle = this.props.style;
 
     return (
@@ -183,32 +132,12 @@ class Header extends Component {
           animation={visible ? 'slideInDown' : 'slideOutUp'}
           duration={HIDDING_DELAY}
         >
-          <View style={styles.leftWrapper}>
-            <TouchableView
-              style={styles.iconWrapper}
-              {...this._touchableViewStyles()}
-              onPress={onIconPress}
-            >
-              <Icon
-                name="menu"
-                {...icon}
-                onPress={undefined}
-                {...this._iconStyles()}
+          {search.enable
+            ? <SearchContent
+                value={search.value}
+                placeholder={search.placeholder}
               />
-            </TouchableView>
-          </View>
-          {hideTitle ||
-            <View style={styles.centerWrapper}>
-              <View style={styles.titleWrapper}>
-                <Text bold style={[styles.title, this._textStyles()]}>
-                  {title}
-                </Text>
-              </View>
-            </View>}
-
-          <View style={styles.rightWrapper}>
-            {actions.map(this._renderAction.bind(this))}
-          </View>
+            : <DefaultContent {...this.props} />}
         </AnimatableView>
       </View>
     );

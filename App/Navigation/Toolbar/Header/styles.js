@@ -1,9 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Fonts } from '~/Theme';
+import { Metrics, Fonts, Colors } from '~/Theme';
 
 export default StyleSheet.create({
-  header: {
+  container: {
+    flex: 1,
     flexDirection: 'row',
+  },
+  header: {
+    height: 56,
   },
   centerWrapper: {
     marginLeft: Metrics.baseMargin,
@@ -34,5 +38,12 @@ export default StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: 'rgba(0,0,0,0.7)',
+  },
+  searchWrapper: {
+    backgroundColor: Colors.white,
+  },
+  input: {
+    flex: 1,
+    fontSize: Fonts.size.regular,
   },
 });
