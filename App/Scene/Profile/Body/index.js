@@ -84,6 +84,7 @@ class Body extends Component {
     const tab = this.state.tabs[key];
     return (
       <TouchableView
+        rippleColor="rgba(0,0,0,0.05)"
         style={[
           styles.tabContainer,
           tab.isActive || tab.initial
@@ -95,7 +96,7 @@ class Body extends Component {
       >
         {tab.icon && <Icon name={tab.icon.name} type={tab.icon.type} />}
         {tab.quantity !== undefined &&
-          <Text bold={tab.isActive || tab.initial} style={styles.numberStyle}>
+          <Text style={styles.numberStyle}>
             {tab.quantity}
           </Text>}
         <Text style={styles.secondaryText}>

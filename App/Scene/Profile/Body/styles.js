@@ -3,7 +3,7 @@ import { Colors, Metrics, Fonts } from '../../../Theme';
 
 const Body = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
   },
   tabsContainer: {
     flexDirection: 'row',

@@ -77,14 +77,12 @@ class News extends Component {
 
   _renderInteraction(onPressHandler, icon, text) {
     return (
-      <View flexDirection="row" alignItems="center">
-        <TouchableOpacity onPress={onPressHandler}>
-          {icon}
-        </TouchableOpacity>
+      <TouchableOpacity onPress={onPressHandler} style={styles.interaction}>
+        {icon}
         <Text style={styles.secondaryText}>
           {text}
         </Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 
