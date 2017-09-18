@@ -25,7 +25,7 @@ const Activities = StyleSheet.create({
   username: {
     fontSize: doubleBaseMargin,
   },
-  textStyle: {
+  secondaryText: {
     color: grey,
     fontSize: Fonts.size.small,
   },
@@ -36,9 +36,16 @@ const Activities = StyleSheet.create({
     marginVertical: baseMargin,
   },
   interactionBarContainer: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+  },
+  interaction: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

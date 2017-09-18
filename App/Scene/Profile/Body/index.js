@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { Text, TouchableView } from '~/Component';
 import { Colors } from '../../../Theme';
 import Content from './Content';
 import styles from './styles';
+import { news, followers } from '../fixture';
 
 class Body extends Component {
   static propTypes = {};
@@ -25,14 +27,24 @@ class Body extends Component {
           title: 'About',
           isActive: false,
           initial: true,
+          icon: {
+            name: 'person',
+          },
         },
         Activities: {
-          title: 'Activities',
+          title: 'Posts',
           isActive: false,
+          quantity: news.length,
         },
         Followers: {
           title: 'Followers',
           isActive: false,
+          quantity: followers.length,
+        },
+        Following: {
+          title: 'Following',
+          isActive: false,
+          quantity: followers.length,
         },
       },
     };
@@ -72,6 +84,7 @@ class Body extends Component {
     const tab = this.state.tabs[key];
     return (
       <TouchableView
+        rippleColor="rgba(0,0,0,0.05)"
         style={[
           styles.tabContainer,
           tab.isActive || tab.initial
@@ -81,13 +94,14 @@ class Body extends Component {
         key={index}
         onPress={() => this._handlePress(key)}
       >
-        {tab.isActive || tab.initial
-          ? <Text bold>
-              {tab.title}
-            </Text>
-          : <Text light>
-              {tab.title}
-            </Text>}
+        {tab.icon && <Icon name={tab.icon.name} type={tab.icon.type} />}
+        {tab.quantity !== undefined &&
+          <Text style={styles.numberStyle}>
+            {tab.quantity}
+          </Text>}
+        <Text style={styles.secondaryText}>
+          {tab.title}
+        </Text>
       </TouchableView>
     );
   }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'react-native-elements';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image } from 'react-native';
 import { Text } from '~/Component';
+import { Images } from '~/Theme';
 import styles from './styles';
 
 class Header extends Component {
@@ -18,25 +18,11 @@ class Header extends Component {
     this._renderInfo = this._renderInfo.bind(this);
   }
 
-  _renderIcon(text, name, type, color, style) {
+  _renderAvatar() {
     return (
-      <View style={styles.iconContainer}>
-        <Icon name={name} type={type} color={color} style={style} />
-        <Text>
-          {text}
-        </Text>
+      <View style={styles.avatarSection}>
+        <Image source={{ uri: this.props.avatar }} style={styles.avatar} />
       </View>
-    );
-  }
-
-  _renderAvatar(style) {
-    return (
-      <Image
-        source={{
-          uri: this.props.avatar,
-        }}
-        style={style}
-      />
     );
   }
 
@@ -44,10 +30,10 @@ class Header extends Component {
     const { username, address } = this.props;
     return (
       <View style={styles.infoContainer}>
-        <Text style={styles.username} bold>
+        <Text style={[styles.primaryTextColor, styles.username]} bold>
           {username}
         </Text>
-        <Text>
+        <Text style={styles.primaryTextColor}>
           {address}
         </Text>
       </View>
@@ -57,29 +43,15 @@ class Header extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.fakeView} />
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingHorizontal: 36,
-          }}
+        <Image
+          source={Images.materialBackground}
+          style={styles.backgroundImage}
         >
-          {this._renderIcon('EMAIL', 'email', 'material-community', 'red', [
-            styles.icon,
-            styles.centerScale,
-            { borderColor: 'red' },
-          ])}
-          {this._renderAvatar(styles.avatar)}
-          {this._renderIcon(
-            'EDIT',
-            'lead-pencil',
-            'material-community',
-            'blue',
-            [styles.icon, styles.centerScale, { borderColor: 'blue' }],
-          )}
-        </View>
-        {this._renderInfo()}
+          <View style={styles.coverPhoto}>
+            {this._renderAvatar()}
+            {this._renderInfo()}
+          </View>
+        </Image>
       </View>
     );
   }

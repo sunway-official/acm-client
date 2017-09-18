@@ -9,7 +9,7 @@ const Comment = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: doubleBaseMargin,
   },
-  rightOfComment: { flex: 1, marginLeft: doubleBaseMargin },
+  rightOfComment: { flex: 1, marginLeft: baseMargin },
   rightFooterOfComment: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -17,7 +17,7 @@ const Comment = StyleSheet.create({
     marginTop: baseMargin,
   },
   interactionContainer: { flexDirection: 'row', alignItems: 'center' },
-  textColor: { color: grey }, // additional text
+  textColor: { color: grey }, // additional text (an houre ago, ...)
   replyTextStyle: { color: grey, marginRight: 28 },
   commentInputBoxContainer: {
     flex: 1,

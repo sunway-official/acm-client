@@ -13,7 +13,7 @@ class Follower extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      follow: false,
+      follow: true,
     };
     this._renderFollower = this._renderFollower.bind(this);
     this._handleFollowPress = this._handleFollowPress.bind(this);
