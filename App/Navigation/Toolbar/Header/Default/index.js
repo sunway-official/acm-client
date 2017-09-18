@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, StatusBar, Platform } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
-import { View as AnimatableView } from 'react-native-animatable';
 import { Text, TouchableView } from '~/Component';
 import { Colors, Metrics, Icons } from '~/Theme';
 import styles from '../styles';
 
-const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
-const HIDDING_DELAY = 150;
 
 class DefaultHeaderContent extends Component {
   static propTypes = {

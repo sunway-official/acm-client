@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Platform, TextInput } from 'react-native';
+import { View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
-import { View as AnimatableView } from 'react-native-animatable';
-import { Text, TouchableView } from '~/Component';
-import { Colors, Metrics, Icons } from '~/Theme';
+import { TouchableView } from '~/Component';
+import { Colors } from '~/Theme';
 import styles from '../styles';
-
-const IS_ANDROID = Platform.OS === 'android';
-const THEME_DARK = 'dark';
-const THEME_LIGHT = 'light';
-const HIDDING_DELAY = 150;
 
 class HeaderSearchContent extends Component {
   static propTypes = {
@@ -83,6 +77,8 @@ class HeaderSearchContent extends Component {
           returnKeyType="search"
           underlineColorAndroid={Colors.transparent}
           selectionColor={Colors.darkGrey}
+          autoFocus
+          defaultValue={value}
         />
         <View style={styles.rightWrapper}>
           {this._renderClear({

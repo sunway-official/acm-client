@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, StatusBar, Platform } from 'react-native';
 import { connect } from 'react-redux';
-import { Icon } from 'react-native-elements';
 import { View as AnimatableView } from 'react-native-animatable';
-import { Text, TouchableView } from '~/Component';
 import { Colors, Metrics, Icons } from '~/Theme';
 import SearchContent from './Search';
 import DefaultContent from './Default';
@@ -14,6 +12,9 @@ const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
 const HIDDING_DELAY = 150;
+
+const SWITCH_CONTENT_ANIMATION = 'fadeIn';
+const SWITCH_CONTENT_DELAY = 300;
 
 class Header extends Component {
   static propTypes = {
@@ -104,7 +105,7 @@ class Header extends Component {
 
   _headerStyles = () => {
     const theme = this._getTheme();
-    const { backgroundColor, float } = this.props;
+    const { backgroundColor } = this.props;
     let styles = {
       backgroundColor: theme === THEME_DARK ? Colors.primary : Colors.white,
     };
@@ -132,12 +133,25 @@ class Header extends Component {
           animation={visible ? 'slideInDown' : 'slideOutUp'}
           duration={HIDDING_DELAY}
         >
-          {search.enable
-            ? <SearchContent
+          {search.enable &&
+            <AnimatableView
+              animation={SWITCH_CONTENT_ANIMATION}
+              duration={SWITCH_CONTENT_DELAY}
+              style={styles.container}
+            >
+              <SearchContent
                 value={search.value}
                 placeholder={search.placeholder}
               />
-            : <DefaultContent {...this.props} />}
+            </AnimatableView>}
+          {search.enable ||
+            <AnimatableView
+              animation={SWITCH_CONTENT_ANIMATION}
+              duration={SWITCH_CONTENT_DELAY}
+              style={styles.container}
+            >
+              <DefaultContent {...this.props} />
+            </AnimatableView>}
         </AnimatableView>
       </View>
     );
