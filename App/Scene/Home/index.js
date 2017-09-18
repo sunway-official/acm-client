@@ -34,15 +34,30 @@ HomeScene.drawer = {
 HomeScene.header = {
   leftIcon: 'drawer',
   float: true,
-  title: 'home',
-  theme: 'dark',
-  backgroundColor: 'rgba(0,0,0,0.4)',
-  statusBarBackgroundColor: 'rgba(0,0,0,0.7)',
+  title: null,
+  theme: 'light',
+  backgroundColor: 'rgba(0,0,0,0)',
+  statusBarBackgroundColor: 'rgba(0,0,0,0.5)',
   actions: [
     {
       icon: {},
-      onPress: () => {
+      onPress: dispatch => {
         console.log('hello there');
+        dispatch({
+          type: 'REDUX_ACTION',
+          payload: "Hello! I'm here",
+        });
+      },
+    },
+    {
+      icon: {
+        name: 'lock',
+      },
+      onPress: dispatch => {
+        dispatch({
+          type: 'LOCK_ACTION',
+          payload: 'Lock the account',
+        });
       },
     },
   ],

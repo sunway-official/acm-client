@@ -86,7 +86,6 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
   },
   notification: {
     name: 'Notification',

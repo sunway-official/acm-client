@@ -17,11 +17,12 @@ const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
 
-const HIDDING_DELAY = 300;
+const HIDDING_DELAY = 150;
 
 class Footer extends Component {
   static propTypes = {
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),
+    borderTopColor: PropTypes.string,
     visible: PropTypes.bool,
     style: View.propTypes.style,
     drawer: PropTypes.shape({
@@ -45,17 +46,25 @@ class Footer extends Component {
 
   _wrapperStyles = () => {
     // const theme = this._getTheme();
-    if (IS_ANDROID) return {};
     return {};
   };
 
   _footerStyles = () => {
     const theme = this._getTheme();
+    const { borderTopColor } = this.props;
+
     let styles = {
       backgroundColor: theme === THEME_DARK ? Colors.black : Colors.white,
+
+      borderTopWidth: theme === THEME_DARK ? 0 : 1,
+      borderTopColor: 'rgba(0,0,0,0.075)',
     };
-    if (IS_ANDROID && this.props.drawer.isOpen === false) {
-      styles.elevation = 8;
+    if (borderTopColor) {
+      styles = {
+        ...styles,
+        borderTopWidth: 1,
+        borderTopColor: borderBottomColor,
+      };
     }
     return styles;
   };
