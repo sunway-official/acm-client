@@ -15,12 +15,21 @@ import { Colors, Images } from '~/Theme';
 import Dialog from '~/Component/Dialog';
 import FilterModal from '~/Component/FilterModal';
 import TouchableView from '~/Component/TouchableView';
+import Modal from '~/Component/Modal';
 
 const text = ['Welcome to News Feed!', 'We are under developement.'];
 
 class NewsFeedScene extends Component {
+  state = {
+    isModalVisible: false,
+  };
+  _showModal = () => this.setState({ isModalVisible: true });
+  _hideModal = () => this.setState({ isModalVisible: false });
+
   render() {
     const { home } = this.props;
+
+    console.log(this.props);
 
     return (
       <View style={styles.container}>
@@ -39,61 +48,18 @@ class NewsFeedScene extends Component {
           )}
         </View>
         <Button title="Home" onPress={home} />
-        <Dialog
-          visible={false}
-          header={'Are you sure?'}
-          headerImage={Images.smile}
-          content="Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text ever
-            since the 1500s"
-          actions={[
-            {
-              name: 'Cancel',
-            },
-            {
-              name: 'Confirm',
-              handleSubmit: () => console.log('clicked discard!'),
-            },
-          ]}
-          buttonClick={
-            <View>
-              <Text>Show Dialog</Text>
-            </View>
-          }
-        />
 
-        <FilterModal
-          visible={true}
-          header={'Filter'}
-          contents={[
-            {
-              name: 'Leadership',
-            },
-            {
-              name: 'Program Assessment',
-            },
-            {
-              name: 'Citizen Tech',
-            },
-            {
-              name: 'Accreditation',
-            },
-          ]}
-          actions={[
-            {
-              name: 'Cancel',
-            },
-            {
-              name: 'Apply',
-              handleSubmit: () => console.log('clicked APPLY!'),
-            },
-          ]}
-          buttonClick={
-            <View>
-              <Text>Show Filter</Text>
-            </View>
-          }
-        />
+        <TouchableView onPress={this._showModal}>
+          <Text>Show Modal</Text>
+        </TouchableView>
+        <Modal
+          isVisible={this.state.isModalVisible}
+          onBackdropPress={this._hideModal}
+        >
+          <View>
+            <Text>Hello!</Text>
+          </View>
+        </Modal>
       </View>
     );
   }
