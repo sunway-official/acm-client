@@ -4,7 +4,7 @@ import { View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 import { TouchableView } from '~/Component';
-import { Colors, Metrics } from '~/Theme';
+import { Colors, Metrics, Fonts } from '~/Theme';
 import styles from '../styles';
 
 const THEME_DARK = 'dark';
@@ -16,6 +16,7 @@ class HeaderSearchContent extends Component {
     value: PropTypes.string,
     placeholder: PropTypes.string,
     dispatch: PropTypes.func,
+    onIconPress: PropTypes.func,
   };
 
   constructor(props) {
@@ -24,6 +25,7 @@ class HeaderSearchContent extends Component {
     this._renderClear = this._renderClear.bind(this);
     this._renderBack = this._renderBack.bind(this);
     this._getTheme = this._getTheme.bind(this);
+    this._inputStyles = this._inputStyles.bind(this);
     this._inputProps = this._inputProps.bind(this);
   }
 
@@ -53,6 +55,16 @@ class HeaderSearchContent extends Component {
     };
   }
 
+  _inputStyles() {
+    const theme = this._getTheme();
+
+    return {
+      flex: 1,
+      fontSize: Fonts.size.regular,
+      color: theme === THEME_DARK ? Colors.secondary : Colors.darkGrey,
+    };
+  }
+
   _inputProps() {
     const theme = this._getTheme();
     const { placeholder, value } = this.props;
@@ -61,6 +73,8 @@ class HeaderSearchContent extends Component {
       returnKeyType: 'search',
       underlineColorAndroid: Colors.transparent,
       selectionColor: theme === THEME_DARK ? Colors.white : Colors.darkGrey,
+      placeholderTextColor:
+        theme === THEME_DARK ? Colors.secondary : Colors.grey,
       autoFocus: true,
       defaultValue: value,
     };
@@ -85,7 +99,7 @@ class HeaderSearchContent extends Component {
   }
 
   _renderBack() {
-    const { dispatch } = this.props;
+    const { dispatch, onIconPress = () => {} } = this.props;
     return (
       <TouchableView
         style={styles.iconWrapper}
@@ -103,7 +117,7 @@ class HeaderSearchContent extends Component {
         <View style={styles.leftWrapper}>
           {this._renderBack()}
         </View>
-        <TextInput style={styles.input} {...this._inputProps()} />
+        <TextInput style={this._inputStyles()} {...this._inputProps()} />
         <View style={styles.rightWrapper}>
           {this._renderClear({
             icon: { name: 'clear' },

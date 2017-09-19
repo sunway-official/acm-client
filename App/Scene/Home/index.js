@@ -80,12 +80,14 @@ const mapDispatchToProps = dispatch => ({
           placeholder: 'Search something',
           enable: true,
         },
+        leftIcon: 'back',
       }),
     ),
   hideSearch: () =>
     dispatch(
       addHeaderOptions({
         search: {},
+        leftIcon: 'drawer',
       }),
     ),
 });

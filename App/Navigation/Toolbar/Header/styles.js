@@ -39,8 +39,4 @@ export default StyleSheet.create({
     height: '100%',
     backgroundColor: 'rgba(0,0,0,0.7)',
   },
-  input: {
-    flex: 1,
-    fontSize: Fonts.size.regular,
-  },
 });
