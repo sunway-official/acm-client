@@ -12,13 +12,19 @@ class FormInput extends PureComponent {
       error: PropTypes.string,
       warning: PropTypes.string,
     }),
+    containerStyle: View.propTypes.style,
   };
 
   render() {
-    const { input, meta: { touched, error, warning }, ...custom } = this.props;
+    const {
+      input,
+      containerStyle,
+      meta: { touched, error, warning },
+      ...custom
+    } = this.props;
 
     return (
-      <View>
+      <View style={[containerStyle]}>
         <TextInput style={styles.textInput} {...input} {...custom} />
         {touched &&
           ((error &&

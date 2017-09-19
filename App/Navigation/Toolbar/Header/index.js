@@ -27,11 +27,7 @@ class Header extends Component {
     drawer: PropTypes.shape({
       isOpen: PropTypes.bool,
     }),
-    search: PropTypes.shape({
-      enable: PropTypes.bool,
-      value: PropTypes.string,
-      placeholder: PropTypes.string,
-    }),
+    search: PropTypes.object,
     dispatch: PropTypes.func,
   };
 
@@ -116,11 +112,7 @@ class Header extends Component {
           duration={HIDDING_DELAY}
         >
           {search.enable &&
-            <SearchContent
-              {...this.props}
-              value={search.value}
-              placeholder={search.placeholder}
-            />}
+            <SearchContent {...this.props} {...this.props.search} />}
           {search.enable ||
             <AnimatableView
               animation={SWITCH_CONTENT_ANIMATION}

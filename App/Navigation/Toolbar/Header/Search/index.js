@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, TextInput } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
-import { TouchableView } from '~/Component';
+import { TouchableView, FormInput } from '~/Component';
 import { Colors, Metrics, Fonts } from '~/Theme';
+import { reduxForm, Field } from 'redux-form';
+import { compose } from 'react-apollo';
 import styles from '../styles';
 
 const THEME_DARK = 'dark';
@@ -13,7 +15,7 @@ const THEME_LIGHT = 'light';
 class HeaderSearchContent extends Component {
   static propTypes = {
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),
-    value: PropTypes.string,
+    defaultValue: PropTypes.string,
     placeholder: PropTypes.string,
     dispatch: PropTypes.func,
     onIconPress: PropTypes.func,
@@ -67,7 +69,7 @@ class HeaderSearchContent extends Component {
 
   _inputProps() {
     const theme = this._getTheme();
-    const { placeholder, value } = this.props;
+    const { placeholder, defaultValue } = this.props;
     return {
       placeholder: placeholder,
       returnKeyType: 'search',
@@ -76,7 +78,7 @@ class HeaderSearchContent extends Component {
       placeholderTextColor:
         theme === THEME_DARK ? Colors.secondary : Colors.grey,
       autoFocus: true,
-      defaultValue: value,
+      defaultValue: defaultValue,
     };
   }
 
@@ -117,7 +119,14 @@ class HeaderSearchContent extends Component {
         <View style={styles.leftWrapper}>
           {this._renderBack()}
         </View>
-        <TextInput style={this._inputStyles()} {...this._inputProps()} />
+        <Field
+          name="value"
+          type="text"
+          component={FormInput}
+          containerStyle={styles.container}
+          style={this._inputStyles()}
+          {...this._inputProps()}
+        />
         <View style={styles.rightWrapper}>
           {this._renderClear({
             icon: { name: 'clear' },
@@ -128,4 +137,9 @@ class HeaderSearchContent extends Component {
   }
 }
 
-export default connect()(HeaderSearchContent);
+export default compose(
+  connect(),
+  reduxForm({
+    form: 'search',
+  }),
+)(HeaderSearchContent);

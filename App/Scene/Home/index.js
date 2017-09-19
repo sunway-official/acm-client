@@ -75,7 +75,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(
       addHeaderOptions({
         search: {
-          value: '',
+          defaultValue: '',
           placeholder: 'Search something',
           enable: true,
         },
