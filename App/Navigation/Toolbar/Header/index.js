@@ -134,16 +134,11 @@ class Header extends Component {
           duration={HIDDING_DELAY}
         >
           {search.enable &&
-            <AnimatableView
-              animation={SWITCH_CONTENT_ANIMATION}
-              duration={SWITCH_CONTENT_DELAY}
-              style={styles.container}
-            >
-              <SearchContent
-                value={search.value}
-                placeholder={search.placeholder}
-              />
-            </AnimatableView>}
+            <SearchContent
+              {...this.props}
+              value={search.value}
+              placeholder={search.placeholder}
+            />}
           {search.enable ||
             <AnimatableView
               animation={SWITCH_CONTENT_ANIMATION}

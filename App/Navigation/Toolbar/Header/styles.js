@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Fonts, Colors } from '~/Theme';
+import { Metrics, Fonts } from '~/Theme';
 
 export default StyleSheet.create({
   container: {
@@ -38,9 +38,6 @@ export default StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: 'rgba(0,0,0,0.7)',
-  },
-  searchWrapper: {
-    backgroundColor: Colors.white,
   },
   input: {
     flex: 1,
