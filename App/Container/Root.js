@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
 import AppNavigation from '~/Navigation';
-import { gql, compose, withApollo } from 'react-apollo';
+import { gql, compose, graphql } from 'react-apollo';
 
 import styles from './styles';
 
@@ -15,16 +15,18 @@ class Root extends Component {
     navigateBack: PropTypes.func,
     client: PropTypes.object,
     login: PropTypes.func,
+    data: PropTypes.shape({
+      error: PropTypes.any,
+    }),
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.props.navigateBack);
+  }
 
-    try {
-      result = await this.props.client.query({
-        query: gql(query),
-      });
-    } catch (error) {
+  componentDidUpdate() {
+    const { data: { error } } = this.props;
+    if (error) {
       this.props.login();
     }
   }
@@ -45,6 +47,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default compose(connect(undefined, mapDispatchToProps), withApollo)(
-  Root,
-);
+export default compose(
+  connect(undefined, mapDispatchToProps),
+  graphql(gql(query)),
+)(Root);

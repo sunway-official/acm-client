@@ -12,7 +12,7 @@
       "package": "com.sunway.cemclient"
     },
     "loading": {
-      "icon": "./App/Images/logo.png",
+      "icon": "./App/Asset/icon.png",
       "backgroundColor": "#FF5722",
       "hideExponentText": true,
       "splash": {
