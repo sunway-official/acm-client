@@ -25,6 +25,15 @@ LoginScene.drawer = {
   primary: true,
 };
 
+LoginScene.header = {
+  disable: true,
+  theme: 'light',
+};
+
+LoginScene.footer = {
+  disable: true,
+};
+
 const mapStateToProps = state => ({
   login: state[KEY],
 });

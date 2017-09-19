@@ -85,13 +85,19 @@ class HeaderWrapper extends Component {
       paddingTop: headerFloat ? STATUS_BAR_HEIGHT : header.height || 0,
       paddingBottom: footerFloat ? 0 : footer.height || 0,
     };
-    if (!toolbar.header.visible) {
+    if (
+      (toolbar.header.options && toolbar.header.options.disable) ||
+      !toolbar.header.visible
+    ) {
       styles = {
         ...styles,
         paddingTop: STATUS_BAR_HEIGHT,
       };
     }
-    if (!toolbar.footer.visible) {
+    if (
+      (toolbar.footer.options && toolbar.footer.options.disable) ||
+      !toolbar.footer.visible
+    ) {
       styles = {
         ...styles,
         paddingBottom: 0,

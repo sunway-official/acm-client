@@ -6,6 +6,12 @@
       {
         "rootPathSuffix": "App"
       }
+    ],
+    [
+      "babel-plugin-inline-import",
+      {
+        "extensions": [".graphql"]
+      }
     ]
   ],
   "env": {

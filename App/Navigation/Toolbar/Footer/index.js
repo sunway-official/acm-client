@@ -32,6 +32,7 @@ class Footer extends Component {
     navigation: PropTypes.object,
     navigate: PropTypes.func,
     reset: PropTypes.func,
+    disable: PropTypes.bool,
   };
 
   constructor(props) {
@@ -75,7 +76,7 @@ class Footer extends Component {
     let tabs = [];
     Object.keys(routes).map(key => {
       const { name, footer, icon, activeIcon } = routes[key];
-      if (footer) {
+      if (footer && !footer.disable) {
         const onPress = () => {
           if (routeName === key) {
           } else {
@@ -103,18 +104,19 @@ class Footer extends Component {
   }
 
   render() {
-    const { visible } = this.props;
+    const { visible, disable } = this.props;
     const containerStyle = this.props.style;
 
     return (
       <View style={this._wrapperStyles()}>
-        <AnimatableView
-          style={[styles.footer, this._footerStyles(), containerStyle]}
-          animation={visible ? 'slideInUp' : 'slideOutDown'}
-          duration={HIDDING_DELAY}
-        >
-          {this._renderTabs()}
-        </AnimatableView>
+        {disable ||
+          <AnimatableView
+            style={[styles.footer, this._footerStyles(), containerStyle]}
+            animation={visible ? 'slideInUp' : 'slideOutDown'}
+            duration={HIDDING_DELAY}
+          >
+            {this._renderTabs()}
+          </AnimatableView>}
       </View>
     );
   }

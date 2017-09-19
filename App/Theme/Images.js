@@ -7,6 +7,8 @@ const images = {
   imgDefault250: require('~/Images/default250.png'),
 
   materialBackground: require('~/Images/material/background.jpg'),
+  splash: require('~/Images/splash.png'),
+  logo: require('~/Images/logo.png'),
 
   login: require('~/Images/LargeIcons/login.png'),
   forgotPassword: require('~/Images/LargeIcons/forgot_password.png'),
