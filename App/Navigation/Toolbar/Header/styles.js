@@ -2,8 +2,12 @@ import { StyleSheet } from 'react-native';
 import { Metrics, Fonts } from '~/Theme';
 
 export default StyleSheet.create({
-  header: {
+  container: {
+    flex: 1,
     flexDirection: 'row',
+  },
+  header: {
+    height: 56,
   },
   centerWrapper: {
     marginLeft: Metrics.baseMargin,
