@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, StatusBar, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { View as AnimatableView } from 'react-native-animatable';
-import { Colors, Metrics, Icons } from '~/Theme';
+import { Colors, Metrics } from '~/Theme';
 import SearchContent from './Search';
 import DefaultContent from './Default';
 import styles from './styles';
@@ -18,30 +18,12 @@ const SWITCH_CONTENT_DELAY = 300;
 
 class Header extends Component {
   static propTypes = {
-    title: PropTypes.string,
-    hideTitle: PropTypes.bool,
     visible: PropTypes.bool,
-    float: PropTypes.bool,
     backgroundColor: PropTypes.string,
     statusBarBackgroundColor: PropTypes.string,
     borderBottomColor: PropTypes.string,
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),
     style: View.propTypes.style,
-    icon: PropTypes.shape({
-      name: PropTypes.string,
-      type: PropTypes.oneOf(Icons.ICON_TYPE),
-    }),
-    onIconPress: PropTypes.func,
-    actions: PropTypes.arrayOf(
-      PropTypes.shape({
-        icon: PropTypes.PropTypes.shape({
-          name: PropTypes.string,
-          type: PropTypes.oneOf(Icons.ICON_TYPE),
-        }).isRequired,
-        onPress: PropTypes.func.isRequired,
-        // counter: PropTypes.shape(),
-      }),
-    ),
     drawer: PropTypes.shape({
       isOpen: PropTypes.bool,
     }),

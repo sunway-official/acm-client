@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { View, Button } from 'react-native';
 import { Text } from '~/Component';
 import { connect } from 'react-redux';
-import { NavigationActions } from '~/Redux/Navigation';
 import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import { Colors } from '~/Theme';
 import styles from './styles';
