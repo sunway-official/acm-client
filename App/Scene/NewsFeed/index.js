@@ -1,124 +1,65 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
-import { Text } from '~/Component';
-import { connect } from 'react-redux';
-import { NavigationActions } from '~/Redux/Navigation';
-import {
-  addHeaderOptions,
-  toggleHeader,
-  toggleFooter,
-} from '~/Redux/Toolbar/action';
+import { FlatList } from 'react-native';
 import styles from './styles';
-import { Colors } from '~/Theme';
-
-import Dialog from '~/Component/Dialog';
-import FilterModal from '~/Component/FilterModal';
-
-const text = ['Welcome to News Feed!', 'We are under developement.'];
+import { Colors, Metrics } from '~/Theme';
+import { News } from '~/Component';
+import { news } from '~/Scene/NewsFeed/fixture';
 
 class NewsFeedScene extends Component {
-  render() {
-    const { home } = this.props;
+  static header = {
+    leftIcon: 'drawer',
+    theme: 'dark',
+    backgroundColor: Colors.primary,
+    statusBarBackgroundColor: Colors.primary,
+    actions: [
+      {
+        icon: {},
+        onPress: () => {
+          console.log('hello there');
+        },
+      },
+    ],
+  };
 
+  static footer = {
+    show: true,
+    activeColor: Colors.primary,
+  };
+
+  static propTypes = {
+    home: PropTypes.func,
+    setTitle: PropTypes.func,
+    toggleHeader: PropTypes.func,
+    toggleFooter: PropTypes.func,
+  };
+
+  constructor(props) {
+    super(props);
+    this._renderItem = this._renderItem.bind(this);
+  }
+
+  _renderItem({ item, index }) {
     return (
-      <View style={styles.container}>
-        <Button
-          title="Hide navigation"
-          onPress={() => {
-            this.props.toggleHeader();
-            this.props.toggleFooter();
-          }}
-        />
-        <View style={styles.centerText}>
-          {text.map((text, index) =>
-            <Text key={index}>
-              {text}
-            </Text>,
-          )}
-        </View>
-        <Button title="Home" onPress={home} />
-        <Dialog
-          isOpen={false}
-          header={'Are you sure?'}
-          content="Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text ever
-            since the 1500s"
-          actions={[
-            {
-              name: 'Cancel',
-            },
-            {
-              name: 'Confirm',
-              handleSubmit: () => console.log('clicked discard!'),
-            },
-          ]}
-        />
+      <News
+        item={item}
+        newsContainerStyle={{
+          marginBottom: index === news.length - 1 ? 0 : Metrics.baseMargin,
+        }}
+      />
+    );
+  }
 
-        <FilterModal
-          isOpen={false}
-          header={'Filter'}
-          contents={[
-            {
-              name: 'Leadership',
-            },
-            {
-              name: 'Program Assessment',
-            },
-            {
-              name: 'Citizen Tech',
-            },
-            {
-              name: 'Accreditation',
-            },
-          ]}
-          actions={[
-            {
-              name: 'Cancel',
-            },
-            {
-              name: 'Apply',
-              handleSubmit: () => console.log('clicked APPLY!'),
-            },
-          ]}
-        />
-      </View>
+  render() {
+    return (
+      <FlatList
+        data={news}
+        keyExtractor={(item, index) => index}
+        renderItem={this._renderItem}
+        style={styles.container}
+      />
     );
   }
 }
 
-NewsFeedScene.header = {
-  leftIcon: 'drawer',
-  theme: 'dark',
-  backgroundColor: Colors.blue,
-  statusBarBackgroundColor: Colors.blue,
-  actions: [
-    {
-      icon: {},
-      onPress: () => {
-        console.log('hello there');
-      },
-    },
-  ],
-};
-
-NewsFeedScene.footer = {
-  show: true,
-  activeColor: Colors.blue,
-};
-
-NewsFeedScene.propTypes = {
-  home: PropTypes.func,
-  setTitle: PropTypes.func,
-  toggleHeader: PropTypes.func,
-  toggleFooter: PropTypes.func,
-};
-
-const mapDispatchToProps = dispatch => ({
-  home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
-  setTitle: title => dispatch(addHeaderOptions({ title })),
-  toggleHeader: () => dispatch(toggleHeader()),
-  toggleFooter: () => dispatch(toggleFooter()),
-});
-
-export default connect(undefined, mapDispatchToProps)(NewsFeedScene);
+export default NewsFeedScene;
