@@ -8,7 +8,7 @@ import { Colors } from '~/Theme';
 import styles from './styles';
 
 const text = [
-  'Welcome to cem-client!',
+  'Welcome to acm!',
   'We are under developement.',
   'Shake your phone to open the developer menu.',
   'Press Menu button on the top left corner',
@@ -75,7 +75,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(
       addHeaderOptions({
         search: {
-          defaultValue: '',
           placeholder: 'Search something',
           enable: true,
         },

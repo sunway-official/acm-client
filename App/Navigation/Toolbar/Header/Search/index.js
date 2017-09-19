@@ -78,7 +78,7 @@ class HeaderSearchContent extends Component {
       placeholderTextColor:
         theme === THEME_DARK ? Colors.secondary : Colors.grey,
       autoFocus: true,
-      defaultValue: defaultValue,
+      value: defaultValue,
     };
   }
 
