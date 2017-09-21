@@ -9,14 +9,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  backdrop: {
-    backgroundColor: 'rgba(52, 52, 52, 0.8)',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
-  },
   cardModalContainer: {
     backgroundColor: 'white',
     width: 300,
@@ -27,43 +19,49 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 10,
     paddingLeft: 20,
+    paddingRight: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  headerText: {
-    color: 'black',
-    fontSize: Fonts.size.regular,
-  },
+  actionHeaderText: { fontSize: Fonts.small },
+  headerText: { fontSize: Fonts.h6 },
   contentContainer: {
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,
+    height: 300,
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: Colors.lightGrey,
+  },
+  sortByContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  itemSortByContainer: {
+    backgroundColor: Colors.white,
+    marginRight: 10,
+    marginBottom: 10,
+  },
+  itemSortByText: {
+    borderWidth: 0.5,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontSize: Fonts.small,
+    color: Colors.grey,
   },
   actionContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingRight: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.deepOrange,
+    height: 50,
   },
-  actionButton: {
-    paddingHorizontal: 15,
-  },
-  actionText: {
-    color: Colors.deepOrange,
-    fontSize: Fonts.size.regular,
-  },
-
-  // Content Filter styles
-  filterContentContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderWidth: 0.5,
-    borderLeftWidth: 8,
-    paddingHorizontal: Metrics.baseMargin,
-    paddingVertical: Metrics.baseMargin,
-    marginBottom: Metrics.smallMargin,
-  },
-  filterContentIcon: { justifyContent: 'center' },
+  actionSubmitText: { color: Colors.white, fontSize: Fonts.h6 },
 });
 
 export default styles;

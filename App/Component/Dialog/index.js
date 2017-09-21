@@ -1,109 +1,68 @@
 import React, { Component } from 'react';
-import { View, Modal, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './style';
 
 import TouchableView from '../TouchableView';
 import Text from '../Text';
+import Modal from '../Modal';
 
 class Dialog extends Component {
-  state = {
-    modalVisible: this.props.visible,
-  };
-
   static propTypes = {
+    isVisible: PropTypes.bool,
+    onBackdropPress: PropTypes.func,
     header: PropTypes.string,
-    headerImage: PropTypes.number,
-    content: PropTypes.string,
-    actions: PropTypes.array,
-    visible: PropTypes.bool,
-    buttonClick: PropTypes.object,
+    children: PropTypes.node.isRequired,
   };
 
   static defaultProps = {
-    header: 'Welcome',
-    content: 'This is content',
-    actions: [
-      {
-        name: 'CONFIRM',
-        handleSubmit: () => console.log('clicked confirm!'),
-      },
-    ],
+    isVisible: false,
+    onBackdropPress: () => null,
+    header: 'This is header',
   };
 
-  _renderActions(actions) {
-    var actionsButton = [];
-    actions.map((action, i) => {
-      action.name === 'Cancel'
-        ? (action.handleSubmit = () => this.setModalVisible(false))
-        : action.handleSubmit;
+  // using for composition action button
+  // _renderActions(actions) {
+  //   var actionsButton = [];
+  //   actions.map((action, i) => {
+  //     action.name === 'Cancel'
+  //       ? (action.handleSubmit = () => this.setModalVisible(false))
+  //       : action.handleSubmit;
 
-      actionsButton.push(
-        <TouchableView
-          key={i}
-          style={styles.actionButton}
-          onPress={action.handleSubmit}
-        >
-          <Text lighter style={styles.actionText}>
-            {action.name}
-          </Text>
-        </TouchableView>,
-      );
-    });
-    return actionsButton;
-  }
-
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
+  //     actionsButton.push(
+  //       <TouchableView
+  //         key={i}
+  //         style={styles.actionButton}
+  //         onPress={action.handleSubmit}
+  //       >
+  //         <Text lighter style={styles.actionText}>
+  //           {action.name}
+  //         </Text>
+  //       </TouchableView>,
+  //     );
+  //   });
+  //   return actionsButton;
+  // }
 
   render() {
-    const { header, headerImage, content, actions, buttonClick } = this.props;
+    const { isVisible, onBackdropPress, header, children } = this.props;
     return (
-      <View style={{ marginTop: 22 }}>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            this.setModalVisible(false);
-          }}
-        >
-          <View style={styles.container}>
-            <TouchableView
-              style={styles.backdrop}
-              activeOpacity={1}
-              onPress={() => {
-                this.setModalVisible(false);
-              }}
-            />
-            <View style={styles.cardModalContainer}>
-              <View style={styles.headerContainer}>
-                <Image style={styles.headerImage} source={headerImage} />
-                <Text bold medium style={styles.headerText}>
-                  {header}
-                </Text>
-              </View>
-              <View style={styles.contentContainer}>
-                <Text style={styles.contentText}>
-                  {content}
-                </Text>
-              </View>
-              <View style={styles.actionContainer}>
-                {this._renderActions(actions)}
-              </View>
-            </View>
+      <Modal
+        isVisible={isVisible}
+        onBackdropPress={onBackdropPress}
+        style={styles.container}
+      >
+        <View style={styles.cardModalContainer}>
+          <View style={styles.headerContainer}>
+            <Text bold medium style={styles.headerText}>
+              {header}
+            </Text>
           </View>
-        </Modal>
-
-        <TouchableView
-          onPress={() => {
-            this.setModalVisible(true);
-          }}
-        >
-          {buttonClick}
-        </TouchableView>
-      </View>
+          <View>
+            {children}
+          </View>
+        </View>
+      </Modal>
     );
   }
 }

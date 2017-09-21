@@ -1,99 +1,90 @@
 import React, { Component } from 'react';
-import { View, Modal, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './style';
 
 import TouchableView from '../TouchableView';
 import Text from '../Text';
+import Modal from '../Modal';
 
 import { Icon } from 'react-native-elements';
-import { Colors } from '~/Theme/';
+import { Colors, Fonts } from '~/Theme/';
 const randomColor = ['red', 'blue', 'green', 'pink'];
 
 class FilterModal extends Component {
   state = {
-    modalVisible: this.props.visible,
-    isCheck: Array(this.props.contents.length).fill(false),
+    // isCheck: Array(this.props.contents.length).fill(false),
   };
 
   static propTypes = {
-    header: PropTypes.string,
-    contents: PropTypes.array,
-    actions: PropTypes.array,
-    visible: PropTypes.bool,
-    buttonClick: PropTypes.object,
+    isVisible: PropTypes.bool,
+    onBackdropPress: PropTypes.func,
+    onCancelPress: PropTypes.func,
+    // children: PropTypes.node.isRequired,
   };
 
   static defaultProps = {
-    header: 'Welcome',
-    contents: [],
-    actions: [
-      {
-        name: 'CONFIRM',
-        handleSubmit: () => console.log('clicked confirm!'),
-      },
-    ],
+    isVisible: false,
+    onBackdropPress: () => null,
   };
 
-  _renderContents(contents) {
-    var contentsButton = [];
-    var isCheck = this.state.isCheck;
+  // ! using composition for content filter
+  // _renderContents(contents) {
+  //   var contentsButton = [];
+  //   var isCheck = this.state.isCheck;
 
-    contents.map((content, index) => {
-      var iconCheck =
-        isCheck[index] === true
-          ? <Icon name={'md-radio-button-on'} type={'ionicon'} size={15} />
-          : <Icon name={'md-radio-button-off'} type={'ionicon'} size={15} />;
+  //   contents.map((content, index) => {
+  //     var iconCheck =
+  //       isCheck[index] === true
+  //         ? <Icon name={'md-radio-button-on'} type={'ionicon'} size={15} />
+  //         : <Icon name={'md-radio-button-off'} type={'ionicon'} size={15} />;
 
-      contentsButton.push(
-        <TouchableView
-          key={index}
-          rippleColor={Colors.grey}
-          style={[
-            styles.filterContentContainer,
-            { borderLeftColor: randomColor[index] },
-          ]}
-          onPress={() => this.setRadioCheck(!isCheck[index], index)}
-        >
-          <View>
-            <Text>
-              {content.name}
-            </Text>
-          </View>
-          <TouchableOpacity style={styles.filterContentIcon}>
-            {iconCheck}
-          </TouchableOpacity>
-        </TouchableView>,
-      );
-    });
-    return contentsButton;
-  }
+  //     contentsButton.push(
+  //       <TouchableView
+  //         key={index}
+  //         rippleColor={Colors.grey}
+  //         style={[
+  //           styles.filterContentContainer,
+  //           { borderLeftColor: randomColor[index] },
+  //         ]}
+  //         onPress={() => this.setRadioCheck(!isCheck[index], index)}
+  //       >
+  //         <View>
+  //           <Text>
+  //             {content.name}
+  //           </Text>
+  //         </View>
+  //         <TouchableOpacity style={styles.filterContentIcon}>
+  //           {iconCheck}
+  //         </TouchableOpacity>
+  //       </TouchableView>,
+  //     );
+  //   });
+  //   return contentsButton;
+  // }
 
-  _renderActions(actions) {
-    var actionsButton = [];
-    actions.map((action, i) => {
-      action.name === 'Cancel'
-        ? (action.handleSubmit = () => this.setModalVisible(false))
-        : action.handleSubmit;
+  //! using composition for actions button
+  // _renderActions(actions) {
+  //   var actionsButton = [];
+  //   actions.map((action, i) => {
+  //     action.name === 'Cancel'
+  //       ? (action.handleSubmit = () => this.setModalVisible(false))
+  //       : action.handleSubmit;
 
-      actionsButton.push(
-        <TouchableView
-          key={i}
-          style={styles.actionButton}
-          onPress={action.handleSubmit}
-        >
-          <Text medium style={styles.actionText}>
-            {action.name}
-          </Text>
-        </TouchableView>,
-      );
-    });
-    return actionsButton;
-  }
-
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
+  //     actionsButton.push(
+  //       <TouchableView
+  //         key={i}
+  //         style={styles.actionButton}
+  //         onPress={action.handleSubmit}
+  //       >
+  //         <Text medium style={styles.actionText}>
+  //           {action.name}
+  //         </Text>
+  //       </TouchableView>,
+  //     );
+  //   });
+  //   return actionsButton;
+  // }
 
   setRadioCheck(check, index) {
     let newIsCheck = this.state.isCheck;
@@ -102,51 +93,65 @@ class FilterModal extends Component {
   }
 
   render() {
-    const { header, contents, actions, buttonClick } = this.props;
+    const { isVisible, onBackdropPress, onCancelPress } = this.props;
     return (
-      <View style={{ marginTop: 22 }}>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            this.setModalVisible(false);
-          }}
-        >
-          <View style={styles.container}>
-            <TouchableView
-              style={styles.backdrop}
-              activeOpacity={1}
-              onPress={() => {
-                this.setModalVisible(false);
-              }}
-            />
-            <View style={styles.cardModalContainer}>
-              <View style={styles.headerContainer}>
-                <Text medium style={styles.headerText}>
-                  {header}
+      <Modal
+        isVisible={isVisible}
+        onBackdropPress={onBackdropPress}
+        style={styles.container}
+      >
+        <View style={styles.cardModalContainer}>
+          <View style={styles.headerContainer}>
+            <TouchableView onPress={onCancelPress}>
+              <Text light style={styles.actionHeaderText}>
+                Cancel
+              </Text>
+            </TouchableView>
+            <Text bold style={styles.headerText}>
+              Filter
+            </Text>
+            <Text light style={styles.actionHeaderText}>
+              Reset
+            </Text>
+          </View>
+
+          <View style={styles.contentContainer}>
+            <Text light>Sort my results by</Text>
+            <View style={styles.sortByContainer}>
+              <TouchableView
+                rippleColor={Colors.grey}
+                style={styles.itemSortByContainer}
+              >
+                <Text style={styles.itemSortByText}>Leadership</Text>
+              </TouchableView>
+
+              <TouchableView
+                rippleColor={Colors.grey}
+                style={styles.itemSortByContainer}
+              >
+                <Text
+                  style={[styles.itemSortByText, { color: Colors.deepOrange }]}
+                >
+                  Citizen Tech
                 </Text>
-              </View>
+              </TouchableView>
 
-              <View style={styles.contentContainer}>
-                {this._renderContents(contents)}
-              </View>
-
-              <View style={styles.actionContainer}>
-                {this._renderActions(actions)}
-              </View>
+              <TouchableView
+                rippleColor={Colors.grey}
+                style={styles.itemSortByContainer}
+              >
+                <Text style={styles.itemSortByText}>Program Assessment</Text>
+              </TouchableView>
             </View>
           </View>
-        </Modal>
 
-        <TouchableView
-          onPress={() => {
-            this.setModalVisible(true);
-          }}
-        >
-          {buttonClick}
-        </TouchableView>
-      </View>
+          <TouchableView style={styles.actionContainer} onPress={() => null}>
+            <Text medium style={styles.actionSubmitText}>
+              Save Filter
+            </Text>
+          </TouchableView>
+        </View>
+      </Modal>
     );
   }
 }

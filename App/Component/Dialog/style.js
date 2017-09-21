@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { Colors, Fonts, Metrics } from '~/Theme/';
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -28,10 +28,6 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 10,
     alignItems: 'center',
-  },
-  headerImage: {
-    width: 50,
-    height: 50,
   },
   headerText: {
     paddingTop: 10,
@@ -62,5 +58,3 @@ const styles = StyleSheet.create({
     fontSize: Fonts.size.regular,
   },
 });
-
-export default styles;

@@ -12,24 +12,21 @@ import {
 import styles from './styles';
 import { Colors, Images } from '~/Theme';
 
+import TouchableView from '~/Component/TouchableView';
 import Dialog from '~/Component/Dialog';
 import FilterModal from '~/Component/FilterModal';
-import TouchableView from '~/Component/TouchableView';
-import Modal from '~/Component/Modal';
 
 const text = ['Welcome to News Feed!', 'We are under developement.'];
 
 class NewsFeedScene extends Component {
   state = {
-    isModalVisible: false,
+    isModalVisible: true,
   };
   _showModal = () => this.setState({ isModalVisible: true });
   _hideModal = () => this.setState({ isModalVisible: false });
 
   render() {
     const { home } = this.props;
-
-    console.log(this.props);
 
     return (
       <View style={styles.container}>
@@ -52,14 +49,36 @@ class NewsFeedScene extends Component {
         <TouchableView onPress={this._showModal}>
           <Text>Show Modal</Text>
         </TouchableView>
-        <Modal
+
+        {/*<Dialog
           isVisible={this.state.isModalVisible}
           onBackdropPress={this._hideModal}
+          header="Are you sure?"
         >
-          <View>
-            <Text>Hello!</Text>
+          <View
+            style={{
+              paddingLeft: 20,
+              paddingRight: 20,
+              paddingBottom: 30,
+            }}
+          >
+            <Text>
+              'Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industrys standard dummy text
+              ever since the 1500'
+            </Text>
+
+            <TouchableView onPress={this._hideModal} style={{ paddingTop: 10 }}>
+              <Text>Cancel</Text>
+            </TouchableView>
           </View>
-        </Modal>
+          </Dialog>*/}
+
+        <FilterModal
+          isVisible={this.state.isModalVisible}
+          onBackdropPress={this._hideModal}
+          onCancelPress={this._hideModal}
+        />
       </View>
     );
   }
