@@ -6,8 +6,8 @@ import DrawerReducer, { KEY as DRAWER_KEY } from './Drawer';
 import RoutesReducer, { KEY as ROUTES_KEY } from './Routes';
 import ToolbarReducer, { KEY as TOOLBAR_KEY } from './Toolbar';
 
-export default apollo => {
-  apolloReducer = apollo.reducer();
+export default apolloClient => {
+  apolloReducer = apolloClient.reducer();
   const reducers = {
     [NAVIGATION_KEY]: NavigationReducer,
     // [LOGIN_KEY]: LoginReducer,
