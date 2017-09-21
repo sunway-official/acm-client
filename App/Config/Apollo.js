@@ -12,7 +12,10 @@ import {
 
 let apolloClient = null;
 
-const create = (initialState = {}, { token, refreshToken }) => {
+const create = async (initialState = {}) => {
+  const token = await AsyncStorage.getItem('token');
+  const refreshToken = await AsyncStorage.getItem('refreshToken');
+
   const networkInterface = createNetworkInterface({
     uri: APOLLO_SERVER_ENDPOINT,
     opts: {
@@ -26,18 +29,15 @@ const create = (initialState = {}, { token, refreshToken }) => {
       refreshToken: refreshToken,
     },
   });
-  const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
-    networkInterface,
-    wsClient,
-  );
   networkInterface.use([
     {
-      applyMiddleware: (req, next) => {
+      applyMiddleware: async (req, next) => {
         if (!req.options.headers) {
           req.options.headers = {}; // Create the header object if needed.
         }
-        const token = token;
-        const refreshToken = refreshToken;
+
+        const token = await AsyncStorage.getItem('token');
+        const refreshToken = await AsyncStorage.getItem('refreshToken');
         req.options.headers.authorization = token;
         req.options.headers.refreshToken = refreshToken;
         next();
@@ -67,15 +67,20 @@ const create = (initialState = {}, { token, refreshToken }) => {
       },
     },
   ]);
+
+  const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+    networkInterface,
+    wsClient,
+  );
   return new ApolloClient({
     initialState,
     networkInterface: networkInterfaceWithSubscriptions,
   });
 };
 
-export default (token = {}) => {
+export default async () => {
   if (!apolloClient) {
-    apolloClient = create(undefined, token);
+    apolloClient = await create(undefined);
   }
   return apolloClient;
 };

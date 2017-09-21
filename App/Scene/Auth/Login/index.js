@@ -1,38 +1,100 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { AsyncStorage, Keyboard } from 'react-native';
 import { NavigationActions } from '~/Redux/Navigation';
-import { KEY, setLoggedIn } from '~/Redux/Login';
-
+import { NavigationActions as ReactNavigationActions } from 'react-navigation';
 import LoginForm from '../Login/Form';
+import { compose, gql, graphql, withApollo } from 'react-apollo';
+import mutation from '~/Graphql/mutation/login.graphql';
 
-submit = ({ values }, setLoggedIn) => {
-  console.log(values);
-  setLoggedIn();
-};
+class LoginScene extends Component {
+  static propTypes = {
+    navigateToForgotPassword: PropTypes.func,
+    mutate: PropTypes.func,
+    navigateToHome: PropTypes.func,
+    client: PropTypes.any,
+  };
 
-const LoginScene = ({ navigateForgotPassword }) =>
-  <LoginForm onLogin={submit} onNavigate={navigateForgotPassword} />;
+  static drawer = {
+    primary: true,
+  };
 
-LoginScene.propTypes = {
-  login: PropTypes.object,
-  setLoggedIn: PropTypes.func,
-  navigateForgotPassword: PropTypes.func,
-};
+  static header = {
+    disable: true,
+    theme: 'light',
+  };
 
-LoginScene.drawer = {
-  primary: true,
-};
+  static footer = {
+    disable: true,
+  };
 
-const mapStateToProps = state => ({
-  login: state[KEY],
-});
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      error: undefined,
+      loading: false,
+    };
+
+    this._submit = this._submit.bind(this);
+  }
+
+  async _submit(values) {
+    const { mutate } = this.props;
+
+    this.setState({ loading: true });
+    Keyboard.dismiss();
+    try {
+      const { data: { login: { token, refreshToken } } } = await mutate({
+        variables: values,
+      });
+      await AsyncStorage.multiSet([
+        ['token', token],
+        ['refreshToken', refreshToken],
+      ]);
+      console.log(await AsyncStorage.multiGet(['token', 'refreshToken']));
+      this.props.client.resetStore();
+      this.props.navigateToHome();
+    } catch ({ graphQLErrors }) {
+      const error = graphQLErrors[0];
+      if (error.message === 'bad-credentials') {
+        this.setState({
+          error: 'Incorrect credentials.',
+        });
+      }
+    } finally {
+      this.setState({ loading: false });
+    }
+  }
+
+  render() {
+    const { navigateToForgotPassword } = this.props;
+    return (
+      <LoginForm
+        loading={this.state.loading}
+        loginError={this.state.error}
+        onLogin={this._submit}
+        onNavigate={navigateToForgotPassword}
+      />
+    );
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
-  setLoggedIn: bindActionCreators(setLoggedIn, dispatch),
-  navigateForgotPassword: () =>
+  navigateToForgotPassword: () =>
     dispatch(NavigationActions.navigate({ routeName: 'forgot' })),
+  navigateToHome: () =>
+    dispatch(
+      NavigationActions.reset({
+        index: 0,
+        actions: [ReactNavigationActions.navigate({ routeName: 'home' })],
+      }),
+    ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScene);
+export default compose(
+  connect(undefined, mapDispatchToProps),
+  graphql(gql(mutation)),
+  withApollo,
+)(LoginScene);
