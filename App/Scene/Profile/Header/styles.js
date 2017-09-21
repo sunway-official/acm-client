@@ -1,47 +1,41 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Fonts, Colors } from '../../../Theme';
+import { Metrics, Fonts, Colors } from '~/Theme';
 
-const { doubleBaseMargin, baseMargin, icons } = Metrics;
+const { smallMargin, doubleBaseMargin, section } = Metrics;
 const avatarWidth = 120;
+const halfHeightOfAvatar = avatarWidth / 2;
 
 export default StyleSheet.create({
   container: {
-    // marginTop: 60,
+    flex: 1,
   },
-  centerScale: {
-    justifyContent: 'center',
+  backgroundImage: { width: '100%', height: '100%' },
+  coverPhoto: {
+    backgroundColor: 'rgba(0,0,0,0.125)',
+    paddingVertical: section,
+  },
+  avatarSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
-  },
-  fakeView: {
-    height: 60,
-    backgroundColor: Colors.black,
+    paddingHorizontal: doubleBaseMargin,
   },
   avatar: {
     width: avatarWidth,
     height: avatarWidth,
     borderWidth: 3,
-    borderRadius: avatarWidth / 2,
     borderColor: Colors.white,
+    borderRadius: halfHeightOfAvatar,
     resizeMode: 'cover',
-    marginTop: -40,
-  },
-  iconContainer: {
-    alignItems: 'center',
-    marginTop: doubleBaseMargin,
-  },
-  icon: {
-    width: icons.large,
-    height: icons.large,
-    borderWidth: 0.5,
-    borderRadius: icons.large / 2,
-    marginBottom: 5,
   },
   infoContainer: {
     alignItems: 'center',
-    marginTop: baseMargin,
-    marginBottom: doubleBaseMargin,
+    marginTop: smallMargin,
   },
   username: {
     fontSize: Fonts.size.h6,
+  },
+  primaryTextColor: {
+    color: Colors.white,
   },
 });

@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Text } from '~/Component';
+import { Text, UserAvatar } from '~/Component';
 import { Colors, Metrics } from '../../../../Theme';
 import styles from './styles';
-import UserAvatar from '../../UserAvatar';
 
 class Comment extends Component {
   static propTypes = {

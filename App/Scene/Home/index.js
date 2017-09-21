@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import { View, Button } from 'react-native';
 import { Text } from '~/Component';
 import { connect } from 'react-redux';
-import { NavigationActions } from '~/Redux/Navigation';
+import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import { Colors } from '~/Theme';
 import styles from './styles';
 
 const text = [
-  'Welcome to cem-client!',
+  'Welcome to acm!',
   'We are under developement.',
   'Shake your phone to open the developer menu.',
   'Press Menu button on the top left corner',
   'to connect to other scene.',
 ];
 
-const HomeScene = ({ login }) =>
+const HomeScene = ({ showSearch, hideSearch }) =>
   <View style={styles.container}>
     <View style={styles.centerText}>
       {text.map((text, index) =>
@@ -24,7 +24,9 @@ const HomeScene = ({ login }) =>
         </Text>,
       )}
     </View>
-    <Button title="Login" onPress={login} />
+    <Button title="Show search box" onPress={showSearch} />
+    <View marginBottom={24} />
+    <Button title="Hide search box" onPress={hideSearch} />
   </View>;
 
 HomeScene.drawer = {
@@ -35,9 +37,9 @@ HomeScene.header = {
   leftIcon: 'drawer',
   float: true,
   title: null,
-  theme: 'light',
-  backgroundColor: 'rgba(0,0,0,0)',
-  statusBarBackgroundColor: 'rgba(0,0,0,0.5)',
+  theme: 'dark',
+  backgroundColor: Colors.blue,
+  statusBarBackgroundColor: Colors.blue,
   actions: [
     {
       icon: {},
@@ -64,11 +66,28 @@ HomeScene.header = {
 };
 
 HomeScene.propTypes = {
-  login: PropTypes.func,
+  showSearch: PropTypes.func,
+  hideSearch: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
-  login: () => dispatch(NavigationActions.navigate({ routeName: 'login' })),
+  showSearch: () =>
+    dispatch(
+      addHeaderOptions({
+        search: {
+          placeholder: 'Search something',
+          enable: true,
+        },
+        leftIcon: 'back',
+      }),
+    ),
+  hideSearch: () =>
+    dispatch(
+      addHeaderOptions({
+        search: {},
+        leftIcon: 'drawer',
+      }),
+    ),
 });
 
 export default connect(undefined, mapDispatchToProps)(HomeScene);

@@ -68,6 +68,7 @@ export default StyleSheet.create({
   bodyContainer: {
     paddingTop: Metrics.baseMargin,
     flex: 1,
+    backgroundColor: Colors.white,
   },
   menuItem: {
     paddingHorizontal: Metrics.doubleBaseMargin,

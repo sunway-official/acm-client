@@ -18,7 +18,7 @@ class About extends Component {
       <View key={index} style={styles.itemContainer}>
         <Image source={{ uri: item.image }} style={styles.image} />
         <View style={{ justifyContent: 'center' }}>
-          <Text bold style={styles.title}>
+          <Text style={styles.title}>
             {item.title}
           </Text>
           <Text style={styles.description}>
@@ -34,12 +34,10 @@ class About extends Component {
       <View>
         <View style={styles.topicContainer}>
           <View>
-            <Text bold style={styles.title}>
-              Achievements
-            </Text>
+            <Text style={styles.title}>Achievements</Text>
             <Text style={styles.description}>You have 15 out of 27</Text>
           </View>
-          <Text bold>View All</Text>
+          <Text>View All</Text>
         </View>
         <View>
           {achievements.map((achievements, index) =>
