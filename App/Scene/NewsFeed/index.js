@@ -20,10 +20,13 @@ const text = ['Welcome to News Feed!', 'We are under developement.'];
 
 class NewsFeedScene extends Component {
   state = {
-    isModalVisible: true,
+    isDialogVisible: false,
+    isFilterVisible: false,
   };
-  _showModal = () => this.setState({ isModalVisible: true });
-  _hideModal = () => this.setState({ isModalVisible: false });
+  _showDialogModal = () => this.setState({ isDialogVisible: true });
+  _hideDialogModal = () => this.setState({ isDialogVisible: false });
+  _showFilterModal = () => this.setState({ isFilterVisible: true });
+  _hideFilterModal = () => this.setState({ isFilterVisible: false });
 
   render() {
     const { home } = this.props;
@@ -46,13 +49,13 @@ class NewsFeedScene extends Component {
         </View>
         <Button title="Home" onPress={home} />
 
-        <TouchableView onPress={this._showModal}>
-          <Text>Show Modal</Text>
+        <TouchableView onPress={this._showDialogModal}>
+          <Text>Show Dialog</Text>
         </TouchableView>
 
-        {/*<Dialog
-          isVisible={this.state.isModalVisible}
-          onBackdropPress={this._hideModal}
+        <Dialog
+          isVisible={this.state.isDialogVisible}
+          onBackdropPress={this._hideDialogModal}
           header="Are you sure?"
         >
           <View
@@ -63,21 +66,28 @@ class NewsFeedScene extends Component {
             }}
           >
             <Text>
-              'Lorem Ipsum is simply dummy text of the printing and typesetting
+              Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industrys standard dummy text
-              ever since the 1500'
+              ever since the 1500
             </Text>
 
-            <TouchableView onPress={this._hideModal} style={{ paddingTop: 10 }}>
+            <TouchableView
+              onPress={this._hideDialogModal}
+              style={{ paddingTop: 10 }}
+            >
               <Text>Cancel</Text>
             </TouchableView>
           </View>
-          </Dialog>*/}
+        </Dialog>
+
+        <TouchableView onPress={this._showFilterModal}>
+          <Text>Show Filter</Text>
+        </TouchableView>
 
         <FilterModal
-          isVisible={this.state.isModalVisible}
-          onBackdropPress={this._hideModal}
-          onCancelPress={this._hideModal}
+          isVisible={this.state.isFilterVisible}
+          onBackdropPress={this._hideFilterModal}
+          onCancelPress={this._hideFilterModal}
         />
       </View>
     );
