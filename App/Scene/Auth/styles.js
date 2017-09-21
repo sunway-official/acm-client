@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: Metrics.largeMargin,
-    paddingTop: Metrics.largeMargin,
     backgroundColor: Colors.secondaryLight,
+    justifyContent: 'center',
   },
   imageContainer: {
     alignItems: 'center',
@@ -39,8 +39,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: Metrics.buttonCornerRadius,
-    backgroundColor: Colors.deepOrange,
+    backgroundColor: Colors.primary,
     marginHorizontal: Metrics.baseMargin,
+  },
+  loadingButton: {
+    backgroundColor: Colors.grey,
   },
   buttonText: {
     color: Colors.white,
@@ -54,6 +57,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: Metrics.doubleBaseMargin,
     opacity: Metrics.opacity,
+  },
+  errorText: {
+    color: Colors.danger,
+    fontSize: Fonts.size.small,
+    // borderTopWidth: 1,
+    // borderColor: Colors.danger,
+    paddingTop: 5,
   },
 });
 

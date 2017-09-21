@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
 import AppNavigation from '~/Navigation';
-import { gql, compose, graphql } from 'react-apollo';
+import { gql, compose, graphql, withApollo } from 'react-apollo';
 
 import styles from './styles';
 
@@ -24,9 +24,9 @@ class Root extends Component {
     BackHandler.addEventListener('hardwareBackPress', this.props.navigateBack);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     const { data: { error } } = this.props;
-    if (error) {
+    if (prevProps.data.error !== error && error) {
       this.props.login();
     }
   }

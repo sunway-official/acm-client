@@ -34,6 +34,7 @@ class App extends Component {
   render() {
     const { token, refreshToken } = this.state;
     if (token !== undefined && refreshToken !== undefined) {
+      console.log(this.state);
       const apolloClient = initApollo({ token, refreshToken });
       return (
         <ApolloProvider client={apolloClient} store={initStore(apolloClient)}>
