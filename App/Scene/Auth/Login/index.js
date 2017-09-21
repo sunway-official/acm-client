@@ -5,7 +5,7 @@ import { AsyncStorage, Keyboard } from 'react-native';
 import { NavigationActions } from '~/Redux/Navigation';
 import { NavigationActions as ReactNavigationActions } from 'react-navigation';
 import LoginForm from '../Login/Form';
-import { compose, gql, graphql } from 'react-apollo';
+import { compose, gql, graphql, withApollo } from 'react-apollo';
 import mutation from '~/Graphql/mutation/login.graphql';
 
 class LoginScene extends Component {
@@ -13,6 +13,7 @@ class LoginScene extends Component {
     navigateToForgotPassword: PropTypes.func,
     mutate: PropTypes.func,
     navigateToHome: PropTypes.func,
+    client: PropTypes.any,
   };
 
   static drawer = {
@@ -52,6 +53,8 @@ class LoginScene extends Component {
         ['token', token],
         ['refreshToken', refreshToken],
       ]);
+      console.log(await AsyncStorage.multiGet(['token', 'refreshToken']));
+      this.props.client.resetStore();
       this.props.navigateToHome();
     } catch ({ graphQLErrors }) {
       const error = graphQLErrors[0];
@@ -93,4 +96,5 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   connect(undefined, mapDispatchToProps),
   graphql(gql(mutation)),
+  withApollo,
 )(LoginScene);
