@@ -41,13 +41,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 10,
   },
+  descriptionSortByContainer: {
+    alignItems: 'center',
+  },
   itemSortByContainer: {
     backgroundColor: Colors.white,
+    justifyContent: 'center',
     marginRight: 10,
     marginBottom: 10,
   },
   itemSortByText: {
     borderWidth: 0.5,
+    borderRadius: 3,
+    borderColor: Colors.lightGrey,
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 10,

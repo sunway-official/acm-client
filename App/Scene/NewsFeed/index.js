@@ -21,7 +21,7 @@ const text = ['Welcome to News Feed!', 'We are under developement.'];
 class NewsFeedScene extends Component {
   state = {
     isDialogVisible: false,
-    isFilterVisible: false,
+    isFilterVisible: true,
   };
   _showDialogModal = () => this.setState({ isDialogVisible: true });
   _hideDialogModal = () => this.setState({ isDialogVisible: false });

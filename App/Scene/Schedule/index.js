@@ -6,7 +6,31 @@ import DefaultTabBar from './CustomTabBar/DefaultTabBar';
 import { Colors } from '~/Theme';
 
 class Schedule extends Component {
-  static header = {};
+  static header = {
+    actions: [
+      {
+        icon: {},
+        onPress: dispatch => {
+          console.log('hello there');
+          dispatch({
+            type: 'REDUX_ACTION',
+            payload: "Hello! I'm here",
+          });
+        },
+      },
+      {
+        icon: {
+          name: 'lock',
+        },
+        onPress: dispatch => {
+          dispatch({
+            type: 'LOCK_ACTION',
+            payload: 'Lock the account',
+          });
+        },
+      },
+    ],
+  };
 
   static footer = {
     show: true,

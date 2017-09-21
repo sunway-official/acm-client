@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './style';
 
@@ -10,7 +10,20 @@ import Modal from '../Modal';
 import { Icon } from 'react-native-elements';
 import { Colors, Fonts } from '~/Theme/';
 
-const dummyContents = ['Leadership', 'Citizen Tech', 'Program Assessment'];
+const dummyContents = [
+  'Leadership',
+  'Citizen Tech',
+  'Program Assessment Program Assessment Program Assessment',
+  'Academic',
+  'Technology',
+  'Biology',
+  'Leadership',
+  'Citizen Tech',
+  'Program Assessment',
+  'Academic',
+  'Technology',
+  'Biology',
+];
 
 class FilterModal extends Component {
   state = {
@@ -36,8 +49,10 @@ class FilterModal extends Component {
     var isCheck = this.state.isCheck;
 
     contents.map((content, index) => {
-      var isPress =
-        isCheck[index] === true ? { color: Colors.deepOrange } : null;
+      var colorTextPress = isCheck[index] ? { color: Colors.deepOrange } : null;
+      var borderColorPress = isCheck[index]
+        ? { borderColor: Colors.deepOrange }
+        : null;
 
       contentsButton.push(
         <TouchableView
@@ -47,7 +62,9 @@ class FilterModal extends Component {
           onPress={() => this.setOnPress(!isCheck[index], index)}
         >
           <View>
-            <Text style={[styles.itemSortByText, isPress]}>
+            <Text
+              style={[styles.itemSortByText, colorTextPress, borderColorPress]}
+            >
               {content}
             </Text>
           </View>
@@ -56,29 +73,6 @@ class FilterModal extends Component {
     });
     return contentsButton;
   }
-
-  //! using composition for actions button
-  // _renderActions(actions) {
-  //   var actionsButton = [];
-  //   actions.map((action, i) => {
-  //     action.name === 'Cancel'
-  //       ? (action.handleSubmit = () => this.setModalVisible(false))
-  //       : action.handleSubmit;
-
-  //     actionsButton.push(
-  //       <TouchableView
-  //         key={i}
-  //         style={styles.actionButton}
-  //         onPress={action.handleSubmit}
-  //       >
-  //         <Text medium style={styles.actionText}>
-  //           {action.name}
-  //         </Text>
-  //       </TouchableView>,
-  //     );
-  //   });
-  //   return actionsButton;
-  // }
 
   _renderHeader = onCancelPress =>
     <View style={styles.headerContainer}>
@@ -127,12 +121,15 @@ class FilterModal extends Component {
       >
         <View style={styles.cardModalContainer}>
           {this._renderHeader(onCancelPress)}
-
           <View style={styles.contentContainer}>
-            <Text light>Sort my results by</Text>
-            <View style={styles.sortByContainer}>
-              {this._renderContents(contents)}
-            </View>
+            <ScrollView>
+              <View style={styles.descriptionSortByContainer}>
+                <Text light>Sort my results by</Text>
+              </View>
+              <View style={styles.sortByContainer}>
+                {this._renderContents(contents)}
+              </View>
+            </ScrollView>
           </View>
 
           {this._renderButton()}
