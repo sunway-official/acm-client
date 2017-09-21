@@ -28,6 +28,47 @@ class NewsFeedScene extends Component {
   _showFilterModal = () => this.setState({ isFilterVisible: true });
   _hideFilterModal = () => this.setState({ isFilterVisible: false });
 
+  _renderDialogContent = () =>
+    <View
+      style={{
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingBottom: 30,
+      }}
+    >
+      <Text>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industrys standard dummy text ever
+        since the 1500
+      </Text>
+
+      <TouchableView onPress={this._hideDialogModal} style={{ paddingTop: 10 }}>
+        <Text>Cancel</Text>
+      </TouchableView>
+    </View>;
+
+  _renderDialog = () =>
+    <TouchableView onPress={this._showDialogModal}>
+      <Text>Show Dialog</Text>
+      <Dialog
+        isVisible={this.state.isDialogVisible}
+        onBackdropPress={this._hideDialogModal}
+        header="Are you sure?"
+      >
+        {this._renderDialogContent()}
+      </Dialog>
+    </TouchableView>;
+
+  _renderFilter = () =>
+    <TouchableView onPress={this._showFilterModal}>
+      <Text>Show Filter</Text>
+      <FilterModal
+        isVisible={this.state.isFilterVisible}
+        onBackdropPress={this._hideFilterModal}
+        onCancelPress={this._hideFilterModal}
+      />
+    </TouchableView>;
+
   render() {
     const { home } = this.props;
 
@@ -49,46 +90,9 @@ class NewsFeedScene extends Component {
         </View>
         <Button title="Home" onPress={home} />
 
-        <TouchableView onPress={this._showDialogModal}>
-          <Text>Show Dialog</Text>
-        </TouchableView>
+        {this._renderDialog()}
 
-        <Dialog
-          isVisible={this.state.isDialogVisible}
-          onBackdropPress={this._hideDialogModal}
-          header="Are you sure?"
-        >
-          <View
-            style={{
-              paddingLeft: 20,
-              paddingRight: 20,
-              paddingBottom: 30,
-            }}
-          >
-            <Text>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industrys standard dummy text
-              ever since the 1500
-            </Text>
-
-            <TouchableView
-              onPress={this._hideDialogModal}
-              style={{ paddingTop: 10 }}
-            >
-              <Text>Cancel</Text>
-            </TouchableView>
-          </View>
-        </Dialog>
-
-        <TouchableView onPress={this._showFilterModal}>
-          <Text>Show Filter</Text>
-        </TouchableView>
-
-        <FilterModal
-          isVisible={this.state.isFilterVisible}
-          onBackdropPress={this._hideFilterModal}
-          onCancelPress={this._hideFilterModal}
-        />
+        {this._renderFilter()}
       </View>
     );
   }
