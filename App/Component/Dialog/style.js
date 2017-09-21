@@ -19,42 +19,23 @@ export default StyleSheet.create({
   cardModalContainer: {
     backgroundColor: 'white',
     width: 300,
-    borderRadius: 15,
+    borderRadius: Metrics.buttonCornerRadius,
     borderWidth: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   headerContainer: {
-    paddingTop: 30,
+    paddingTop: 20,
     paddingBottom: 10,
-    alignItems: 'center',
+    paddingLeft: 20,
   },
   headerText: {
-    paddingTop: 10,
     color: 'black',
     fontSize: Fonts.size.regular,
   },
   contentContainer: {
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderBottomWidth: 0.5,
-    alignItems: 'center',
   },
   contentText: {
     color: 'black',
-  },
-  actionContainer: {
-    flexDirection: 'row',
-    paddingTop: 20,
-    paddingBottom: 20,
-  },
-  actionButton: {
-    paddingHorizontal: 30,
-  },
-  actionText: {
-    color: Colors.deepOrange,
-    fontSize: Fonts.size.regular,
   },
 });

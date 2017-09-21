@@ -48,6 +48,8 @@ class Dialog extends Component {
     const { isVisible, onBackdropPress, header, children } = this.props;
     return (
       <Modal
+        animationIn="zoomIn"
+        animationOut="zoomOut"
         isVisible={isVisible}
         onBackdropPress={onBackdropPress}
         style={styles.container}
