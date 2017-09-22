@@ -11,10 +11,15 @@
     "android": {
       "package": "com.sunway.cemclient"
     },
+    "primaryColor": "#FF5722",
+    "androidStatusBar": {
+      "barStyle": "dark-content"
+    },
     "loading": {
       "icon": "./App/Asset/icon.png",
       "backgroundColor": "#FF5722",
       "hideExponentText": true,
+      "exponentIconColor": "white",
       "splash": {
         "backgroundColor": "#FF5722",
         "image": {

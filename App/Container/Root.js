@@ -28,11 +28,11 @@ class Root extends Component {
 
   componentDidUpdate(prevProps) {
     const { data: { error } } = this.props;
-    // if (prevProps.data.error !== error && error) {
-    //   this.props.login();
-    // } else {
-    //   this.props.home();
-    // }
+    if (prevProps.data.error !== error && error) {
+      this.props.login();
+    } else {
+      this.props.home();
+    }
   }
 
   render() {
