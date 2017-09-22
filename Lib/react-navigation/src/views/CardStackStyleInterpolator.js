@@ -1,3 +1,13 @@
+/**
+ * This file is refer to this PR:
+ * https://github.com/react-community/react-navigation/pull/2520
+ *
+ * Copied by: https://github.com/pvtri96
+ *
+ * Credit:
+ * Thanks to https://github.com/94cstyles
+ */
+
 /* @flow */
 import { I18nManager, type AnimatedViewStylePropTypes } from 'react-native';
 

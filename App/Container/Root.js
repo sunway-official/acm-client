@@ -3,6 +3,7 @@ import { View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
+import { NavigationActions as ReactNavigationActions } from 'react-navigation';
 import AppNavigation from '~/Navigation';
 import { gql, compose, graphql } from 'react-apollo';
 
@@ -12,7 +13,7 @@ import query from '~/Graphql/query/me.graphql';
 
 class Root extends Component {
   static propTypes = {
-    navigateBack: PropTypes.func,
+    back: PropTypes.func,
     client: PropTypes.object,
     login: PropTypes.func,
     home: PropTypes.func,
@@ -22,16 +23,16 @@ class Root extends Component {
   };
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.props.navigateBack);
+    BackHandler.addEventListener('hardwareBackPress', this.props.back);
   }
 
   componentDidUpdate(prevProps) {
     const { data: { error } } = this.props;
-    if (prevProps.data.error !== error && error) {
-      this.props.login();
-    } else {
-      this.props.home();
-    }
+    // if (prevProps.data.error !== error && error) {
+    //   this.props.login();
+    // } else {
+    //   this.props.home();
+    // }
   }
 
   render() {
@@ -45,9 +46,21 @@ class Root extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    navigateBack: () => dispatch(NavigationActions.back()),
-    login: () => dispatch(NavigationActions.navigate({ routeName: 'login' })),
-    home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
+    back: () => dispatch(NavigationActions.back()),
+    login: () =>
+      dispatch(
+        NavigationActions.reset({
+          index: 0,
+          actions: [ReactNavigationActions.navigate({ routeName: 'login' })],
+        }),
+      ),
+    home: () =>
+      dispatch(
+        NavigationActions.reset({
+          index: 0,
+          actions: [ReactNavigationActions.navigate({ routeName: 'home' })],
+        }),
+      ),
   };
 };
 

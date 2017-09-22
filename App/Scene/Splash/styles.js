@@ -17,5 +17,6 @@ export default StyleSheet.create({
   text: {
     color: Colors.white,
     marginTop: Metrics.baseMargin,
+    backgroundColor: Colors.transparent,
   },
 });
