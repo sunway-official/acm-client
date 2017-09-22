@@ -1,4 +1,5 @@
 import { ROUTES, config } from './routes';
+import withFadeIn from '~/Container/withFadeIn';
 
 function getInitialRoute() {
   let route = {};
@@ -27,6 +28,12 @@ export const generateRoutes = () => {
       header: route.screen.header,
       footer: route.screen.footer,
     };
+
+    // Wrap fade in animation for tab scene
+    if (route.footer && route.footer.show) {
+      route.screen = withFadeIn(route.screen);
+    }
+
     routes = {
       ...routes,
       [key]: route,
