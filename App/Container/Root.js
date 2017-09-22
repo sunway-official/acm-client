@@ -3,6 +3,7 @@ import { View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
+import { NavigationActions as ReactNavigationActions } from 'react-navigation';
 import AppNavigation from '~/Navigation';
 import { gql, compose, graphql } from 'react-apollo';
 
@@ -46,8 +47,20 @@ class Root extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     navigateBack: () => dispatch(NavigationActions.back()),
-    login: () => dispatch(NavigationActions.navigate({ routeName: 'login' })),
-    home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
+    login: () =>
+      dispatch(
+        NavigationActions.reset({
+          index: 0,
+          actions: [ReactNavigationActions.navigate({ routeName: 'login' })],
+        }),
+      ),
+    home: () =>
+      dispatch(
+        NavigationActions.reset({
+          index: 0,
+          actions: [ReactNavigationActions.navigate({ routeName: 'home' })],
+        }),
+      ),
   };
 };
 
