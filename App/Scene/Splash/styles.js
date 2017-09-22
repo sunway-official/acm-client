@@ -5,7 +5,6 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     width: Metrics.screenWidth,
-    height: Metrics.screenHeight,
   },
   loadingWrapper: {
     position: 'absolute',
