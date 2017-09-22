@@ -13,7 +13,7 @@ import query from '~/Graphql/query/me.graphql';
 
 class Root extends Component {
   static propTypes = {
-    navigateBack: PropTypes.func,
+    back: PropTypes.func,
     client: PropTypes.object,
     login: PropTypes.func,
     home: PropTypes.func,
@@ -23,7 +23,7 @@ class Root extends Component {
   };
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.props.navigateBack);
+    BackHandler.addEventListener('hardwareBackPress', this.props.back);
   }
 
   componentDidUpdate(prevProps) {
@@ -46,7 +46,7 @@ class Root extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    navigateBack: () => dispatch(NavigationActions.back()),
+    back: () => dispatch(NavigationActions.back()),
     login: () =>
       dispatch(
         NavigationActions.reset({
