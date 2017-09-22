@@ -6,6 +6,8 @@ import RootContainer from './Root';
 import initStore from '~/Redux';
 import initApollo from '~/Config/Apollo';
 
+import '~/Config';
+
 class App extends Component {
   constructor(props) {
     super(props);

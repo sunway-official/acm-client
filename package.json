@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
-  "engines": {
-    "node": "8.x"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sunway-team/cem-client.git"
@@ -17,8 +14,10 @@
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
     "lint": "eslint App/**/*.js",
-    "postinstall": "rndebugger-open",
     "lint-staged": "lint-staged",
+    "rndebugger-open": "rndebugger-open",
+    "overwrite-react-navigation": "cp ./Lib/react-navigation/src/views/CardStackStyleInterpolator.js ./node_modules/react-navigation/src/views/CardStackStyleInterpolator.js",
+    "postinstall": "run-s rndebugger-open overwrite-react-navigation",
     "precommit": "run-s lint-staged lint"
   },
   "lint-staged": {
@@ -41,7 +40,7 @@
     "react-native-scrollable-tab-view": "^0.6.7",
     "react-native-side-menu": "^1.1.0",
     "react-native-vector-icons": "^4.2.0",
-    "react-navigation": "./Lib/react-navigation",
+    "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-form": "^7.0.3",
@@ -63,6 +62,7 @@
     "jest-expo": "~20.0.0",
     "lint-staged": "^4.0.4",
     "npm-run-all": "^4.1.1",
+    "overwrite": "^1.0.3",
     "prettier": "1.5.3",
     "prettier-eslint": "^6.4.3",
     "react-native-debugger-open": "^0.3.12",
