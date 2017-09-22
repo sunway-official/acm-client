@@ -1,4 +1,3 @@
-// Hello
 /* @flow */
 import { I18nManager, type AnimatedViewStylePropTypes } from 'react-native';
 
