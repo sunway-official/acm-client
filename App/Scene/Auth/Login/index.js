@@ -23,6 +23,8 @@ class LoginScene extends Component {
   static header = {
     disable: true,
     theme: 'light',
+    float: true,
+    statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
   };
 
   static footer = {
@@ -60,10 +62,9 @@ class LoginScene extends Component {
       if (error.message === 'bad-credentials') {
         this.setState({
           error: 'Incorrect credentials.',
+          loading: false,
         });
       }
-    } finally {
-      this.setState({ loading: false });
     }
   }
 
