@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, StatusBar, Platform } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { KEY as DRAWER_KEY, setDrawerState } from '~/Redux/Drawer';
@@ -14,8 +14,6 @@ import styles from './styles';
 const LEFT_ICON_IS_DRAWER = 'drawer';
 const LEFT_ICON_IS_BACK = 'back';
 /* eslint-enable no-unused-vars */
-
-const IS_ANDROID = Platform.OS === 'android';
 
 const ICON_ON_PRESS_DELAY = 0;
 
