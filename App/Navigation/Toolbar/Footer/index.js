@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Platform } from 'react-native';
+import { View } from 'react-native';
 import { Colors } from '~/Theme';
 import { connect } from 'react-redux';
 import { KEY as ROUTE_KEY } from '~/Redux/Routes';
@@ -13,7 +13,6 @@ import { NavigationActions as ReactNavigationActions } from 'react-navigation';
 import Tab from './Tab';
 import styles from './styles';
 
-const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
 
