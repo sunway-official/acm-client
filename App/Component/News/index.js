@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Colors, Metrics } from '../../../Theme';
+import { Colors, Metrics } from '../../Theme';
 import { Text, UserAvatar } from '~/Component';
-import Comments from '../Comments';
+import Comments from './Comments';
 import styles from './styles';
 
 class News extends Component {
@@ -19,8 +19,8 @@ class News extends Component {
       showCommentBox: false,
       isLove: false,
     };
-    this._handlePressOfComment = this._handlePressOfComment.bind(this);
-    this._handlePressOfLove = this._handlePressOfLove.bind(this);
+    this._onPressComment = this._onPressComment.bind(this);
+    this._onPressLove = this._onPressLove.bind(this);
   }
 
   _renderIcon(name, type, color) {
@@ -39,7 +39,7 @@ class News extends Component {
       <View style={styles.postHeader}>
         <View style={styles.rightPostHeader}>
           <UserAvatar
-            medium
+            small
             avatar={item.avatar}
             containerStyle={styles.avatar}
           />
@@ -90,14 +90,14 @@ class News extends Component {
     return (
       <View style={styles.interactionBarContainer}>
         {this._renderInteraction(
-          this._handlePressOfLove,
+          this._onPressLove,
           this.state.isLove
             ? this._renderIcon('ios-heart', 'ionicon', Colors.red)
             : this._renderIcon('ios-heart-outline', 'ionicon'),
           item.love,
         )}
         {this._renderInteraction(
-          this._handlePressOfComment,
+          this._onPressComment,
           this._renderIcon('comment', 'evilicon'),
           item.comments.length,
         )}
@@ -105,11 +105,11 @@ class News extends Component {
     );
   }
 
-  _handlePressOfComment() {
+  _onPressComment() {
     this.setState({ showCommentBox: !this.state.showCommentBox });
   }
 
-  _handlePressOfLove() {
+  _onPressLove() {
     this.setState({ isLove: !this.state.isLove });
   }
 

@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import { NewsFeed } from '~/Component';
+import { View } from 'react-native';
+import { News } from '~/Component';
 import { news } from '~/Scene/Profile/fixture';
+import { Metrics } from '../../../../../Theme';
 
 class Activities extends Component {
   static propTypes = {};
-
-  constructor(props, context) {
-    super(props, context);
-  }
   render() {
-    return <NewsFeed news={news} />;
+    return (
+      <View>
+        {news.map((item, index) =>
+          <News
+            item={item}
+            key={index}
+            newsContainerStyle={{
+              marginBottom: index === news.length - 1 ? 0 : Metrics.baseMargin,
+            }}
+          />,
+        )}
+      </View>
+    );
   }
 }
 

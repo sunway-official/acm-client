@@ -17,10 +17,10 @@ class Comment extends Component {
       loveComment: false,
     };
     this._renderComments = this._renderComments.bind(this);
-    this._handlePressOfLove = this._handlePressOfLove.bind(this);
+    this._onPressLove = this._onPressLove.bind(this);
   }
 
-  _handlePressOfLove() {
+  _onPressLove() {
     this.setState({ loveComment: !this.state.loveComment });
   }
 
@@ -46,7 +46,7 @@ class Comment extends Component {
               <TouchableOpacity>
                 <Text style={styles.replyTextStyle}>Reply</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={this._handlePressOfLove}>
+              <TouchableOpacity onPress={this._onPressLove}>
                 <Text
                   style={{
                     color: this.state.loveComment ? Colors.red : Colors.grey,
