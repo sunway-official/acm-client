@@ -37,7 +37,7 @@ class NewsFeedScene extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <StatusPosting />
         {news.map((item, index) =>
           <News
