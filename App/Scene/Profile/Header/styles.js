@@ -18,6 +18,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    marginTop: Metrics.statusBarHeight,
     paddingHorizontal: doubleBaseMargin,
   },
   avatar: {

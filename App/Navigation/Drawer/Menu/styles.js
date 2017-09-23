@@ -11,11 +11,7 @@ export default StyleSheet.create({
   },
   statusBar: {
     // paddingTop: Constants.statusBarHeight,
-    height: IS_ANDROID
-      ? // For Android
-        StatusBar.currentHeight
-      : // For iOS
-        Metrics.iOSStatusBarHeight,
+    height: Metrics.statusBarHeight,
     backgroundColor: 'rgba(0,0,0,0.7)',
     marginHorizontal: statusBarMargin,
   },

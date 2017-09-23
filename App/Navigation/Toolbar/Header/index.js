@@ -48,11 +48,7 @@ class Header extends Component {
 
     const { statusBarBackgroundColor, borderBottomColor } = this.props;
     let styles = {
-      borderTopWidth: IS_ANDROID
-        ? // For Android
-          StatusBar.currentHeight
-        : // For iOS
-          Metrics.iOSStatusBarHeight,
+      borderTopWidth: Metrics.statusBarHeight,
       borderTopColor: IS_ANDROID
         ? // For Android
           theme === THEME_DARK ? Colors.primary : Colors.secondaryDark

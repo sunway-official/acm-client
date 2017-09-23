@@ -9,7 +9,6 @@ import { KEY as TOOLBAR_KEY } from '~/Redux/Toolbar';
 import { NavigationActions } from '~/Redux/Navigation';
 import { Header, Footer } from './';
 import styles from './styles';
-import { Metrics } from '~/Theme';
 
 /* eslint-disable no-unused-vars */
 const LEFT_ICON_IS_DRAWER = 'drawer';
@@ -17,9 +16,6 @@ const LEFT_ICON_IS_BACK = 'back';
 /* eslint-enable no-unused-vars */
 
 const IS_ANDROID = Platform.OS === 'android';
-const STATUS_BAR_HEIGHT = IS_ANDROID
-  ? StatusBar.currentHeight
-  : Metrics.iOSStatusBarHeight;
 
 const ICON_ON_PRESS_DELAY = 0;
 
@@ -82,7 +78,7 @@ class HeaderWrapper extends Component {
     const { drawer, toolbar } = this.props;
     const { header, footer } = this.state;
     let styles = {
-      paddingTop: headerFloat ? STATUS_BAR_HEIGHT : header.height || 0,
+      paddingTop: headerFloat ? 0 : header.height,
       paddingBottom: footerFloat ? 0 : footer.height || 0,
     };
     if (
@@ -91,7 +87,7 @@ class HeaderWrapper extends Component {
     ) {
       styles = {
         ...styles,
-        paddingTop: STATUS_BAR_HEIGHT,
+        paddingTop: 0,
       };
     }
     if (
