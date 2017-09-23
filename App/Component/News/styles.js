@@ -20,7 +20,7 @@ const Activities = StyleSheet.create({
     marginBottom: baseMargin,
   },
   avatar: {
-    marginRight: doubleBaseMargin,
+    marginRight: baseMargin,
   },
   username: {
     fontSize: doubleBaseMargin,

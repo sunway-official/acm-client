@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FlatList } from 'react-native';
+import { ScrollView } from 'react-native';
 import styles from './styles';
 import { Colors, Metrics } from '~/Theme';
 import { News } from '~/Component';
 import { news } from '~/Scene/NewsFeed/fixture';
+import StatusPosting from './StatusPosting';
 
 class NewsFeedScene extends Component {
   static header = {
@@ -34,30 +35,20 @@ class NewsFeedScene extends Component {
     toggleFooter: PropTypes.func,
   };
 
-  constructor(props) {
-    super(props);
-    this._renderItem = this._renderItem.bind(this);
-  }
-
-  _renderItem({ item, index }) {
-    return (
-      <News
-        item={item}
-        newsContainerStyle={{
-          marginBottom: index === news.length - 1 ? 0 : Metrics.baseMargin,
-        }}
-      />
-    );
-  }
-
   render() {
     return (
-      <FlatList
-        data={news}
-        keyExtractor={(item, index) => index}
-        renderItem={this._renderItem}
-        style={styles.container}
-      />
+      <ScrollView style={styles.container}>
+        <StatusPosting />
+        {news.map((item, index) =>
+          <News
+            item={item}
+            key={index}
+            newsContainerStyle={{
+              marginBottom: index === news.length - 1 ? 0 : Metrics.baseMargin,
+            }}
+          />,
+        )}
+      </ScrollView>
     );
   }
 }
