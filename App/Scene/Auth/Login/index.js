@@ -53,7 +53,6 @@ class LoginScene extends Component {
         ['token', token],
         ['refreshToken', refreshToken],
       ]);
-      console.log(await AsyncStorage.multiGet(['token', 'refreshToken']));
       this.props.client.resetStore();
       this.props.navigateToHome();
     } catch ({ graphQLErrors }) {
