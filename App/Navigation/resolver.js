@@ -1,7 +1,7 @@
 import { ROUTES, config } from './routes';
 import withFadeIn from '~/Container/withFadeIn';
 
-function getInitialRoute() {
+export const getInitialRoute = () => {
   let route = {};
   Object.keys(ROUTES).map(key => {
     if (ROUTES[key].initial === true) {
@@ -9,12 +9,11 @@ function getInitialRoute() {
     }
   });
   return route;
-}
+};
 
 export const generateConfig = () => ({
   ...config,
-
-  initialRouteName: getInitialRoute(),
+  initialRouteName: 'splash',
 });
 
 export const generateRoutes = () => {

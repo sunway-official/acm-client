@@ -12,11 +12,7 @@ import {
 export const KEY = 'toolbar';
 
 const routes = require('~/Navigation/resolver').generateRoutes();
-const initialRoute = {};
-
-Object.keys(routes).map(key => {
-  if (routes[key].initial) initialRoute = routes[key];
-});
+const initialRoute = routes['splash'];
 
 const INITIAL_STATE = {
   header: {

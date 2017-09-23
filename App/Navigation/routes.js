@@ -17,7 +17,6 @@ export const ROUTES = {
     icon: {
       name: 'home',
     },
-    initial: true,
   },
   home: {
     name: 'Home',
@@ -62,6 +61,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
+    initial: true,
   },
   schedule: {
     name: 'Schedule',

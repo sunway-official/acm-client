@@ -126,7 +126,6 @@ class HeaderWrapper extends Component {
       onIconPress = this._navigateBack;
       icon.name = 'arrow-back';
     }
-
     return (
       <View style={[styles.container, styles.relativeContainer]}>
         <View

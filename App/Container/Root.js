@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
 import { NavigationActions as ReactNavigationActions } from 'react-navigation';
 import AppNavigation from '~/Navigation';
+import { getInitialRoute } from '~/Navigation/resolver';
 import { gql, compose, graphql } from 'react-apollo';
 
 import styles from './styles';
@@ -16,7 +17,7 @@ class Root extends Component {
     back: PropTypes.func,
     client: PropTypes.object,
     login: PropTypes.func,
-    home: PropTypes.func,
+    navigateToInitialRoute: PropTypes.func,
     data: PropTypes.shape({
       error: PropTypes.any,
     }),
@@ -31,7 +32,7 @@ class Root extends Component {
     if (prevProps.data.error !== error && error) {
       this.props.login();
     } else {
-      this.props.home();
+      this.props.navigateToInitialRoute();
     }
   }
 
@@ -54,11 +55,13 @@ const mapDispatchToProps = dispatch => {
           actions: [ReactNavigationActions.navigate({ routeName: 'login' })],
         }),
       ),
-    home: () =>
+    navigateToInitialRoute: () =>
       dispatch(
         NavigationActions.reset({
           index: 0,
-          actions: [ReactNavigationActions.navigate({ routeName: 'home' })],
+          actions: [
+            ReactNavigationActions.navigate({ routeName: getInitialRoute() }),
+          ],
         }),
       ),
   };
