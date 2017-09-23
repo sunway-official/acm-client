@@ -8,8 +8,8 @@ import styles from './styles';
 class About extends Component {
   static propTypes = {};
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this._renderItem = this._renderItem.bind(this);
   }
 
