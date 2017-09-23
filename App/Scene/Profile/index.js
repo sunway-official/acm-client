@@ -17,8 +17,8 @@ const PRIMARY_HEADER = {
 
 const SECONDARY_HEADER = {
   hideTitle: true,
-  backgroundColor: 'rgba(0,0,0,0)',
-  statusBarBackgroundColor: Colors.black,
+  backgroundColor: Colors.transparent,
+  statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
 };
 
 class ProfileScene extends Component {
@@ -27,8 +27,8 @@ class ProfileScene extends Component {
     hideTitle: true,
     float: true,
     theme: 'dark',
-    backgroundColor: 'rgba(0,0,0,0)',
-    statusBarBackgroundColor: Colors.black,
+    backgroundColor: Colors.transparent,
+    statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
     actions: [
       {
         icon: {
@@ -76,6 +76,7 @@ class ProfileScene extends Component {
         contentContainerStyle={{
           flexGrow: 1,
         }}
+        overScrollMode={'never'}
       >
         <ProfileHeader
           animation={this.state.animation}
