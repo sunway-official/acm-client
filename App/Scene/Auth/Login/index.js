@@ -5,6 +5,7 @@ import { AsyncStorage, Keyboard } from 'react-native';
 import { NavigationActions } from '~/Redux/Navigation';
 import { NavigationActions as ReactNavigationActions } from 'react-navigation';
 import LoginForm from '../Login/Form';
+import { getInitialRoute } from '~/Navigation/resolver';
 import { compose, gql, graphql, withApollo } from 'react-apollo';
 import mutation from '~/Graphql/mutation/login.graphql';
 
@@ -12,7 +13,7 @@ class LoginScene extends Component {
   static propTypes = {
     navigateToForgotPassword: PropTypes.func,
     mutate: PropTypes.func,
-    navigateToHome: PropTypes.func,
+    navigateToInitialRoute: PropTypes.func,
     client: PropTypes.any,
   };
 
@@ -56,7 +57,7 @@ class LoginScene extends Component {
         ['refreshToken', refreshToken],
       ]);
       this.props.client.resetStore();
-      this.props.navigateToHome();
+      this.props.navigateToInitialRoute();
     } catch ({ graphQLErrors }) {
       const error = graphQLErrors[0];
       if (error.message === 'bad-credentials') {
@@ -84,11 +85,13 @@ class LoginScene extends Component {
 const mapDispatchToProps = dispatch => ({
   navigateToForgotPassword: () =>
     dispatch(NavigationActions.navigate({ routeName: 'forgot' })),
-  navigateToHome: () =>
+  navigateToInitialRoute: () =>
     dispatch(
       NavigationActions.reset({
         index: 0,
-        actions: [ReactNavigationActions.navigate({ routeName: 'home' })],
+        actions: [
+          ReactNavigationActions.navigate({ routeName: getInitialRoute() }),
+        ],
       }),
     ),
 });
