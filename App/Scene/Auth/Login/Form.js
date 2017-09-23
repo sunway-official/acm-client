@@ -2,17 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, email, password } from '~/Lib/validate';
-
-import { KeyboardAvoidingView, Image, View } from 'react-native';
-import { Images } from '~/Theme';
+import { Icon } from 'react-native-elements';
+import { Image, View, KeyboardAvoidingView } from 'react-native';
+import { Images, Colors } from '~/Theme';
+import { View as AnimatableView } from 'react-native-animatable';
 import FormInput from '~/Component/FormInput';
 import TouchableView from '~/Component/TouchableView';
 import Text from '~./Component/Text';
 import styles from '../styles';
 
-const submit = values => {
-  console.log('submitting form', values);
-};
+const _renderLoadingButton = () =>
+  <View style={[styles.submitButton, styles.loadingButton]}>
+    <AnimatableView
+      animation="rotate"
+      duration={1000}
+      iterationCount="infinite"
+    >
+      <Icon name="loop" color={Colors.white} />
+    </AnimatableView>
+  </View>;
 
 const _renderHeaderImage = () =>
   <View style={styles.imageContainer}>
@@ -42,14 +50,23 @@ const _renderForm = () =>
     />
   </View>;
 
-const _renderButton = handleSubmit =>
-  <View style={styles.buttonContainer}>
-    <TouchableView onPress={handleSubmit(submit)} style={styles.submitButton}>
-      <Text bold style={styles.buttonText}>
-        LOGIN
-      </Text>
-    </TouchableView>
-  </View>;
+const _renderButton = args => {
+  const { handleSubmit, onLogin, loading } = args;
+  return (
+    <View style={styles.buttonContainer}>
+      {loading
+        ? _renderLoadingButton()
+        : <TouchableView
+            onPress={handleSubmit(onLogin)}
+            style={styles.submitButton}
+          >
+            <Text bold style={styles.buttonText}>
+              LOGIN
+            </Text>
+          </TouchableView>}
+    </View>
+  );
+};
 
 const _renderFooter = onNavigate =>
   <View>
@@ -61,18 +78,31 @@ const _renderFooter = onNavigate =>
     </TouchableView>
   </View>;
 
-const LoginForm = ({ onLogin, onNavigate, handleSubmit }) =>
-  <KeyboardAvoidingView
-    onLogin={handleSubmit(onLogin)}
-    onNavigate={handleSubmit(onNavigate)}
-    style={styles.container}
-    behavior={'position'}
-  >
-    {_renderHeaderImage()}
-    {_renderForm()}
-    {_renderButton(handleSubmit)}
-    {_renderFooter(onNavigate)}
-  </KeyboardAvoidingView>;
+const _renderError = error =>
+  <View>
+    {error === undefined ||
+      <Text style={styles.errorText}>
+        {error}
+      </Text>}
+  </View>;
+
+const LoginForm = ({
+  onLogin,
+  onNavigate,
+  handleSubmit,
+  loading,
+  loginError,
+}) => {
+  return (
+    <KeyboardAvoidingView behavior="position" style={styles.container}>
+      {_renderHeaderImage()}
+      {_renderForm()}
+      {_renderError(loginError)}
+      {_renderButton({ handleSubmit, onLogin, loading })}
+      {_renderFooter(onNavigate)}
+    </KeyboardAvoidingView>
+  );
+};
 
 LoginForm.defaultProps = {
   error: null,
@@ -86,6 +116,8 @@ LoginForm.propTypes = {
   pristine: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   error: PropTypes.string,
+  loginError: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
 LoginForm = reduxForm({

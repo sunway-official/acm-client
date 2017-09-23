@@ -23,6 +23,7 @@ const colors = {
   blueGrey: '#607D8B',
   black: '#000000',
   white: '#FFFFFF',
+  transparent: 'rgba(0,0,0,0)',
 
   // custom colors
   grey: '#757575',

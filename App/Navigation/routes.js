@@ -7,8 +7,18 @@ import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
 import Setting from '~/Scene/Setting';
 import Schedule from '~/Scene/Schedule';
+import Splash from '~/Scene/Splash';
 
 export const ROUTES = {
+  splash: {
+    name: 'Splash',
+    path: '/splash',
+    screen: Splash,
+    icon: {
+      name: 'home',
+    },
+    initial: true,
+  },
   home: {
     name: 'Home',
     path: '/',
@@ -48,7 +58,6 @@ export const ROUTES = {
     name: 'News Feed',
     path: '/news-feed',
     screen: NewsFeed,
-    initial: true,
     icon: {
       name: 'newspaper',
       type: 'material-community',
