@@ -92,7 +92,7 @@ const LoginForm = ({
   loginError,
 }) => {
   return (
-    <KeyboardAvoidingView behavior="padding" style={styles.container}>
+    <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
       {_renderHeaderImage()}
       {_renderForm()}
       {_renderError(loginError)}
