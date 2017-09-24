@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, gql } from 'react-apollo';
 import { View, Image } from 'react-native';
 import { Text } from '~/Component';
 import { achievements } from '~/Scene/Profile/fixture';
 import styles from './styles';
-import query from '~/Graphql/query/me.graphql';
 
 class About extends Component {
   static propTypes = {
-    data: PropTypes.shape({
-      loading: PropTypes.bool,
-    }),
+    user: PropTypes.object,
   };
 
   constructor(props) {
@@ -37,14 +33,14 @@ class About extends Component {
   }
 
   _renderUserInformation() {
-    const { data: { me } } = this.props;
+    const { user } = this.props;
     return (
       <View style={styles.information}>
         <Text>
-          {me.lastname} {me.firstname}
+          {user.lastname} {user.firstname}
         </Text>
         <Text>
-          {me.email}
+          {user.email}
         </Text>
       </View>
     );
@@ -53,9 +49,6 @@ class About extends Component {
   render() {
     return (
       <View>
-        <View>
-          <Text>Edit herer</Text>
-        </View>
         <View style={styles.section}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Information</Text>
@@ -81,4 +74,4 @@ class About extends Component {
   }
 }
 
-export default graphql(gql(query))(About);
+export default About;

@@ -38,9 +38,8 @@ class ProfileScene extends Component {
           name: 'lead-pencil',
           type: 'material-community',
         },
-        onPress: () => {
-          console.log('hello there');
-        },
+        onPress: dispatch =>
+          dispatch(NavigationActions.navigate({ routename: 'profileEditing' })),
       },
     ],
   };
@@ -87,7 +86,7 @@ class ProfileScene extends Component {
           user={me}
           address="Duy Tan University"
         />
-        <ProfileBody />
+        <ProfileBody user={me} />
       </ScrollView>
     );
   }
@@ -95,7 +94,6 @@ class ProfileScene extends Component {
 
 const mapDispatchToProps = dispatch => ({
   setCustomHeader: header => dispatch(addHeaderOptions(header)),
-  navigate: routename => dispatch(NavigationActions.navigate({ routename })),
 });
 
 export default compose(

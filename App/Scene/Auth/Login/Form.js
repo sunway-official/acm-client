@@ -6,9 +6,7 @@ import { Icon } from 'react-native-elements';
 import { Image, View, KeyboardAvoidingView } from 'react-native';
 import { Images, Colors } from '~/Theme';
 import { View as AnimatableView } from 'react-native-animatable';
-import FormInput from '~/Component/FormInput';
-import TouchableView from '~/Component/TouchableView';
-import Text from '~./Component/Text';
+import { FormInput, Text, TouchableView } from '~/Component';
 import styles from '../styles';
 
 const _renderLoadingButton = () =>

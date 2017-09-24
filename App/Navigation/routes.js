@@ -95,12 +95,12 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
   },
   profileEditing: {
     name: 'Edit Profile',
     path: '/profile/edit',
     screen: ProfileEditing,
+    initial: true,
   },
   notification: {
     name: 'Notification',
