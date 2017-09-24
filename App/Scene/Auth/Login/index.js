@@ -17,10 +17,6 @@ class LoginScene extends Component {
     client: PropTypes.any,
   };
 
-  static drawer = {
-    primary: true,
-  };
-
   static header = {
     disable: true,
     theme: 'light',
