@@ -9,6 +9,7 @@ import {
   toggleHeader,
   toggleFooter,
 } from '~/Redux/Toolbar/action';
+import { KEY, setModalState } from '~/Redux/Modal';
 import styles from './styles';
 import { Colors, Images } from '~/Theme';
 
@@ -20,13 +21,19 @@ const text = ['Welcome to News Feed!', 'We are under developement.'];
 
 class NewsFeedScene extends Component {
   state = {
-    isDialogVisible: false,
-    isFilterVisible: true,
+    isDialogVisible: this.props.modal.isOpen,
+    isFilterVisible: false,
   };
-  _showDialogModal = () => this.setState({ isDialogVisible: true });
-  _hideDialogModal = () => this.setState({ isDialogVisible: false });
+  _showDialogModal = () => this.props.showDialogModal();
+  _hideDialogModal = () => this.props.hideDialogModal();
   _showFilterModal = () => this.setState({ isFilterVisible: true });
   _hideFilterModal = () => this.setState({ isFilterVisible: false });
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.modal.isOpen) {
+  //     this.setState({ isDialogVisible: nextProps.modal.isOpen });
+  //   }
+  // }
 
   _renderDialogContent = () =>
     <View
@@ -47,11 +54,11 @@ class NewsFeedScene extends Component {
       </TouchableView>
     </View>;
 
-  _renderDialog = () =>
+  _renderDialog = isOpen =>
     <TouchableView onPress={this._showDialogModal}>
       <Text>Show Dialog</Text>
       <Dialog
-        isVisible={this.state.isDialogVisible}
+        isVisible={isOpen}
         onBackdropPress={this._hideDialogModal}
         header="Are you sure?"
       >
@@ -71,6 +78,7 @@ class NewsFeedScene extends Component {
 
   render() {
     const { home } = this.props;
+    console.log(this.props.modal);
 
     return (
       <View style={styles.container}>
@@ -90,7 +98,7 @@ class NewsFeedScene extends Component {
         </View>
         <Button title="Home" onPress={home} />
 
-        {this._renderDialog()}
+        {this._renderDialog(this.props.modal.isOpen)}
 
         {this._renderFilter()}
       </View>
@@ -123,13 +131,22 @@ NewsFeedScene.propTypes = {
   setTitle: PropTypes.func,
   toggleHeader: PropTypes.func,
   toggleFooter: PropTypes.func,
+  showDialogModal: PropTypes.func,
+  hideDialogModal: PropTypes.func,
+  modal: PropTypes.object,
 };
+
+const mapStateToProps = state => ({
+  modal: state[KEY],
+});
 
 const mapDispatchToProps = dispatch => ({
   home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
   setTitle: title => dispatch(addHeaderOptions({ title })),
   toggleHeader: () => dispatch(toggleHeader()),
   toggleFooter: () => dispatch(toggleFooter()),
+  showDialogModal: () => dispatch(setModalState(true)),
+  hideDialogModal: () => dispatch(setModalState(false)),
 });
 
-export default connect(undefined, mapDispatchToProps)(NewsFeedScene);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsFeedScene);
