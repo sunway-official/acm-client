@@ -39,15 +39,7 @@ class NewsFeedScene extends Component {
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <StatusPosting />
-        {news.map((item, index) =>
-          <News
-            item={item}
-            key={index}
-            newsContainerStyle={{
-              marginBottom: index === news.length - 1 ? 0 : Metrics.baseMargin,
-            }}
-          />,
-        )}
+        {news.map((item, index) => <News item={item} key={index} />)}
       </ScrollView>
     );
   }

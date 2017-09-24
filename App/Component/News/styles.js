@@ -9,6 +9,7 @@ const Activities = StyleSheet.create({
   container: {
     backgroundColor: white,
     padding: baseMargin,
+    marginBottom: baseMargin,
   },
   postHeader: {
     flexDirection: 'row',

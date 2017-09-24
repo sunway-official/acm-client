@@ -10,15 +10,7 @@ class Activities extends Component {
   render() {
     return (
       <View>
-        {news.map((item, index) =>
-          <News
-            item={item}
-            key={index}
-            newsContainerStyle={{
-              marginBottom: index === news.length - 1 ? 0 : Metrics.baseMargin,
-            }}
-          />,
-        )}
+        {news.map((item, index) => <News item={item} key={index} />)}
       </View>
     );
   }

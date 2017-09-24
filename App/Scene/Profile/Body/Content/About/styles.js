@@ -3,9 +3,10 @@ import { Metrics, Colors, Fonts } from '../../../../../Theme';
 
 const { baseMargin, doubleBaseMargin } = Metrics;
 const { white, grey } = Colors;
+const { size } = Fonts;
 
 const About = StyleSheet.create({
-  topicContainer: {
+  titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 1,
@@ -18,7 +19,7 @@ const About = StyleSheet.create({
     marginRight: doubleBaseMargin,
   },
   title: {
-    fontSize: 16,
+    fontSize: size.regular,
   },
   description: {
     color: grey,
@@ -29,6 +30,11 @@ const About = StyleSheet.create({
     paddingHorizontal: doubleBaseMargin,
     paddingVertical: baseMargin,
     marginBottom: 1,
+    backgroundColor: white,
+  },
+  section: { marginBottom: baseMargin },
+  information: {
+    padding: baseMargin,
     backgroundColor: white,
   },
 });
