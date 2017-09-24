@@ -6,7 +6,7 @@ import Notification from '~/Scene/Notification';
 import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
 import Setting from '~/Scene/Setting';
-import Schedule from '~/Scene/Schedule';
+import { Agenda, MyAgenda } from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
 
 export const ROUTES = {
@@ -53,7 +53,7 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  'news-feed': {
+  newsFeed: {
     name: 'News Feed',
     path: '/news-feed',
     screen: NewsFeed,
@@ -63,16 +63,25 @@ export const ROUTES = {
     },
     initial: true,
   },
-  schedule: {
-    name: 'Schedule',
-    path: '/schedule',
-    screen: Schedule,
+  myAgenda: {
+    name: 'My Agenda',
+    path: '/my-agenda',
+    screen: MyAgenda,
     icon: {
-      name: 'calendar-blank',
+      name: 'calendar-today',
       type: 'material-community',
     },
     activeIcon: {
       name: 'calendar-text',
+      type: 'material-community',
+    },
+  },
+  agenda: {
+    name: 'Agenda',
+    path: '/agenda',
+    screen: Agenda,
+    icon: {
+      name: 'calendar-range',
       type: 'material-community',
     },
   },
