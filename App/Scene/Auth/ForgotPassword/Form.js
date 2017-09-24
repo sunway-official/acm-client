@@ -51,7 +51,7 @@ const ForgotPasswordForm = ({ handleSubmit }) =>
   <KeyboardAvoidingView
     onSubmit={handleSubmit}
     style={styles.container}
-    behavior={'position'}
+    behavior={'padding'}
   >
     {_renderHeaderImage()}
     {_renderForm()}

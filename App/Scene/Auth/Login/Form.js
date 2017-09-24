@@ -36,6 +36,7 @@ const _renderForm = () =>
       placeholder="Email"
       underlineColorAndroid={'transparent'}
       keyboardType={'email-address'}
+      multiline={true}
     />
     <Field
       name="password"
@@ -92,7 +93,7 @@ const LoginForm = ({
   loginError,
 }) => {
   return (
-    <KeyboardAvoidingView behavior="position" style={styles.container}>
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
       {_renderHeaderImage()}
       {_renderForm()}
       {_renderError(loginError)}
