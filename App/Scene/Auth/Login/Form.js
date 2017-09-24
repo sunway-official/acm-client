@@ -31,7 +31,6 @@ const _renderForm = () =>
   <View style={styles.formContainer}>
     <Field
       name="email"
-      type="email"
       component={FormInput}
       validate={[required, email]}
       placeholder="Email"
@@ -40,7 +39,6 @@ const _renderForm = () =>
     />
     <Field
       name="password"
-      type="password"
       component={FormInput}
       validate={[required, password]}
       placeholder="Password"
@@ -94,7 +92,7 @@ const LoginForm = ({
   loginError,
 }) => {
   return (
-    <KeyboardAvoidingView behavior="position" style={styles.container}>
+    <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
       {_renderHeaderImage()}
       {_renderForm()}
       {_renderError(loginError)}
