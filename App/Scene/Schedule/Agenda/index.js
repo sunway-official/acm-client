@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { Colors, Metrics } from '~/Theme';
 import Detail from '../Detail/Agenda';
