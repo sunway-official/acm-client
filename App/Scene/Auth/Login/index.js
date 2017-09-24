@@ -45,9 +45,12 @@ class LoginScene extends Component {
     this.setState({ loading: true });
     Keyboard.dismiss();
     try {
+      console.log(values);
+      console.log('start mutating');
       const { data: { login: { token, refreshToken } } } = await mutate({
         variables: values,
       });
+      console.log('finish mutation');
       await AsyncStorage.multiSet([
         ['token', token],
         ['refreshToken', refreshToken],

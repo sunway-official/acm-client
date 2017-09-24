@@ -7,12 +7,12 @@ import { Colors } from '~/Theme';
 
 class Schedule extends Component {
   static header = {
-    theme: 'dark',
+    // theme: 'dark',
   };
 
   static footer = {
     show: true,
-    activeColor: Colors.primary,
+    activeColor: Colors.black,
   };
 
   render() {
