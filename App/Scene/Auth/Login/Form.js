@@ -36,7 +36,6 @@ const _renderForm = () =>
       placeholder="Email"
       underlineColorAndroid={'transparent'}
       keyboardType={'email-address'}
-      multiline={true}
     />
     <Field
       name="password"
