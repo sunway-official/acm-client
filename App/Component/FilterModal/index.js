@@ -13,7 +13,7 @@ import { Colors, Fonts } from '~/Theme/';
 const dummyContents = [
   'Leadership',
   'Citizen Tech',
-  'Program Assessment Program Technical Demo Demo Demo',
+  'Program Assessment',
   'Academic',
   'Technology',
   'Biology',
@@ -74,22 +74,22 @@ class FilterModal extends Component {
 
   _renderHeader = onCancelPress =>
     <View style={styles.headerContainer}>
-      <TouchableView onPress={onCancelPress}>
-        <Text style={styles.actionHeaderText}>Cancel</Text>
-      </TouchableView>
-      <Text bold style={styles.headerText}>
-        Filter
-      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableView onPress={onCancelPress}>
+          <Text style={styles.cancelHeaderText}>X</Text>
+        </TouchableView>
+        <Text thin style={styles.headerText}>
+          Filters
+        </Text>
+      </View>
       <TouchableView onPress={() => this.setPressToDefault()}>
-        <Text style={styles.actionHeaderText}>Reset</Text>
+        <Text style={styles.resetHeaderText}>RESET</Text>
       </TouchableView>
     </View>;
 
   _renderButton = () =>
     <TouchableView style={styles.actionContainer} onPress={() => null}>
-      <Text medium style={styles.actionSubmitText}>
-        Save Filter
-      </Text>
+      <Text style={styles.actionSubmitText}>SAVE FILTER</Text>
     </TouchableView>;
 
   setOnPress(check, index) {
@@ -118,9 +118,7 @@ class FilterModal extends Component {
           <View style={styles.contentContainer}>
             <ScrollView>
               <View style={styles.descriptionSortByContainer}>
-                <Text light style={styles.descriptionText}>
-                  Sort my results by
-                </Text>
+                <Text>SORT BY</Text>
               </View>
               <View style={styles.sortByContainer}>
                 {this._renderContents(contents)}
