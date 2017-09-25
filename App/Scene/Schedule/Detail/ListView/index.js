@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Colors } from '~/Theme';
 import { TouchableView, Text } from '~/Component';
