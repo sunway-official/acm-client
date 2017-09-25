@@ -61,7 +61,6 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    initial: true,
   },
   myAgenda: {
     name: 'My Agenda',
@@ -84,6 +83,7 @@ export const ROUTES = {
       name: 'calendar-range',
       type: 'material-community',
     },
+    initial: true,
   },
   people: {
     name: 'People',

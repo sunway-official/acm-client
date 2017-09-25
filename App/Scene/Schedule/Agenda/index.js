@@ -25,13 +25,15 @@ const TabsView = TabNavigator(tabs, {
   tabBarOptions: {
     scrollEnabled: true,
     indicatorStyle: {
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
     },
     style: {
-      backgroundColor: 'transparent',
-      marginBottom: Metrics.smallMargin,
+      backgroundColor: Colors.primary,
     },
-    labelStyle: { margin: 0, color: Colors.black },
+    labelStyle: {
+      margin: Metrics.smallMargin,
+      color: Colors.white,
+    },
     upperCaseLabel: false,
   },
 });
