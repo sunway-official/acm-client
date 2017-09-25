@@ -1,5 +1,3 @@
-import '~/Asset/Font';
-
 const type = {};
 
 const size = {

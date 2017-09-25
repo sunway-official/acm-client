@@ -24,7 +24,7 @@ const TabsView = TabNavigator(tabs, {
   tabBarOptions: {
     scrollEnabled: true,
     indicatorStyle: {
-      backgroundColor: 'black',
+      backgroundColor: Colors.black,
     },
     style: {
       backgroundColor: 'transparent',

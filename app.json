@@ -11,14 +11,16 @@
     "android": {
       "package": "com.sunway.cemclient"
     },
+    "primaryColor": "#FF5722",
     "loading": {
       "icon": "./App/Asset/icon.png",
       "backgroundColor": "#FF5722",
       "hideExponentText": true,
+      "exponentIconColor": "white",
       "splash": {
         "backgroundColor": "#FF5722",
         "image": {
-          "ios": { "backgroundImage": "./App/Asset/splash.png" }
+          "ios": { "backgroundImage": "./App/Images/splash.png" }
         }
       }
     }

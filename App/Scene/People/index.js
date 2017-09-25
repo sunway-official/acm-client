@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Button } from 'react-native';
 import { Text } from '~/Component';
@@ -36,10 +36,10 @@ PeopleScene.header = {
   ],
 };
 
-PeopleScene.footer = {
-  show: true,
-  activeColor: Colors.green,
-};
+// PeopleScene.footer = {
+//   show: true,
+//   activeColor: Colors.green,
+// };
 
 PeopleScene.propTypes = {
   home: PropTypes.func,

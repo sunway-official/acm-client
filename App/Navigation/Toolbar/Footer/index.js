@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Platform } from 'react-native';
+import { View } from 'react-native';
 import { Colors } from '~/Theme';
 import { connect } from 'react-redux';
 import { KEY as ROUTE_KEY } from '~/Redux/Routes';
@@ -13,7 +13,6 @@ import { NavigationActions as ReactNavigationActions } from 'react-navigation';
 import Tab from './Tab';
 import styles from './styles';
 
-const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
 
@@ -32,6 +31,7 @@ class Footer extends Component {
     navigation: PropTypes.object,
     navigate: PropTypes.func,
     reset: PropTypes.func,
+    disable: PropTypes.bool,
   };
 
   constructor(props) {
@@ -75,7 +75,7 @@ class Footer extends Component {
     let tabs = [];
     Object.keys(routes).map(key => {
       const { name, footer, icon, activeIcon } = routes[key];
-      if (footer) {
+      if (footer && !footer.disable) {
         const onPress = () => {
           if (routeName === key) {
           } else {
@@ -103,18 +103,19 @@ class Footer extends Component {
   }
 
   render() {
-    const { visible } = this.props;
+    const { visible, disable } = this.props;
     const containerStyle = this.props.style;
 
     return (
       <View style={this._wrapperStyles()}>
-        <AnimatableView
-          style={[styles.footer, this._footerStyles(), containerStyle]}
-          animation={visible ? 'slideInUp' : 'slideOutDown'}
-          duration={HIDDING_DELAY}
-        >
-          {this._renderTabs()}
-        </AnimatableView>
+        {disable ||
+          <AnimatableView
+            style={[styles.footer, this._footerStyles(), containerStyle]}
+            animation={visible ? 'slideInUp' : 'slideOutDown'}
+            duration={HIDDING_DELAY}
+          >
+            {this._renderTabs()}
+          </AnimatableView>}
       </View>
     );
   }

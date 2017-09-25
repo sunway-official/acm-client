@@ -1,10 +1,8 @@
-import { Dimensions, Platform } from 'react-native';
-import { Constants } from 'expo';
+import { Dimensions, Platform, StatusBar } from 'react-native';
 
+const IS_ANDROID = Platform.OS === 'android';
 const { width, height } = Dimensions.get('window');
-const { statusBarHeight } = Constants;
 
-// Used via Metrics.baseMargin
 const metrics = {
   baseMargin: 8,
   doubleBaseMargin: 16,
@@ -15,10 +13,10 @@ const metrics = {
   doubleSection: 50,
   horizontalLineHeight: 1,
   screenWidth: width < height ? width : height,
-  screenHeight: (width < height ? height : width) - statusBarHeight,
+  screenHeight: width < height ? height : width,
   navBarHeight: Platform.OS === 'ios' ? 64 : 54,
   buttonRadius: 4,
-  iOSStatusBarHeight: 20,
+  statusBarHeight: IS_ANDROID ? StatusBar.currentHeight : 20,
   icons: {
     tiny: 16,
     small: 24,

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '../../../Theme';
+import { Metrics, Colors, Fonts } from '../../Theme';
 
 const { baseMargin, doubleBaseMargin, screenWidth } = Metrics;
 const { white, grey } = Colors;
@@ -20,7 +20,7 @@ const Activities = StyleSheet.create({
     marginBottom: baseMargin,
   },
   avatar: {
-    marginRight: doubleBaseMargin,
+    marginRight: baseMargin,
   },
   username: {
     fontSize: doubleBaseMargin,

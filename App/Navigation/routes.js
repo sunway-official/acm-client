@@ -7,8 +7,17 @@ import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
 import Setting from '~/Scene/Setting';
 import Schedule from '~/Scene/Schedule';
+import Splash from '~/Scene/Splash';
 
 export const ROUTES = {
+  splash: {
+    name: 'Splash',
+    path: '/splash',
+    screen: Splash,
+    icon: {
+      name: 'home',
+    },
+  },
   home: {
     name: 'Home',
     path: '/',

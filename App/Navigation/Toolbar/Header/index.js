@@ -29,6 +29,7 @@ class Header extends Component {
     }),
     search: PropTypes.object,
     dispatch: PropTypes.func,
+    disable: PropTypes.bool,
   };
 
   constructor(props) {
@@ -47,11 +48,7 @@ class Header extends Component {
 
     const { statusBarBackgroundColor, borderBottomColor } = this.props;
     let styles = {
-      borderTopWidth: IS_ANDROID
-        ? // For Android
-          StatusBar.currentHeight
-        : // For iOS
-          Metrics.iOSStatusBarHeight,
+      borderTopWidth: Metrics.statusBarHeight,
       borderTopColor: IS_ANDROID
         ? // For Android
           theme === THEME_DARK ? Colors.primary : Colors.secondaryDark
@@ -97,7 +94,7 @@ class Header extends Component {
   };
 
   render() {
-    const { search = {}, visible } = this.props;
+    const { search = {}, visible, disable } = this.props;
     const containerStyle = this.props.style;
 
     return (
@@ -106,22 +103,23 @@ class Header extends Component {
           backgroundColor={Colors.primaryDark}
           barStyle={this._statusBarStyle()}
         />
-        <AnimatableView
-          style={[styles.header, this._headerStyles(), containerStyle]}
-          animation={visible ? 'slideInDown' : 'slideOutUp'}
-          duration={HIDDING_DELAY}
-        >
-          {search.enable &&
-            <SearchContent {...this.props} {...this.props.search} />}
-          {search.enable ||
-            <AnimatableView
-              animation={SWITCH_CONTENT_ANIMATION}
-              duration={SWITCH_CONTENT_DELAY}
-              style={styles.container}
-            >
-              <DefaultContent {...this.props} />
-            </AnimatableView>}
-        </AnimatableView>
+        {disable ||
+          <AnimatableView
+            style={[styles.header, this._headerStyles(), containerStyle]}
+            animation={visible ? 'slideInDown' : 'slideOutUp'}
+            duration={HIDDING_DELAY}
+          >
+            {search.enable &&
+              <SearchContent {...this.props} {...this.props.search} />}
+            {search.enable ||
+              <AnimatableView
+                animation={SWITCH_CONTENT_ANIMATION}
+                duration={SWITCH_CONTENT_DELAY}
+                style={styles.container}
+              >
+                <DefaultContent {...this.props} />
+              </AnimatableView>}
+          </AnimatableView>}
       </View>
     );
   }
