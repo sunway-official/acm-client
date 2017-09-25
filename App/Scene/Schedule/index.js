@@ -3,12 +3,10 @@ import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { connect } from 'react-redux';
-import { KEY, setModalState, toggleModal } from '~/Redux/Modal';
+import { KEY, setModalState } from '~/Redux/Modal';
 
 import { Colors } from '~/Theme';
-import Text from '~/Component/Text';
 import DefaultTabBar from './CustomTabBar/DefaultTabBar';
-import TouchableView from '~/Component/TouchableView';
 import FilterModal from '~/Component/FilterModal';
 
 import Agenda from './Agenda';
@@ -20,10 +18,6 @@ class Schedule extends Component {
     hideFilterModal: PropTypes.func,
     toggleModal: PropTypes.func,
     modal: PropTypes.object,
-  };
-
-  state = {
-    isFilterOpen: false,
   };
 
   static header = {
@@ -42,27 +36,12 @@ class Schedule extends Component {
         icon: {
           name: 'filter-list',
         },
-        // onPress: dispatch => {
-        //   dispatch({
-        //     type: 'LOCK_ACTION',
-        //     payload: 'Lock the account',
-        //   });
-        // },
         onPress: dispatch => {
           dispatch(setModalState(true));
         },
       },
     ],
   };
-
-  // componentWillReceiveProps(nextProps) {
-  //   // console.log(nextProps);
-  //   console.log(nextProps.modal.isOpen);
-  //   const isOpen = nextProps.modal.isOpen;
-  //   if (isOpen) {
-  //     this._renderFilter();
-  //   }
-  // }
 
   static footer = {
     show: true,

@@ -13,7 +13,7 @@ import { Colors, Fonts } from '~/Theme/';
 const dummyContents = [
   'Leadership',
   'Citizen Tech',
-  'Program Assessment Program Assessment Program Assessment',
+  'Program Assessment Program Technical Demo Demo Demo',
   'Academic',
   'Technology',
   'Biology',
@@ -49,7 +49,7 @@ class FilterModal extends Component {
     var isCheck = this.state.isCheck;
 
     contents.map((content, index) => {
-      var colorTextPress = isCheck[index] ? { color: Colors.deepOrange } : null;
+      var textColorPress = isCheck[index] ? { color: Colors.deepOrange } : null;
       var borderColorPress = isCheck[index]
         ? { borderColor: Colors.deepOrange }
         : null;
@@ -61,13 +61,11 @@ class FilterModal extends Component {
           style={styles.itemSortByContainer}
           onPress={() => this.setOnPress(!isCheck[index], index)}
         >
-          <View>
-            <Text
-              style={[styles.itemSortByText, colorTextPress, borderColorPress]}
-            >
-              {content}
-            </Text>
-          </View>
+          <Text
+            style={[styles.itemSortByText, textColorPress, borderColorPress]}
+          >
+            {content}
+          </Text>
         </TouchableView>,
       );
     });
@@ -77,17 +75,13 @@ class FilterModal extends Component {
   _renderHeader = onCancelPress =>
     <View style={styles.headerContainer}>
       <TouchableView onPress={onCancelPress}>
-        <Text light style={styles.actionHeaderText}>
-          Cancel
-        </Text>
+        <Text style={styles.actionHeaderText}>Cancel</Text>
       </TouchableView>
       <Text bold style={styles.headerText}>
         Filter
       </Text>
       <TouchableView onPress={() => this.setPressToDefault()}>
-        <Text light style={styles.actionHeaderText}>
-          Reset
-        </Text>
+        <Text style={styles.actionHeaderText}>Reset</Text>
       </TouchableView>
     </View>;
 
@@ -124,7 +118,9 @@ class FilterModal extends Component {
           <View style={styles.contentContainer}>
             <ScrollView>
               <View style={styles.descriptionSortByContainer}>
-                <Text light>Sort my results by</Text>
+                <Text light style={styles.descriptionText}>
+                  Sort my results by
+                </Text>
               </View>
               <View style={styles.sortByContainer}>
                 {this._renderContents(contents)}
