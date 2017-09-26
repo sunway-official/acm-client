@@ -3,7 +3,6 @@ import { View, Modal } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './style';
 
-import TouchableView from '../TouchableView';
 import Text from '../Text';
 import Modal from '../Modal';
 

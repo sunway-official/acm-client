@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './style';
 
@@ -7,8 +7,7 @@ import TouchableView from '../TouchableView';
 import Text from '../Text';
 import Modal from '../Modal';
 
-import { Icon } from 'react-native-elements';
-import { Colors, Fonts, Metrics } from '~/Theme/';
+import { Colors } from '~/Theme/';
 
 const dummyContents = [
   'Leadership',
