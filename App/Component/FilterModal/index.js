@@ -8,7 +8,7 @@ import Text from '../Text';
 import Modal from '../Modal';
 
 import { Icon } from 'react-native-elements';
-import { Colors, Fonts } from '~/Theme/';
+import { Colors, Fonts, Metrics } from '~/Theme/';
 
 const dummyContents = [
   'Leadership',
@@ -74,23 +74,34 @@ class FilterModal extends Component {
 
   _renderHeader = onCancelPress =>
     <View style={styles.headerContainer}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <TouchableView onPress={onCancelPress}>
-          <Text style={styles.cancelHeaderText}>X</Text>
-        </TouchableView>
+      <View>
         <Text thin style={styles.headerText}>
           Filters
         </Text>
       </View>
-      <TouchableView onPress={() => this.setPressToDefault()}>
-        <Text style={styles.resetHeaderText}>RESET</Text>
+      <TouchableView onPress={onCancelPress}>
+        <Text style={styles.cancelHeaderText}>X</Text>
       </TouchableView>
     </View>;
 
-  _renderButton = () =>
-    <TouchableView style={styles.actionContainer} onPress={() => null}>
-      <Text style={styles.actionSubmitText}>SAVE FILTER</Text>
-    </TouchableView>;
+  _renderButton = onCancelPress =>
+    <View style={styles.actionContainer}>
+      <TouchableView
+        style={styles.unactiveActionSubmitText}
+        onPress={onCancelPress}
+      >
+        <Text style={styles.actionText}>Cancel</Text>
+      </TouchableView>
+      <TouchableView
+        style={styles.unactiveActionSubmitText}
+        onPress={() => this.setPressToDefault()}
+      >
+        <Text style={styles.actionText}>Reset</Text>
+      </TouchableView>
+      <TouchableView style={styles.activeActionSubmitText} onPress={() => null}>
+        <Text style={[{ color: Colors.white }, styles.actionText]}>Apply</Text>
+      </TouchableView>
+    </View>;
 
   setOnPress(check, index) {
     let newIsCheck = this.state.isCheck;
@@ -115,6 +126,7 @@ class FilterModal extends Component {
       >
         <View style={styles.cardModalContainer}>
           {this._renderHeader(onCancelPress)}
+
           <View style={styles.contentContainer}>
             <ScrollView>
               <View style={styles.descriptionSortByContainer}>
@@ -126,7 +138,7 @@ class FilterModal extends Component {
             </ScrollView>
           </View>
 
-          {this._renderButton()}
+          {this._renderButton(onCancelPress)}
         </View>
       </Modal>
     );
