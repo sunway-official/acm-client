@@ -159,6 +159,7 @@ const SCHEDULES = [
         title: 'Music',
         time: '10 AM',
         shortDescription: 'something',
+        active: true,
       },
     ],
   },

@@ -1,13 +1,17 @@
 import React from 'react';
 import { View } from 'react-native';
-import styles from '../styles';
 import { Colors } from '~/Theme';
 import { navigate } from '~/Redux/Navigation/action';
+import List from './List';
+import fixture from '../fixture';
+import styles from '../styles';
 
-const MyAgenda = () => <View style={styles.container} />;
+const MyAgenda = () =>
+  <View style={styles.container}>
+    <List data={fixture} />
+  </View>;
 
 MyAgenda.header = {
-  theme: 'dark',
   actions: [
     {
       icon: {

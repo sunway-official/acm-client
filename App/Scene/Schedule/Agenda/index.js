@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { Colors, Metrics } from '~/Theme';
-import Detail from './ListView';
+import Detail from './List';
 import Fixture from '../fixture';
 import { navigate } from '~/Redux/Navigation/action';
 
