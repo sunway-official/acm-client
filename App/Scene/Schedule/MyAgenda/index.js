@@ -4,7 +4,7 @@ import { Colors } from '~/Theme';
 import { navigate } from '~/Redux/Navigation/action';
 import List from './List';
 import fixture from '../fixture';
-import styles from '../styles';
+import styles from './styles';
 
 const MyAgenda = () =>
   <View style={styles.container}>

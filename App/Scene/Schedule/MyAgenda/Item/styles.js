@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { Fonts, Metrics, Colors } from '../../../../Theme';
+import { Fonts, Metrics, Colors } from '~/Theme';
+
 const Schedule = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: Metrics.baseMargin,
+    paddingTop: Metrics.smallMargin,
+    paddingBottom: Metrics.baseMargin,
   },
   headerWrapper: {
     marginLeft: Metrics.doubleBaseMargin,
