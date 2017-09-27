@@ -7,7 +7,7 @@ import ItemDetail from './Detail';
 import { DATE_FORMAT } from 'react-native-dotenv';
 import styles from './styles';
 
-const MyAgendaItem = ({ activities, date, contentBackgroundColor }) => {
+const MyAgendaItem = ({ activities, date, color }) => {
   activities = activities.filter(item => item.active);
   const month = moment(date, DATE_FORMAT).format('MMM');
   const day = moment(date, DATE_FORMAT).format('Do');
@@ -33,7 +33,7 @@ const MyAgendaItem = ({ activities, date, contentBackgroundColor }) => {
             data={activities}
             keyExtractor={(item, index) => index}
             renderItem={({ item }) =>
-              <ItemDetail {...item} backgroundColor={contentBackgroundColor} />}
+              <ItemDetail {...item} backgroundColor={color.background} />}
           />
         </View>
       </View>
@@ -43,7 +43,10 @@ const MyAgendaItem = ({ activities, date, contentBackgroundColor }) => {
 MyAgendaItem.propTypes = {
   activities: PropTypes.array,
   date: PropTypes.any,
-  contentBackgroundColor: PropTypes.string,
+  color: PropTypes.shape({
+    background: PropTypes.string,
+    primary: PropTypes.string,
+  }),
 };
 
 export default MyAgendaItem;

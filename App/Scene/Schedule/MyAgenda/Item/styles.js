@@ -21,7 +21,7 @@ const Schedule = StyleSheet.create({
   },
   contentDate: {
     marginLeft: Metrics.doubleBaseMargin,
-    paddingTop: Metrics.baseMargin,
+    paddingTop: Metrics.doubleBaseMargin,
     width: 48,
   },
   contentWrapper: {
@@ -40,7 +40,8 @@ const Schedule = StyleSheet.create({
     alignItems: 'center',
     padding: Metrics.baseMargin,
     backgroundColor: Colors.primary,
-    marginBottom: Metrics.smallMargin,
+    marginTop: Metrics.baseMargin,
+    marginBottom: Metrics.baseMargin,
     borderTopLeftRadius: 4,
     borderBottomLeftRadius: 4,
   },

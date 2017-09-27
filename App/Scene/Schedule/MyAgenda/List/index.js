@@ -12,37 +12,57 @@ const HEADER_TITLE_DATE_FORMAT = 'dddd, MMM Do';
 
 const getItemColor = index => {
   let color = Colors.primary;
-  const indexValue = index % 5;
+  const indexValue = index % 2;
   switch (indexValue) {
     case 0:
-      color = Colors.primary;
+      color = {
+        primary: Colors.blue,
+        background: Colors.blue,
+      };
       break;
     case 1:
-      color = Colors.green;
+      color = {
+        primary: Colors.green,
+        background: Colors.green,
+      };
       break;
-    case 2:
-      color = Colors.red;
-      break;
-    case 3:
-      color = Colors.blue;
-      break;
-    case 4:
-      color = Colors.purple;
-      break;
+    // case 2:
+    //   color = {
+    //     primary: Colors.blue,
+    //     background: Colors.blue,
+    //   };
+    //   break;
+    // case 3:
+    //   color = {
+    //     primary: Colors.red,
+    //     background: Colors.lightRed,
+    //   };
+    //   break;
+    // case 4:
+    //   color = {
+    //     primary: Colors.green,
+    //     background: Colors.lightGreen,
+    //   };
+    //   break;
     default:
       break;
   }
   return color;
 };
 
-const onViewableItemsChangedHandler = ({ viewableItems, data, setHeader }) => {
+const onViewableItemsChangedHandler = ({
+  viewableItems,
+  changed,
+  data,
+  setHeader,
+}) => {
   if (viewableItems.length === 0) return;
+  if (changed.length === 0) return;
+
   const { index } = viewableItems[0];
   const { date } = data[index];
   setHeader({
     title: moment(date, DATE_FORMAT).format(HEADER_TITLE_DATE_FORMAT),
-    backgroundColor: getItemColor(index),
-    statusBarBackgroundColor: getItemColor(index),
   });
 };
 
@@ -50,10 +70,10 @@ const MyAgendaList = ({ data, setHeader }) =>
   <FlatList
     data={data}
     renderItem={({ item, index }) =>
-      <Item {...item} contentBackgroundColor={getItemColor(index)} />}
+      <Item {...item} color={getItemColor(index)} />}
     keyExtractor={(item, index) => index}
-    onViewableItemsChanged={({ viewableItems }) =>
-      onViewableItemsChangedHandler({ viewableItems, data, setHeader })}
+    onViewableItemsChanged={({ ...info }) =>
+      onViewableItemsChangedHandler({ ...info, data, setHeader })}
   />;
 
 MyAgendaList.propTypes = {
