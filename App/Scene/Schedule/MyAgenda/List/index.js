@@ -33,6 +33,7 @@ const getItemColor = index => {
 };
 
 const onViewableItemsChangedHandler = ({ viewableItems, data, setHeader }) => {
+  if (viewableItems.length === 0) return;
   const { index } = viewableItems[0];
   const { date } = data[index];
   setHeader({
