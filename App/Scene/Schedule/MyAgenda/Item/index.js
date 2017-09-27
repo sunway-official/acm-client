@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
-import { TouchableView } from '~/Component';
 import { Text } from '~/Component';
-import { Icon } from 'react-native-elements';
 import moment from 'moment';
+import ItemDetail from './Detail';
 import { DATE_FORMAT } from 'react-native-dotenv';
-import { Colors } from '~/Theme';
 import styles from './styles';
 
 class MyAgendaItem extends Component {
@@ -15,35 +13,9 @@ class MyAgendaItem extends Component {
 
     this._renderItemContent = this._renderItemContent.bind(this);
   }
-  _renderItemContent = ({ item: { title, time, shortDescription } }) => {
+  _renderItemContent = ({ item }) => {
     const { contentBackgroundColor } = this.props;
-    return (
-      <View
-        style={[
-          styles.itemWrapper,
-          { backgroundColor: contentBackgroundColor },
-        ]}
-      >
-        <View style={styles.itemInfo}>
-          <Text style={[styles.itemText]} bold>
-            {title}
-          </Text>
-          <Text style={[styles.itemText]}>
-            {time}
-          </Text>
-          <Text style={[styles.itemText]}>
-            {shortDescription}
-          </Text>
-        </View>
-        <TouchableView
-          style={styles.itemAction}
-          rippleColor={Colors.white}
-          borderless
-        >
-          <Icon type="ionicon" name="md-eye" color={Colors.white} />
-        </TouchableView>
-      </View>
-    );
+    return <ItemDetail {...item} backgroundColor={contentBackgroundColor} />;
   };
 
   render() {

@@ -7,6 +7,12 @@ const Schedule = StyleSheet.create({
     paddingTop: Metrics.smallMargin,
     paddingBottom: Metrics.baseMargin,
   },
+  blurWrapper: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(255,255,255,0.3)',
+  },
   headerWrapper: {
     marginLeft: Metrics.doubleBaseMargin,
   },
