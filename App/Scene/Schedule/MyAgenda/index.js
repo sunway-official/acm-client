@@ -1,9 +1,10 @@
 import React from 'react';
-import Detail from '../Detail/MyAgenda';
+import { View } from 'react-native';
+import styles from '../styles';
 import { Colors } from '~/Theme';
 import { navigate } from '~/Redux/Navigation/action';
 
-const MyAgenda = () => <Detail />;
+const MyAgenda = () => <View style={styles.container} />;
 
 MyAgenda.header = {
   theme: 'dark',

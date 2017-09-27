@@ -1,18 +1,19 @@
 import React from 'react';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { Colors, Metrics } from '~/Theme';
-import Detail from '../Detail/Agenda';
+import Detail from './ListView';
 import Fixture from '../fixture';
 import { navigate } from '~/Redux/Navigation/action';
 
 const tabs = {};
 Fixture.map((schedule, index) => {
-  let key = 'Day ' + (index + 1);
+  const key = 'Day ' + (index + 1);
+  const { activities, date } = schedule;
   tabs = {
     ...tabs,
     [key]: {
-      screen: () => <Detail schedule={schedule} />,
-      navigationOptions: { tabBarLabel: schedule.date },
+      screen: () => <Detail detail={activities} />,
+      navigationOptions: { tabBarLabel: date },
     },
   };
 });
@@ -38,9 +39,7 @@ const TabsView = TabNavigator(tabs, {
   },
 });
 
-const Agenda = () => <TabsView />;
-
-Agenda.header = {
+TabsView.header = {
   theme: 'dark',
   actions: [
     {
@@ -52,8 +51,8 @@ Agenda.header = {
     },
   ],
 };
-Agenda.drawer = {
+TabsView.drawer = {
   primary: true,
 };
 
-export default Agenda;
+export default TabsView;
