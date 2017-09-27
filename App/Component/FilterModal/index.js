@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView } from 'react-native';
+import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import styles from './style';
 
@@ -23,6 +24,13 @@ const dummyContents = [
   'Technology',
   'Biology',
 ];
+
+const closeIcon = {
+  type: 'evilicon',
+  name: 'close',
+  color: Colors.black,
+  size: 20,
+};
 
 class FilterModal extends Component {
   state = {
@@ -74,31 +82,33 @@ class FilterModal extends Component {
   _renderHeader = onCancelPress =>
     <View style={styles.headerContainer}>
       <View>
-        <Text thin style={styles.headerText}>
+        <Text light style={styles.headerText}>
           Filters
         </Text>
       </View>
       <TouchableView onPress={onCancelPress}>
-        <Text style={styles.cancelHeaderText}>X</Text>
+        <Icon
+          name={closeIcon.name}
+          type={closeIcon.type}
+          color={closeIcon.color}
+          size={closeIcon.size}
+        />
       </TouchableView>
     </View>;
 
   _renderButton = onCancelPress =>
     <View style={styles.actionContainer}>
-      <TouchableView
-        style={styles.unactiveActionSubmitText}
-        onPress={onCancelPress}
-      >
+      <TouchableView style={styles.actionSubmitText} onPress={onCancelPress}>
         <Text style={styles.actionText}>Cancel</Text>
       </TouchableView>
       <TouchableView
-        style={styles.unactiveActionSubmitText}
+        style={styles.actionSubmitText}
         onPress={() => this.setPressToDefault()}
       >
         <Text style={styles.actionText}>Reset</Text>
       </TouchableView>
-      <TouchableView style={styles.activeActionSubmitText} onPress={() => null}>
-        <Text style={[{ color: Colors.white }, styles.actionText]}>Apply</Text>
+      <TouchableView style={styles.actionSubmitText} onPress={() => null}>
+        <Text style={styles.actionText}>Apply</Text>
       </TouchableView>
     </View>;
 
@@ -129,7 +139,7 @@ class FilterModal extends Component {
           <View style={styles.contentContainer}>
             <ScrollView>
               <View style={styles.descriptionSortByContainer}>
-                <Text>SORT BY</Text>
+                <Text>Sort my results by</Text>
               </View>
               <View style={styles.sortByContainer}>
                 {this._renderContents(contents)}
