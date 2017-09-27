@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.white,
     paddingHorizontal: Metrics.doubleBaseMargin,
-    paddingVertical: Metrics.baseMargin,
+    paddingVertical: Metrics.doubleBaseMargin,
     flexDirection: 'column',
   },
   sortByContainer: {
