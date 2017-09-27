@@ -12,8 +12,6 @@ const images = {
 
   login: require('~/Images/LargeIcons/login.png'),
   forgotPassword: require('~/Images/LargeIcons/forgot_password.png'),
-
-  smile: require('~/Images/smile.png'),
 };
 
 export default images;
