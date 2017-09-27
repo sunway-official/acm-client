@@ -61,7 +61,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    initial: true,
+    // initial: true,
   },
   schedule: {
     name: 'Schedule',
@@ -75,6 +75,7 @@ export const ROUTES = {
       name: 'calendar-text',
       type: 'material-community',
     },
+    initial: true,
   },
   people: {
     name: 'People',
