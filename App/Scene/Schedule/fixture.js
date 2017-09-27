@@ -163,6 +163,132 @@ const SCHEDULES = [
       },
     ],
   },
+  {
+    date: addDays(4),
+    activities: [
+      {
+        title: 'Breakfast',
+        time: '8 AM',
+        shortDescription: 'something',
+      },
+      {
+        title: 'Short Talk',
+        time: '9 AM',
+        shortDescription: 'something',
+      },
+      {
+        title: 'Music',
+        time: '10 AM',
+        shortDescription: 'something',
+        active: true,
+      },
+    ],
+  },
+  {
+    date: addDays(5),
+    activities: [
+      {
+        title: 'Breakfast',
+        time: '8 AM',
+        shortDescription: 'something',
+        active: true,
+      },
+      {
+        title: 'Short Talk',
+        time: '9 AM',
+        shortDescription: 'something',
+      },
+      {
+        title: 'Music',
+        time: '10 AM',
+        shortDescription: 'something',
+      },
+    ],
+  },
+  {
+    date: addDays(6),
+    activities: [
+      {
+        title: 'Breakfast',
+        time: '8 AM',
+        shortDescription: 'something',
+      },
+      {
+        title: 'Short Talk',
+        time: '9 AM',
+        shortDescription: 'something',
+        active: true,
+      },
+      {
+        title: 'Music',
+        time: '10 AM',
+        shortDescription: 'something',
+      },
+    ],
+  },
+  {
+    date: addDays(7),
+    activities: [
+      {
+        title: 'Breakfast',
+        time: '8 AM',
+        shortDescription: 'something',
+      },
+      {
+        title: 'Short Talk',
+        time: '9 AM',
+        shortDescription: 'something',
+      },
+      {
+        title: 'Music',
+        time: '10 AM',
+        shortDescription: 'something',
+        active: true,
+      },
+    ],
+  },
+  {
+    date: addDays(8),
+    activities: [
+      {
+        title: 'Breakfast',
+        time: '8 AM',
+        shortDescription: 'something',
+        active: true,
+      },
+      {
+        title: 'Short Talk',
+        time: '9 AM',
+        shortDescription: 'something',
+      },
+      {
+        title: 'Music',
+        time: '10 AM',
+        shortDescription: 'something',
+      },
+    ],
+  },
+  {
+    date: addDays(9),
+    activities: [
+      {
+        title: 'Breakfast',
+        time: '8 AM',
+        shortDescription: 'something',
+      },
+      {
+        title: 'Short Talk',
+        time: '9 AM',
+        shortDescription: 'something',
+        active: true,
+      },
+      {
+        title: 'Music',
+        time: '10 AM',
+        shortDescription: 'something',
+      },
+    ],
+  },
 ];
 
 export default SCHEDULES;
