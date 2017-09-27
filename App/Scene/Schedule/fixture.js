@@ -1,6 +1,13 @@
+import moment from 'moment';
+import { DATE_FORMAT } from 'react-native-dotenv';
+
+const TODAY = moment();
+
+const addDays = days => moment(TODAY).add(days, 'd').format(DATE_FORMAT);
+
 const SCHEDULES = [
   {
-    date: 'Mon Sep 4, 2017',
+    date: addDays(0),
     activities: [
       {
         title: 'Breakfast',
@@ -44,8 +51,7 @@ const SCHEDULES = [
     ],
   },
   {
-    date: 'Tue Sep 5, 2017',
-
+    date: addDays(1),
     activities: [
       {
         title: 'Breakfast',
@@ -91,8 +97,7 @@ const SCHEDULES = [
     ],
   },
   {
-    date: 'Wed Sep 6, 2017',
-
+    date: addDays(2),
     activities: [
       {
         title: 'Breakfast',
@@ -138,7 +143,7 @@ const SCHEDULES = [
     ],
   },
   {
-    date: 'Thur Sep 7, 2017',
+    date: addDays(3),
     activities: [
       {
         title: 'Breakfast',

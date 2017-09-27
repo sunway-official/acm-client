@@ -74,6 +74,7 @@ export const ROUTES = {
       name: 'calendar-text',
       type: 'material-community',
     },
+    initial: true,
   },
   agenda: {
     name: 'Agenda',
@@ -83,7 +84,6 @@ export const ROUTES = {
       name: 'calendar-range',
       type: 'material-community',
     },
-    initial: true,
   },
   people: {
     name: 'People',
