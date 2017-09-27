@@ -12,26 +12,26 @@ const HEADER_TITLE_DATE_FORMAT = 'dddd, MMM Do';
 
 const getItemColor = index => {
   let color = Colors.primary;
-  const indexValue = index % 2;
+  const indexValue = index % 3;
   switch (indexValue) {
     case 0:
       color = {
-        primary: Colors.blue,
-        background: Colors.blue,
+        primary: Colors.purple,
+        background: Colors.purple,
       };
       break;
     case 1:
+      color = {
+        primary: Colors.red,
+        background: Colors.red,
+      };
+      break;
+    case 2:
       color = {
         primary: Colors.green,
         background: Colors.green,
       };
       break;
-    // case 2:
-    //   color = {
-    //     primary: Colors.blue,
-    //     background: Colors.blue,
-    //   };
-    //   break;
     // case 3:
     //   color = {
     //     primary: Colors.red,
