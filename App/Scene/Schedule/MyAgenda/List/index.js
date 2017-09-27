@@ -11,25 +11,28 @@ import { DATE_FORMAT } from 'react-native-dotenv';
 const HEADER_TITLE_DATE_FORMAT = 'dddd, MMM Do';
 
 const getItemColor = index => {
-  let backgroundColor = Colors.primary;
-  const indexValue = index % 4;
+  let color = Colors.primary;
+  const indexValue = index % 5;
   switch (indexValue) {
     case 0:
-      backgroundColor = Colors.purple;
+      color = Colors.primary;
       break;
     case 1:
-      backgroundColor = Colors.green;
+      color = Colors.green;
       break;
     case 2:
-      backgroundColor = Colors.red;
+      color = Colors.red;
       break;
     case 3:
-      backgroundColor = Colors.blue;
+      color = Colors.blue;
+      break;
+    case 4:
+      color = Colors.purple;
       break;
     default:
       break;
   }
-  return backgroundColor;
+  return color;
 };
 
 const onViewableItemsChangedHandler = ({ viewableItems, data, setHeader }) => {
@@ -38,7 +41,6 @@ const onViewableItemsChangedHandler = ({ viewableItems, data, setHeader }) => {
   const { date } = data[index];
   setHeader({
     title: moment(date, DATE_FORMAT).format(HEADER_TITLE_DATE_FORMAT),
-    theme: 'dark',
     backgroundColor: getItemColor(index),
     statusBarBackgroundColor: getItemColor(index),
   });

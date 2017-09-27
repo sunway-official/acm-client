@@ -12,6 +12,7 @@ const MyAgenda = () =>
   </View>;
 
 MyAgenda.header = {
+  theme: 'dark',
   actions: [
     {
       icon: {
