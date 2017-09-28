@@ -8,6 +8,7 @@ import Profile from '~/Scene/Profile';
 import Setting from '~/Scene/Setting';
 import Schedule from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
+import ChangePassword from '~/Scene/Profile/ChangePassword';
 
 export const ROUTES = {
   splash: {
@@ -75,7 +76,7 @@ export const ROUTES = {
       name: 'calendar-text',
       type: 'material-community',
     },
-    initial: true,
+    // initial: true,
   },
   people: {
     name: 'People',
@@ -96,6 +97,12 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
+  },
+  changePassword: {
+    name: 'Change Password',
+    path: '/change-password',
+    screen: ChangePassword,
+    initial: true,
   },
   notification: {
     name: 'Notification',
