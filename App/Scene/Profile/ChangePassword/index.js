@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Keyboard } from 'react-native';
+import { AsyncStorage, Keyboard, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
-// import { getInitialRoute } from '~/Navigation/resolver';
 import { gql, graphql, compose, withApollo } from 'react-apollo';
-import mutation from '~/Graphql/mutation/updatePassword.graphql';
 
+import { Metrics } from '~/Theme';
+import { KEY, setModalState } from '~/Redux/Modal';
+import mutation from '~/Graphql/mutation/updatePassword.graphql';
 import ChangePasswordForm from '../ChangePassword/Form';
+import Dialog from '~/Component/Dialog';
+import Text from '~/Component/Text';
+import TouchableView from '~/Component/TouchableView';
 
 class ChangePasswordScene extends Component {
   static propTypes = {
@@ -15,6 +19,9 @@ class ChangePasswordScene extends Component {
     client: PropTypes.any,
     navigateToLogin: PropTypes.func,
     client: PropTypes.any,
+    showDialogModal: PropTypes.func,
+    hideDialogModal: PropTypes.func,
+    modal: PropTypes.object,
   };
 
   constructor(props) {
@@ -23,9 +30,19 @@ class ChangePasswordScene extends Component {
     this.state = {
       error: undefined,
       loading: false,
+      isDialogOpen: this.props.modal.isOpen,
     };
 
     this._handleUpdate = this._handleUpdate.bind(this);
+    this._handleBackToHome = this._handleBackToHome.bind(this);
+  }
+
+  componentWillMount() {
+    if (this.state.isDialogOpen) {
+      this.setState({
+        isDialogOpen: false,
+      });
+    }
   }
 
   _canSave(values) {
@@ -59,12 +76,12 @@ class ChangePasswordScene extends Component {
           variables: { oldPassword, newPassword },
         });
         await AsyncStorage.clear();
-
         this.setState({
           loading: false,
+          isDialogOpen: true,
         });
 
-        this.props.navigateToLogin();
+        this.props.showDialogModal();
       }
     } catch ({ graphQLErrors }) {
       console.log({ graphQLErrors });
@@ -78,24 +95,61 @@ class ChangePasswordScene extends Component {
     }
   }
 
+  _handleBackToHome() {
+    this.setState({
+      isDialogOpen: false,
+    });
+    this.props.navigateToLogin();
+  }
+
+  _renderDialog = () =>
+    <Dialog isVisible={this.state.isDialogOpen} header={'Alert'}>
+      <View
+        style={{
+          paddingHorizontal: Metrics.doubleBaseMargin,
+        }}
+      >
+        <Text>Your password has been updated successfully.</Text>
+
+        <TouchableView
+          style={{
+            paddingVertical: Metrics.doubleBaseMargin,
+            alignItems: 'flex-end',
+          }}
+          onPress={this._handleBackToHome}
+        >
+          <Text>Back to Login</Text>
+        </TouchableView>
+      </View>
+    </Dialog>;
+
   render() {
     return (
-      <ChangePasswordForm
-        loading={this.state.loading}
-        loginError={this.state.error}
-        onChangePassword={this._handleUpdate}
-      />
+      <View style={{ flex: 1 }}>
+        <ChangePasswordForm
+          loading={this.state.loading}
+          loginError={this.state.error}
+          onChangePassword={this._handleUpdate}
+        />
+        {this._renderDialog()}
+      </View>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  modal: state[KEY],
+});
+
 const mapDispatchToProps = dispatch => ({
   navigateToLogin: () =>
     dispatch(NavigationActions.navigate({ routeName: 'login' })),
+  showDialogModal: () => dispatch(setModalState(true)),
+  hideDialogModal: () => dispatch(setModalState(false)),
 });
 
 export default compose(
-  connect(undefined, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   graphql(gql(mutation)),
   withApollo,
 )(ChangePasswordScene);

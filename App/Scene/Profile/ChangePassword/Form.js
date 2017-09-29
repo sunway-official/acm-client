@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, email, password } from '~/Lib/validate';
-
-import styles from './styles';
-
 import { View, Image, KeyboardAvoidingView } from 'react-native';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Icon } from 'react-native-elements';
-import { Text } from '~/Component';
+
+import styles from './styles';
 import { Images, Colors, Metrics } from '~/Theme';
+
+import { Text } from '~/Component';
 import FormInput from '~/Component/FormInput';
 import TouchableView from '~/Component/TouchableView';
 
@@ -45,7 +45,7 @@ const _renderForm = () =>
       validate={[required, password]}
       placeholder="Old password"
       underlineColorAndroid={'transparent'}
-      // secureTextEntry={true}
+      secureTextEntry={true}
       returnKeyType={'next'}
     />
     <Field
@@ -54,7 +54,7 @@ const _renderForm = () =>
       validate={[required, password]}
       placeholder="New password"
       underlineColorAndroid={'transparent'}
-      // secureTextEntry={true}
+      secureTextEntry={true}
       returnKeyType={'next'}
     />
     <Field
@@ -63,7 +63,7 @@ const _renderForm = () =>
       validate={[required, password]}
       placeholder="Confirm new password"
       underlineColorAndroid={'transparent'}
-      // secureTextEntry={true}
+      secureTextEntry={true}
       returnKeyType={'next'}
     />
   </View>;
@@ -105,7 +105,6 @@ const _renderButton = args => {
 
 const ChangePasswordForm = ({
   onChangePassword,
-  onNavigate,
   handleSubmit,
   loading,
   loginError,
