@@ -6,39 +6,65 @@ import { required, email, password } from '~/Lib/validate';
 import styles from './styles';
 
 import { View, Image, KeyboardAvoidingView } from 'react-native';
+import { View as AnimatableView } from 'react-native-animatable';
+import { Icon } from 'react-native-elements';
 import { Text } from '~/Component';
 import { Images, Colors, Metrics } from '~/Theme';
 import FormInput from '~/Component/FormInput';
 import TouchableView from '~/Component/TouchableView';
 
+const _renderLoadingButton = () =>
+  <View
+    style={[
+      {
+        borderWidth: 0.5,
+        marginTop: Metrics.doubleBaseMargin,
+        borderRadius: Metrics.buttonCornerRadius,
+        paddingVertical: Metrics.baseMargin,
+        paddingHorizontal: Metrics.baseMargin,
+      },
+      {
+        backgroundColor: Colors.grey,
+      },
+    ]}
+  >
+    <AnimatableView
+      animation="rotate"
+      duration={1000}
+      iterationCount="infinite"
+    >
+      <Icon name="loop" color={Colors.white} />
+    </AnimatableView>
+  </View>;
+
 const _renderForm = () =>
   <View style={{}}>
     <Field
-      name="old-password"
+      name="oldPassword"
       component={FormInput}
       validate={[required, password]}
       placeholder="Old password"
       underlineColorAndroid={'transparent'}
-      secureTextEntry={true}
+      // secureTextEntry={true}
       returnKeyType={'next'}
     />
     <Field
-      name="new-password"
+      name="newPassword"
       component={FormInput}
       validate={[required, password]}
       placeholder="New password"
       underlineColorAndroid={'transparent'}
-      secureTextEntry={true}
+      // secureTextEntry={true}
       returnKeyType={'next'}
     />
     <Field
-      name="confirm-password"
+      name="confirmNewPassword"
       component={FormInput}
       validate={[required, password]}
       placeholder="Confirm new password"
       underlineColorAndroid={'transparent'}
-      secureTextEntry={true}
-      returnKeyType={'done'}
+      // secureTextEntry={true}
+      returnKeyType={'next'}
     />
   </View>;
 
@@ -71,7 +97,7 @@ const _renderButton = args => {
               paddingHorizontal: Metrics.baseMargin,
             }}
           >
-            <Text bold>Update password</Text>
+            <Text bold>Update</Text>
           </TouchableView>}
     </View>
   );
@@ -118,7 +144,7 @@ ChangePasswordForm.propTypes = {
 };
 
 ChangePasswordForm = reduxForm({
-  form: 'change-password',
+  form: 'updatePassword',
 })(ChangePasswordForm);
 
 export default ChangePasswordForm;
