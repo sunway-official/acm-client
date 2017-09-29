@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AsyncStorage, Keyboard } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavigationActions as ReactNavigationActions } from 'react-navigation';
+import { NavigationActions } from '~/Redux/Navigation';
 // import { getInitialRoute } from '~/Navigation/resolver';
 import { gql, graphql, compose, withApollo } from 'react-apollo';
 import mutation from '~/Graphql/mutation/updatePassword.graphql';
@@ -49,7 +49,6 @@ class ChangePasswordScene extends Component {
   async _handleUpdate(values) {
     this.setState({ loading: true });
     Keyboard.dismiss();
-    // console.log(AsyncStorage.getAllKeys());
 
     try {
       const { oldPassword, newPassword } = values;
@@ -64,6 +63,8 @@ class ChangePasswordScene extends Component {
         this.setState({
           loading: false,
         });
+
+        this.props.navigateToLogin();
       }
     } catch ({ graphQLErrors }) {
       console.log({ graphQLErrors });
