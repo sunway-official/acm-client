@@ -4,7 +4,7 @@
     "slug": "acm",
     "privacy": "public",
     "orientation": "portrait",
-    "sdkVersion": "20.0.0",
+    "sdkVersion": "21.0.0",
     "ios": {
       "bundleIdentifier": "com.sunway.cemclient"
     },
@@ -16,13 +16,7 @@
       "icon": "./App/Asset/icon.png",
       "backgroundColor": "#FF5722",
       "hideExponentText": true,
-      "exponentIconColor": "white",
-      "splash": {
-        "backgroundColor": "#FF5722",
-        "image": {
-          "ios": { "backgroundImage": "./App/Images/splash.png" }
-        }
-      }
+      "exponentIconColor": "white"
     }
   }
 }
