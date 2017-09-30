@@ -56,9 +56,14 @@ class LoginScene extends Component {
       this.props.navigateToInitialRoute();
     } catch ({ graphQLErrors }) {
       const error = graphQLErrors[0];
-      if (error.message === 'bad-credentials') {
+      if (error.message === 'wrong-email-or-password') {
         this.setState({
-          error: 'Incorrect credentials.',
+          error: 'Wrong email or password.',
+          loading: false,
+        });
+      } else if (error.message === 'user-not-exists') {
+        this.setState({
+          error: 'User is not exists',
           loading: false,
         });
       }
