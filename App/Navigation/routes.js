@@ -62,7 +62,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    // initial: true,
+    initial: true,
   },
   schedule: {
     name: 'Schedule',
@@ -102,7 +102,7 @@ export const ROUTES = {
     name: 'Change Password',
     path: '/change-password',
     screen: ChangePassword,
-    initial: true,
+    // initial: true,
   },
   notification: {
     name: 'Notification',
