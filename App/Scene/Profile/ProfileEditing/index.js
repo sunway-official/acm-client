@@ -70,9 +70,15 @@ class ProfileEditing extends Component {
   }
 }
 
-export default compose(
+const Scene = compose(
   reduxForm({
     form: 'userProfile',
   }),
   graphql(gql(mutation)),
 )(ProfileEditing);
+
+Scene.drawer = {
+  primary: true,
+};
+
+export default Scene;

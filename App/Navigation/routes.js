@@ -9,6 +9,7 @@ import ProfileEditing from '~/Scene/Profile/ProfileEditing';
 import Setting from '~/Scene/Setting';
 import Schedule from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
+import ChangePassword from '~/Scene/Profile/ChangePassword';
 
 export const ROUTES = {
   splash: {
@@ -62,7 +63,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    // initial: true,
+    initial: true,
   },
   schedule: {
     name: 'Schedule',
@@ -76,7 +77,7 @@ export const ROUTES = {
       name: 'calendar-text',
       type: 'material-community',
     },
-    initial: true,
+    // initial: true,
   },
   people: {
     name: 'People',
@@ -98,11 +99,24 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
+  changePassword: {
+    name: 'Change Password',
+    path: '/change-password',
+    screen: ChangePassword,
+    icon: {
+      name: 'face-profile',
+      type: 'material-community',
+    },
+    // initial: true,
+  },
   profileEditing: {
     name: 'Edit Profile',
     path: '/profile/edit',
     screen: ProfileEditing,
-    initial: true,
+    icon: {
+      name: 'face-profile',
+      type: 'material-community',
+    },
   },
   notification: {
     name: 'Notification',
