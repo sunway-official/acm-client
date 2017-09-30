@@ -14,20 +14,7 @@ import FormInput from '~/Component/FormInput';
 import TouchableView from '~/Component/TouchableView';
 
 const _renderLoadingButton = () =>
-  <View
-    style={[
-      {
-        borderWidth: 0.5,
-        marginTop: Metrics.doubleBaseMargin,
-        borderRadius: Metrics.buttonCornerRadius,
-        paddingVertical: Metrics.baseMargin,
-        paddingHorizontal: Metrics.baseMargin,
-      },
-      {
-        backgroundColor: Colors.grey,
-      },
-    ]}
-  >
+  <View style={[styles.loadingContainer, , styles.loadingText]}>
     <AnimatableView
       animation="rotate"
       duration={1000}
@@ -37,17 +24,29 @@ const _renderLoadingButton = () =>
     </AnimatableView>
   </View>;
 
+const _renderHint = () =>
+  <View style={styles.hintContainer}>
+    <Text light style={styles.hintText}>
+      Password must be at least 6 characters including a number, a special
+      characters, an uppercase letter and a lowercase letter. *
+    </Text>
+  </View>;
+
 const _renderForm = () =>
-  <View style={{}}>
+  <View style={styles.formContainer}>
+    <Text bold>Current password *</Text>
     <Field
       name="oldPassword"
       component={FormInput}
       validate={[required, password]}
-      placeholder="Old password"
+      placeholder="Current password"
       underlineColorAndroid={'transparent'}
       secureTextEntry={true}
       returnKeyType={'next'}
     />
+    <Text bold style={styles.descriptionText}>
+      Change password *
+    </Text>
     <Field
       name="newPassword"
       component={FormInput}
@@ -64,7 +63,7 @@ const _renderForm = () =>
       placeholder="Confirm new password"
       underlineColorAndroid={'transparent'}
       secureTextEntry={true}
-      returnKeyType={'next'}
+      returnKeyType={'done'}
     />
   </View>;
 
@@ -72,32 +71,24 @@ const _renderError = error =>
   <View>
     {error === undefined ||
       <Text style={styles.errorText}>
-        {error}
+        Please check again! {error}
       </Text>}
   </View>;
 
 const _renderButton = args => {
   const { handleSubmit, onChangePassword, loading } = args;
   return (
-    <View
-      style={{
-        alignItems: 'flex-start',
-      }}
-    >
+    <View style={styles.buttonContainer}>
       {loading
         ? _renderLoadingButton()
         : <TouchableView
             onPress={handleSubmit(onChangePassword)}
-            rippleColor={Colors.grey}
-            style={{
-              borderWidth: 0.5,
-              marginTop: Metrics.doubleBaseMargin,
-              borderRadius: Metrics.buttonCornerRadius,
-              paddingVertical: Metrics.baseMargin,
-              paddingHorizontal: Metrics.baseMargin,
-            }}
+            rippleColor={Colors.primary}
+            style={styles.actionButton}
           >
-            <Text bold>Update</Text>
+            <Text bold style={styles.actionText}>
+              Update
+            </Text>
           </TouchableView>}
     </View>
   );
@@ -110,15 +101,8 @@ const ChangePasswordForm = ({
   loginError,
 }) => {
   return (
-    <KeyboardAvoidingView
-      behavior={'padding'}
-      style={{
-        flex: 1,
-        flexDirection: 'column',
-        paddingHorizontal: Metrics.doubleBaseMargin,
-        backgroundColor: Colors.secondaryLight,
-      }}
-    >
+    <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
+      {_renderHint()}
       {_renderForm()}
       {_renderError(loginError)}
       {_renderButton({ handleSubmit, onChangePassword, loading })}
