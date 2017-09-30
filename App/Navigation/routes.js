@@ -107,7 +107,6 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    // initial: true,
   },
   profileEditing: {
     name: 'Edit Profile',
@@ -117,6 +116,7 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
+    initial: true,
   },
   notification: {
     name: 'Notification',
