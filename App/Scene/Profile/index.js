@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { graphql, gql, compose } from 'react-apollo';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Colors } from '~/Theme';
@@ -7,6 +8,8 @@ import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import ProfileHeader from './Header';
 import ProfileBody from './Body';
 import { defaultUserAvatar } from './fixture';
+import { NavigationActions } from '~/Redux/Navigation';
+import query from '~/Graphql/query/me.graphql';
 
 const PRIMARY_HEADER = {
   title: 'Dung Le',
@@ -35,9 +38,8 @@ class ProfileScene extends Component {
           name: 'lead-pencil',
           type: 'material-community',
         },
-        onPress: () => {
-          console.log('hello there');
-        },
+        onPress: dispatch =>
+          dispatch(NavigationActions.navigate({ routename: 'profileEditing' })),
       },
     ],
   };
@@ -49,13 +51,13 @@ class ProfileScene extends Component {
 
   static propTypes = {
     setCustomHeader: PropTypes.func,
+    data: PropTypes.shape({
+      loading: PropTypes.bool,
+    }),
   };
 
   constructor(props) {
     super(props);
-    this.state = {
-      animation: false,
-    };
     this._handleScrollToBottom = this._handleScrollToBottom.bind(this);
   }
 
@@ -69,6 +71,7 @@ class ProfileScene extends Component {
   }
 
   render() {
+    const { data: { me } } = this.props;
     return (
       <ScrollView
         scrollEventThrottle={16}
@@ -79,12 +82,11 @@ class ProfileScene extends Component {
         overScrollMode={'never'}
       >
         <ProfileHeader
-          animation={this.state.animation}
           avatar={defaultUserAvatar}
-          username="Dung Le"
+          user={me}
           address="Duy Tan University"
         />
-        <ProfileBody />
+        <ProfileBody user={me} />
       </ScrollView>
     );
   }
@@ -94,4 +96,7 @@ const mapDispatchToProps = dispatch => ({
   setCustomHeader: header => dispatch(addHeaderOptions(header)),
 });
 
-export default connect(undefined, mapDispatchToProps)(ProfileScene);
+export default compose(
+  connect(undefined, mapDispatchToProps),
+  graphql(gql(query)),
+)(ProfileScene);

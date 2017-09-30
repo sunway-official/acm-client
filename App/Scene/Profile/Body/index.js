@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Text, TouchableView } from '~/Component';
@@ -9,7 +9,9 @@ import styles from './styles';
 import { news, followers } from '../fixture';
 
 class Body extends Component {
-  static propTypes = {};
+  static propTypes = {
+    user: PropTypes.object,
+  };
 
   constructor(props) {
     super(props);
@@ -108,13 +110,14 @@ class Body extends Component {
 
   _renderContent() {
     const { tabs } = this.state;
+    const { user } = this.props;
     let tab = '';
     Object.keys(tabs).forEach(key => {
       if (tabs[key].isActive || tabs[key].initial) {
         tab = tabs[key].title;
       }
     });
-    return <Content tab={tab} />;
+    return <Content tab={tab} user={user} />;
   }
 
   render() {
