@@ -28,7 +28,7 @@ const _renderHint = () =>
   <View style={styles.hintContainer}>
     <Text light style={styles.hintText}>
       Password must be at least 6 characters including a number, a special
-      characters, an uppercase letter and a lowercase letter. *
+      characters, and a letter. *
     </Text>
   </View>;
 

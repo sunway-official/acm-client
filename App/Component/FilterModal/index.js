@@ -64,7 +64,7 @@ class FilterModal extends Component {
       contentsButton.push(
         <TouchableView
           key={index}
-          rippleColor={Colors.grey}
+          rippleColor={Colors.primary}
           style={styles.itemSortByContainer}
           onPress={() => this.setOnPress(!isCheck[index], index)}
         >
