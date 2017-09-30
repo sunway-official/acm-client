@@ -1,0 +1,17 @@
+mutation(
+  $firstname: String!
+  $lastname: String!
+  $dob: Date
+  $gender: Gender!
+) {
+  updateMe(
+    firstname: $firstname
+    lastname: $lastname
+    dob: $dob
+    gender: $gender
+  ) {
+    firstname
+    lastname
+    gender
+  }
+}

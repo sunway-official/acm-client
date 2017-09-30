@@ -4,7 +4,7 @@ import { Metrics } from '../../../../Theme';
 const Content = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: Metrics.baseMargin,
+    marginTop: Metrics.baseMargin,
     marginHorizontal: Metrics.baseMargin,
   },
 });
