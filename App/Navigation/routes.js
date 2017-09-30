@@ -102,6 +102,10 @@ export const ROUTES = {
     name: 'Change Password',
     path: '/change-password',
     screen: ChangePassword,
+    icon: {
+      name: 'face-profile',
+      type: 'material-community',
+    },
     // initial: true,
   },
   notification: {

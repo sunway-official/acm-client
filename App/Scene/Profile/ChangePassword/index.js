@@ -146,7 +146,13 @@ const mapDispatchToProps = dispatch => ({
   hideDialogModal: () => dispatch(setModalState(false)),
 });
 
-export default compose(
+const Scene = compose(
   connect(mapStateToProps, mapDispatchToProps),
   graphql(gql(mutation)),
 )(ChangePasswordScene);
+
+Scene.drawer = {
+  primary: true,
+};
+
+export default Scene;
