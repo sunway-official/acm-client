@@ -36,10 +36,10 @@ PeopleScene.header = {
   ],
 };
 
-PeopleScene.footer = {
-  show: true,
-  activeColor: Colors.green,
-};
+// PeopleScene.footer = {
+//   show: true,
+//   activeColor: Colors.green,
+// };
 
 PeopleScene.propTypes = {
   home: PropTypes.func,

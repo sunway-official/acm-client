@@ -1,25 +1,24 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Fonts } from '~/Theme/';
+import { Colors, Fonts, Metrics } from '~/Theme/';
 
 const styles = StyleSheet.create({
   textInput: {
-    height: 48,
-    borderBottomWidth: 1,
-    borderColor: Colors.lightGrey,
+    paddingVertical: Metrics.baseMargin,
+  },
+  defaultText: {
+    borderTopWidth: 0.8,
   },
   warningText: {
     color: Colors.warning,
     fontSize: Fonts.size.small,
-    borderTopWidth: 1,
-    borderColor: Colors.warning,
-    paddingTop: 5,
+    borderTopWidth: 0.8,
+    paddingTop: Metrics.baseMargin,
   },
   errorText: {
     color: Colors.danger,
     fontSize: Fonts.size.small,
-    borderTopWidth: 1,
-    borderColor: Colors.danger,
-    paddingTop: 5,
+    borderTopWidth: 0.8,
+    paddingTop: Metrics.baseMargin,
   },
 });
 

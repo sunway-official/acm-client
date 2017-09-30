@@ -36,10 +36,10 @@ NotificationScene.header = {
   ],
 };
 
-NotificationScene.footer = {
-  activeColor: Colors.purple,
-  show: true,
-};
+// NotificationScene.footer = {
+//   activeColor: Colors.purple,
+//   show: true,
+// };
 
 NotificationScene.propTypes = {
   home: PropTypes.func,

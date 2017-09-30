@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { gql, graphql, compose } from 'react-apollo';
-import {
-  View,
-  TouchableOpacity,
-  ScrollView,
-  KeyboardAvoidingView,
-} from 'react-native';
-import { Icon } from 'react-native-elements';
+import { View, ScrollView } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
-import { required } from '~/Lib/validate';
-import { Text, FormInput, TouchableView } from '~/Component';
-import mutation from '~/Graphql/mutation/updateMe.graphql';
+import { FormInput, TouchableView, Text } from '~/Component';
 
 const inputForms = {
   firstname: {
@@ -99,9 +90,8 @@ const inputForms = {
   },
 };
 
-class ProfileEditing extends Component {
+class Form extends Component {
   static propTypes = {
-    handleSubmit: PropTypes.func,
     update: PropTypes.func,
   };
 
@@ -109,7 +99,6 @@ class ProfileEditing extends Component {
     super(props);
 
     this._renderInputForms = this._renderInputForms.bind(this);
-    this._renderSubmitButton = this._renderSubmitButton.bind(this);
   }
 
   _renderInputForms(form, key) {
@@ -126,29 +115,8 @@ class ProfileEditing extends Component {
     );
   }
 
-  _submit() {
-    const { update, handleSubmit } = this.props;
-    handleSubmit(info => {
-      const now = new Date('18 November 1996 UTC');
-      info.dob = now.toISOString();
-      update(info);
-      console.log(info);
-    });
-  }
-
-  _renderSubmitButton() {
-    return (
-      <TouchableView
-        rippleColor="green"
-        style={{ backgroundColor: 'pink' }}
-        onPress={this._submit}
-      >
-        <Text>Update</Text>
-      </TouchableView>
-    );
-  }
-
   render() {
+    const { update } = this.props;
     return (
       <ScrollView
         style={{
@@ -160,21 +128,17 @@ class ProfileEditing extends Component {
           {Object.keys(inputForms).map(key =>
             this._renderInputForms(inputForms[key], key),
           )}
-          {this._renderSubmitButton()}
+          <TouchableView
+            rippleColor="green"
+            style={{ backgroundColor: 'pink' }}
+            onPress={() => update}
+          >
+            <Text>Update</Text>
+          </TouchableView>
         </View>
       </ScrollView>
     );
   }
 }
 
-export default compose(
-  reduxForm({
-    form: 'userProfile',
-  }),
-  graphql(gql(mutation), {
-    props: ({ mutate }) => ({
-      update: ({ firstname, lastname, dob, gender }) =>
-        mutate({ variables: { firstname, lastname, dob, gender } }),
-    }),
-  }),
-)(ProfileEditing);
+export default Form;
