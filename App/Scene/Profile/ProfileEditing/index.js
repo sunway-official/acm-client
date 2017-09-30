@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { gql, graphql, compose } from 'react-apollo';
-import { View, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements';
-import DatePicker from 'react-native-datepicker';
+import { gql, graphql } from 'react-apollo';
+import { ScrollView } from 'react-native';
+import moment from 'moment';
 import mutation from '~/Graphql/mutation/updateMe.graphql';
 import styles from './styles';
 import Form from './Form';
@@ -22,9 +21,8 @@ class ProfileEditing extends Component {
   async _onUpdate(values) {
     const { mutate } = this.props;
     await mutate({
-      variables: { ...values, dob: '1996-11-18T00:00:00.000Z' },
+      variables: { ...values, dob: moment(values.dob).toISOString() },
     });
-    console.log(values);
   }
 
   render() {

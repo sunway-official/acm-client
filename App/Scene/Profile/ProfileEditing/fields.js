@@ -1,4 +1,5 @@
 import { required } from '~/Lib/validate';
+import { DatePickerForm } from '~/Component';
 
 const inputForms = {
   firstname: {
@@ -28,6 +29,16 @@ const inputForms = {
       validate: [required],
       props: {
         placeholder: 'Gender',
+      },
+    },
+  },
+  dob: {
+    title: 'Birthday',
+    field: {
+      name: 'dob',
+      component: DatePickerForm,
+      props: {
+        placeholder: 'Birthday',
       },
     },
   },

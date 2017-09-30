@@ -5,13 +5,10 @@ const { baseMargin, doubleBaseMargin } = Metrics;
 const { white, primary } = Colors;
 
 const ProfileEditing = StyleSheet.create({
-  container: {
-    margin: baseMargin,
-    backgroundColor: white,
-  },
   formContainer: { padding: baseMargin },
   inputContainer: { marginBottom: doubleBaseMargin },
   submitBtn: {
+    marginTop: doubleBaseMargin,
     backgroundColor: primary,
     padding: baseMargin,
   },

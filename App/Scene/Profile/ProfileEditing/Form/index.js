@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, ScrollView } from 'react-native';
+import { View } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
-import { Icon } from 'react-native-elements';
-import DatePicker from 'react-native-datepicker';
 import { Text, FormInput, TouchableView } from '~/Component';
 import fields from '../fields';
 import styles from './styles';
@@ -50,14 +48,12 @@ class UpdateProfileForm extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <View style={styles.formContainer}>
-          {Object.keys(fields).map(key =>
-            this._renderInputForms(fields[key], key),
-          )}
-          {this._renderSubmitButton()}
-        </View>
-      </ScrollView>
+      <View style={styles.formContainer}>
+        {Object.keys(fields).map(key =>
+          this._renderInputForms(fields[key], key),
+        )}
+        {this._renderSubmitButton()}
+      </View>
     );
   }
 }

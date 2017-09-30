@@ -30,6 +30,7 @@
     "add-graphql-subscriptions": "^1.0.1",
     "expo": "^20.0.0",
     "graphql": "^0.10.5",
+    "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.12",
     "react-apollo": "^1.4.15",
