@@ -3,7 +3,7 @@ import { AsyncStorage, Keyboard, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
-import { gql, graphql, compose, withApollo } from 'react-apollo';
+import { gql, graphql, compose } from 'react-apollo';
 
 import { Metrics } from '~/Theme';
 import { KEY, setModalState } from '~/Redux/Modal';
@@ -149,5 +149,4 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   graphql(gql(mutation)),
-  withApollo,
 )(ChangePasswordScene);

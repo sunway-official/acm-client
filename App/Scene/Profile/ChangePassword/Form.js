@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, password } from '~/Lib/validate';
-import { View, Image, KeyboardAvoidingView } from 'react-native';
+import { View, KeyboardAvoidingView } from 'react-native';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Icon } from 'react-native-elements';
 
