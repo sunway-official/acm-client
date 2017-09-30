@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Fonts, Metrics } from '~/Theme/';
+import { Colors, Metrics } from '~/Theme/';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: Colors.secondaryLight,
+    backgroundColor: Colors.white,
   },
   buttonContainer: {
     alignItems: 'flex-start',
@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.red,
     backgroundColor: Colors.lightDeepOrange,
     paddingVertical: Metrics.baseMargin,
-    // width: '100%',
     paddingHorizontal: Metrics.doubleBaseMargin,
   },
   hintText: { color: Colors.black },

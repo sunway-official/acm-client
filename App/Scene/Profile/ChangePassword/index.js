@@ -16,9 +16,7 @@ import TouchableView from '~/Component/TouchableView';
 class ChangePasswordScene extends Component {
   static propTypes = {
     mutate: PropTypes.func,
-    client: PropTypes.any,
     navigateToLogin: PropTypes.func,
-    client: PropTypes.any,
     showDialogModal: PropTypes.func,
     hideDialogModal: PropTypes.func,
     modal: PropTypes.object,
@@ -128,8 +126,8 @@ class ChangePasswordScene extends Component {
       <View style={{ flex: 1 }}>
         <ChangePasswordForm
           loading={this.state.loading}
-          loginError={this.state.error}
-          onChangePassword={this._handleUpdate}
+          changePasswordError={this.state.error}
+          onPasswordChanged={this._handleUpdate}
         />
         {this._renderDialog()}
       </View>

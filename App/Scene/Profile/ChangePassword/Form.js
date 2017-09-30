@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { required, email, password } from '~/Lib/validate';
+import { required, password } from '~/Lib/validate';
 import { View, Image, KeyboardAvoidingView } from 'react-native';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Icon } from 'react-native-elements';
 
 import styles from './styles';
-import { Images, Colors, Metrics } from '~/Theme';
+import { Colors } from '~/Theme';
 
 import { Text } from '~/Component';
 import FormInput from '~/Component/FormInput';
@@ -76,13 +76,13 @@ const _renderError = error =>
   </View>;
 
 const _renderButton = args => {
-  const { handleSubmit, onChangePassword, loading } = args;
+  const { handleSubmit, onPasswordChanged, loading } = args;
   return (
     <View style={styles.buttonContainer}>
       {loading
         ? _renderLoadingButton()
         : <TouchableView
-            onPress={handleSubmit(onChangePassword)}
+            onPress={handleSubmit(onPasswordChanged)}
             rippleColor={Colors.primary}
             style={styles.actionButton}
           >
@@ -95,17 +95,17 @@ const _renderButton = args => {
 };
 
 const ChangePasswordForm = ({
-  onChangePassword,
+  onPasswordChanged,
   handleSubmit,
   loading,
-  loginError,
+  changePasswordError,
 }) => {
   return (
     <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
       {_renderHint()}
       {_renderForm()}
-      {_renderError(loginError)}
-      {_renderButton({ handleSubmit, onChangePassword, loading })}
+      {_renderError(changePasswordError)}
+      {_renderButton({ handleSubmit, onPasswordChanged, loading })}
     </KeyboardAvoidingView>
   );
 };
@@ -115,14 +115,14 @@ ChangePasswordForm.defaultProps = {
 };
 
 ChangePasswordForm.propTypes = {
-  onChangePassword: PropTypes.func,
+  onPasswordChanged: PropTypes.func,
   onNavigate: PropTypes.func,
   handleSubmit: PropTypes.func,
   reset: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   error: PropTypes.string,
-  loginError: PropTypes.string,
+  changePasswordError: PropTypes.string,
   loading: PropTypes.bool,
 };
 
