@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { Colors, Fonts, Metrics } from '~/Theme/';
+import { Fonts, Metrics } from '~/Theme/';
 
-const styles = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -38,20 +38,4 @@ const styles = StyleSheet.create({
   contentText: {
     color: 'black',
   },
-  actionContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingRight: 10,
-  },
-  actionButton: {
-    paddingHorizontal: 15,
-  },
-  actionText: {
-    color: Colors.deepOrange,
-    fontSize: Fonts.size.regular,
-  },
 });
-
-export default styles;

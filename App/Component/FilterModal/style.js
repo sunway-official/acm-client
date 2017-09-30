@@ -1,69 +1,73 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Colors, Fonts, Metrics } from '~/Theme/';
 
 const styles = StyleSheet.create({
-  // Filter styles
   container: {
-    flex: 1,
-    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  backdrop: {
-    backgroundColor: 'rgba(52, 52, 52, 0.8)',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
+    flex: 1,
   },
   cardModalContainer: {
-    backgroundColor: 'white',
-    width: 300,
-    borderRadius: Metrics.buttonCornerRadius,
-    borderWidth: 0.5,
+    backgroundColor: Colors.white,
+    width: 320,
   },
   headerContainer: {
-    paddingTop: 20,
-    paddingBottom: 10,
-    paddingLeft: 20,
+    alignItems: 'center',
+    backgroundColor: Colors.white,
+    elevation: 2,
+    paddingHorizontal: Metrics.doubleBaseMargin,
+    paddingVertical: Metrics.baseMargin,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
-  headerText: {
-    color: 'black',
-    fontSize: Fonts.size.regular,
-  },
+  cancelHeaderText: { color: Colors.white },
+  resetHeaderText: { fontSize: Fonts.size.regular, color: Colors.white },
+  headerText: { fontSize: Fonts.size.h6, color: Colors.black },
   contentContainer: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
+    alignItems: 'center',
+    backgroundColor: Colors.white,
+    paddingHorizontal: Metrics.doubleBaseMargin,
+    paddingVertical: Metrics.doubleBaseMargin,
+    flexDirection: 'column',
+  },
+  sortByContainer: {
+    marginTop: Metrics.baseMargin,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+  },
+  descriptionSortByContainer: {
+    alignItems: 'flex-start',
+  },
+  itemSortByContainer: {
+    backgroundColor: Colors.white,
+    marginRight: Metrics.baseMargin,
+    marginBottom: Metrics.baseMargin,
+  },
+  itemSortByText: {
+    alignContent: 'flex-start',
+    borderWidth: 0.8,
+    borderRadius: Metrics.buttonCornerRadius,
+    borderColor: Colors.lightGrey,
+    color: Colors.grey,
+    paddingVertical: Metrics.baseMargin,
+    paddingHorizontal: Metrics.baseMargin,
+    fontSize: Fonts.size.medium,
   },
   actionContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingRight: 10,
+    backgroundColor: Colors.deepOrange,
   },
-  actionButton: {
-    paddingHorizontal: 15,
+  actionSubmitText: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: Metrics.baseMargin,
+    borderColor: Colors.white,
   },
   actionText: {
-    color: Colors.deepOrange,
-    fontSize: Fonts.size.regular,
+    fontSize: Fonts.size.medium,
+    color: Colors.white,
   },
-
-  // Content Filter styles
-  filterContentContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderWidth: 0.5,
-    borderLeftWidth: 8,
-    paddingHorizontal: Metrics.baseMargin,
-    paddingVertical: Metrics.baseMargin,
-    marginBottom: Metrics.smallMargin,
-  },
-  filterContentIcon: { justifyContent: 'center' },
 });
 
 export default styles;

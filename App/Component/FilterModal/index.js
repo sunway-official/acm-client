@@ -1,151 +1,155 @@
 import React, { Component } from 'react';
-import { View, Modal, TouchableOpacity } from 'react-native';
+import { View, ScrollView } from 'react-native';
+import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import styles from './style';
 
 import TouchableView from '../TouchableView';
 import Text from '../Text';
+import Modal from '../Modal';
 
-import { Icon } from 'react-native-elements';
 import { Colors } from '~/Theme/';
-const randomColor = ['red', 'blue', 'green', 'pink'];
+
+const dummyContents = [
+  'Leadership',
+  'Citizen Tech',
+  'Program Assessment',
+  'Academic',
+  'Technology',
+  'Biology',
+  'Leadership',
+  'Citizen Tech',
+  'Program Assessment',
+  'Academic',
+  'Technology',
+  'Biology',
+];
+
+const closeIcon = {
+  type: 'evilicon',
+  name: 'close',
+  color: Colors.black,
+  size: 20,
+};
 
 class FilterModal extends Component {
   state = {
-    modalVisible: this.props.isOpen,
-    isCheck: Array(this.props.contents.length).fill(false),
+    isCheck: Array(dummyContents.length).fill(false),
   };
 
   static propTypes = {
-    header: PropTypes.string,
+    isVisible: PropTypes.bool,
+    onBackdropPress: PropTypes.func,
+    onCancelPress: PropTypes.func,
     contents: PropTypes.array,
-    actions: PropTypes.array,
-    isOpen: PropTypes.bool,
   };
 
   static defaultProps = {
-    header: 'Welcome',
-    contents: [],
-    actions: [
-      {
-        name: 'CONFIRM',
-        handleSubmit: () => console.log('clicked confirm!'),
-      },
-    ],
+    isVisible: false,
+    onBackdropPress: () => null,
+    onCancelPress: () => null,
   };
 
+  // ! using composition for content filter
   _renderContents(contents) {
     var contentsButton = [];
     var isCheck = this.state.isCheck;
 
     contents.map((content, index) => {
-      var iconCheck =
-        isCheck[index] === true
-          ? <Icon name={'md-radio-button-on'} type={'ionicon'} size={15} />
-          : <Icon name={'md-radio-button-off'} type={'ionicon'} size={15} />;
+      var textColorPress = isCheck[index] ? { color: Colors.deepOrange } : null;
+      var borderColorPress = isCheck[index]
+        ? { borderColor: Colors.deepOrange }
+        : null;
 
       contentsButton.push(
         <TouchableView
           key={index}
-          rippleColor={Colors.grey}
-          style={[
-            styles.filterContentContainer,
-            { borderLeftColor: randomColor[index] },
-          ]}
-          onPress={() => this.setRadioCheck(!isCheck[index], index)}
+          rippleColor={Colors.primary}
+          style={styles.itemSortByContainer}
+          onPress={() => this.setOnPress(!isCheck[index], index)}
         >
-          <View>
-            <Text>
-              {content.name}
-            </Text>
-          </View>
-          <TouchableOpacity style={styles.filterContentIcon}>
-            {iconCheck}
-          </TouchableOpacity>
+          <Text
+            style={[styles.itemSortByText, textColorPress, borderColorPress]}
+          >
+            {content}
+          </Text>
         </TouchableView>,
       );
     });
     return contentsButton;
   }
 
-  _renderActions(actions) {
-    var actionsButton = [];
-    actions.map((action, i) => {
-      action.name === 'Cancel'
-        ? (action.handleSubmit = () => this.setModalVisible(false))
-        : action.handleSubmit;
+  _renderHeader = onCancelPress =>
+    <View style={styles.headerContainer}>
+      <View>
+        <Text light style={styles.headerText}>
+          Filters
+        </Text>
+      </View>
+      <TouchableView onPress={onCancelPress}>
+        <Icon
+          name={closeIcon.name}
+          type={closeIcon.type}
+          color={closeIcon.color}
+          size={closeIcon.size}
+        />
+      </TouchableView>
+    </View>;
 
-      actionsButton.push(
-        <TouchableView
-          key={i}
-          style={styles.actionButton}
-          onPress={action.handleSubmit}
-        >
-          <Text medium style={styles.actionText}>
-            {action.name}
-          </Text>
-        </TouchableView>,
-      );
-    });
-    return actionsButton;
-  }
+  _renderButton = onCancelPress =>
+    <View style={styles.actionContainer}>
+      <TouchableView style={styles.actionSubmitText} onPress={onCancelPress}>
+        <Text style={styles.actionText}>Cancel</Text>
+      </TouchableView>
+      <TouchableView
+        style={styles.actionSubmitText}
+        onPress={() => this.setPressToDefault()}
+      >
+        <Text style={styles.actionText}>Reset</Text>
+      </TouchableView>
+      <TouchableView style={styles.actionSubmitText} onPress={() => null}>
+        <Text style={styles.actionText}>Apply</Text>
+      </TouchableView>
+    </View>;
 
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
-
-  setRadioCheck(check, index) {
+  setOnPress(check, index) {
     let newIsCheck = this.state.isCheck;
     newIsCheck[index] = check;
     this.setState({ isCheck: newIsCheck });
   }
 
-  render() {
-    const { header, contents, actions } = this.props;
-    return (
-      <View style={{ marginTop: 22 }}>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            this.setModalVisible(false);
-          }}
-        >
-          <View style={styles.container}>
-            <TouchableView
-              style={styles.backdrop}
-              activeOpacity={1}
-              onPress={() => {
-                this.setModalVisible(false);
-              }}
-            />
-            <View style={styles.cardModalContainer}>
-              <View style={styles.headerContainer}>
-                <Text bold style={styles.headerText}>
-                  {header}
-                </Text>
-              </View>
+  setPressToDefault() {
+    this.setState({ isCheck: Array(dummyContents.length).fill(false) });
+  }
 
-              <View style={styles.contentContainer}>
+  render() {
+    const contents = dummyContents;
+    const { isVisible, onBackdropPress, onCancelPress } = this.props;
+    return (
+      <Modal
+        animationIn="zoomIn"
+        animationOut="zoomOut"
+        isVisible={isVisible}
+        onBackdropPress={onBackdropPress}
+        style={styles.container}
+      >
+        <View style={styles.cardModalContainer}>
+          {this._renderHeader(onCancelPress)}
+
+          <View style={styles.contentContainer}>
+            <ScrollView>
+              <View style={styles.descriptionSortByContainer}>
+                <Text>Sort my results by</Text>
+              </View>
+              <View style={styles.sortByContainer}>
                 {this._renderContents(contents)}
               </View>
-
-              <View style={styles.actionContainer}>
-                {this._renderActions(actions)}
-              </View>
-            </View>
+            </ScrollView>
           </View>
-        </Modal>
 
-        <TouchableView
-          onPress={() => {
-            this.setModalVisible(true);
-          }}
-        >
-          <Text>Show Filter Modal</Text>
-        </TouchableView>
-      </View>
+          {this._renderButton(onCancelPress)}
+        </View>
+      </Modal>
     );
   }
 }

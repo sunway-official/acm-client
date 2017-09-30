@@ -5,6 +5,7 @@ import NavigationReducer, { KEY as NAVIGATION_KEY } from './Navigation';
 import DrawerReducer, { KEY as DRAWER_KEY } from './Drawer';
 import RoutesReducer, { KEY as ROUTES_KEY } from './Routes';
 import ToolbarReducer, { KEY as TOOLBAR_KEY } from './Toolbar';
+import ModalReducer, { KEY as MODAL_KEY } from './Modal';
 
 export default apolloClient => {
   apolloReducer = apolloClient.reducer();
@@ -14,6 +15,7 @@ export default apolloClient => {
     [DRAWER_KEY]: DrawerReducer,
     [ROUTES_KEY]: RoutesReducer,
     [TOOLBAR_KEY]: ToolbarReducer,
+    [MODAL_KEY]: ModalReducer,
     form: formReducer,
     apollo: apolloReducer,
   };

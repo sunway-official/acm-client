@@ -8,13 +8,13 @@ import Followers from './Followers';
 import Following from './Following';
 import styles from './styles';
 
-const withAnimation = Tab =>
+const withAnimation = (Tab, user) =>
   <AnimatableView animation="fadeIn" duaration={300}>
-    <Tab />
+    <Tab user={user} />
   </AnimatableView>;
 
 class Content extends Component {
-  static propTypes = { tab: PropTypes.string };
+  static propTypes = { tab: PropTypes.string, user: PropTypes.object };
 
   constructor(props) {
     super(props);
@@ -22,9 +22,10 @@ class Content extends Component {
   }
 
   _renderContent(tab) {
+    const { user } = this.props;
     switch (tab) {
       case 'About':
-        return withAnimation(About);
+        return withAnimation(About, user);
       case 'Posts':
         return withAnimation(Activities);
       case 'Followers':
