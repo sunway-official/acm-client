@@ -2,15 +2,15 @@ import constants from './constants';
 
 export const required = value => (value ? undefined : 'This field is required');
 
-export const email = value =>
-  value && !constants.EMAIL_REGEX.test(value)
+export const email = value => undefined;
+/*  value && !constants.EMAIL_REGEX.test(value)
     ? 'Please enter a valid email address'
-    : undefined;
+    : undefined; */
 
-export const password = value =>
-  value && !constants.PASSWORD_REGEX.test(value)
-    ? 'Please enter a valid password'
-    : undefined;
+export const password = value => undefined;
+/* value && !constants.PASSWORD_REGEX.test(value)
+     ? 'Please enter a valid password'
+    : undefined;*/
 
 export const minValue = min => value =>
   value && value < min ? `Use at least ${min}` : undefined;
