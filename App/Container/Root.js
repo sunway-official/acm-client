@@ -3,7 +3,6 @@ import { View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
-import { NavigationActions as ReactNavigationActions } from 'react-navigation';
 import AppNavigation from '~/Navigation';
 import { getInitialRoute } from '~/Navigation/resolver';
 import { gql, compose, graphql } from 'react-apollo';
