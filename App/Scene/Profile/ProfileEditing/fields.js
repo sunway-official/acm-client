@@ -1,5 +1,6 @@
 import { required } from '~/Lib/validate';
-import { DatePickerForm } from '~/Component';
+import { DatePicker, FilterModal } from '~/Component';
+import Gender from './Gender';
 
 const inputForms = {
   firstname: {
@@ -26,9 +27,21 @@ const inputForms = {
     title: 'Gender',
     field: {
       name: 'gender',
+      component: Gender,
       validate: [required],
       props: {
         placeholder: 'Gender',
+      },
+    },
+  },
+  bio: {
+    title: 'Biography',
+    field: {
+      name: 'bio',
+      props: {
+        placeholder: 'Biography',
+        multiline: true,
+        numberOfLines: 10,
       },
     },
   },
@@ -36,7 +49,7 @@ const inputForms = {
     title: 'Birthday',
     field: {
       name: 'dob',
-      component: DatePickerForm,
+      component: DatePicker,
       props: {
         placeholder: 'Birthday',
       },

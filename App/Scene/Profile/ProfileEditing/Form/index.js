@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Field, reduxForm } from 'redux-form';
-import { Text, FormInput, TouchableView } from '~/Component';
+import { Text, FormInput, TouchableView, FilterModal } from '~/Component';
 import fields from '../fields';
 import styles from './styles';
 
@@ -14,6 +14,10 @@ class UpdateProfileForm extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      showFilterModal: false,
+    };
 
     this._renderSubmitButton = this._renderSubmitButton.bind(this);
   }
