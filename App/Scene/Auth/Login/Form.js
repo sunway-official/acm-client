@@ -5,7 +5,7 @@ import { required, email, password } from '~/Lib/validate';
 import { Icon } from 'react-native-elements';
 import { Image, View, KeyboardAvoidingView } from 'react-native';
 import { Images, Colors } from '~/Theme';
-import { View as AnimatableView } from 'react-native-animatable';
+import { AnimatableView } from '~/Component';
 import { FormInput, Text, TouchableView } from '~/Component';
 import styles from '../styles';
 

@@ -5,7 +5,7 @@ import { Colors } from '~/Theme';
 import { connect } from 'react-redux';
 import { KEY as ROUTE_KEY } from '~/Redux/Routes';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
-import { View as AnimatableView } from 'react-native-animatable';
+import { AnimatableView } from '~/Component';
 
 import { NavigationActions } from '~/Redux/Navigation';
 import { NavigationActions as ReactNavigationActions } from 'react-navigation';

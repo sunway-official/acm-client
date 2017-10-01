@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { View as AnimatableView } from 'react-native-animatable';
+import { AnimatableView } from '~/Component';
 import About from './About';
 import Activities from './Activities';
 import Followers from './Followers';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { View as AnimatableView } from 'react-native-animatable';
+import { AnimatableView } from '~/Component';
 import { Text, TouchableView } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
 import { KEY as ROUTES_KEY } from '~/Redux/Routes';
