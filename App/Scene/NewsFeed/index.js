@@ -28,10 +28,6 @@ class NewsFeedScene extends Component {
     activeColor: Colors.primary,
   };
 
-  static drawer = {
-    disableGestures: true,
-  };
-
   static propTypes = {
     home: PropTypes.func,
     setTitle: PropTypes.func,
