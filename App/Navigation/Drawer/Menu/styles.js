@@ -42,7 +42,6 @@ export default StyleSheet.create({
     marginLeft: 'auto',
   },
   line: {
-    // width: '100%',
     flexDirection: 'row',
   },
   text: {
@@ -54,7 +53,6 @@ export default StyleSheet.create({
     position: 'absolute',
     right: Metrics.baseMargin,
     bottom: Metrics.baseMargin,
-    borderRadius: Metrics.circleRadius,
   },
   dropdownButtonTouchableView: {
     padding: Metrics.baseMargin,

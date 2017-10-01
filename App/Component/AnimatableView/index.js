@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 class AnimatedView extends Component {
   render() {
-    const { children, ...others } = this.props;
+    const { children, viewRef, ...others } = this.props;
     if (Enviroment.isDebuggingEnabled) {
       return (
         <View {...others}>
@@ -15,7 +15,7 @@ class AnimatedView extends Component {
       );
     }
     return (
-      <AnimatableView {...others}>
+      <AnimatableView {...others} ref={viewRef}>
         {children}
       </AnimatableView>
     );
@@ -24,6 +24,7 @@ class AnimatedView extends Component {
 
 AnimatedView.propTypes = {
   children: PropTypes.any,
+  viewRef: PropTypes.func,
 };
 
 export default AnimatedView;
