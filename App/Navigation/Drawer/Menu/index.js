@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { AnimatableView } from '~/Component';
-import { Text, TouchableView } from '~/Component';
+import { Text } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
 import { KEY as ROUTES_KEY } from '~/Redux/Routes';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
