@@ -28,6 +28,10 @@ class LoginScene extends Component {
     disable: true,
   };
 
+  static drawer = {
+    disableGestures: true,
+  };
+
   constructor(props) {
     super(props);
 

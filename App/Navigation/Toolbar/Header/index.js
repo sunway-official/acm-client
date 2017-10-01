@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, StatusBar, Platform } from 'react-native';
 import { connect } from 'react-redux';
-import { View as AnimatableView } from 'react-native-animatable';
+import { AnimatableView } from '~/Component';
 import { Colors, Metrics } from '~/Theme';
 import SearchContent from './Search';
 import DefaultContent from './Default';

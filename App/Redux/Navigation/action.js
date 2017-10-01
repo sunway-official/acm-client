@@ -1,5 +1,6 @@
 import { NavigationActions } from 'react-navigation';
 import { resetHeaderOptions, resetFooterOptions } from '../Toolbar/action';
+import { setDisableGestures } from '../Drawer';
 
 const dispatcher = type => {
   return options => async (dispatch, getState) => {
@@ -11,6 +12,9 @@ const dispatcher = type => {
 
     await dispatch(resetHeaderOptions(route.header));
     await dispatch(resetFooterOptions(route.footer));
+    await dispatch(
+      setDisableGestures(route.drawer && route.drawer.disableGestures),
+    );
   };
 };
 

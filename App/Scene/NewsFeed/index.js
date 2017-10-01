@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
 import styles from './styles';
-import { Colors, Metrics } from '~/Theme';
+import { Colors } from '~/Theme';
 import { News } from '~/Component';
 import { news } from '~/Scene/NewsFeed/fixture';
 import StatusPosting from './StatusPosting';
