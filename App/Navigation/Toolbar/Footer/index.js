@@ -79,10 +79,7 @@ class Footer extends Component {
         const onPress = () => {
           if (routeName === key) {
           } else {
-            reset({
-              index: 0,
-              actions: [ReactNavigationActions.navigate({ routeName: key })],
-            });
+            reset({ routeName: key });
           }
         };
         tabs.push(

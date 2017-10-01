@@ -48,22 +48,9 @@ class Root extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     back: () => dispatch(NavigationActions.back()),
-    login: () =>
-      dispatch(
-        NavigationActions.reset({
-          index: 0,
-          actions: [ReactNavigationActions.navigate({ routeName: 'login' })],
-        }),
-      ),
+    login: () => dispatch(NavigationActions.reset({ routeName: 'login' })),
     navigateToInitialRoute: () =>
-      dispatch(
-        NavigationActions.reset({
-          index: 0,
-          actions: [
-            ReactNavigationActions.navigate({ routeName: getInitialRoute() }),
-          ],
-        }),
-      ),
+      dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
   };
 };
 
