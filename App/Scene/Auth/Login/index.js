@@ -91,14 +91,7 @@ const mapDispatchToProps = dispatch => ({
   navigateToForgotPassword: () =>
     dispatch(NavigationActions.navigate({ routeName: 'forgot' })),
   navigateToInitialRoute: () =>
-    dispatch(
-      NavigationActions.reset({
-        index: 0,
-        actions: [
-          ReactNavigationActions.navigate({ routeName: getInitialRoute() }),
-        ],
-      }),
-    ),
+    dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
 });
 
 export default compose(
