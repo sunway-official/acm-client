@@ -8,14 +8,12 @@ class AnimatedView extends Component {
   render() {
     const { children, ...others } = this.props;
     if (Enviroment.isDebuggingEnabled) {
-      console.log('Using View');
       return (
         <View {...others}>
           {children}
         </View>
       );
     }
-    console.log('Using AnimatableView');
     return (
       <AnimatableView {...others}>
         {children}
