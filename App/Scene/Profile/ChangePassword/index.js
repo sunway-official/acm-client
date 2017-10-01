@@ -3,7 +3,7 @@ import { AsyncStorage, Keyboard, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
-import { gql, graphql, compose } from 'react-apollo';
+import { gql, graphql, compose, withApollo } from 'react-apollo';
 
 import { Metrics } from '~/Theme';
 import { KEY, setModalState } from '~/Redux/Modal';
@@ -16,6 +16,7 @@ import TouchableView from '~/Component/TouchableView';
 class ChangePasswordScene extends Component {
   static propTypes = {
     mutate: PropTypes.func,
+    client: PropTypes.any,
     navigateToLogin: PropTypes.func,
     showDialogModal: PropTypes.func,
     hideDialogModal: PropTypes.func,
@@ -32,7 +33,7 @@ class ChangePasswordScene extends Component {
     };
 
     this._handleUpdate = this._handleUpdate.bind(this);
-    this._handleBackToHome = this._handleBackToHome.bind(this);
+    this._handleNavigateToLogin = this._handleNavigateToLogin.bind(this);
   }
 
   componentWillMount() {
@@ -93,10 +94,11 @@ class ChangePasswordScene extends Component {
     }
   }
 
-  _handleBackToHome() {
+  _navigateToLogin() {
     this.setState({
       isDialogOpen: false,
     });
+    this.props.client.resetStore();
     this.props.navigateToLogin();
   }
 
@@ -114,7 +116,7 @@ class ChangePasswordScene extends Component {
             paddingVertical: Metrics.doubleBaseMargin,
             alignItems: 'flex-end',
           }}
-          onPress={this._handleBackToHome}
+          onPress={this._handleNavigateToLogin}
         >
           <Text>Back to Login</Text>
         </TouchableView>
@@ -141,7 +143,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   navigateToLogin: () =>
-    dispatch(NavigationActions.navigate({ routeName: 'login' })),
+    dispatch(NavigationActions.reset({ routeName: 'login' })),
   showDialogModal: () => dispatch(setModalState(true)),
   hideDialogModal: () => dispatch(setModalState(false)),
 });
@@ -149,6 +151,7 @@ const mapDispatchToProps = dispatch => ({
 const Scene = compose(
   connect(mapStateToProps, mapDispatchToProps),
   graphql(gql(mutation)),
+  withApollo,
 )(ChangePasswordScene);
 
 Scene.drawer = {

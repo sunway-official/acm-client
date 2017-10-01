@@ -6,10 +6,7 @@ import { connect } from 'react-redux';
 import { KEY as ROUTE_KEY } from '~/Redux/Routes';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { AnimatableView } from '~/Component';
-
 import { NavigationActions } from '~/Redux/Navigation';
-import { NavigationActions as ReactNavigationActions } from 'react-navigation';
-
 import Tab from './Tab';
 import styles from './styles';
 
@@ -79,10 +76,7 @@ class Footer extends Component {
         const onPress = () => {
           if (routeName === key) {
           } else {
-            reset({
-              index: 0,
-              actions: [ReactNavigationActions.navigate({ routeName: key })],
-            });
+            reset({ routeName: key });
           }
         };
         tabs.push(
