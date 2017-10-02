@@ -9,8 +9,9 @@ import styles from './styles';
 
 const MyAgendaItem = ({ activities, date, color }) => {
   activities = activities.filter(item => item.active);
-  const month = moment(date, DATE_FORMAT).format('MMM');
-  const day = moment(date, DATE_FORMAT).format('Do');
+  // const month = moment(date, DATE_FORMAT).format('MMM');
+  const day = moment(date, DATE_FORMAT).format('D');
+  const stringDay = moment(date, DATE_FORMAT).format('ddd');
   return (
     <View style={styles.container}>
       <View style={styles.headerWrapper}>
@@ -25,7 +26,7 @@ const MyAgendaItem = ({ activities, date, color }) => {
             {day}
           </Text>
           <Text style={styles.textMonth}>
-            {month}
+            {stringDay}
           </Text>
         </View>
         <View style={styles.contentWrapper}>

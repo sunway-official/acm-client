@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { DATE_FORMAT } from 'react-native-dotenv';
 
-const HEADER_TITLE_DATE_FORMAT = 'dddd, MMM Do';
+const HEADER_TITLE_DATE_FORMAT = 'MMMM';
 
 const getItemColor = index => {
   let color = Colors.primary;

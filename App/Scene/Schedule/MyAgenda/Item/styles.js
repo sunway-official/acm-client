@@ -4,8 +4,9 @@ import { Fonts, Metrics, Colors } from '~/Theme';
 const Schedule = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Metrics.smallMargin,
-    paddingBottom: Metrics.baseMargin,
+    // paddingTop: Metrics.smallMargin,
+    paddingBottom: Metrics.doubleBaseMargin,
+    paddingRight: Metrics.doubleBaseMargin,
   },
   blurWrapper: {
     position: 'absolute',
@@ -20,13 +21,13 @@ const Schedule = StyleSheet.create({
     flexDirection: 'row',
   },
   contentDate: {
-    marginLeft: Metrics.doubleBaseMargin,
-    paddingTop: Metrics.doubleBaseMargin,
+    marginLeft: Metrics.doubleBaseMargin * 1.2,
+    paddingTop: Metrics.smallMargin,
     width: 48,
   },
   contentWrapper: {
     flex: 1,
-    marginLeft: Metrics.doubleBaseMargin,
+    // marginLeft: Metrics.doubleBaseMargin,
   },
   textDay: {
     fontSize: Fonts.size.h6,
@@ -41,9 +42,8 @@ const Schedule = StyleSheet.create({
     padding: Metrics.baseMargin,
     backgroundColor: Colors.primary,
     marginTop: Metrics.baseMargin,
-    marginBottom: Metrics.baseMargin,
-    borderTopLeftRadius: 4,
-    borderBottomLeftRadius: 4,
+    borderTopLeftRadius: 2,
+    borderBottomLeftRadius: 2,
   },
   itemInfo: {
     flex: 1,
@@ -52,7 +52,7 @@ const Schedule = StyleSheet.create({
   itemAction: {
     // flex: 1,
     marginLeft: 'auto',
-    marginRight: Metrics.doubleBaseMargin,
+    marginRight: Metrics.baseMargin,
   },
   itemText: {
     color: Colors.white,
