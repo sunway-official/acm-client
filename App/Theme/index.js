@@ -3,6 +3,5 @@ import Fonts from './Fonts';
 import Metrics from './Metrics';
 import Images from './Images';
 import Icons from './Icons';
-import Enviroment from './Enviroment';
 
-export { Colors, Fonts, Images, Metrics, Icons, Enviroment };
+export { Colors, Fonts, Images, Metrics, Icons };

@@ -15,7 +15,7 @@ const ANIMATION_DELAY = 300;
 const SIDE_MENU_ANIMATION_FRICTION = 9;
 
 const animationFunction = (prop, value) => {
-  if (Enviroment.isDebuggingEnabled) {
+  if (process.env.IS_DEBUGGING) {
     return Animated.timing(prop, {
       toValue: value,
       duration: 0,

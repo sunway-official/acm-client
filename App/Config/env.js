@@ -1,4 +1,4 @@
 export default {
   // Check if Remote Debugging
-  isDebuggingEnabled: typeof atob !== 'undefined',
+  IS_DEBUGGING: typeof atob !== 'undefined',
 };
