@@ -39,14 +39,24 @@ class ProfileScene extends Component {
       },
       actions: [
         {
+          title: 'Change password',
           icon: {
-            name: 'lead-pencil',
-            type: 'material-community',
+            name: 'lock-outline',
+            // type: 'material-community',
           },
           onPress: dispatch =>
             dispatch(
-              NavigationActions.navigate({ routename: 'profileEditing' }),
+              NavigationActions.navigate({ routeName: 'changePassword' }),
             ),
+        },
+        {
+          title: 'Update Information',
+          icon: {
+            name: 'account-box',
+            // type: 'material-community',
+          },
+          onPress: dispatch =>
+            dispatch(NavigationActions.navigate({ routeName: 'editProfile' })),
         },
       ],
     },

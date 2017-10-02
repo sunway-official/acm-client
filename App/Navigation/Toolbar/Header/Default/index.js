@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 import { Text, TouchableView } from '~/Component';
 import { Colors, Metrics, Icons } from '~/Theme';
-import { openMenu, closeMenu, setMenuState } from '~/Redux/Toolbar/action';
+import { openMenu } from '~/Redux/Toolbar/action';
 import styles from '../styles';
 
 const THEME_DARK = 'dark';
