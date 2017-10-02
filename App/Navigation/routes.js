@@ -63,7 +63,6 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    initial: true,
   },
   schedule: {
     name: 'Schedule',
@@ -98,6 +97,7 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
+    initial: true,
   },
   changePassword: {
     name: 'Change Password',

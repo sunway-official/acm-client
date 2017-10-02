@@ -7,7 +7,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   header: {
-    height: 56,
+    height: Metrics.toolBarHeight,
   },
   centerWrapper: {
     marginLeft: Metrics.baseMargin,

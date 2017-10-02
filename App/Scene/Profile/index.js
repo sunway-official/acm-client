@@ -32,16 +32,24 @@ class ProfileScene extends Component {
     theme: 'dark',
     backgroundColor: Colors.transparent,
     statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
-    actions: [
-      {
-        icon: {
-          name: 'lead-pencil',
-          type: 'material-community',
-        },
-        onPress: dispatch =>
-          dispatch(NavigationActions.navigate({ routename: 'profileEditing' })),
+    menu: {
+      icon: {
+        name: 'lead-pencil',
+        type: 'material-community',
       },
-    ],
+      actions: [
+        {
+          icon: {
+            name: 'lead-pencil',
+            type: 'material-community',
+          },
+          onPress: dispatch =>
+            dispatch(
+              NavigationActions.navigate({ routename: 'profileEditing' }),
+            ),
+        },
+      ],
+    },
   };
 
   static footer = {
