@@ -1,10 +1,7 @@
 import env from './env';
 
-console.log(process.env);
-
+// Insert app env to process env
 process.env = {
   ...process.env,
   ...env,
 };
-
-console.log(process.env);
