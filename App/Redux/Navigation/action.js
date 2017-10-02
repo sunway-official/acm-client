@@ -1,6 +1,6 @@
 import { NavigationActions } from 'react-navigation';
 import { resetHeaderOptions, resetFooterOptions } from '../Toolbar/action';
-import { setDisableGestures } from '../Drawer';
+import { enableGestures, disableGestures } from '../Drawer';
 
 /* eslint-disable */
 const NAVIGATE = 'navigate';
@@ -30,9 +30,13 @@ const dispatcher = type => {
 
     await dispatch(resetHeaderOptions(route.header));
     await dispatch(resetFooterOptions(route.footer));
-    await dispatch(
-      setDisableGestures(route.drawer && route.drawer.disableGestures),
-    );
+
+    // Disable or enable gesture if needed
+    if (route.drawer && route.drawer.disableGestures) {
+      await dispatch(disableGestures());
+    } else {
+      await dispatch(enableGestures());
+    }
   };
 };
 

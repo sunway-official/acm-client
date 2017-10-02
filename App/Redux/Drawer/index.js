@@ -1,7 +1,7 @@
 export const TOGGLE_DRAWER = 'TOGGLE_DRAWER';
 export const SET_DRAWER_STATE = 'SET_DRAWER_STATE';
-export const DISABLE_GESTURES = 'DISABLE_GESTURES';
-export const ENABLE_GESTURES = 'ENABLE_GESTURES';
+export const DISABLE_DRAWER_GESTURES = 'DISABLE_DRAWER_GESTURES';
+export const ENABLE_DRAWER_GESTURES = 'ENABLE_DRAWER_GESTURES';
 export const SET_DISABLE_GESTURES = 'SET_DISABLE_GESTURES';
 
 export const KEY = 'drawer';
@@ -21,11 +21,11 @@ export const setDisableGestures = isDisableGestures => ({
 });
 
 export const disableGestures = () => ({
-  type: DISABLE_GESTURES,
+  type: DISABLE_DRAWER_GESTURES,
 });
 
 export const enableGestures = () => ({
-  type: ENABLE_GESTURES,
+  type: ENABLE_DRAWER_GESTURES,
 });
 
 const INITIAL_STATE = {
@@ -45,15 +45,15 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         isOpen: action.isOpen,
       };
-    case DISABLE_GESTURES:
-      return {
-        ...state,
-        disableGestures: true,
-      };
-    case SET_DRAWER_STATE:
+    case ENABLE_DRAWER_GESTURES:
       return {
         ...state,
         disableGestures: false,
+      };
+    case DISABLE_DRAWER_GESTURES:
+      return {
+        ...state,
+        disableGestures: true,
       };
     case SET_DISABLE_GESTURES:
       return {
