@@ -15,13 +15,16 @@ export default StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
     marginHorizontal: Metrics.baseMargin,
+    borderWidth: 2,
+    borderColor: 'rgba(0,0,0,0.075)',
   },
   item: {
     flexDirection: 'row',
-    padding: Metrics.baseMargin,
+    paddingVertical: Metrics.doubleBaseMargin,
+    paddingHorizontal: Metrics.doubleBaseMargin,
     alignItems: 'center',
   },
   iconWrapper: {
-    marginRight: Metrics.baseMargin,
+    marginRight: Metrics.doubleBaseMargin,
   },
 });
