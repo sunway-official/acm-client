@@ -20,7 +20,7 @@ const PRIMARY_HEADER = {
 const SECONDARY_HEADER = {
   hideTitle: true,
   backgroundColor: Colors.transparent,
-  statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
+  statusBarBackgroundColor: Colors.transparent,
 };
 
 class ProfileScene extends Component {
@@ -78,7 +78,7 @@ ProfileScene.header = {
   float: true,
   theme: 'dark',
   backgroundColor: Colors.transparent,
-  statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
+  statusBarBackgroundColor: Colors.transparent,
   menu: {
     icon: {
       name: 'lead-pencil',

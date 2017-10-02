@@ -10,7 +10,7 @@ export default StyleSheet.create({
   statusBar: {
     // paddingTop: Constants.statusBarHeight,
     height: Metrics.statusBarHeight,
-    backgroundColor: 'rgba(0,0,0,0.0)',
+    backgroundColor: Colors.transparent,
     marginHorizontal: statusBarMargin,
   },
   headerContainer: {
