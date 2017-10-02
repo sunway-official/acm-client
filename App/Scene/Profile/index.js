@@ -33,10 +33,10 @@ class ProfileScene extends Component {
 
   constructor(props) {
     super(props);
-    this._handleScrollToBottom = this._handleScrollToBottom.bind(this);
+    this._handleScrolling = this._handleScrollToBottom.bind(this);
   }
 
-  _handleScrollToBottom(e) {
+  _handleScrolling(e) {
     const { data: { me }, setCustomHeader } = this.props;
     const y = e.nativeEvent.contentOffset.y;
     if (y > 150) {
@@ -49,13 +49,18 @@ class ProfileScene extends Component {
     }
   }
 
+  componentDidUpdate() {
+    // For navigate back to Profile scene
+    this._handleScrolling();
+  }
+
   render() {
     const { data: { me } } = this.props;
 
     return (
       <ScrollView
         scrollEventThrottle={16}
-        onScroll={e => this._handleScrollToBottom(e)}
+        onScroll={e => this._handleScrolling(e)}
         contentContainerStyle={{
           flexGrow: 1,
         }}
