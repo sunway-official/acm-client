@@ -13,14 +13,6 @@ class NewsFeedScene extends Component {
     theme: 'dark',
     backgroundColor: Colors.primary,
     statusBarBackgroundColor: Colors.primary,
-    actions: [
-      {
-        icon: {},
-        onPress: () => {
-          console.log('hello there');
-        },
-      },
-    ],
   };
 
   static footer = {

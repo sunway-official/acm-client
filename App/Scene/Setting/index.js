@@ -26,14 +26,6 @@ SettingScene.drawer = {
 
 SettingScene.header = {
   leftIcon: 'drawer',
-  actions: [
-    {
-      icon: {},
-      onPress: () => {
-        console.log('hello there');
-      },
-    },
-  ],
 };
 
 SettingScene.propTypes = {

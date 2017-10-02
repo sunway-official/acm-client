@@ -1,10 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { Metrics, Colors } from '~/Theme';
+
+const IS_ANDROID = Platform.OS === 'android';
 
 export default StyleSheet.create({
   modal: {
     position: 'absolute',
-    top: Metrics.baseMargin,
+    top: IS_ANDROID
+      ? Metrics.baseMargin
+      : Metrics.baseMargin + Metrics.statusBarHeight,
     right: Metrics.baseMargin,
     margin: 0,
   },
