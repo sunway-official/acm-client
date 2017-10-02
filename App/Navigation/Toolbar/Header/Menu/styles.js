@@ -15,8 +15,9 @@ export default StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
     marginHorizontal: Metrics.baseMargin,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.075)',
+    borderRadius: 2,
   },
   item: {
     flexDirection: 'row',
