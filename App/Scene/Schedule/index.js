@@ -12,40 +12,12 @@ import FilterModal from '~/Component/FilterModal';
 import Agenda from './Agenda';
 import MyAgenda from './MyAgenda';
 
-class Schedule extends Component {
+class ScheduleScene extends Component {
   static propTypes = {
     showFilterModal: PropTypes.func,
     hideFilterModal: PropTypes.func,
     toggleModal: PropTypes.func,
     modal: PropTypes.object,
-  };
-
-  static header = {
-    actions: [
-      {
-        icon: {},
-        onPress: dispatch => {
-          console.log('hello there');
-          dispatch({
-            type: 'REDUX_ACTION',
-            payload: "Hello! I'm here",
-          });
-        },
-      },
-      {
-        icon: {
-          name: 'filter-list',
-        },
-        onPress: dispatch => {
-          dispatch(setModalState(true));
-        },
-      },
-    ],
-  };
-
-  static footer = {
-    show: true,
-    activeColor: Colors.black,
   };
 
   _renderFilter = isOpen =>
@@ -79,6 +51,24 @@ class Schedule extends Component {
   }
 }
 
+ScheduleScene.header = {
+  actions: [
+    {
+      icon: {
+        name: 'filter-list',
+      },
+      onPress: dispatch => {
+        dispatch(setModalState(true));
+      },
+    },
+  ],
+};
+
+ScheduleScene.footer = {
+  show: true,
+  activeColor: Colors.black,
+};
+
 const mapStateToProps = state => ({
   modal: state[KEY],
 });
@@ -88,4 +78,4 @@ const mapDispatchToProps = dispatch => ({
   hideFilterModal: () => dispatch(setModalState(false)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Schedule);
+export default connect(mapStateToProps, mapDispatchToProps)(ScheduleScene);

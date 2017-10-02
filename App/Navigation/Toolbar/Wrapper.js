@@ -8,6 +8,7 @@ import { KEY as ROUTES_KEY } from '~/Redux/Routes';
 import { KEY as TOOLBAR_KEY } from '~/Redux/Toolbar';
 import { NavigationActions } from '~/Redux/Navigation';
 import { Header, Footer } from './';
+import HeaderMenu from './Header/Menu';
 import styles from './styles';
 
 /* eslint-disable no-unused-vars */
@@ -141,6 +142,7 @@ class HeaderWrapper extends Component {
             drawer={drawer}
             visible={toolbar.header.visible}
           />
+          <HeaderMenu />
         </View>
         <View
           style={[

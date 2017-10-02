@@ -1,5 +1,9 @@
 import { NavigationActions } from 'react-navigation';
-import { resetHeaderOptions, resetFooterOptions } from '../Toolbar/action';
+import {
+  resetHeaderOptions,
+  resetFooterOptions,
+  closeMenu,
+} from '../Toolbar/action';
 import { enableGestures, disableGestures } from '../Drawer';
 
 /* eslint-disable */
@@ -12,6 +16,9 @@ const RESET_INDEX = 0;
 
 const dispatcher = type => {
   return options => async (dispatch, getState) => {
+    // Close any opened menu
+    await dispatch(closeMenu());
+
     // Override Reset Actions
     if (type === RESET) {
       await dispatch(

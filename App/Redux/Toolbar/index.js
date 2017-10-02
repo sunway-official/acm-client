@@ -7,6 +7,9 @@ import {
   ADD_FOOTER_OPTIONS,
   RESET_HEADER_OPTIONS,
   RESET_FOOTER_OPTIONS,
+  OPEN_HEADER_MENU,
+  CLOSE_HEADER_MENU,
+  SET_HEADER_MENU_STATE,
 } from './action';
 
 export const KEY = 'toolbar';
@@ -18,6 +21,9 @@ const INITIAL_STATE = {
   header: {
     visible: true,
     options: initialRoute.header,
+    menu: {
+      isOpen: false,
+    },
   },
   footer: {
     visible: true,
@@ -97,6 +103,37 @@ export default (state = INITIAL_STATE, action) => {
           },
         },
       };
+    case OPEN_HEADER_MENU:
+      return {
+        ...state,
+        header: {
+          ...state.header,
+          menu: {
+            isOpen: true,
+          },
+        },
+      };
+    case CLOSE_HEADER_MENU:
+      return {
+        ...state,
+        header: {
+          ...state.header,
+          menu: {
+            isOpen: false,
+          },
+        },
+      };
+    case SET_HEADER_MENU_STATE:
+      return {
+        ...state,
+        header: {
+          ...state.header,
+          menu: {
+            isOpen: action.isOpen,
+          },
+        },
+      };
+
     default:
       return state;
   }

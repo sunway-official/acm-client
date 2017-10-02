@@ -33,7 +33,7 @@ class ChangePasswordScene extends Component {
     };
 
     this._handleUpdate = this._handleUpdate.bind(this);
-    this._handleNavigateToLogin = this._handleNavigateToLogin.bind(this);
+    this._navigateToLogin = this._navigateToLogin.bind(this);
   }
 
   componentWillMount() {
@@ -116,7 +116,7 @@ class ChangePasswordScene extends Component {
             paddingVertical: Metrics.doubleBaseMargin,
             alignItems: 'flex-end',
           }}
-          onPress={this._handleNavigateToLogin}
+          onPress={this._navigateToLogin}
         >
           <Text>Back to Login</Text>
         </TouchableView>
@@ -153,9 +153,5 @@ const Scene = compose(
   graphql(gql(mutation)),
   withApollo,
 )(ChangePasswordScene);
-
-Scene.drawer = {
-  primary: true,
-};
 
 export default Scene;
