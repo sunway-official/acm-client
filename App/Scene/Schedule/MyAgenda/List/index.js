@@ -16,19 +16,16 @@ const getItemColor = index => {
   switch (indexValue) {
     case 0:
       color = {
-        primary: Colors.purple,
-        background: Colors.purple,
+        background: Colors.blue,
       };
       break;
     case 1:
       color = {
-        primary: Colors.red,
         background: Colors.red,
       };
       break;
     case 2:
       color = {
-        primary: Colors.green,
         background: Colors.green,
       };
       break;

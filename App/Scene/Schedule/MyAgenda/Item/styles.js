@@ -5,7 +5,7 @@ const Schedule = StyleSheet.create({
   container: {
     flex: 1,
     // paddingTop: Metrics.smallMargin,
-    paddingBottom: Metrics.doubleBaseMargin,
+    paddingVertical: Metrics.baseMargin,
     paddingRight: Metrics.doubleBaseMargin,
   },
   blurWrapper: {
