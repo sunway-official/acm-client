@@ -74,7 +74,7 @@ class Menu extends Component {
           onPress={onPress}
           activeOpacity={ACTIVE_TOUCHABLE_OPACITY}
         >
-          <AnimatableView viewRef={ref => (icon = ref)}>
+          <AnimatableView ref={ref => (icon = ref)}>
             <Icon
               color={Colors.white}
               size={Metrics.icons.small}

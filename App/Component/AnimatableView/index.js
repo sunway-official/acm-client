@@ -1,30 +1,14 @@
-import React, { Component } from 'react';
 import { View } from 'react-native';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Enviroment } from '~/Theme';
-import PropTypes from 'prop-types';
 
-class AnimatedView extends Component {
-  render() {
-    const { children, viewRef, ...others } = this.props;
-    if (Enviroment.isDebuggingEnabled) {
-      return (
-        <View {...others}>
-          {children}
-        </View>
-      );
-    }
-    return (
-      <AnimatableView {...others} ref={viewRef}>
-        {children}
-      </AnimatableView>
-    );
-  }
+let AnimatadView;
+
+// Use View instead of AnimatableView when debugging mode is enable
+if (Enviroment.isDebuggingEnabled) {
+  AnimatadView = View;
+} else {
+  AnimatadView = AnimatableView;
 }
 
-AnimatedView.propTypes = {
-  children: PropTypes.any,
-  viewRef: PropTypes.func,
-};
-
-export default AnimatedView;
+export default AnimatadView;
