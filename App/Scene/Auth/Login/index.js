@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AsyncStorage, Keyboard } from 'react-native';
 import { NavigationActions } from '~/Redux/Navigation';
-import { NavigationActions as ReactNavigationActions } from 'react-navigation';
 import LoginForm from '../Login/Form';
 import { getInitialRoute } from '~/Navigation/resolver';
 import { compose, gql, graphql, withApollo } from 'react-apollo';

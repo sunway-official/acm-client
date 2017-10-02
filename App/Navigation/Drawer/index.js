@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { View as AninatableView } from 'react-native-animatable';
 import { KEY, setDrawerState } from '~/Redux/Drawer';
 import Menu from './Menu';
-import { Metrics, Enviroment } from '~/Theme';
+import { Metrics } from '~/Theme';
 import styles from './styles';
 
 const drawerOffset = 0.8;
