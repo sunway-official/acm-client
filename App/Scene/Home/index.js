@@ -42,16 +42,6 @@ HomeScene.header = {
   statusBarBackgroundColor: Colors.blue,
   actions: [
     {
-      icon: {},
-      onPress: dispatch => {
-        console.log('hello there');
-        dispatch({
-          type: 'REDUX_ACTION',
-          payload: "Hello! I'm here",
-        });
-      },
-    },
-    {
       icon: {
         name: 'lock',
       },

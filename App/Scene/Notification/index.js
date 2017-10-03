@@ -26,14 +26,6 @@ NotificationScene.header = {
   theme: 'dark',
   backgroundColor: Colors.purple,
   statusBarBackgroundColor: Colors.purple,
-  actions: [
-    {
-      icon: {},
-      onPress: () => {
-        console.log('hello there');
-      },
-    },
-  ],
 };
 
 // NotificationScene.footer = {

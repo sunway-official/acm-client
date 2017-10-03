@@ -77,8 +77,4 @@ const Scene = compose(
   graphql(gql(mutation)),
 )(ProfileEditing);
 
-Scene.drawer = {
-  primary: true,
-};
-
 export default Scene;

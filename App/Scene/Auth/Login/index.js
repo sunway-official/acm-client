@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AsyncStorage, Keyboard } from 'react-native';
 import { NavigationActions } from '~/Redux/Navigation';
-import { NavigationActions as ReactNavigationActions } from 'react-navigation';
 import LoginForm from '../Login/Form';
 import { getInitialRoute } from '~/Navigation/resolver';
 import { compose, gql, graphql, withApollo } from 'react-apollo';
@@ -26,6 +25,10 @@ class LoginScene extends Component {
 
   static footer = {
     disable: true,
+  };
+
+  static drawer = {
+    disableGestures: true,
   };
 
   constructor(props) {
@@ -87,14 +90,7 @@ const mapDispatchToProps = dispatch => ({
   navigateToForgotPassword: () =>
     dispatch(NavigationActions.navigate({ routeName: 'forgot' })),
   navigateToInitialRoute: () =>
-    dispatch(
-      NavigationActions.reset({
-        index: 0,
-        actions: [
-          ReactNavigationActions.navigate({ routeName: getInitialRoute() }),
-        ],
-      }),
-    ),
+    dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
 });
 
 export default compose(

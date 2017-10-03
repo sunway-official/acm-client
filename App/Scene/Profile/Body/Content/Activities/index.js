@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { News } from '~/Component';
 import { news } from '~/Scene/Profile/fixture';
-import { Metrics } from '../../../../../Theme';
 
 class Activities extends Component {
   static propTypes = {};

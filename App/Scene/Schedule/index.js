@@ -81,6 +81,23 @@ export { default as MyAgenda } from './MyAgenda';
 //     );
 //   }
 // }
+// ScheduleScene.header = {
+//   actions: [
+//     {
+//       icon: {
+//         name: 'filter-list',
+//       },
+//       onPress: dispatch => {
+//         dispatch(setModalState(true));
+//       },
+//     },
+//   ],
+// };
+
+// ScheduleScene.footer = {
+//   show: true,
+//   activeColor: Colors.black,
+// };
 
 // const mapStateToProps = state => ({
 //   modal: state[KEY],
