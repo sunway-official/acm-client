@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { gql, graphql } from 'react-apollo';
-import { ScrollView } from 'react-native';
+import { ScrollView, KeyboardAvoidingView } from 'react-native';
 import moment from 'moment';
 import mutation from '~/Graphql/mutation/updateMe.graphql';
 import styles from './styles';
@@ -27,9 +27,11 @@ class ProfileEditing extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <Form onUpdate={this._onUpdate} />
-      </ScrollView>
+      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={85}>
+        <ScrollView style={styles.container}>
+          <Form onUpdate={this._onUpdate} />
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }

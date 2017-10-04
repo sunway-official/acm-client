@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
+import { Badge, Icon } from 'react-native-elements';
 import { Field, reduxForm } from 'redux-form';
-import { Text, FormInput, TouchableView, FilterModal } from '~/Component';
+import { Text, FormInput, TouchableView } from '~/Component';
+
 import fields from '../fields';
 import styles from './styles';
 
@@ -15,19 +17,17 @@ class UpdateProfileForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      showFilterModal: false,
-    };
-
-    this._renderSubmitButton = this._renderSubmitButton.bind(this);
+    this._renderSubmitBtn = this._renderSubmitBtn.bind(this);
   }
 
-  _renderInputForms(form, key) {
+  _renderForms(form, key, titleOption = true) {
     return (
       <View key={key} style={styles.inputContainer}>
-        <Text>
-          {form.title}
-        </Text>
+        {titleOption
+          ? <Text>
+              {form.title}
+            </Text>
+          : null}
         <Field
           component={FormInput}
           underlineColorAndroid="transparent"
@@ -39,7 +39,7 @@ class UpdateProfileForm extends Component {
     );
   }
 
-  _renderSubmitButton() {
+  _renderSubmitBtn() {
     const { props: { handleSubmit, onUpdate } } = this;
     return (
       <TouchableView style={styles.submitBtn} onPress={handleSubmit(onUpdate)}>
@@ -53,10 +53,34 @@ class UpdateProfileForm extends Component {
   render() {
     return (
       <View style={styles.formContainer}>
-        {Object.keys(fields).map(key =>
-          this._renderInputForms(fields[key], key),
-        )}
-        {this._renderSubmitButton()}
+        <View style={{ flex: 1, flexDirection: 'row', marginBottom: 16 }}>
+          <View>
+            <Image
+              source={{
+                uri:
+                  'https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg',
+              }}
+              style={{ width: 120, height: 120, borderRadius: 120 / 2 }}
+            />
+            <Badge
+              containerStyle={{
+                backgroundColor: 'red',
+                flex: 0,
+                padding: 0,
+              }}
+            >
+              <Icon name="camera" type="material-community" />
+            </Badge>
+          </View>
+          <View style={{ flex: 1, marginLeft: 16 }}>
+            {this._renderForms(fields['firstname'], 'firstname', false)}
+            {this._renderForms(fields['lastname'], 'lastname', false)}
+          </View>
+        </View>
+        {Object.keys(fields)
+          .slice(2)
+          .map(key => this._renderForms(fields[key], key))}
+        {this._renderSubmitBtn()}
       </View>
     );
   }
