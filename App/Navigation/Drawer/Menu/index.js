@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { compose, graphql, gql } from 'react-apollo';
 import { AnimatableView } from '~/Component';
 import { Text } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
@@ -10,15 +11,25 @@ import { KEY as ROUTES_KEY } from '~/Redux/Routes';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { setDrawerState } from '~/Redux/Drawer';
 import { Images, Metrics, Colors } from '~/Theme';
+import { query } from '~/Graphql/query/me.graphql';
 import styles from './styles';
 import MenuItem from './Item';
 
-const USER_NAME = 'John Cena';
-const USER_EMAIL = 'unknow@gmail.com';
+const USER_FIRSTNAME = 'Sunway';
+const USER_LASTNAME = 'Team';
+const USER_EMAIL = 'sunway.offical@gmail.com';
 const MENU_ITEMS_ANIMATION = 'fadeInUp';
 const DROPDOWN_ICON_ANIMATION = 'rotate';
 const ANIMATION_DELAY = 300;
 const ACTIVE_TOUCHABLE_OPACITY = 0.4;
+
+const DEFAULT_USER = {
+  data: {
+    firstname: USER_FIRSTNAME,
+    lastname: USER_LASTNAME,
+    email: USER_EMAIL,
+  },
+};
 
 class Menu extends Component {
   static propTypes = {
@@ -26,6 +37,13 @@ class Menu extends Component {
     navigate: PropTypes.func,
     routes: PropTypes.object,
     navigation: PropTypes.object,
+    data: PropTypes.shape({
+      me: PropTypes.shape({
+        firstname: PropTypes.string,
+        lastname: PropTypes.string,
+        email: PropTypes.string,
+      }),
+    }),
   };
 
   constructor(props) {
@@ -139,6 +157,11 @@ class Menu extends Component {
   }
 
   render() {
+    let me = DEFAULT_USER;
+    if (this.props.data.me) {
+      me = this.props.data.me;
+    }
+    const { firstname, lastname, email } = me;
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -151,12 +174,12 @@ class Menu extends Component {
             <View style={styles.headerInfo}>
               <View style={styles.line}>
                 <Text bold style={[styles.text]}>
-                  {USER_NAME}
+                  {firstname} {lastname}
                 </Text>
               </View>
               <View style={styles.line}>
                 <Text style={[styles.text]}>
-                  {USER_EMAIL}
+                  {email}
                 </Text>
               </View>
             </View>
@@ -182,4 +205,7 @@ const mapDispatchToProps = dispatch => ({
   navigate: routeName => dispatch(NavigationActions.navigate({ routeName })),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Menu);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  graphql(gql(query)),
+)(Menu);
