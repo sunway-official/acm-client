@@ -29,7 +29,15 @@ class ProfileEditing extends Component {
     return (
       <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={85}>
         <ScrollView style={styles.container}>
-          <Form onUpdate={this._onUpdate} />
+          <Form
+            onUpdate={this._onUpdate}
+            initialValues={{
+              gender: {
+                name: 'Male',
+                value: 'male',
+              },
+            }}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
     );

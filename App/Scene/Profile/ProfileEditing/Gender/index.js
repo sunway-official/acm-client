@@ -4,23 +4,17 @@ import { connect } from 'react-redux';
 import { View, TouchableOpacity, TextInput } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Modal, Text } from '~/Component';
-import { Field, reduxForm } from 'redux-form';
-import { compose } from 'react-apollo';
 import { setModalState } from '~/Redux/Modal';
 import styles from './styles';
 
 const data = [
   {
-    name: 'male',
-    check: true,
+    name: 'Male',
+    value: 'male',
   },
   {
-    name: 'female',
-    check: false,
-  },
-  {
-    name: 'other',
-    check: false,
+    name: 'Female',
+    value: 'female',
   },
 ];
 
@@ -38,8 +32,6 @@ class GenderForm extends Component {
     super(props);
 
     this.state = {
-      data: data,
-      defaultGender: 'male',
       isOpen: false,
     };
 
@@ -60,24 +52,15 @@ class GenderForm extends Component {
   }
 
   _onCheck(index) {
-    const { state: { data }, props: { input: { value, onChange } } } = this;
-    let items = [...data];
-    items = items.map(item => ({
-      ...item,
-      check: false,
-    }));
+    const { props: { input: { onChange } } } = this;
 
-    items[index].check = true;
-
-    console.log(this.props);
-
-    this.setState({ data: items, defaultGender: items[index].name });
+    onChange(data[index]);
 
     setTimeout(this._hideModal, 200);
   }
 
   _renderModal() {
-    const { state: { data, isOpen } } = this;
+    const { state: { isOpen } } = this;
     return (
       <Modal
         isVisible={isOpen}
@@ -106,15 +89,13 @@ class GenderForm extends Component {
   }
 
   render() {
-    const { props: { ...othersProps }, state: { defaultGender } } = this;
+    const { props: { input: { value }, ...othersProps } } = this;
+    // console.log(this.props);
+
     return (
       <View>
-        <TouchableOpacity activeOpacity={0} onPress={() => this._openModal()}>
-          <Field
-            name="gender"
-            component={() =>
-              <TextInput value={defaultGender} {...othersProps} />}
-          />
+        <TouchableOpacity activeOpacity={1} onPress={() => this._openModal()}>
+          <TextInput value={value.name} {...othersProps} />
         </TouchableOpacity>
         {this._renderModal()}
       </View>
@@ -127,7 +108,4 @@ const mapDispatchToProps = dispatch => ({
   hideModal: () => dispatch(setModalState(false)),
 });
 
-export default compose(
-  reduxForm({ form: 'genderForm' }),
-  connect(undefined, mapDispatchToProps),
-)(GenderForm);
+export default connect(undefined, mapDispatchToProps)(GenderForm);

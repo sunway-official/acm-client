@@ -90,8 +90,4 @@ const Form = reduxForm({
   form: 'userProfile',
 })(UpdateProfileForm);
 
-Form.drawer = {
-  primary: true,
-};
-
 export default Form;
