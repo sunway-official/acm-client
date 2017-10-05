@@ -13,8 +13,8 @@ import query from '~/Graphql/query/me.graphql';
 
 const PRIMARY_HEADER = {
   hideTitle: false,
-  backgroundColor: Colors.red,
-  statusBarBackgroundColor: Colors.red,
+  backgroundColor: Colors.primary,
+  statusBarBackgroundColor: Colors.primary,
 };
 
 const SECONDARY_HEADER = {
@@ -33,12 +33,12 @@ class ProfileScene extends Component {
 
   constructor(props) {
     super(props);
-    this._handleScrolling = this._handleScrollToBottom.bind(this);
+    this._handleScrolling = this._handleScrolling.bind(this);
   }
 
   _handleScrolling(e) {
     const { data: { me }, setCustomHeader } = this.props;
-    const y = e.nativeEvent.contentOffset.y;
+    const { y } = e.nativeEvent.contentOffset;
     if (y > 150) {
       setCustomHeader({
         ...PRIMARY_HEADER,
@@ -49,18 +49,12 @@ class ProfileScene extends Component {
     }
   }
 
-  componentDidUpdate() {
-    // For navigate back to Profile scene
-    this._handleScrolling();
-  }
-
   render() {
     const { data: { me } } = this.props;
-
     return (
       <ScrollView
         scrollEventThrottle={16}
-        onScroll={e => this._handleScrolling(e)}
+        onScroll={this._handleScrolling}
         contentContainerStyle={{
           flexGrow: 1,
         }}
