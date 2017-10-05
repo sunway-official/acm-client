@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Text, TextInput, View } from 'react-native';
-
+import { TextInput, View } from 'react-native';
+import { Text } from '~/Component';
 import styles from './styles';
 import { Colors } from '~/Theme';
 
