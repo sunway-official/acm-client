@@ -1,11 +1,11 @@
 {
-  "name": "cem-client",
-  "version": "0.1.0",
+  "name": "acm-client",
+  "version": "0.1.1",
   "private": true,
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sunway-team/cem-client.git"
+    "url": "https://github.com/sunway-team/acm-client.git"
   },
   "scripts": {
     "start": "react-native-scripts start",

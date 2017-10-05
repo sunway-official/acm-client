@@ -6,10 +6,10 @@
     "orientation": "portrait",
     "sdkVersion": "21.0.0",
     "ios": {
-      "bundleIdentifier": "com.sunway.cemclient"
+      "bundleIdentifier": "com.sunway.acmclient"
     },
     "android": {
-      "package": "com.sunway.cemclient"
+      "package": "com.sunway.acmclient"
     },
     "primaryColor": "#FF5722",
     "loading": {
