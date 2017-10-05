@@ -77,4 +77,12 @@ const Scene = compose(
   graphql(gql(mutation)),
 )(ProfileEditing);
 
+Scene.header = {
+  leftIcon: 'back',
+};
+
+Scene.drawer = {
+  disableGestures: true,
+};
+
 export default Scene;

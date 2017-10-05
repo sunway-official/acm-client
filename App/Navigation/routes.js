@@ -107,7 +107,6 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    // initial: true,
   },
   editProfile: {
     name: 'Edit Profile',
