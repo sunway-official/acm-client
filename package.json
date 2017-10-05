@@ -16,8 +16,8 @@
     "lint": "eslint App/**/*.js",
     "lint-staged": "lint-staged",
     "rndebugger-open": "rndebugger-open",
-    "overwrite-react-navigation": "cp ./Lib/react-navigation/src/views/CardStackStyleInterpolator.js ./node_modules/react-navigation/src/views/CardStackStyleInterpolator.js",
-    "postinstall": "run-s rndebugger-open overwrite-react-navigation",
+    "fix-react-navigation": "cp -r Lib/react-navigation node_modules",
+    "postinstall": "run-s rndebugger-open fix-react-navigation",
     "precommit": "run-s lint-staged lint"
   },
   "lint-staged": {
