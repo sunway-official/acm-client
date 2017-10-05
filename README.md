@@ -20,7 +20,7 @@ Client Project for ACM build with React-native, Redux & Apollo.
 - Test: `npm run test`
 - Lint: `npm run lint`
 
-## Development & Deploy Tools
+## Development & Deployment
 
 - Expo: https://expo.io
 - React-native Debugger: https://github.com/jhen0409/react-native-debugger/releases
