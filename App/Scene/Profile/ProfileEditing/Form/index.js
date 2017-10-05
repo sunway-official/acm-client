@@ -10,6 +10,7 @@ import styles from './styles';
 
 class UpdateProfileForm extends Component {
   static propTypes = {
+    me: PropTypes.object,
     handleSubmit: PropTypes.func,
     onUpdate: PropTypes.func,
   };

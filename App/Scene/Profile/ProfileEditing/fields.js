@@ -33,6 +33,16 @@ const inputForms = {
       },
     },
   },
+  dob: {
+    title: 'Birthday',
+    field: {
+      name: 'dob',
+      component: DatePicker,
+      props: {
+        placeholder: 'Birthday',
+      },
+    },
+  },
   bio: {
     title: 'Biography',
     field: {
@@ -67,16 +77,6 @@ const inputForms = {
       name: 'linked',
       props: {
         placeholder: 'Your linked',
-      },
-    },
-  },
-  dob: {
-    title: 'Birthday',
-    field: {
-      name: 'dob',
-      component: DatePicker,
-      props: {
-        placeholder: 'Birthday',
       },
     },
   },

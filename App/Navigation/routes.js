@@ -5,7 +5,7 @@ import NewsFeed from '~/Scene/NewsFeed';
 import Notification from '~/Scene/Notification';
 import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
-import EditProfile from '~/Scene/Profile/EditProfile';
+import ProfileEditing from '~/Scene/Profile/ProfileEditing';
 import Setting from '~/Scene/Setting';
 import Schedule from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
@@ -97,7 +97,6 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
   },
   changePassword: {
     name: 'Change Password',
@@ -108,10 +107,10 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  editProfile: {
+  profileEditing: {
     name: 'Edit Profile',
     path: '/profile/edit',
-    screen: EditProfile,
+    screen: ProfileEditing,
     icon: {
       name: 'face-profile',
       type: 'material-community',

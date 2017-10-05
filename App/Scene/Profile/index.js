@@ -27,7 +27,7 @@ class ProfileScene extends Component {
   static propTypes = {
     setCustomHeader: PropTypes.func,
     data: PropTypes.shape({
-      loading: PropTypes.bool,
+      me: PropTypes.object.isRequired,
     }),
   };
 
@@ -100,7 +100,7 @@ ProfileScene.header = {
           // type: 'material-community',
         },
         onPress: dispatch =>
-          dispatch(NavigationActions.navigate({ routeName: 'editProfile' })),
+          dispatch(NavigationActions.navigate({ routeName: 'profileEditing' })),
       },
     ],
   },
