@@ -1,11 +1,11 @@
 {
-  "name": "cem-client",
-  "version": "0.1.0",
+  "name": "acm-client",
+  "version": "0.1.1",
   "private": true,
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sunway-team/cem-client.git"
+    "url": "https://github.com/sunway-team/acm-client.git"
   },
   "scripts": {
     "start": "react-native-scripts start",
@@ -16,8 +16,8 @@
     "lint": "eslint App/**/*.js",
     "lint-staged": "lint-staged",
     "rndebugger-open": "rndebugger-open",
-    "overwrite-react-navigation": "cp ./Lib/react-navigation/src/views/CardStackStyleInterpolator.js ./node_modules/react-navigation/src/views/CardStackStyleInterpolator.js",
-    "postinstall": "run-s rndebugger-open overwrite-react-navigation",
+    "fix-react-navigation": "cp -r Lib/react-navigation node_modules",
+    "postinstall": "run-s rndebugger-open fix-react-navigation",
     "precommit": "run-s lint-staged lint"
   },
   "lint-staged": {
@@ -34,7 +34,7 @@
     "prop-types": "^15.5.10",
     "react": "16.0.0-alpha.12",
     "react-apollo": "^1.4.15",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
+    "react-native": "github:expo/react-native#sdk-21.0.2",
     "react-native-animatable": "^1.2.3",
     "react-native-datepicker": "^1.6.0",
     "react-native-dotenv": "^0.1.0",

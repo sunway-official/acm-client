@@ -17,6 +17,7 @@ const metrics = {
   navBarHeight: Platform.OS === 'ios' ? 64 : 54,
   buttonRadius: 4,
   statusBarHeight: IS_ANDROID ? StatusBar.currentHeight : 20,
+  toolBarHeight: 56,
   icons: {
     tiny: 16,
     small: 24,

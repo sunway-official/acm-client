@@ -10,7 +10,7 @@ export default StyleSheet.create({
   statusBar: {
     // paddingTop: Constants.statusBarHeight,
     height: Metrics.statusBarHeight,
-    backgroundColor: 'rgba(0,0,0,0.7)',
+    backgroundColor: Colors.transparent,
     marginHorizontal: statusBarMargin,
   },
   headerContainer: {
@@ -42,7 +42,6 @@ export default StyleSheet.create({
     marginLeft: 'auto',
   },
   line: {
-    // width: '100%',
     flexDirection: 'row',
   },
   text: {
@@ -54,7 +53,6 @@ export default StyleSheet.create({
     position: 'absolute',
     right: Metrics.baseMargin,
     bottom: Metrics.baseMargin,
-    borderRadius: Metrics.circleRadius,
   },
   dropdownButtonTouchableView: {
     padding: Metrics.baseMargin,

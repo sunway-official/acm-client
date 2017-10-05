@@ -6,6 +6,9 @@ export const ADD_HEADER_OPTIONS = 'ADD_HEADER_OPTIONS';
 export const ADD_FOOTER_OPTIONS = 'ADD_FOOTER_OPTIONS';
 export const RESET_HEADER_OPTIONS = 'RESET_HEADER_OPTIONS';
 export const RESET_FOOTER_OPTIONS = 'RESET_FOOTER_OPTIONS';
+export const OPEN_HEADER_MENU = 'OPEN_HEADER_MENU';
+export const CLOSE_HEADER_MENU = 'CLOSE_HEADER_MENU';
+export const SET_HEADER_MENU_STATE = 'SET_HEADER_MENU_STATE';
 
 export const toggleHeader = () => ({
   type: TOGGLE_HEADER,
@@ -43,4 +46,17 @@ export const addHeaderOptions = options => ({
 export const addFooterOptions = options => ({
   type: ADD_FOOTER_OPTIONS,
   payload: options,
+});
+
+export const openMenu = () => ({
+  type: OPEN_HEADER_MENU,
+});
+
+export const closeMenu = () => ({
+  type: CLOSE_HEADER_MENU,
+});
+
+export const setMenuState = isOpen => ({
+  type: OPEN_HEADER_MENU,
+  isOpen,
 });

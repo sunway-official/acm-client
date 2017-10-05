@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ForgotPasswordForm from './Form';
 
 const ForgotPasswordScene = () => <ForgotPasswordForm />;
@@ -13,6 +12,10 @@ ForgotPasswordScene.header = {
 
 ForgotPasswordScene.footer = {
   disable: true,
+};
+
+ForgotPasswordScene.drawer = {
+  disableGestures: true,
 };
 
 export default ForgotPasswordScene;

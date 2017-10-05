@@ -8,8 +8,16 @@ import styles from './styles';
 class Header extends Component {
   static propTypes = {
     avatar: PropTypes.string,
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object,
     address: PropTypes.string,
+  };
+
+  static defaultProps = {
+    user: {
+      firstname: 'Sunway',
+      lastname: 'Team',
+      email: 'sunway.offical@gmail.com',
+    },
   };
 
   constructor(props, context) {
@@ -31,7 +39,7 @@ class Header extends Component {
     return (
       <View style={styles.infoContainer}>
         <Text style={[styles.primaryTextColor, styles.username]} bold>
-          {user.lastname} {user.firstname}
+          {user.firstname} {user.lastname}
         </Text>
         <Text style={styles.primaryTextColor}>
           {user.email}

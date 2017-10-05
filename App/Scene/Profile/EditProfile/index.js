@@ -46,8 +46,4 @@ class ProfileEditing extends Component {
 
 const Scene = graphql(gql(mutation))(ProfileEditing);
 
-Scene.drawer = {
-  primary: true,
-};
-
 export default Scene;

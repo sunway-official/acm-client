@@ -18,10 +18,10 @@ const _renderHeaderImage = () =>
   <View style={styles.imageContainer}>
     <Image style={styles.image} source={Images.forgotPassword} />
     <Text bold style={styles.title}>
-      Forgot Your Password?
+      Forgot Your Password
     </Text>
     <Text light style={styles.description}>
-      Enter your email below to reset your password
+      Enter your email to retrieve your own password
     </Text>
   </View>;
 

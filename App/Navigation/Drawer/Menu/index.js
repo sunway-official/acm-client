@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, Image } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { View as AnimatableView } from 'react-native-animatable';
-import { Text, TouchableView } from '~/Component';
+import { AnimatableView } from '~/Component';
+import { Text } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
 import { KEY as ROUTES_KEY } from '~/Redux/Routes';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
@@ -18,6 +18,7 @@ const USER_EMAIL = 'unknow@gmail.com';
 const MENU_ITEMS_ANIMATION = 'fadeInUp';
 const DROPDOWN_ICON_ANIMATION = 'rotate';
 const ANIMATION_DELAY = 300;
+const ACTIVE_TOUCHABLE_OPACITY = 0.4;
 
 class Menu extends Component {
   static propTypes = {
@@ -68,10 +69,10 @@ class Menu extends Component {
     };
     return (
       <View style={styles.dropdownButtonWrapper}>
-        <TouchableView
+        <TouchableOpacity
           style={styles.dropdownButtonTouchableView}
-          borderless={true}
           onPress={onPress}
+          activeOpacity={ACTIVE_TOUCHABLE_OPACITY}
         >
           <AnimatableView ref={ref => (icon = ref)}>
             <Icon
@@ -81,8 +82,19 @@ class Menu extends Component {
               type="material-icons"
             />
           </AnimatableView>
-        </TouchableView>
+        </TouchableOpacity>
       </View>
+    );
+  }
+
+  _withWrapper(element) {
+    return (
+      <AnimatableView
+        animation={MENU_ITEMS_ANIMATION}
+        duration={ANIMATION_DELAY}
+      >
+        {element}
+      </AnimatableView>
     );
   }
 
@@ -103,7 +115,7 @@ class Menu extends Component {
         );
       }
     });
-    return this._renderMenuWrapper(items);
+    return this._withWrapper(items);
   }
 
   _renderSecondaryMenu() {
@@ -123,18 +135,7 @@ class Menu extends Component {
         );
       }
     });
-    return this._renderMenuWrapper(items);
-  }
-
-  _renderMenuWrapper(element) {
-    return (
-      <AnimatableView
-        animation={MENU_ITEMS_ANIMATION}
-        duration={ANIMATION_DELAY}
-      >
-        {element}
-      </AnimatableView>
-    );
+    return this._withWrapper(items);
   }
 
   render() {

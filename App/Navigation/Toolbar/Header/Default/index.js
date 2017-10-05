@@ -5,10 +5,16 @@ import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 import { Text, TouchableView } from '~/Component';
 import { Colors, Metrics, Icons } from '~/Theme';
+import { openMenu } from '~/Redux/Toolbar/action';
 import styles from '../styles';
 
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
+
+const ICON_SHAPE = PropTypes.PropTypes.shape({
+  name: PropTypes.string,
+  type: PropTypes.oneOf(Icons.ICON_TYPE),
+}).isRequired;
 
 class DefaultHeaderContent extends Component {
   static propTypes = {
@@ -22,15 +28,29 @@ class DefaultHeaderContent extends Component {
     onIconPress: PropTypes.func,
     actions: PropTypes.arrayOf(
       PropTypes.shape({
-        icon: PropTypes.PropTypes.shape({
-          name: PropTypes.string,
-          type: PropTypes.oneOf(Icons.ICON_TYPE),
-        }).isRequired,
+        icon: ICON_SHAPE,
         onPress: PropTypes.func.isRequired,
         // counter: PropTypes.shape(),
       }),
     ),
+    menu: PropTypes.shape({
+      icon: ICON_SHAPE,
+      actions: PropTypes.arrayOf(
+        PropTypes.shape({
+          icon: ICON_SHAPE,
+          onPress: PropTypes.func.isRequired,
+          // counter: PropTypes.shape(),
+        }),
+      ),
+    }),
     dispatch: PropTypes.func,
+  };
+
+  static defaultProps = {
+    menu: {
+      icon: {},
+      actions: [],
+    },
   };
 
   constructor(props) {
@@ -68,11 +88,30 @@ class DefaultHeaderContent extends Component {
     };
   };
 
+  _renderMenus() {
+    const { dispatch, menu: { icon, actions } } = this.props;
+    if (actions.length === 0) return null;
+    return (
+      <TouchableView
+        {...this._touchableViewStyles()}
+        style={[styles.rightIconWrapper, styles.firstRightIcon]}
+        onPress={() => dispatch(openMenu())}
+      >
+        <Icon
+          name="more-vert"
+          {...icon}
+          onPress={undefined}
+          {...this._iconStyles()}
+        />
+      </TouchableView>
+    );
+  }
+
   _renderAction({ icon, onPress = () => {} }, index) {
     let actionWrapperStyles = [styles.rightIconWrapper];
 
-    const { dispatch } = this.props;
-    if (index === 0) {
+    const { dispatch, menu } = this.props;
+    if (index === 0 && menu.actions.length === 0) {
       actionWrapperStyles = [...actionWrapperStyles, styles.firstRightIcon];
     }
     return (
@@ -83,7 +122,7 @@ class DefaultHeaderContent extends Component {
         onPress={() => onPress(dispatch)}
       >
         <Icon
-          name="more-vert"
+          name="home"
           {...icon}
           onPress={undefined}
           {...this._iconStyles()}
@@ -119,6 +158,7 @@ class DefaultHeaderContent extends Component {
             </View>
           </View>}
         <View style={styles.rightWrapper}>
+          {this._renderMenus()}
           {actions.map(this._renderAction)}
         </View>
       </View>

@@ -12,43 +12,18 @@ import { NavigationActions } from '~/Redux/Navigation';
 import query from '~/Graphql/query/me.graphql';
 
 const PRIMARY_HEADER = {
-  title: 'Dung Le',
   hideTitle: false,
-  backgroundColor: Colors.red,
-  statusBarBackgroundColor: Colors.red,
+  backgroundColor: Colors.primary,
+  statusBarBackgroundColor: Colors.primary,
 };
 
 const SECONDARY_HEADER = {
   hideTitle: true,
   backgroundColor: Colors.transparent,
-  statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
+  statusBarBackgroundColor: Colors.transparent,
 };
 
 class ProfileScene extends Component {
-  static header = {
-    leftIcon: 'drawer',
-    hideTitle: true,
-    float: true,
-    theme: 'dark',
-    backgroundColor: Colors.transparent,
-    statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
-    actions: [
-      {
-        icon: {
-          name: 'lead-pencil',
-          type: 'material-community',
-        },
-        onPress: dispatch =>
-          dispatch(NavigationActions.navigate({ routename: 'profileEditing' })),
-      },
-    ],
-  };
-
-  static footer = {
-    show: true,
-    activeColor: Colors.red,
-  };
-
   static propTypes = {
     setCustomHeader: PropTypes.func,
     data: PropTypes.shape({
@@ -58,15 +33,19 @@ class ProfileScene extends Component {
 
   constructor(props) {
     super(props);
-    this._handleScrollToBottom = this._handleScrollToBottom.bind(this);
+    this._handleScrolling = this._handleScrolling.bind(this);
   }
 
-  _handleScrollToBottom(e) {
-    const y = e.nativeEvent.contentOffset.y;
+  _handleScrolling(e) {
+    const { data: { me }, setCustomHeader } = this.props;
+    const { y } = e.nativeEvent.contentOffset;
     if (y > 150) {
-      this.props.setCustomHeader(PRIMARY_HEADER);
+      setCustomHeader({
+        ...PRIMARY_HEADER,
+        title: `${me.firstname} ${me.lastname}`,
+      });
     } else {
-      this.props.setCustomHeader(SECONDARY_HEADER);
+      setCustomHeader(SECONDARY_HEADER);
     }
   }
 
@@ -75,7 +54,7 @@ class ProfileScene extends Component {
     return (
       <ScrollView
         scrollEventThrottle={16}
-        onScroll={e => this._handleScrollToBottom(e)}
+        onScroll={this._handleScrolling}
         contentContainerStyle={{
           flexGrow: 1,
         }}
@@ -91,6 +70,46 @@ class ProfileScene extends Component {
     );
   }
 }
+
+ProfileScene.header = {
+  leftIcon: 'drawer',
+  hideTitle: true,
+  float: true,
+  theme: 'dark',
+  backgroundColor: Colors.transparent,
+  statusBarBackgroundColor: Colors.transparent,
+  menu: {
+    icon: {
+      name: 'lead-pencil',
+      type: 'material-community',
+    },
+    actions: [
+      {
+        title: 'Change password',
+        icon: {
+          name: 'lock-outline',
+          // type: 'material-community',
+        },
+        onPress: dispatch =>
+          dispatch(NavigationActions.navigate({ routeName: 'changePassword' })),
+      },
+      {
+        title: 'Update Information',
+        icon: {
+          name: 'account-box',
+          // type: 'material-community',
+        },
+        onPress: dispatch =>
+          dispatch(NavigationActions.navigate({ routeName: 'editProfile' })),
+      },
+    ],
+  },
+};
+
+ProfileScene.footer = {
+  show: true,
+  activeColor: Colors.red,
+};
 
 const mapDispatchToProps = dispatch => ({
   setCustomHeader: header => dispatch(addHeaderOptions(header)),

@@ -8,7 +8,7 @@ import styles from './styles';
 
 const text = ['Welcome to Setting Scene!'];
 
-const SettingScene = ({ login }) =>
+const SettingScene = ({ home }) =>
   <View style={styles.container}>
     <View style={styles.centerText}>
       {text.map((text, index) =>
@@ -17,7 +17,7 @@ const SettingScene = ({ login }) =>
         </Text>,
       )}
     </View>
-    <Button title="Login" onPress={login} />
+    <Button title="Home" onPress={home} />
   </View>;
 
 SettingScene.drawer = {
@@ -26,22 +26,14 @@ SettingScene.drawer = {
 
 SettingScene.header = {
   leftIcon: 'drawer',
-  actions: [
-    {
-      icon: {},
-      onPress: () => {
-        console.log('hello there');
-      },
-    },
-  ],
 };
 
 SettingScene.propTypes = {
-  login: PropTypes.func,
+  home: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
-  login: () => dispatch(NavigationActions.navigate({ routeName: 'login' })),
+  home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
 });
 
 export default connect(undefined, mapDispatchToProps)(SettingScene);

@@ -5,7 +5,7 @@ import NewsFeed from '~/Scene/NewsFeed';
 import Notification from '~/Scene/Notification';
 import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
-import ProfileEditing from '~/Scene/Profile/ProfileEditing';
+import EditProfile from '~/Scene/Profile/EditProfile';
 import Setting from '~/Scene/Setting';
 import Schedule from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
@@ -55,7 +55,7 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  'news-feed': {
+  newsFeed: {
     name: 'News Feed',
     path: '/news-feed',
     screen: NewsFeed,
@@ -63,7 +63,6 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    initial: true,
   },
   schedule: {
     name: 'Schedule',
@@ -98,6 +97,7 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
+    initial: true,
   },
   changePassword: {
     name: 'Change Password',
@@ -108,10 +108,10 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  profileEditing: {
+  editProfile: {
     name: 'Edit Profile',
     path: '/profile/edit',
-    screen: ProfileEditing,
+    screen: EditProfile,
     icon: {
       name: 'face-profile',
       type: 'material-community',
