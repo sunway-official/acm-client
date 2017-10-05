@@ -7,11 +7,16 @@ import ItemDetail from './Detail';
 import { DATE_FORMAT } from 'react-native-dotenv';
 import styles from './styles';
 
+const TODAY = moment().format(DATE_FORMAT);
+console.log(TODAY);
+
 const MyAgendaItem = ({ activities, date, color }) => {
   activities = activities.filter(item => item.active);
   // const month = moment(date, DATE_FORMAT).format('MMM');
   const day = moment(date, DATE_FORMAT).format('D');
   const stringDay = moment(date, DATE_FORMAT).format('ddd');
+  const isToday = moment(TODAY).isSame(date);
+
   return (
     <View style={styles.container}>
       <View style={styles.headerWrapper}>
@@ -22,10 +27,10 @@ const MyAgendaItem = ({ activities, date, color }) => {
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.contentDate}>
-          <Text style={styles.textDay} bold>
+          <Text style={[styles.textDay, isToday ? styles.todayDayInner : {}]}>
             {day}
           </Text>
-          <Text style={styles.textMonth}>
+          <Text style={[styles.textMonth, isToday ? styles.todayDayInner : {}]}>
             {stringDay}
           </Text>
         </View>

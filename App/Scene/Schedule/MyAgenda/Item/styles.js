@@ -4,9 +4,9 @@ import { Fonts, Metrics, Colors } from '~/Theme';
 const Schedule = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingTop: Metrics.smallMargin,
     paddingVertical: Metrics.baseMargin,
     paddingRight: Metrics.doubleBaseMargin,
+    alignItems: 'center',
   },
   blurWrapper: {
     position: 'absolute',
@@ -27,11 +27,12 @@ const Schedule = StyleSheet.create({
   },
   contentWrapper: {
     flex: 1,
-    // marginLeft: Metrics.doubleBaseMargin,
+    marginLeft: Metrics.doubleBaseMargin,
   },
   textDay: {
-    fontSize: Fonts.size.h6,
+    fontSize: Fonts.size.h5,
   },
+  todayDayInner: { color: Colors.blue },
   textMonth: {
     fontSize: Fonts.size.medium,
   },

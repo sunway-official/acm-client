@@ -106,7 +106,7 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
+    // initial: true,
   },
   changePassword: {
     name: 'Change Password',
