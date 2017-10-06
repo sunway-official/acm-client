@@ -22,7 +22,7 @@ class DatePickerForm extends Component {
     const {
       input: { value, onChange },
       containerStyle,
-      ...othersProps
+      ...others
     } = this.props;
     return (
       <View style={[styles.container, containerStyle]}>
@@ -37,7 +37,7 @@ class DatePickerForm extends Component {
           cancelBtnText="Cancel"
           onDateChange={date => onChange(date)}
           customStyles={customStyles}
-          {...othersProps}
+          {...others}
         />
       </View>
     );

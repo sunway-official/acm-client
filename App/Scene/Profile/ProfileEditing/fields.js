@@ -5,6 +5,11 @@ import GenderForm from './Gender';
 const inputForms = {
   firstname: {
     title: 'Firstname',
+    icon: {
+      name: 'user',
+      type: 'font-awesome',
+      color: '#9b59b6',
+    },
     field: {
       name: 'firstname',
       validate: [required],
@@ -15,6 +20,11 @@ const inputForms = {
   },
   lastname: {
     title: 'Lastname',
+    icon: {
+      name: 'user',
+      type: 'font-awesome',
+      color: '#1abc9c',
+    },
     field: {
       name: 'lastname',
       validate: [required],
@@ -25,6 +35,11 @@ const inputForms = {
   },
   gender: {
     title: 'Gender',
+    icon: {
+      name: 'gender-male-female',
+      type: 'material-community',
+      color: '#f1c40f',
+    },
     field: {
       name: 'gender',
       component: GenderForm,
@@ -35,6 +50,11 @@ const inputForms = {
   },
   dob: {
     title: 'Birthday',
+    icon: {
+      name: 'cake',
+      type: 'entypo',
+      color: '#e74c3c',
+    },
     field: {
       name: 'dob',
       component: DatePicker,
@@ -45,6 +65,9 @@ const inputForms = {
   },
   bio: {
     title: 'Biography',
+    icon: {
+      name: 'description',
+    },
     field: {
       name: 'bio',
       props: {
@@ -55,6 +78,11 @@ const inputForms = {
   },
   facebook_id: {
     title: 'Facebook',
+    icon: {
+      name: 'facebook-box',
+      type: 'material-community',
+      color: '#4267B2',
+    },
     field: {
       name: 'facebook',
       props: {
@@ -64,6 +92,11 @@ const inputForms = {
   },
   twitter_id: {
     title: 'Twitter',
+    icon: {
+      name: 'twitter',
+      type: 'material-community',
+      color: '#1DA1F2',
+    },
     field: {
       name: 'twitter',
       props: {
@@ -73,6 +106,11 @@ const inputForms = {
   },
   linked_id: {
     title: 'Linked',
+    icon: {
+      name: 'linkedin-box',
+      type: 'material-community',
+      color: '#0073B1',
+    },
     field: {
       name: 'linked',
       props: {

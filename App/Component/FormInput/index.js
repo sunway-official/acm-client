@@ -21,7 +21,7 @@ class FormInput extends PureComponent {
       input,
       containerStyle,
       meta: { touched, error, warning },
-      ...custom
+      ...others
     } = this.props;
 
     const defaultUnderline = { borderColor: Colors.lightGrey };
@@ -36,7 +36,7 @@ class FormInput extends PureComponent {
 
     return (
       <View style={[containerStyle]}>
-        <TextInput style={[styles.textInput]} {...input} {...custom} />
+        <TextInput style={[styles.textInput]} {...input} {...others} />
         {!touched && <Text style={[styles.defaultText, defaultUnderline]} />}
         {touched &&
           ((error &&

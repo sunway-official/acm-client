@@ -6,7 +6,7 @@ const { white, primary } = Colors;
 
 const ProfileEditing = StyleSheet.create({
   formContainer: { padding: baseMargin },
-  inputContainer: { marginBottom: doubleBaseMargin },
+  inputContainer: { marginBottom: doubleBaseMargin, flexDirection: 'row' },
   submitBtn: {
     marginTop: doubleBaseMargin,
     backgroundColor: primary,

@@ -60,7 +60,6 @@ class ProfileEditing extends Component {
 
   render() {
     const { data: { me, loading } } = this.props;
-    console.log(this.props.data);
     return (
       <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={85}>
         <ScrollView style={styles.container}>

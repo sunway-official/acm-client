@@ -60,7 +60,7 @@ class GenderForm extends Component {
   }
 
   _renderModal() {
-    const { state: { isOpen } } = this;
+    const { state: { isOpen }, props: { input: { value } } } = this;
     return (
       <Modal
         isVisible={isOpen}
@@ -71,17 +71,23 @@ class GenderForm extends Component {
       >
         <View style={styles.modalContent}>
           {data.map((gender, index) =>
-            <View key={index} style={styles.subContent}>
+            <TouchableOpacity
+              key={index}
+              style={styles.subContent}
+              onPress={() => this._onCheck(index)}
+            >
               <Text>
                 {gender.name}
               </Text>
-              <TouchableOpacity onPress={() => this._onCheck(index)}>
-                <Icon
-                  name={gender.check ? 'radiobox-marked' : 'radiobox-blank'}
-                  type="material-community"
-                />
-              </TouchableOpacity>
-            </View>,
+              <Icon
+                name={
+                  value.value === gender.value
+                    ? 'radiobox-marked'
+                    : 'radiobox-blank'
+                }
+                type="material-community"
+              />
+            </TouchableOpacity>,
           )}
         </View>
       </Modal>
@@ -89,13 +95,22 @@ class GenderForm extends Component {
   }
 
   render() {
-    const { props: { input: { value }, ...othersProps } } = this;
-    // console.log(this.props);
+    const { props: { input: { value }, ...others } } = this;
 
     return (
-      <View>
-        <TouchableOpacity activeOpacity={1} onPress={() => this._openModal()}>
-          <TextInput value={value.name} {...othersProps} />
+      <View style={{ flex: 11 }}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={this._openModal}
+          style={{
+            // backgroundColor: 'red',
+            borderBottomWidth: 1,
+            borderBottomColor: '#ecf0f1',
+            paddingVertical: 8,
+            // paddingBottom: 4,
+          }}
+        >
+          <TextInput value={value.name} {...others} />
         </TouchableOpacity>
         {this._renderModal()}
       </View>
