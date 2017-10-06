@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '../../Theme';
+import { Metrics, Colors, Fonts } from '~/Theme';
 
 const { baseMargin, doubleBaseMargin, screenWidth } = Metrics;
 const { white, grey } = Colors;
 const photoHeight = screenWidth / 1.8; // (screenWidth / (photoWidth / photoHeight))
 
-const Activities = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     backgroundColor: white,
     padding: baseMargin,
@@ -49,5 +49,3 @@ const Activities = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-export default Activities;

@@ -1,10 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics } from '../../../Theme';
+import { Metrics } from '~/Theme';
 
 const { baseMargin, doubleBaseMargin, doubleSection } = Metrics;
-const { grey } = Colors;
 
-const Comments = StyleSheet.create({
+export default StyleSheet.create({
   commentInputBoxContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -16,7 +15,7 @@ const Comments = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     borderRadius: doubleSection,
-    borderColor: grey,
+    borderColor: '#bdc3c7',
     marginLeft: doubleBaseMargin,
     height: 40,
   },
@@ -25,6 +24,7 @@ const Comments = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: doubleBaseMargin,
   },
+  sendCommentBtn: {
+    color: '#bdc3c7',
+  },
 });
-
-export default Comments;

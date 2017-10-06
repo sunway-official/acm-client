@@ -1,17 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics } from '../../../Theme';
+import { Colors, Metrics } from '~/Theme';
 
 const { baseMargin, doubleBaseMargin } = Metrics;
 const { white, primary } = Colors;
 
-const ProfileEditing = StyleSheet.create({
-  container: {
-    margin: baseMargin,
-    backgroundColor: white,
-  },
+export default StyleSheet.create({
   formContainer: { padding: baseMargin },
-  inputContainer: { marginBottom: doubleBaseMargin },
+  inputContainer: { marginBottom: doubleBaseMargin, flexDirection: 'row' },
   submitBtn: {
+    marginTop: doubleBaseMargin,
     backgroundColor: primary,
     padding: baseMargin,
   },
@@ -20,5 +17,3 @@ const ProfileEditing = StyleSheet.create({
     color: white,
   },
 });
-
-export default ProfileEditing;

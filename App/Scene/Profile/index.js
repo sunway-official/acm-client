@@ -27,7 +27,7 @@ class ProfileScene extends Component {
   static propTypes = {
     setCustomHeader: PropTypes.func,
     data: PropTypes.shape({
-      loading: PropTypes.bool,
+      me: PropTypes.object.isRequired,
     }),
   };
 
@@ -88,7 +88,6 @@ ProfileScene.header = {
         title: 'Change password',
         icon: {
           name: 'lock-outline',
-          // type: 'material-community',
         },
         onPress: dispatch =>
           dispatch(NavigationActions.navigate({ routeName: 'changePassword' })),
@@ -97,10 +96,9 @@ ProfileScene.header = {
         title: 'Update Information',
         icon: {
           name: 'account-box',
-          // type: 'material-community',
         },
         onPress: dispatch =>
-          dispatch(NavigationActions.navigate({ routeName: 'editProfile' })),
+          dispatch(NavigationActions.navigate({ routeName: 'profileEditing' })),
       },
     ],
   },

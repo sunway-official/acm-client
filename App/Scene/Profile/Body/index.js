@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Text, TouchableView } from '~/Component';
-import { Colors } from '../../../Theme';
+import { Colors } from '~/Theme';
 import Content from './Content';
 import styles from './styles';
 import { news, followers } from '../fixture';
@@ -109,8 +109,7 @@ class Body extends Component {
   }
 
   _renderContent() {
-    const { tabs } = this.state;
-    const { user } = this.props;
+    const { state: { tabs }, props: { user } } = this;
     let tab = '';
     Object.keys(tabs).forEach(key => {
       if (tabs[key].isActive || tabs[key].initial) {

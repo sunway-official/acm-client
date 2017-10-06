@@ -44,7 +44,6 @@ const colors = {
   lightGrey: '#fafafa',
   lightDeepOrange: '#FFAB91', // 200
   darkDeepOrange: '#D84315', // 800
-  lightGrey: '#EEEEEE', // 200
   darkRed: '#C62828', // 800
 };
 
