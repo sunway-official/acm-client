@@ -4,22 +4,35 @@
 const colors = {
   // core colors
   red: '#F44336',
+  lightRed: '#FF8A80',
   pink: '#E91E63',
+  lightPink: '#FF80AB',
   purple: '#9C27B0',
+  lightPurple: '#EA80FC',
   deepPurple: '#673AB7',
+  lightDeepPurple: '#B388FF',
   indigo: '#3F51B5',
+  lightIndigo: '#8C9EFF',
   blue: '#2196F3',
   lightBlue: '#03A9F4',
   cyan: '#00BCD4',
+  lightCyan: '#84FFFF',
   teal: '#009688',
+  lightTeal: '#A7FFEB',
   green: '#4CAF50',
-  lightGreen: '#8BC34A',
+  lightGreen: '#B9F6CA',
   lime: '#CDDC39',
+  lightLime: '#F4FF81',
   yellow: '#FFEB3B',
+  lightYellow: '#FFFF8D',
   amber: '#FFC107',
+  lightAmber: '#FFE57F',
   orange: '#FF9800',
+  lightOrange: '#FFD180',
   deepOrange: '#FF5722',
+  lightDeepOrange: '#FF9E80',
   brown: '#795548',
+  lightBrown: '#D7CCC8',
   blueGrey: '#607D8B',
   black: '#000000',
   white: '#FFFFFF',
@@ -31,7 +44,6 @@ const colors = {
   lightGrey: '#fafafa',
   lightDeepOrange: '#FFAB91', // 200
   darkDeepOrange: '#D84315', // 800
-  lightGrey: '#EEEEEE', // 200
   darkRed: '#C62828', // 800
 };
 

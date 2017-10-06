@@ -13,3 +13,5 @@ const Activities = () => {
 };
 
 Activities.propTypes = {};
+
+export default Activities;

@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { Colors, Metrics } from '~/Theme';
-import Detail from '../Detail/Agenda';
+import Detail from './List';
 import Fixture from '../fixture';
+import { navigate } from '~/Redux/Navigation/action';
 
 const tabs = {};
 Fixture.map((schedule, index) => {
-  let key = 'Day ' + (index + 1);
+  const key = 'Day ' + (index + 1);
+  const { activities, date } = schedule;
   tabs = {
     ...tabs,
     [key]: {
-      screen: () => <Detail schedule={schedule} />,
-      navigationOptions: { tabBarLabel: schedule.date },
+      screen: () => <Detail detail={activities} />,
+      navigationOptions: { tabBarLabel: date },
     },
   };
 });
@@ -24,22 +26,33 @@ const TabsView = TabNavigator(tabs, {
   tabBarOptions: {
     scrollEnabled: true,
     indicatorStyle: {
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
     },
     style: {
-      backgroundColor: 'transparent',
-      marginBottom: Metrics.smallMargin,
+      backgroundColor: Colors.primary,
     },
-    labelStyle: { margin: 0, color: Colors.black },
+    labelStyle: {
+      margin: Metrics.smallMargin,
+      color: Colors.white,
+    },
     upperCaseLabel: false,
   },
 });
 
-class Agenda extends Component {
-  static propTypes = {};
-  render() {
-    return <TabsView />;
-  }
-}
+TabsView.header = {
+  theme: 'dark',
+  actions: [
+    {
+      icon: {
+        name: 'calendar-today',
+        type: 'material-community',
+      },
+      onPress: dispatch => dispatch(navigate({ routeName: 'myAgenda' })),
+    },
+  ],
+};
+TabsView.drawer = {
+  primary: true,
+};
 
-export default Agenda;
+export default TabsView;

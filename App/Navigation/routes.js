@@ -7,7 +7,7 @@ import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
 import ProfileEditing from '~/Scene/Profile/ProfileEditing';
 import Setting from '~/Scene/Setting';
-import Schedule from '~/Scene/Schedule';
+import { Agenda, MyAgenda } from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
 import ChangePassword from '~/Scene/Profile/ChangePassword';
 
@@ -63,20 +63,29 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
+    initial: true,
   },
-  schedule: {
-    name: 'Schedule',
-    path: '/schedule',
-    screen: Schedule,
+  myAgenda: {
+    name: 'My Agenda',
+    path: '/my-agenda',
+    screen: MyAgenda,
     icon: {
-      name: 'calendar-blank',
+      name: 'calendar-today',
       type: 'material-community',
     },
     activeIcon: {
       name: 'calendar-text',
       type: 'material-community',
     },
-    // initial: true,
+  },
+  agenda: {
+    name: 'Agenda',
+    path: '/agenda',
+    screen: Agenda,
+    icon: {
+      name: 'calendar-range',
+      type: 'material-community',
+    },
   },
   people: {
     name: 'People',
@@ -115,7 +124,6 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
   },
   notification: {
     name: 'Notification',
