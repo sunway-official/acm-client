@@ -22,9 +22,9 @@ const Schedule = StyleSheet.create({
   },
   contentDate: {
     paddingTop: Metrics.smallMargin,
+    paddingLeft: Metrics.doubleBaseMargin,
     width: 48,
-
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   contentWrapper: {
     flex: 1,
@@ -40,10 +40,12 @@ const Schedule = StyleSheet.create({
   },
   textDay: {
     fontSize: Fonts.size.h5,
+    // color: Colors.grey,
   },
   todayDayInner: { color: Colors.deepOrange },
   textMonth: {
     fontSize: Fonts.size.medium,
+    // color: Colors.grey,
   },
   itemWrapper: {
     flex: 1,
