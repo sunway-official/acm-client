@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { Colors } from '~/Theme';
 import PropTypes from 'prop-types';
 import Item from '../Item';

@@ -6,7 +6,7 @@ import moment from 'moment';
 import ItemDetail from './Detail';
 import { DATE_FORMAT } from 'react-native-dotenv';
 import styles from './styles';
-import { Colors, Metrics } from '~/Theme';
+import { Colors } from '~/Theme';
 import { Icon } from 'react-native-elements';
 
 const TODAY = moment().format(DATE_FORMAT);
@@ -25,7 +25,7 @@ const ACTIVE_ITEM_ICON = {
   size: 17,
 };
 
-const MyAgendaItem = ({ activities, date, color }) => {
+const MyAgendaItem = ({ activities, date }) => {
   activities = activities.filter(item => item.active);
   // const month = moment(date, DATE_FORMAT).format('MMM');
   const day = moment(date, DATE_FORMAT).format('D');
