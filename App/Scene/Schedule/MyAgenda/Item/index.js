@@ -19,8 +19,8 @@ const DEFAULT_ITEM_ICON = {
 };
 
 const ACTIVE_ITEM_ICON = {
-  type: 'foundation',
-  name: 'ticket',
+  type: 'font-awesome',
+  name: 'dot-circle-o',
   color: Colors.primary,
   size: 15,
 };

@@ -21,9 +21,10 @@ const Schedule = StyleSheet.create({
     flexDirection: 'row',
   },
   contentDate: {
-    marginLeft: Metrics.doubleBaseMargin,
     paddingTop: Metrics.smallMargin,
     width: 48,
+
+    alignItems: 'center',
   },
   contentWrapper: {
     flex: 1,
@@ -31,6 +32,7 @@ const Schedule = StyleSheet.create({
   },
   lineWrapper: {
     marginTop: Metrics.doubleBaseMargin,
+    marginLeft: Metrics.baseMargin,
   },
   circleBackground: {
     backgroundColor: Colors.white,

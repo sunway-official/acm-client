@@ -7,7 +7,7 @@ const Schedule = StyleSheet.create({
   },
   verticalLine: {
     position: 'absolute',
-    left: 70,
+    left: 62,
     borderLeftWidth: 2,
     borderLeftColor: Colors.lightGrey,
     height: '100%',
