@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics, Fonts } from '../../../Theme';
+import { Colors, Metrics, Fonts } from '~/Theme';
 
-const Body = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -25,5 +25,3 @@ const Body = StyleSheet.create({
     fontSize: Fonts.size.small,
   },
 });
-
-export default Body;

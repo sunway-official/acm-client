@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Colors, Metrics } from '../../Theme';
+import { Colors, Metrics } from '~/Theme';
 import { Text, UserAvatar } from '~/Component';
 import Comments from './Comments';
 import styles from './styles';

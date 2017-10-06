@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors } from '../../../../Theme';
+import { Metrics, Colors } from '~/Theme';
 
 const { baseMargin } = Metrics;
 const { white } = Colors;
