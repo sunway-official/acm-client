@@ -12,7 +12,7 @@ const Schedule = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(255,255,255,0.3)',
+    backgroundColor: 'rgba(255,255,255,0.5)',
   },
   headerWrapper: {
     marginLeft: Metrics.doubleBaseMargin,
@@ -22,9 +22,9 @@ const Schedule = StyleSheet.create({
   },
   contentDate: {
     paddingTop: Metrics.smallMargin,
-    paddingLeft: Metrics.doubleBaseMargin,
+    paddingLeft: Metrics.baseMargin,
     width: 48,
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   contentWrapper: {
     flex: 1,
@@ -55,6 +55,7 @@ const Schedule = StyleSheet.create({
     marginTop: Metrics.baseMargin,
     borderWidth: 2,
     borderColor: Colors.lightGrey,
+    borderRadius: Metrics.buttonCornerRadius,
   },
   itemInfo: {
     flex: 1,

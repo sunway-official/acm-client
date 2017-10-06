@@ -7,6 +7,50 @@ const addDays = days => moment(TODAY).add(days, 'd').format(DATE_FORMAT);
 
 const SCHEDULES = [
   {
+    date: addDays(-1),
+    activities: [
+      {
+        title: 'Breakfast',
+        time: '8 AM',
+        shortDescription:
+          'Eat and talk about something that can be impossible.',
+      },
+      {
+        title: 'Short Talk',
+        time: '10 AM',
+        shortDescription: 'Chatting time',
+        active: true,
+      },
+      {
+        title: 'React native',
+        time: '11 AM',
+        shortDescription: 'React, React native & Redux.',
+      },
+      {
+        title: 'Lunch',
+        time: '1 PM',
+        shortDescription: 'Eat and talk.',
+      },
+      {
+        title: 'Internet of Things',
+        time: '3 PM',
+        shortDescription: 'IoT, ML,...',
+        active: true,
+      },
+      {
+        title: 'MongoDB',
+        time: '5 PM',
+        shortDescription: 'MongoDB and why it is better using NoSQL',
+      },
+      {
+        title: 'NodeJS',
+        time: '7 PM',
+        shortDescription:
+          'Learn how to deploy a Nodejs server built with Express in 2 hours.',
+      },
+    ],
+  },
+  {
     date: addDays(0),
     activities: [
       {

@@ -22,7 +22,7 @@ const ACTIVE_ITEM_ICON = {
   type: 'font-awesome',
   name: 'dot-circle-o',
   color: Colors.primary,
-  size: 15,
+  size: 17,
 };
 
 const MyAgendaItem = ({ activities, date, color }) => {
@@ -32,6 +32,7 @@ const MyAgendaItem = ({ activities, date, color }) => {
   const stringDay = moment(date, DATE_FORMAT).format('ddd');
   const currentDate = moment(date, DATE_FORMAT).format(DATE_FORMAT);
   const isToday = TODAY == currentDate;
+  const isBefore = TODAY > currentDate;
 
   return (
     <View style={styles.container}>
@@ -41,7 +42,7 @@ const MyAgendaItem = ({ activities, date, color }) => {
         </Text>
         <Text style={styles.headerTextDay}>April</Text>*/}
       </View>
-      <View style={styles.contentContainer}>
+      <View style={[styles.contentContainer, isBefore ? { opacity: 0.5 } : {}]}>
         <View style={styles.contentDate}>
           <Text style={[styles.textDay, isToday ? styles.todayDayInner : {}]}>
             {day}

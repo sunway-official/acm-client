@@ -11,7 +11,6 @@ import { Colors, Metrics } from '~/Theme';
  * so that there will be many things that is not correct
  * change anything if you want to override
  */
-
 class ItemDetail extends Component {
   constructor(props) {
     super(props);
@@ -28,9 +27,10 @@ class ItemDetail extends Component {
 
   render() {
     const { title, time, shortDescription } = this.props;
+
     return (
       <View>
-        <View style={[styles.itemWrapper]}>
+        <View style={styles.itemWrapper}>
           <View style={styles.itemInfo}>
             <Text style={[styles.itemText]} bold>
               {title}
