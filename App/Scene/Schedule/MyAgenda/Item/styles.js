@@ -28,7 +28,7 @@ const Schedule = StyleSheet.create({
   },
   contentWrapper: {
     flex: 1,
-    marginLeft: Metrics.doubleBaseMargin * 2,
+    marginLeft: Metrics.doubleBaseMargin * 1.8,
   },
   lineWrapper: {
     marginTop: Metrics.doubleBaseMargin,
@@ -40,7 +40,6 @@ const Schedule = StyleSheet.create({
   },
   textDay: {
     fontSize: Fonts.size.h5,
-    // color: Colors.grey,
   },
   todayDayInner: { color: Colors.deepOrange },
   textMonth: {
@@ -52,22 +51,21 @@ const Schedule = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: Metrics.baseMargin,
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.white,
     marginTop: Metrics.baseMargin,
-    borderTopLeftRadius: 2,
-    borderBottomLeftRadius: 2,
+    borderWidth: 2,
+    borderColor: Colors.lightGrey,
   },
   itemInfo: {
     flex: 1,
     paddingRight: Metrics.doubleBaseMargin,
   },
   itemAction: {
-    // flex: 1,
     marginLeft: 'auto',
     marginRight: Metrics.baseMargin,
   },
   itemText: {
-    color: Colors.white,
+    // color: Colors.white,
   },
 });
 

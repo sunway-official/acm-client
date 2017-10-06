@@ -27,10 +27,10 @@ class ItemDetail extends Component {
   }
 
   render() {
-    const { title, time, shortDescription, backgroundColor } = this.props;
+    const { title, time, shortDescription } = this.props;
     return (
       <View>
-        <View style={[styles.itemWrapper, { backgroundColor }]}>
+        <View style={[styles.itemWrapper]}>
           <View style={styles.itemInfo}>
             <Text style={[styles.itemText]} bold>
               {title}
@@ -50,7 +50,7 @@ class ItemDetail extends Component {
           >
             <Icon
               name={this.state.track ? 'remove-red-eye' : 'restore'}
-              color={Colors.white}
+              color={Colors.black}
               size={Metrics.small}
             />
           </TouchableView>

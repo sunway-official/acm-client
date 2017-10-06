@@ -62,8 +62,7 @@ const MyAgendaItem = ({ activities, date, color }) => {
           <FlatList
             data={activities}
             keyExtractor={(item, index) => index}
-            renderItem={({ item }) =>
-              <ItemDetail {...item} backgroundColor={color.background} />}
+            renderItem={({ item }) => <ItemDetail {...item} />}
           />
         </View>
       </View>
