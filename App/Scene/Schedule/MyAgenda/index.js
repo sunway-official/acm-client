@@ -1,6 +1,36 @@
 import React from 'react';
-import Detail from '../Detail/MyAgenda';
+import { View } from 'react-native';
+import { Colors } from '~/Theme';
+import { navigate } from '~/Redux/Navigation/action';
+import List from './List';
+import fixture from '../fixture';
+import styles from './styles';
 
-const MyAgenda = () => <Detail />;
+// import DatePicker from '~/Component/DatePicker';
+import Text from '~/Component/Text';
+
+const MyAgenda = () =>
+  <View style={styles.container}>
+    {/*<DatePicker date={new Date()} />*/}
+    <List data={fixture} />
+  </View>;
+
+MyAgenda.header = {
+  theme: 'dark',
+  actions: [
+    {
+      icon: {
+        name: 'calendar-range',
+        type: 'material-community',
+      },
+      onPress: dispatch => dispatch(navigate({ routeName: 'agenda' })),
+    },
+  ],
+};
+
+MyAgenda.footer = {
+  show: true,
+  activeColor: Colors.primary,
+};
 
 export default MyAgenda;
