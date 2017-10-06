@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, View, Text } from 'react-native';
 import { Colors } from '~/Theme';
 import PropTypes from 'prop-types';
 import Item from '../Item';
@@ -7,6 +7,8 @@ import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { DATE_FORMAT } from 'react-native-dotenv';
+
+import styles from './styles';
 
 const HEADER_TITLE_DATE_FORMAT = 'MMMM';
 
@@ -64,14 +66,18 @@ const onViewableItemsChangedHandler = ({
 };
 
 const MyAgendaList = ({ data, setHeader }) =>
-  <FlatList
-    data={data}
-    renderItem={({ item, index }) =>
-      <Item {...item} color={getItemColor(index)} />}
-    keyExtractor={(item, index) => index}
-    onViewableItemsChanged={({ ...info }) =>
-      onViewableItemsChangedHandler({ ...info, data, setHeader })}
-  />;
+  <View style={styles.container}>
+    <View style={styles.verticalLine} />
+
+    <FlatList
+      data={data}
+      renderItem={({ item, index }) =>
+        <Item {...item} color={getItemColor(index)} />}
+      keyExtractor={(item, index) => index}
+      onViewableItemsChanged={({ ...info }) =>
+        onViewableItemsChangedHandler({ ...info, data, setHeader })}
+    />
+  </View>;
 
 MyAgendaList.propTypes = {
   data: PropTypes.array,

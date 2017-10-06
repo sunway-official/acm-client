@@ -21,18 +21,25 @@ const Schedule = StyleSheet.create({
     flexDirection: 'row',
   },
   contentDate: {
-    marginLeft: Metrics.doubleBaseMargin * 1.2,
+    marginLeft: Metrics.doubleBaseMargin,
     paddingTop: Metrics.smallMargin,
     width: 48,
   },
   contentWrapper: {
     flex: 1,
-    marginLeft: Metrics.doubleBaseMargin,
+    marginLeft: Metrics.doubleBaseMargin * 2,
+  },
+  lineWrapper: {
+    marginTop: Metrics.doubleBaseMargin,
+  },
+  circleBackground: {
+    backgroundColor: Colors.white,
+    borderRadius: 10,
   },
   textDay: {
     fontSize: Fonts.size.h5,
   },
-  todayDayInner: { color: Colors.blue },
+  todayDayInner: { color: Colors.deepOrange },
   textMonth: {
     fontSize: Fonts.size.medium,
   },
