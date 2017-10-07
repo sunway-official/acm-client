@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '../../../../../Theme';
+import { Metrics, Colors, Fonts } from '~/Theme';
 
 const { baseMargin, doubleBaseMargin } = Metrics;
 const { white, grey } = Colors;
 const { size } = Fonts;
 
-const About = StyleSheet.create({
+export default StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -38,5 +38,3 @@ const About = StyleSheet.create({
     backgroundColor: white,
   },
 });
-
-export default About;

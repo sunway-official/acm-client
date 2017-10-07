@@ -88,7 +88,6 @@ ProfileScene.header = {
         title: 'Change password',
         icon: {
           name: 'lock-outline',
-          // type: 'material-community',
         },
         onPress: dispatch =>
           dispatch(NavigationActions.navigate({ routeName: 'changePassword' })),
@@ -97,7 +96,6 @@ ProfileScene.header = {
         title: 'Update Information',
         icon: {
           name: 'account-box',
-          // type: 'material-community',
         },
         onPress: dispatch =>
           dispatch(NavigationActions.navigate({ routeName: 'profileEditing' })),

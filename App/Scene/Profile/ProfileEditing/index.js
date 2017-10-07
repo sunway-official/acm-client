@@ -13,6 +13,7 @@ class ProfileEditing extends Component {
     data: PropTypes.shape({
       me: PropTypes.object,
       loading: PropTypes.bool,
+      refetch: PropTypes.func,
     }),
     mutate: PropTypes.func,
   };
@@ -26,6 +27,7 @@ class ProfileEditing extends Component {
 
   async _onUpdate(values) {
     const { mutate } = this.props;
+    console.log(this.props);
     await mutate({
       variables: {
         ...values,

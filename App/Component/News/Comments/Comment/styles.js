@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics } from '../../../../Theme';
+import { Colors, Metrics } from '~/Theme';
 
 const { baseMargin, doubleBaseMargin, doubleSection } = Metrics;
 const { grey } = Colors;
 
-const Comment = StyleSheet.create({
+export default StyleSheet.create({
   commentContainer: {
     flexDirection: 'row',
     marginVertical: doubleBaseMargin,
@@ -40,5 +40,3 @@ const Comment = StyleSheet.create({
     paddingHorizontal: doubleBaseMargin,
   },
 });
-
-export default Comment;
