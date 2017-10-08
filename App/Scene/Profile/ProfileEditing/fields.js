@@ -43,9 +43,6 @@ const inputForms = {
     field: {
       name: 'gender',
       component: GenderForm,
-      props: {
-        editable: false,
-      },
     },
   },
   dob: {

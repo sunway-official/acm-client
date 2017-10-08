@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, TouchableOpacity, TextInput } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Modal, Text } from '~/Component';
+import { Modal, Text, FormInputCustom } from '~/Component';
 import { setModalState } from '~/Redux/Modal';
 import styles from './styles';
 
@@ -98,19 +98,9 @@ class GenderForm extends Component {
     const { props: { input: { value }, ...others } } = this;
 
     return (
-      <View style={{ flex: 11 }}>
-        <TouchableOpacity
-          activeOpacity={1}
-          onPress={this._openModal}
-          style={{
-            // backgroundColor: 'red',
-            borderBottomWidth: 1,
-            borderBottomColor: '#ecf0f1',
-            paddingVertical: 8,
-            // paddingBottom: 4,
-          }}
-        >
-          <TextInput value={value.name} {...others} />
+      <View style={styles.container}>
+        <TouchableOpacity activeOpacity={1} onPress={this._openModal}>
+          <FormInputCustom value={value.name} editable={false} {...others} />
         </TouchableOpacity>
         {this._renderModal()}
       </View>
