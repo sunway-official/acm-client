@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
+import moment from 'moment';
+
 import { Colors, Metrics } from '~/Theme';
 import { Text, UserAvatar } from '~/Component';
 import Comments from './Comments';
@@ -35,20 +37,22 @@ class News extends Component {
   }
 
   _renderNewsHeader(item) {
+    let secondaryText = moment(item.updated_at).fromNow();
+
     return (
       <View style={styles.postHeader}>
         <View style={styles.rightPostHeader}>
           <UserAvatar
             small
-            avatar={item.avatar}
+            avatar={item.user.avatar}
             containerStyle={styles.avatar}
           />
           <View>
             <Text style={styles.username}>
-              {item.username}
+              {`${item.user.firstname} ${item.user.lastname}`}
             </Text>
             <Text style={styles.secondaryText}>
-              {item.time}
+              {secondaryText}
             </Text>
           </View>
         </View>
@@ -60,17 +64,14 @@ class News extends Component {
   }
 
   _renderStatus(item) {
+    const url = item.newsPhotos.map(newsPhoto => newsPhoto.url);
+
     return (
       <View>
         <Text>
-          {item.status}
+          {item.content}
         </Text>
-        <Image
-          source={{
-            uri: item.photo,
-          }}
-          style={styles.photo}
-        />
+        <Image source={{ uri: url[0] }} style={styles.photo} />
       </View>
     );
   }
@@ -94,12 +95,12 @@ class News extends Component {
           this.state.isLove
             ? this._renderIcon('ios-heart', 'ionicon', Colors.red)
             : this._renderIcon('ios-heart-outline', 'ionicon'),
-          item.love,
+          item.newsLikes.length,
         )}
         {this._renderInteraction(
           this._onPressComment,
           this._renderIcon('comment', 'evilicon'),
-          item.comments.length,
+          item.newsComments.length,
         )}
       </View>
     );
@@ -115,6 +116,7 @@ class News extends Component {
 
   render() {
     const { item, newsContainerStyle } = this.props;
+
     return (
       <View style={[styles.container, newsContainerStyle]}>
         {this._renderNewsHeader(item)}
@@ -122,7 +124,10 @@ class News extends Component {
           {this._renderStatus(item)}
           {this._renderInteractionBar(item)}
           {this.state.showCommentBox
-            ? <Comments comments={item.comments} userAvatar={item.avatar} />
+            ? <Comments
+                comments={item.newsComments}
+                userAvatar={item.user.avatar}
+              />
             : <View />}
         </View>
       </View>

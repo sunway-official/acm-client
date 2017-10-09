@@ -37,7 +37,7 @@ class NewsFeedScene extends Component {
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <StatusPosting />
-        {news.map((item, index) => <News item={item} key={index} />)}
+        {allNews.map((item, index) => <News item={item} key={index} />)}
       </ScrollView>
     );
   }
@@ -68,10 +68,10 @@ NewsFeedScene.footer = {
 
 const NewsFeedSceneWithData = graphql(gql(query), {
   props: ({ data: { loading, getAllNews, refetch, error } }) => ({
-    loading: loading,
+    loading,
     allNews: getAllNews,
-    refetch: refetch,
-    error: error,
+    refetch,
+    error,
   }),
 })(NewsFeedScene);
 

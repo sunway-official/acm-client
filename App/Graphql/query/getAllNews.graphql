@@ -14,14 +14,20 @@
     }
     newsLikes {
       id
+      created_at
+      updated_at
     }
-    newsComments{
-      user{
+    newsComments {
+      user {
         firstname
         lastname
         avatar
       }
       content
+      created_at
+      updated_at
     }
+    created_at
+    updated_at
   }
 }

@@ -7,7 +7,6 @@ import fixture from '../fixture';
 import styles from './styles';
 
 // import DatePicker from '~/Component/DatePicker';
-import Text from '~/Component/Text';
 
 const MyAgenda = () =>
   <View style={styles.container}>

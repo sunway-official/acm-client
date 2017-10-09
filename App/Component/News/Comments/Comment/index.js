@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
+import moment from 'moment';
+
 import { Text, UserAvatar } from '~/Component';
 import { Colors, Metrics } from '~/Theme';
 import styles from './styles';
@@ -25,21 +27,23 @@ class Comment extends Component {
   }
 
   _renderComments(comment) {
+    let secondaryText = moment(comment.updated_at).fromNow();
+
     return (
       <View style={styles.commentContainer}>
-        <UserAvatar avatar={comment.avatar} />
+        <UserAvatar avatar={comment.user.avatar} />
         <View style={styles.rightOfComment}>
           <View flexDirection="row">
             <Text bold>
-              {comment.username}
+              {`${comment.user.firstname} ${comment.user.lastname}`}
             </Text>
             <Icon name="dot-single" type="entypo" color="grey" />
             <Text style={styles.textColor}>
-              {comment.time}
+              {secondaryText}
             </Text>
           </View>
           <Text>
-            {comment.comment}
+            {comment.content}
           </Text>
           <View style={styles.rightFooterOfComment}>
             <View style={styles.interactionContainer}>
@@ -62,10 +66,10 @@ class Comment extends Component {
                 type="ionicon"
                 color={Colors.red}
                 size={20}
-                marginRight={Metrics.smallMargin}
+                marginRight={Metrics.baseMargin}
               />
-              <Text bold>
-                {comment.love}
+              <Text>
+                {'2'}
               </Text>
             </View>
           </View>
