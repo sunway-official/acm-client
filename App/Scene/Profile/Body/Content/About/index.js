@@ -61,7 +61,7 @@ class About extends Component {
               <Text style={styles.title}>Achievements</Text>
               <Text style={styles.description}>You have 15 out of 27</Text>
             </View>
-            <Text>View All</Text>
+            <Text style={styles.description}>View All</Text>
           </View>
           <View>
             {achievements.map((achievements, index) =>

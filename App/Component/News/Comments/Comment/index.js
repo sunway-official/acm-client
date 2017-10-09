@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Text, UserAvatar } from '~/Component';
-import { Colors, Metrics } from '../../../../Theme';
+import { Colors, Metrics } from '~/Theme';
 import styles from './styles';
 
 class Comment extends Component {

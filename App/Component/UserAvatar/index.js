@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 
 const TYPE = {
@@ -24,8 +25,8 @@ const UserAvatar = props => {
 UserAvatar.propTypes = {
   [TYPE.KEY]: PropTypes.string,
   avatar: PropTypes.string,
-  containerStyle: PropTypes.any,
-  overlayContainerStyle: PropTypes.any,
+  containerStyle: View.propTypes.style,
+  overlayContainerStyle: View.propTypes.style,
 };
 
 export default UserAvatar;

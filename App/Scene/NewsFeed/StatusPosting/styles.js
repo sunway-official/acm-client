@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics } from '../../../Theme';
+import { Colors, Metrics } from '~/Theme';
 
 const { white, grey } = Colors;
 
-const StatusPosting = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     padding: Metrics.baseMargin,
     marginBottom: Metrics.baseMargin,
@@ -19,5 +19,3 @@ const StatusPosting = StyleSheet.create({
   },
   placeholderStyle: { color: grey },
 });
-
-export default StatusPosting;

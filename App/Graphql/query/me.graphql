@@ -4,5 +4,6 @@
     lastname
     email
     dob
+    gender
   }
 }

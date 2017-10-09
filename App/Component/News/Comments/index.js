@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import { Text, UserAvatar } from '~/Component';
-import { Colors } from '../../../Theme';
 import Comment from './Comment';
 import styles from './styles';
 
@@ -24,13 +23,13 @@ class Comments extends Component {
         <View style={styles.commentInputBox}>
           <TextInput
             placeholder="Type a comment ..."
-            placeholderTextColor={Colors.grey}
+            placeholderTextColor="#bdc3c7"
             multiline={true}
             underlineColorAndroid="rgba(0,0,0,0)"
             style={styles.textInputStyle}
           />
           <TouchableOpacity style={styles.commentSubmitButton}>
-            <Text>Send</Text>
+            <Text style={styles.sendCommentBtn}>Send</Text>
           </TouchableOpacity>
         </View>
       </View>
