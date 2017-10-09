@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { TabNavigator, TabBarTop } from 'react-navigation';
-import { Colors, Metrics } from '~/Theme';
-import Detail from './List';
-import Fixture from '../fixture';
 import { navigate } from '~/Redux/Navigation/action';
 import { connect } from 'react-redux';
 import { KEY, setModalState } from '~/Redux/Modal';
 
+import { Colors, Metrics } from '~/Theme';
 import FilterModal from '~/Component/FilterModal';
+import Detail from './List';
+
+import Fixture from '../fixture';
 
 class Agenda extends Component {
   static propTypes = {
     showFilterModal: PropTypes.func,
     hideFilterModal: PropTypes.func,
-    toggleModal: PropTypes.func,
     modal: PropTypes.object,
   };
 
@@ -105,5 +105,4 @@ const mapDispatchToProps = dispatch => ({
   hideFilterModal: () => dispatch(setModalState(false)),
 });
 
-// export default TabsView;
 export default connect(mapStateToProps, mapDispatchToProps)(Agenda);
