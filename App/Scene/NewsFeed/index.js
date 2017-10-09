@@ -1,26 +1,57 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import { Icon } from 'react-native-elements';
+import { View } from 'react-native';
+
 import styles from './styles';
 import { Colors } from '~/Theme';
 import { News } from '~/Component';
 import { news } from './fixture';
 import StatusPosting from './StatusPosting';
+import { AnimatableView } from '~/Component';
 
-const NewsFeedScene = () => {
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <StatusPosting />
-      {news.map((item, index) => <News item={item} key={index} />)}
-    </ScrollView>
-  );
-};
+import query from '~/Graphql/query/getAllNews.graphql';
+
+class NewsFeedScene extends Component {
+  render() {
+    const { loading, allNews } = this.props;
+    console.log(allNews);
+
+    if (loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <AnimatableView
+            animation="rotate"
+            duration={1000}
+            iterationCount="infinite"
+          >
+            <Icon name="loop" />
+          </AnimatableView>
+        </View>
+      );
+    }
+
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        <StatusPosting />
+        {news.map((item, index) => <News item={item} key={index} />)}
+      </ScrollView>
+    );
+  }
+}
 
 NewsFeedScene.propTypes = {
   home: PropTypes.func,
   setTitle: PropTypes.func,
   toggleHeader: PropTypes.func,
   toggleFooter: PropTypes.func,
+  loading: PropTypes.bool.isRequired,
+  allNews: PropTypes.array,
+  refetch: PropTypes.func,
+  error: PropTypes.object,
 };
 
 NewsFeedScene.header = {
@@ -35,4 +66,13 @@ NewsFeedScene.footer = {
   activeColor: Colors.primary,
 };
 
-export default NewsFeedScene;
+const NewsFeedSceneWithData = graphql(gql(query), {
+  props: ({ data: { loading, getAllNews, refetch, error } }) => ({
+    loading: loading,
+    allNews: getAllNews,
+    refetch: refetch,
+    error: error,
+  }),
+})(NewsFeedScene);
+
+export default NewsFeedSceneWithData;

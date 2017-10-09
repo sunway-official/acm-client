@@ -1,0 +1,27 @@
+{
+  getAllNews {
+    id
+    user {
+      id
+      firstname
+      lastname
+      avatar
+    }
+    content
+    newsPhotos {
+      id
+      url
+    }
+    newsLikes {
+      id
+    }
+    newsComments{
+      user{
+        firstname
+        lastname
+        avatar
+      }
+      content
+    }
+  }
+}
