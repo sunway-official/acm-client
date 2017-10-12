@@ -3,16 +3,10 @@
   "plugins": [
     [
       "babel-plugin-root-import",
-      [
-        {
-          "rootPathPrefix": "~",
-          "rootPathSuffix": "App"
-        },
-        {
-          "rootPathPrefix": "@",
-        }
-      ]
-  ],
+      {
+        "rootPathSuffix": "App"
+      }
+    ],
     [
       "babel-plugin-inline-import",
       {
