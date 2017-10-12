@@ -9,6 +9,7 @@
   "editor.formatOnSave": true,
   "eslint.autoFixOnSave": true,
   "path-intellisense.mappings": {
-    "~": "${workspaceRoot}/App"
+    "~": "${workspaceRoot}/App",
+    "@": "${workspaceRoot}"
   }
 }
