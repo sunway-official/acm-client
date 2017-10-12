@@ -4,7 +4,7 @@ import { View, FlatList } from 'react-native';
 import { Text } from '~/Component';
 import moment from 'moment';
 import ItemDetail from './Detail';
-import { DATE_FORMAT } from 'react-native-dotenv';
+import { DATE_FORMAT } from '@/env';
 import styles from './styles';
 import { Colors } from '~/Theme';
 import { Icon } from 'react-native-elements';
