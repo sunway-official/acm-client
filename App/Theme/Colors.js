@@ -41,7 +41,7 @@ const colors = {
   // custom colors
   grey: '#757575',
   darkGrey: '#494949',
-  lightGrey: '#fafafa',
+  lightGrey: 'rgba(0,0,0,0.075)',
   lightDeepOrange: '#FFAB91', // 200
   darkDeepOrange: '#D84315', // 800
   darkRed: '#C62828', // 800
@@ -56,7 +56,7 @@ const defaultColor = {
   secondaryDark: colors.darkGrey,
   success: colors.deepOrange,
   successDark: colors.darkDeepOrange,
-  warning: colors.sunFlower,
+  warning: colors.yellow,
   warningDark: colors.orange,
   info: colors.peterRiver,
   infoDark: colors.belizeHole,

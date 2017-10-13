@@ -5,13 +5,12 @@ import Text from '../Text';
 import { Colors } from '../../Theme';
 import styles from './styles';
 
-const changeUnderlineColor = (touched, error) => {
-  let borderBottomColor = '#ecf0f1';
+const changeUnderlineColor = ({ touched, error, warning }) => {
   if (touched) {
-    if (error) borderBottomColor = Colors.red;
-    else borderBottomColor = Colors.warning;
+    if (error) return Colors.danger;
+    if (warning) return Colors.warning;
   }
-  return borderBottomColor;
+  return Colors.lightGrey;
 };
 
 const FormInputCustom = ({
@@ -27,7 +26,13 @@ const FormInputCustom = ({
         {...input}
         style={[
           styles.inputForm,
-          { borderBottomColor: changeUnderlineColor(touched, error) },
+          {
+            borderBottomColor: changeUnderlineColor({
+              touched,
+              error,
+              warning,
+            }),
+          },
           customStyle,
         ]}
         underlineColorAndroid="transparent"

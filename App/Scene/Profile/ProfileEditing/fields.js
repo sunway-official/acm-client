@@ -60,6 +60,30 @@ const inputForms = {
       },
     },
   },
+  organization: {
+    title: 'Organization',
+    icon: {
+      name: 'organization',
+      type: 'simple-line-icon',
+      color: '#8BC34A',
+    },
+    field: {
+      name: 'organization',
+      placeholder: 'Organization',
+    },
+  },
+  position: {
+    title: 'Position',
+    icon: {
+      name: 'users',
+      type: 'font-awesome',
+      color: '#E91E63',
+    },
+    field: {
+      name: 'position',
+      placeholder: 'Position',
+    },
+  },
   bio: {
     title: 'Biography',
     icon: {

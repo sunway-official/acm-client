@@ -3,9 +3,10 @@ import { View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
+import { setUser } from '~/Redux/Authentication';
 import AppNavigation from '~/Navigation';
 import { getInitialRoute } from '~/Navigation/resolver';
-import { gql, compose, graphql } from 'react-apollo';
+import { gql, compose, graphql, withApollo } from 'react-apollo';
 
 import styles from './styles';
 
@@ -16,14 +17,19 @@ class Root extends Component {
     back: PropTypes.func,
     client: PropTypes.object,
     login: PropTypes.func,
+    setUser: PropTypes.func,
     navigateToInitialRoute: PropTypes.func,
+    client: PropTypes.object,
     data: PropTypes.shape({
+      me: PropTypes.object,
       error: PropTypes.any,
     }),
   };
 
   componentDidMount() {
+    const { setUser, client } = this.props;
     BackHandler.addEventListener('hardwareBackPress', this.props.back);
+    console.log('client: ', client);
   }
 
   componentDidUpdate(prevProps) {
@@ -50,12 +56,14 @@ const mapDispatchToProps = dispatch => {
     login: () => dispatch(NavigationActions.reset({ routeName: 'login' })),
     navigateToInitialRoute: () =>
       dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
+    setUser: user => dispatch(setUser(user)),
   };
 };
 
 export default compose(
   connect(undefined, mapDispatchToProps),
-  graphql(gql(query), {
-    options: { notifyOnNetworkStatusChange: true },
-  }),
+  // graphql(gql(query), {
+  //   options: { notifyOnNetworkStatusChange: true },
+  // }),
+  withApollo,
 )(Root);

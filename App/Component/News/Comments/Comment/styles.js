@@ -13,10 +13,12 @@ export default StyleSheet.create({
   rightFooterOfComment: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
     marginTop: baseMargin,
   },
-  interactionContainer: { flexDirection: 'row', alignItems: 'center' },
+  interactionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   textColor: { color: grey }, // additional text (an houre ago, ...)
   replyTextStyle: { color: grey, marginRight: 28 },
   commentInputBoxContainer: {

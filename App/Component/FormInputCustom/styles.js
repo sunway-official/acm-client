@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../Theme';
+import { Colors, Metrics } from '../../Theme';
 
 export default StyleSheet.create({
   container: {},
   inputForm: {
     borderBottomWidth: 1,
-    padding: 8,
+    padding: Metrics.baseMargin,
     paddingLeft: 0,
   },
   errorText: {

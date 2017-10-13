@@ -63,6 +63,7 @@ class UpdateProfileForm extends Component {
 
 const Form = reduxForm({
   form: 'userProfile',
+  enableReinitialize: true,
 })(UpdateProfileForm);
 
 export default Form;
