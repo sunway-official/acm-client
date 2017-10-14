@@ -1,53 +1,56 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
-import { View } from 'react-native';
-import { Badge } from 'react-native-elements';
+import { View, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { Colors, Metrics } from '~/Theme';
 import { Text, UserAvatar } from '~/Component';
-import { FOLLOWERS } from '~/Scene/Profile/fixture';
+import { FOLLOWING } from '~/Scene/Profile/fixture';
 import styles from './styles';
 
-class Follower extends Component {
+class Following extends Component {
   static propTypes = {};
 
   constructor(props) {
     super(props);
     this.state = {
-      follow: true,
+      followers: FOLLOWING,
     };
     this._renderFollower = this._renderFollower.bind(this);
-    this._handleFollowPress = this._handleFollowPress.bind(this);
+    this._onFollowPress = this._onFollowPress.bind(this);
   }
 
-  _handleFollowPress() {
-    this.setState({ follow: !this.state.follow });
+  _onFollowPress(follower, index) {
+    let followers = FOLLOWING;
+    followers[index].followByMe = followers[index].followByMe ? false : true;
+    this.setState({
+      followers,
+    });
   }
 
   _renderFollower(follower, index) {
     return (
       <View key={index} style={styles.followerContainer}>
-        <View style={styles.leftOfFollowerContainer}>
+        <View style={styles.leftFollowerContainer}>
           <UserAvatar medium avatar={follower.avatar} />
           <View marginHorizontal={Metrics.baseMargin}>
             <Text>
               {follower.username}
             </Text>
             <Text style={styles.numberOfFollowerText}>
-              {follower.FOLLOWERS} followers
+              {follower.followers} followers
             </Text>
           </View>
         </View>
-        <Badge
-          value={this.state.follow ? 'Following' : 'Follow'}
-          textStyle={{ color: this.state.follow ? Colors.red : Colors.white }}
-          containerStyle={[
-            styles.badgeContainer,
-            {
-              backgroundColor: this.state.follow ? 'transparent' : Colors.red,
-            },
-          ]}
-          onPress={() => this._handleFollowPress()}
-        />
+        <TouchableOpacity
+          onPress={() => this._onFollowPress(follower, index)}
+          style={styles.rightFollowerContainer}
+        >
+          <Icon
+            name={follower.followByMe ? 'user-following' : 'user-follow'}
+            type="simple-line-icon"
+            color={follower.followByMe ? Colors.red : Colors.black}
+          />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -55,7 +58,7 @@ class Follower extends Component {
   render() {
     return (
       <View>
-        {FOLLOWERS.map((follower, index) =>
+        {FOLLOWING.map((follower, index) =>
           this._renderFollower(follower, index),
         )}
       </View>
@@ -63,4 +66,4 @@ class Follower extends Component {
   }
 }
 
-export default Follower;
+export default Following;
