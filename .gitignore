@@ -1,4 +1,4 @@
 node_modules/
 .expo/
 npm-debug.*
-env.js
+/env.js
