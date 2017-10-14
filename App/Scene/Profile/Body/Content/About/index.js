@@ -55,7 +55,8 @@ class About extends Component {
           </View>
           {this._renderUserInformation()}
         </View>
-        <View style={styles.section}>
+        {/*
+          <View style={styles.section}>
           <View style={styles.titleContainer}>
             <View>
               <Text style={styles.title}>Achievements</Text>
@@ -69,6 +70,7 @@ class About extends Component {
             )}
           </View>
         </View>
+        */}
       </View>
     );
   }

@@ -16,14 +16,19 @@ class Header extends Component {
     user: {
       firstname: 'Sunway',
       lastname: 'Team',
-      email: 'sunway.offical@gmail.com',
     },
   };
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      headerHeight: 500,
+    };
+
     this._renderAvatar = this._renderAvatar.bind(this);
     this._renderInfo = this._renderInfo.bind(this);
+    this._viewDimensions = this._viewDimensions.bind(this);
   }
 
   _renderAvatar() {
@@ -48,14 +53,22 @@ class Header extends Component {
     );
   }
 
+  _viewDimensions(layout) {
+    const { height } = layout;
+    this.setState({ headerHeight: height });
+  }
+
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{ height: this.state.headerHeight }}>
         <Image
           source={Images.materialBackground}
           style={styles.backgroundImage}
         >
-          <View style={styles.coverPhoto}>
+          <View
+            style={styles.coverPhoto}
+            onLayout={event => this._viewDimensions(event.nativeEvent.layout)}
+          >
             {this._renderAvatar()}
             {this._renderInfo()}
           </View>
