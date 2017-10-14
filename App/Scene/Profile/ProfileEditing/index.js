@@ -14,6 +14,7 @@ import query from '~/Graphql/query/me.graphql';
 import { NavigationActions } from '~/Redux/Navigation';
 import styles from './styles';
 import Form from './Form';
+import { DEFAULT_ME } from '../fixture';
 
 class ProfileEditing extends Component {
   static propTypes = {
@@ -42,6 +43,7 @@ class ProfileEditing extends Component {
   }
 
   async _onUpdate(values) {
+    console.log(values);
     const { mutate, data: { refetch }, navigate } = this.props;
     this.setState({ loading: true });
     try {
@@ -61,27 +63,23 @@ class ProfileEditing extends Component {
     }
   }
 
-  _me(
-    firstname = '',
-    lastname = '',
-    dob = moment().format('YYYY-MM-DD'),
-    gender = { name: 'Male', value: 'male' },
-  ) {
-    return {
-      firstname: firstname,
-      lastname: lastname,
-      dob: dob,
-      gender: gender,
-    };
-  }
-
   _getMe(loading, me) {
     return loading
-      ? this._me()
-      : this._me(me.firstname, me.lastname, me.dob, {
-          name: me.gender,
-          value: me.gender,
-        });
+      ? DEFAULT_ME
+      : {
+          firstname: me.firstname,
+          lastname: me.lastname,
+          dob: me.dob,
+          gender: { name: me.gender, value: me.gender },
+          interested_in: me.interested_in,
+          bio: me.bio,
+          organization: me.organization,
+          position: me.position,
+          language: me.language,
+          facebook_id: me.facebook_id,
+          twitter_id: me.twitter_id,
+          linkedin_id: me.linkedin_id,
+        };
   }
 
   render() {

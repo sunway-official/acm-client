@@ -42,9 +42,6 @@ class Header extends Component {
           {user.firstname} {user.lastname}
         </Text>
         <Text style={styles.primaryTextColor}>
-          {user.email}
-        </Text>
-        <Text style={styles.primaryTextColor}>
           {address}
         </Text>
       </View>

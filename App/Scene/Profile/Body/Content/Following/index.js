@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Badge } from 'react-native-elements';
-import { Colors, Metrics } from '../../../../../Theme';
+import { Colors, Metrics } from '~/Theme';
 import { Text, UserAvatar } from '~/Component';
-import { followers } from '~/Scene/Profile/fixture';
+import { FOLLOWERS } from '~/Scene/Profile/fixture';
 import styles from './styles';
 
 class Follower extends Component {
@@ -33,7 +33,7 @@ class Follower extends Component {
               {follower.username}
             </Text>
             <Text style={styles.numberOfFollowerText}>
-              {follower.followers} followers
+              {follower.FOLLOWERS} followers
             </Text>
           </View>
         </View>
@@ -55,7 +55,7 @@ class Follower extends Component {
   render() {
     return (
       <View>
-        {followers.map((follower, index) =>
+        {FOLLOWERS.map((follower, index) =>
           this._renderFollower(follower, index),
         )}
       </View>

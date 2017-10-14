@@ -1,7 +1,25 @@
-export const defaultUserAvatar =
+import moment from 'moment';
+
+export const DEFAULT_ME = {
+  firstname: '',
+  lastname: '',
+  dob: moment().format('YYYY-MM-DD'),
+  gender: { name: 'Male', value: 'male' },
+  interested_in: 'Listen to music and go to travel',
+  bio:
+    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.",
+  organization: 'ABC Company',
+  position: 'Director of Human and Resource Department',
+  language: 'English, France, Japanese, Vietnamese',
+  facebook_id: 'facebook.com',
+  twitter_id: 'twitter.com',
+  linkedin_id: 'linkedin.com',
+};
+
+export const DEFAULT_USER_AVATAR =
   'https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png';
 
-export const achievements = [
+export const ACHIEVEMENTS = [
   {
     title: 'Title 1',
     shortDescription: 'something',
@@ -40,10 +58,10 @@ export const achievements = [
   },
 ];
 
-export const news = [
+export const NEWS = [
   {
     username: 'Dung Le',
-    avatar: defaultUserAvatar,
+    avatar: DEFAULT_USER_AVATAR,
     status:
       'I have attended this conference and learned more things from that.',
     photo:
@@ -72,7 +90,7 @@ export const news = [
   },
   {
     username: 'Dung Le',
-    avatar: defaultUserAvatar,
+    avatar: DEFAULT_USER_AVATAR,
     status: 'Hello guys ~~',
     photo: 'http://globalageing.org/wp-content/uploads/2015/09/EVP_0141.jpg',
     time: '5 minutes ago',
@@ -91,7 +109,7 @@ export const news = [
   },
 ];
 
-export const followers = [
+export const FOLLOWERS = [
   {
     username: 'Taylor Swift',
     avatar:
@@ -130,8 +148,9 @@ export const followers = [
 ];
 
 export default {
-  defaultUserAvatar,
-  news,
-  achievements,
-  followers,
+  DEFAULT_ME,
+  DEFAULT_USER_AVATAR,
+  NEWS,
+  ACHIEVEMENTS,
+  FOLLOWERS,
 };

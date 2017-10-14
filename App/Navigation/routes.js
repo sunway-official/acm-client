@@ -106,15 +106,7 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-  },
-  changePassword: {
-    name: 'Change Password',
-    path: '/change-password',
-    screen: ChangePassword,
-    icon: {
-      name: 'face-profile',
-      type: 'material-community',
-    },
+    initial: true,
   },
   profileEditing: {
     name: 'Edit Profile',
@@ -124,7 +116,15 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
+  },
+  changePassword: {
+    name: 'Change Password',
+    path: '/change-password',
+    screen: ChangePassword,
+    icon: {
+      name: 'face-profile',
+      type: 'material-community',
+    },
   },
   notification: {
     name: 'Notification',

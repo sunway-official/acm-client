@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Image } from 'react-native';
 import { Text } from '~/Component';
-import { achievements } from '~/Scene/Profile/fixture';
+import { ACHIEVEMENTS } from '~/Scene/Profile/fixture';
 import styles from './styles';
 
 class About extends Component {
@@ -64,8 +64,8 @@ class About extends Component {
             <Text style={styles.description}>View All</Text>
           </View>
           <View>
-            {achievements.map((achievements, index) =>
-              this._renderItem(achievements, index),
+            {ACHIEVEMENTS.map((ACHIEVEMENTS, index) =>
+              this._renderItem(ACHIEVEMENTS, index),
             )}
           </View>
         </View>

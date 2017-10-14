@@ -7,9 +7,10 @@ import { Colors } from '~/Theme';
 import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import ProfileHeader from './Header';
 import ProfileBody from './Body';
-import { defaultUserAvatar } from './fixture';
+import { DEFAULT_USER_AVATAR } from './fixture';
 import { NavigationActions } from '~/Redux/Navigation';
 import query from '~/Graphql/query/me.graphql';
+import { DEFAULT_ME } from './fixture';
 
 const PRIMARY_HEADER = {
   hideTitle: false,
@@ -27,7 +28,7 @@ class ProfileScene extends Component {
   static propTypes = {
     setCustomHeader: PropTypes.func,
     data: PropTypes.shape({
-      me: PropTypes.object.isRequired,
+      me: PropTypes.object,
     }),
   };
 
@@ -50,7 +51,10 @@ class ProfileScene extends Component {
   }
 
   render() {
-    const { data: { me } } = this.props;
+    let { data: { me } } = this.props;
+    if (!me) {
+      me = DEFAULT_ME;
+    }
     return (
       <ScrollView
         scrollEventThrottle={16}
@@ -61,7 +65,7 @@ class ProfileScene extends Component {
         overScrollMode={'never'}
       >
         <ProfileHeader
-          avatar={defaultUserAvatar}
+          avatar={DEFAULT_USER_AVATAR}
           user={me}
           address="Duy Tan University"
         />
