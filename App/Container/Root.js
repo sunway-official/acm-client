@@ -6,7 +6,7 @@ import { NavigationActions } from '~/Redux/Navigation';
 import { setUser } from '~/Redux/Authentication';
 import AppNavigation from '~/Navigation';
 import { getInitialRoute } from '~/Navigation/resolver';
-import { gql, compose, graphql, withApollo } from 'react-apollo';
+import { gql, compose, withApollo } from 'react-apollo';
 
 import styles from './styles';
 
@@ -26,18 +26,15 @@ class Root extends Component {
     }),
   };
 
-  componentDidMount() {
-    const { setUser, client } = this.props;
+  async componentDidMount() {
+    const { client } = this.props;
     BackHandler.addEventListener('hardwareBackPress', this.props.back);
-    console.log('client: ', client);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { data: { error } } = this.props;
-    if (prevProps.data.error !== error && error) {
-      this.props.login();
-    } else {
+    try {
+      await client.query({ query: gql(query) });
       this.props.navigateToInitialRoute();
+    } catch (error) {
+      this.props.login();
+      console.log(error);
     }
   }
 
@@ -60,10 +57,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default compose(
-  connect(undefined, mapDispatchToProps),
-  // graphql(gql(query), {
-  //   options: { notifyOnNetworkStatusChange: true },
-  // }),
-  withApollo,
-)(Root);
+export default compose(connect(undefined, mapDispatchToProps), withApollo)(
+  Root,
+);

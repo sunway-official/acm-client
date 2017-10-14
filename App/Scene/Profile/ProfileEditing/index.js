@@ -42,7 +42,7 @@ class ProfileEditing extends Component {
   }
 
   async _onUpdate(values) {
-    const { mutate, data: { refetch, me }, navigate } = this.props;
+    const { mutate, data: { refetch }, navigate } = this.props;
     this.setState({ loading: true });
     try {
       await mutate({
@@ -53,11 +53,11 @@ class ProfileEditing extends Component {
         },
       });
       await refetch();
-      // console.log('res: ', res.data.me);
-      // navigate('profile');
-      // console.log('me: ', me);
+      navigate('profile');
     } catch (err) {
       console.log(err);
+    } finally {
+      this.setState({ loading: false });
     }
   }
 
@@ -86,7 +86,6 @@ class ProfileEditing extends Component {
 
   render() {
     const { data: { me, loading } } = this.props;
-    console.log('get me: ', this.props);
     return (
       <View>
         {this.state.loading
