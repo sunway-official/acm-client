@@ -8,10 +8,11 @@ import Followers from './Followers';
 import Following from './Following';
 import styles from './styles';
 
-const withAnimation = (Tab, user) =>
+const withAnimation = (Tab, user) => (
   <AnimatableView animation="fadeIn" duaration={300}>
     <Tab user={user} />
-  </AnimatableView>;
+  </AnimatableView>
+);
 
 class Content extends Component {
   static propTypes = { tab: PropTypes.string, user: PropTypes.object };
@@ -39,11 +40,7 @@ class Content extends Component {
 
   render() {
     const { tab } = this.props;
-    return (
-      <View style={styles.container}>
-        {this._renderContent(tab)}
-      </View>
-    );
+    return <View style={styles.container}>{this._renderContent(tab)}</View>;
   }
 }
 

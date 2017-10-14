@@ -3,7 +3,10 @@ import { DATE_FORMAT } from '~/env';
 
 const TODAY = moment();
 
-const addDays = days => moment(TODAY).add(days, 'd').format(DATE_FORMAT);
+const addDays = days =>
+  moment(TODAY)
+    .add(days, 'd')
+    .format(DATE_FORMAT);
 
 const SCHEDULES = [
   {

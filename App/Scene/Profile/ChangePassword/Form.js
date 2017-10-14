@@ -13,7 +13,7 @@ import { Text } from '~/Component';
 import FormInput from '~/Component/FormInput';
 import TouchableView from '~/Component/TouchableView';
 
-const _renderLoadingButton = () =>
+const _renderLoadingButton = () => (
   <View style={[styles.loadingContainer, , styles.loadingText]}>
     <AnimatableView
       animation="rotate"
@@ -22,17 +22,19 @@ const _renderLoadingButton = () =>
     >
       <Icon name="loop" color={Colors.white} />
     </AnimatableView>
-  </View>;
+  </View>
+);
 
-const _renderHint = () =>
+const _renderHint = () => (
   <View style={styles.hintContainer}>
     <Text light style={styles.hintText}>
       Password must be at least 6 characters including a number, a special
       characters, and a letter. *
     </Text>
-  </View>;
+  </View>
+);
 
-const _renderForm = () =>
+const _renderForm = () => (
   <View style={styles.formContainer}>
     <Text bold>Current password *</Text>
     <Field
@@ -65,31 +67,34 @@ const _renderForm = () =>
       secureTextEntry={true}
       returnKeyType={'done'}
     />
-  </View>;
+  </View>
+);
 
-const _renderError = error =>
+const _renderError = error => (
   <View>
-    {error === undefined ||
-      <Text style={styles.errorText}>
-        Please check again! {error}
-      </Text>}
-  </View>;
+    {error === undefined || (
+      <Text style={styles.errorText}>Please check again! {error}</Text>
+    )}
+  </View>
+);
 
 const _renderButton = args => {
   const { handleSubmit, onPasswordChanged, loading } = args;
   return (
     <View style={styles.buttonContainer}>
-      {loading
-        ? _renderLoadingButton()
-        : <TouchableView
-            onPress={handleSubmit(onPasswordChanged)}
-            rippleColor={Colors.primary}
-            style={styles.actionButton}
-          >
-            <Text bold style={styles.actionText}>
-              Update
-            </Text>
-          </TouchableView>}
+      {loading ? (
+        _renderLoadingButton()
+      ) : (
+        <TouchableView
+          onPress={handleSubmit(onPasswordChanged)}
+          rippleColor={Colors.primary}
+          style={styles.actionButton}
+        >
+          <Text bold style={styles.actionText}>
+            Update
+          </Text>
+        </TouchableView>
+      )}
     </View>
   );
 };

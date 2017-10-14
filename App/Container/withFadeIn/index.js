@@ -6,10 +6,11 @@ const ANIMATION = 'fadeIn';
 const DURATION = 300;
 
 export default Scene => {
-  const FadeInWrapper = () =>
+  const FadeInWrapper = () => (
     <View style={styles.container} animation={ANIMATION} duration={DURATION}>
       <Scene />
-    </View>;
+    </View>
+  );
   FadeInWrapper.displayName = `FadeInWrapper(${Scene.displayName})`;
   return FadeInWrapper;
 };

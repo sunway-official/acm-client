@@ -54,9 +54,11 @@ const MyAgendaItem = ({ activities, date }) => {
 
         <View style={styles.lineWrapper}>
           <View style={styles.circleBackground}>
-            {isToday
-              ? <Icon {...ACTIVE_ITEM_ICON} />
-              : <Icon {...DEFAULT_ITEM_ICON} />}
+            {isToday ? (
+              <Icon {...ACTIVE_ITEM_ICON} />
+            ) : (
+              <Icon {...DEFAULT_ITEM_ICON} />
+            )}
           </View>
         </View>
         <View style={styles.contentWrapper}>

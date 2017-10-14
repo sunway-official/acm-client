@@ -155,9 +155,7 @@ class Menu extends Component {
                 </Text>
               </View>
               <View style={styles.line}>
-                <Text style={[styles.text]}>
-                  {USER_EMAIL}
-                </Text>
+                <Text style={[styles.text]}>{USER_EMAIL}</Text>
               </View>
             </View>
           </Image>

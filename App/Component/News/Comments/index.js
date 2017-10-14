@@ -40,9 +40,9 @@ class Comments extends Component {
     const { comments, userAvatar } = this.props;
     return (
       <View>
-        {comments.map((comment, index) =>
-          <Comment comment={comment} key={index} />,
-        )}
+        {comments.map((comment, index) => (
+          <Comment comment={comment} key={index} />
+        ))}
         {this._renderCommentInputBox(userAvatar)}
       </View>
     );

@@ -65,19 +65,21 @@ const onViewableItemsChangedHandler = ({
   });
 };
 
-const MyAgendaList = ({ data, setHeader }) =>
+const MyAgendaList = ({ data, setHeader }) => (
   <View style={styles.container}>
     <View style={styles.verticalLine} />
 
     <FlatList
       data={data}
-      renderItem={({ item, index }) =>
-        <Item {...item} color={getItemColor(index)} />}
+      renderItem={({ item, index }) => (
+        <Item {...item} color={getItemColor(index)} />
+      )}
       keyExtractor={(item, index) => index}
       onViewableItemsChanged={({ ...info }) =>
         onViewableItemsChangedHandler({ ...info, data, setHeader })}
     />
-  </View>;
+  </View>
+);
 
 MyAgendaList.propTypes = {
   data: PropTypes.array,
