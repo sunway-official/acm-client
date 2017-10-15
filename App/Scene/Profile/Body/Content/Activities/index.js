@@ -6,9 +6,7 @@ import { NEWS } from '~/Scene/Profile/fixture';
 
 const Activities = () => {
   return (
-    <View>
-      {NEWS.map((item, index) => <News item={item} key={index} />)}
-    </View>
+    <View>{NEWS.map((item, index) => <News item={item} key={index} />)}</View>
   );
 };
 

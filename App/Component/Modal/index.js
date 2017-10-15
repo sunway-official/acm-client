@@ -257,14 +257,15 @@ class CustomModal extends Component {
           />
         </TouchableWithoutFeedback>
 
-        {avoidKeyboard &&
+        {avoidKeyboard && (
           <KeyboardAvoidingView
             behavior={'padding'}
             pointerEvents={'box-none'}
             style={computedStyle.concat([{ margin: 0 }])}
           >
             {containerView}
-          </KeyboardAvoidingView>}
+          </KeyboardAvoidingView>
+        )}
 
         {!avoidKeyboard && containerView}
       </Modal>

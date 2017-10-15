@@ -97,13 +97,10 @@ class Body extends Component {
         onPress={() => this._handlePress(key)}
       >
         {tab.icon && <Icon name={tab.icon.name} type={tab.icon.type} />}
-        {tab.quantity !== undefined &&
-          <Text style={styles.numberStyle}>
-            {tab.quantity}
-          </Text>}
-        <Text style={styles.secondaryText}>
-          {tab.title}
-        </Text>
+        {tab.quantity !== undefined && (
+          <Text style={styles.numberStyle}>{tab.quantity}</Text>
+        )}
+        <Text style={styles.secondaryText}>{tab.title}</Text>
       </TouchableView>
     );
   }

@@ -23,11 +23,11 @@ class UpdateProfileForm extends Component {
   _renderForms(form, key, titleOption = true) {
     return (
       <View key={key} style={styles.inputContainer}>
-        {titleOption
-          ? <View style={styles.iconStyle}>
-              <Icon size={18} {...form.icon} />
-            </View>
-          : null}
+        {titleOption ? (
+          <View style={styles.iconStyle}>
+            <Icon size={18} {...form.icon} />
+          </View>
+        ) : null}
         <Field
           component={FormInputCustom}
           underlineColorAndroid="transparent"

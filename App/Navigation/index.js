@@ -13,7 +13,7 @@ import ToolbarWrapper from './Toolbar/Wrapper';
  * If you want to add a new one, take a look at ./routes.js
  */
 
-const AppNavigation = ({ navigation, dispatch }) =>
+const AppNavigation = ({ navigation, dispatch }) => (
   <View style={styles.container}>
     <Drawer>
       <ToolbarWrapper>
@@ -22,7 +22,8 @@ const AppNavigation = ({ navigation, dispatch }) =>
         />
       </ToolbarWrapper>
     </Drawer>
-  </View>;
+  </View>
+);
 
 AppNavigation.propTypes = {
   navigation: PropTypes.object,

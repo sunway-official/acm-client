@@ -21,9 +21,7 @@ const _renderActions = ({ title, icon, onPress }, index, dispatch) => {
       <View style={styles.iconWrapper}>
         <Icon name="menu" {...icon} onPress={undefined} />
       </View>
-      <Text>
-        {title}
-      </Text>
+      <Text>{title}</Text>
     </TouchableView>
   );
 };

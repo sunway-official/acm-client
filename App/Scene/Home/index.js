@@ -15,19 +15,16 @@ const text = [
   'to connect to other scene.',
 ];
 
-const HomeScene = ({ showSearch, hideSearch }) =>
+const HomeScene = ({ showSearch, hideSearch }) => (
   <View style={styles.container}>
     <View style={styles.centerText}>
-      {text.map((text, index) =>
-        <Text key={index}>
-          {text}
-        </Text>,
-      )}
+      {text.map((text, index) => <Text key={index}>{text}</Text>)}
     </View>
     <Button title="Show search box" onPress={showSearch} />
     <View marginBottom={24} />
     <Button title="Hide search box" onPress={hideSearch} />
-  </View>;
+  </View>
+);
 
 HomeScene.drawer = {
   primary: true,

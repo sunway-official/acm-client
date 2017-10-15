@@ -39,14 +39,14 @@ class FormInput extends PureComponent {
         <TextInput style={[styles.textInput]} {...input} {...others} />
         {!touched && <Text style={[styles.defaultText, defaultUnderline]} />}
         {touched &&
-          ((error &&
-            <Text style={[styles.errorText, errorUnderline]}>
-              {error}
-            </Text>) ||
-            (warning &&
+          ((error && (
+            <Text style={[styles.errorText, errorUnderline]}>{error}</Text>
+          )) ||
+            (warning && (
               <Text style={[styles.warningText, warningUnderline]}>
                 {warning}
-              </Text>))}
+              </Text>
+            )))}
       </View>
     );
   }

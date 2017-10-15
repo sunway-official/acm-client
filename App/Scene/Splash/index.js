@@ -4,13 +4,14 @@ import { Text } from '~/Component';
 import { Images, Colors } from '~/Theme';
 import styles from './styles';
 
-const SplashScene = () =>
+const SplashScene = () => (
   <Image style={styles.container} source={Images.splash}>
     <View style={styles.loadingWrapper}>
       <ActivityIndicator color={Colors.white} />
       <Text style={styles.text}>Loading...</Text>
     </View>
-  </Image>;
+  </Image>
+);
 
 SplashScene.header = {
   disable: true,

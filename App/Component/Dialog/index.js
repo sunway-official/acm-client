@@ -59,9 +59,7 @@ class Dialog extends Component {
               {header}
             </Text>
           </View>
-          <View>
-            {children}
-          </View>
+          <View>{children}</View>
         </View>
       </Modal>
     );

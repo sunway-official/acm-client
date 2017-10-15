@@ -39,14 +39,8 @@ const FormInputCustom = ({
         {...others}
       />
       {touched &&
-        ((error &&
-          <Text style={styles.errorText}>
-            {error}
-          </Text>) ||
-          (warning &&
-            <Text style={styles.warningText}>
-              {warning}
-            </Text>))}
+        ((error && <Text style={styles.errorText}>{error}</Text>) ||
+          (warning && <Text style={styles.warningText}>{warning}</Text>))}
     </View>
   );
 };

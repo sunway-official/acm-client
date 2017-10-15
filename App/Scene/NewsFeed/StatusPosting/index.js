@@ -15,9 +15,7 @@ const StatusPosting = () => {
         rippleColor={Colors.secondary}
         style={styles.statusBoxView}
       >
-        <Text style={styles.placeholderStyle}>
-          {"What's on your mind?"}
-        </Text>
+        <Text style={styles.placeholderStyle}>{"What's on your mind?"}</Text>
       </TouchableView>
       <TouchableOpacity>
         <Icon name="camera" type="material-community" />

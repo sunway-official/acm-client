@@ -6,11 +6,12 @@ import List from './List';
 import fixture from '../fixture';
 import styles from './styles';
 
-const MyAgenda = () =>
+const MyAgenda = () => (
   <View style={styles.container}>
     {/*<DatePicker date={new Date()} />*/}
     <List data={fixture} />
-  </View>;
+  </View>
+);
 
 MyAgenda.header = {
   theme: 'dark',

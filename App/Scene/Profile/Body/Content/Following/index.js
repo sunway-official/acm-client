@@ -33,9 +33,7 @@ class Following extends Component {
         <View style={styles.leftFollowerContainer}>
           <UserAvatar medium avatar={follower.avatar} />
           <View marginHorizontal={Metrics.baseMargin}>
-            <Text>
-              {follower.username}
-            </Text>
+            <Text>{follower.username}</Text>
             <Text style={styles.numberOfFollowerText}>
               {follower.followers} followers
             </Text>

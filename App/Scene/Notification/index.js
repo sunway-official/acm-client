@@ -9,17 +9,14 @@ import { Colors } from '~/Theme';
 
 const text = ['Welcome to Notification!'];
 
-const NotificationScene = ({ home }) =>
+const NotificationScene = ({ home }) => (
   <View style={styles.container}>
     <View style={styles.centerText}>
-      {text.map((text, index) =>
-        <Text key={index}>
-          {text}
-        </Text>,
-      )}
+      {text.map((text, index) => <Text key={index}>{text}</Text>)}
     </View>
     <Button title="Home" color={Colors.purple} onPress={home} />
-  </View>;
+  </View>
+);
 
 NotificationScene.header = {
   leftIcon: 'drawer',

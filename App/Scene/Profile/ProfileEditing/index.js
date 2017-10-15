@@ -86,11 +86,11 @@ class ProfileEditing extends Component {
     const { data: { me, loading } } = this.props;
     return (
       <View>
-        {this.state.loading
-          ? <View style={styles.mutationLoading}>
-              <ActivityIndicator color="#2c3e50" />
-            </View>
-          : null}
+        {this.state.loading ? (
+          <View style={styles.mutationLoading}>
+            <ActivityIndicator color="#2c3e50" />
+          </View>
+        ) : null}
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={85}>
           <ScrollView style={styles.container}>
             <Form

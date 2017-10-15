@@ -70,15 +70,13 @@ class GenderForm extends Component {
         style={styles.modalContainer}
       >
         <View style={styles.modalContent}>
-          {data.map((gender, index) =>
+          {data.map((gender, index) => (
             <TouchableOpacity
               key={index}
               style={styles.subContent}
               onPress={() => this._onCheck(index)}
             >
-              <Text>
-                {gender.name}
-              </Text>
+              <Text>{gender.name}</Text>
               <Icon
                 name={
                   value.value === gender.value
@@ -87,8 +85,8 @@ class GenderForm extends Component {
                 }
                 type="material-community"
               />
-            </TouchableOpacity>,
-          )}
+            </TouchableOpacity>
+          ))}
         </View>
       </Modal>
     );
