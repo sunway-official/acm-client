@@ -63,8 +63,8 @@ const inputForms = {
   organization: {
     title: 'Organization',
     icon: {
-      name: 'organization',
-      type: 'simple-line-icon',
+      name: 'briefcase',
+      type: 'entypo',
       color: '#8BC34A',
     },
     field: {
@@ -87,8 +87,9 @@ const inputForms = {
   interested_in: {
     title: 'Interested in',
     icon: {
-      name: 'palette',
-      color: '#CDDC39',
+      name: 'car',
+      type: 'material-community',
+      color: '#F44336',
     },
     field: {
       name: 'interested_in',

@@ -12,5 +12,6 @@ query {
     facebook_id
     twitter_id
     linkedin_id
+    created_at
   }
 }

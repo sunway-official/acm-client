@@ -8,33 +8,35 @@ const { size } = Fonts;
 export default StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 1,
     padding: baseMargin,
+    paddingVertical: doubleBaseMargin,
     backgroundColor: white,
+    alignItems: 'center',
   },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: doubleBaseMargin,
+  sectionIcon: {
+    backgroundColor: Colors.blue,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    justifyContent: 'center',
+    marginLeft: baseMargin,
   },
   title: {
-    fontSize: size.regular,
+    fontSize: size.h6,
+    marginLeft: baseMargin,
   },
   description: {
     color: grey,
     fontSize: Fonts.size.small,
   },
-  itemContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: doubleBaseMargin,
-    paddingVertical: baseMargin,
-    marginBottom: 1,
-    backgroundColor: white,
-  },
   section: { marginBottom: baseMargin },
   information: {
+    flexDirection: 'row',
     padding: baseMargin,
     backgroundColor: white,
+  },
+  icon: {
+    marginLeft: baseMargin,
+    marginRight: doubleBaseMargin,
   },
 });
