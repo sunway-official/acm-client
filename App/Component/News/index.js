@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 import moment from 'moment';
 
@@ -8,6 +8,9 @@ import { Colors, Metrics } from '~/Theme';
 import { Text, UserAvatar } from '~/Component';
 import Comments from './Comments';
 import styles from './styles';
+
+const { baseMargin, doubleBaseMargin, screenWidth } = Metrics;
+// const photoHeight = screenWidth / 1.8;
 
 class News extends Component {
   static propTypes = {
@@ -63,6 +66,95 @@ class News extends Component {
     );
   }
 
+  _renderPhotoView(imageUrl) {
+    if (imageUrl.length === 1)
+      return (
+        <Image
+          source={{ uri: imageUrl[0] }}
+          style={{
+            resizeMode: 'cover',
+            marginVertical: 8,
+          }}
+        />
+      );
+    else
+      return (
+        <View
+          style={{
+            flexDirection: 'row',
+            marginVertical: baseMargin,
+            // maxHeight: 200,
+          }}
+        >
+          <View style={{ flex: 2 }}>
+            <Image
+              source={{ uri: imageUrl[0] }}
+              style={{ resizeMode: 'cover', minHeight: 200 }}
+            />
+          </View>
+
+          <View
+            style={{
+              flex: 1,
+              marginHorizontal: baseMargin,
+              maxHeight: 200,
+            }}
+          >
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+              <Image
+                source={{ uri: imageUrl[1] }}
+                style={{
+                  resizeMode: 'cover',
+                  minHeight: 92,
+                  marginBottom: baseMargin,
+                }}
+              />
+              <Image
+                source={{ uri: imageUrl[1] }}
+                style={{
+                  resizeMode: 'cover',
+                  minHeight: 92,
+                  marginBottom: baseMargin,
+                }}
+              />
+              <Image
+                source={{ uri: imageUrl[1] }}
+                style={{
+                  resizeMode: 'cover',
+                  minHeight: 92,
+                  marginBottom: baseMargin,
+                }}
+              />
+              <Image
+                source={{ uri: imageUrl[1] }}
+                style={{
+                  resizeMode: 'cover',
+                  minHeight: 92,
+                  marginBottom: baseMargin,
+                }}
+              />
+              <Image
+                source={{ uri: imageUrl[2] }}
+                style={{
+                  resizeMode: 'cover',
+                  minHeight: 92,
+                  marginBottom: baseMargin,
+                }}
+              />
+              <Image
+                source={{ uri: imageUrl[3] }}
+                style={{
+                  resizeMode: 'cover',
+                  minHeight: 92,
+                  marginBottom: baseMargin,
+                }}
+              />
+            </ScrollView>
+          </View>
+        </View>
+      );
+  }
+
   _renderStatus(item) {
     const url = item.newsPhotos.map(newsPhoto => newsPhoto.url);
 
@@ -71,7 +163,7 @@ class News extends Component {
         <Text>
           {item.content}
         </Text>
-        <Image source={{ uri: url[0] }} style={styles.photo} />
+        {this._renderPhotoView(url)}
       </View>
     );
   }

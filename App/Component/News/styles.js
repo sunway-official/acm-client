@@ -31,10 +31,10 @@ export default StyleSheet.create({
     fontSize: Fonts.size.small,
   },
   photo: {
-    width: '100%',
-    height: photoHeight,
-    resizeMode: 'contain',
-    marginVertical: baseMargin,
+    // width: '100%',
+    // height: photoHeight,
+    // resizeMode: 'contain',
+    // marginVertical: baseMargin,
   },
   interactionBarContainer: {
     flex: 1,
