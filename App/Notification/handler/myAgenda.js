@@ -42,8 +42,8 @@ const setLocalNotificationSchedule = async activity => {
 
 const cancelLocalNotification = async () => {
   // Get & parse notification ID from storage
-  let notifications = await AsyncStorage.getItem(STORAGE_KEY);
-  notifications = JSON.parse(notifications)[0];
+  let notifications = (await AsyncStorage.getItem(STORAGE_KEY)) || '[]';
+  notifications = JSON.parse(notifications)[0] || [];
   // Cancel Expo Local Notifications
   await Promise.all(
     notifications.map(id => Notifications.cancelScheduledNotificationAsync(id)),

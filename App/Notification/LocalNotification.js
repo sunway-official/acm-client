@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Permissions, Constants } from 'expo';
 import { withApollo } from 'react-apollo';
 import setMyAgendaScheduleAsync from './handler/myAgenda';
 import fixtures from './fixtures';
@@ -9,10 +10,13 @@ import fixtures from './fixtures';
  */
 class LocalNotification extends Component {
   async componentDidMount() {
-    /**
-     * TO DO: Handle fetching my agenda schedule
-     */
-    await setMyAgendaScheduleAsync(fixtures);
+    let permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    if (permission.status === 'granted') {
+      /**
+      * TO DO: Handle fetching my agenda schedule
+      */
+      await setMyAgendaScheduleAsync(fixtures);
+    }
   }
 
   render() {
