@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Permissions, Constants } from 'expo';
+import { Permissions } from 'expo';
 import { withApollo } from 'react-apollo';
 import setMyAgendaScheduleAsync from './handler/myAgenda';
 import fixtures from './fixtures';
