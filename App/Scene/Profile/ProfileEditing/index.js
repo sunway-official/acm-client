@@ -12,6 +12,8 @@ import moment from 'moment';
 import mutation from '~/Graphql/mutation/updateMe.graphql';
 import query from '~/Graphql/query/me.graphql';
 import { NavigationActions } from '~/Redux/Navigation';
+import { transformServerDate } from '~/Transformer';
+import { DATE_FORMAT } from '~/env';
 import styles from './styles';
 import Form from './Form';
 import { DEFAULT_ME } from '../fixture';
@@ -43,7 +45,6 @@ class ProfileEditing extends Component {
   }
 
   async _onUpdate(values) {
-    console.log(values);
     const { mutate, data: { refetch }, navigate } = this.props;
     this.setState({ loading: true });
     try {
@@ -51,7 +52,7 @@ class ProfileEditing extends Component {
         variables: {
           ...values,
           gender: values.gender.value,
-          dob: moment(values.dob).toISOString(),
+          dob: transformServerDate.toUTC(values.dob, DATE_FORMAT),
         },
       });
       await refetch();
@@ -69,7 +70,7 @@ class ProfileEditing extends Component {
       : {
           firstname: me.firstname,
           lastname: me.lastname,
-          dob: me.dob,
+          dob: transformServerDate.toLocale(me.dob),
           gender: { name: me.gender, value: me.gender },
           interested_in: me.interested_in,
           bio: me.bio,

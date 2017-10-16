@@ -47,6 +47,7 @@ class Follower extends Component {
             name={follower.followByMe ? 'user-following' : 'user-follow'}
             type="simple-line-icon"
             color={follower.followByMe ? Colors.red : Colors.black}
+            size={18}
           />
         </TouchableOpacity>
       </View>

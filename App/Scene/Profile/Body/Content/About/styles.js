@@ -29,7 +29,6 @@ export default StyleSheet.create({
     color: grey,
     fontSize: Fonts.size.small,
   },
-  section: { marginBottom: baseMargin },
   information: {
     flexDirection: 'row',
     padding: baseMargin,

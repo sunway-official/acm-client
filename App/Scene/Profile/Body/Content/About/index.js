@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import moment from 'moment';
 import { Text } from '~/Component';
 import styles from './styles';
+import { transformServerDate } from '~/Transformer';
 
 const ICON_SIZE = 18;
 
@@ -18,11 +18,11 @@ class About extends Component {
     this._renderUserInformation = this._renderUserInformation.bind(this);
   }
 
-  _convertUTCToLocalDate(date) {
-    return moment(date)
-      .local()
-      .format('ll');
-  }
+  // _convertUTCToLocalDate(date) {
+  //   return moment(date)
+  //     .local()
+  //     .format('ll');
+  // }
 
   _renderUserInformation() {
     const { user } = this.props;
@@ -69,7 +69,7 @@ class About extends Component {
             style={styles.icon}
           />
 
-          <Text>Born on {this._convertUTCToLocalDate(user.dob)}</Text>
+          <Text>Born on {transformServerDate.toLocale(user.dob)}</Text>
         </View>
         <View style={styles.information}>
           <View>
@@ -92,7 +92,7 @@ class About extends Component {
           </View>
           <View>
             <Text>Biography</Text>
-            <Text>{user.bio}</Text>
+            <Text style={{ flex: 1, paddingRight: 32 }}>{user.bio}</Text>
           </View>
         </View>
         <View style={styles.information}>
@@ -103,7 +103,7 @@ class About extends Component {
             size={ICON_SIZE}
             style={styles.icon}
           />
-          <Text>Joined {this._convertUTCToLocalDate(user.created_at)}</Text>
+          <Text>Joined {transformServerDate.toLocale(user.created_at)}</Text>
         </View>
         <View style={styles.information}>
           <Icon
@@ -154,17 +154,15 @@ class About extends Component {
   render() {
     return (
       <View>
-        <View style={styles.section}>
-          <View style={styles.titleContainer}>
-            <View style={styles.sectionIcon}>
-              <Icon name="network" type="entypo" color="white" size={18} />
-            </View>
-            <View>
-              <Text style={styles.title}>Intro</Text>
-            </View>
+        <View style={styles.titleContainer}>
+          <View style={styles.sectionIcon}>
+            <Icon name="network" type="entypo" color="white" size={18} />
           </View>
-          {this._renderUserInformation()}
+          <View>
+            <Text style={styles.title}>Intro</Text>
+          </View>
         </View>
+        {this._renderUserInformation()}
       </View>
     );
   }
