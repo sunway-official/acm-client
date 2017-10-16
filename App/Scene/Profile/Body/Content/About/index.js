@@ -28,7 +28,7 @@ class About extends Component {
     const { user } = this.props;
     return (
       <View>
-        <View style={styles.information}>
+        <View style={styles.infoContainer}>
           <View>
             <Icon
               name="briefcase"
@@ -38,14 +38,14 @@ class About extends Component {
               style={styles.icon}
             />
           </View>
-          <View>
+          <View style={styles.info}>
             <Text>Working places</Text>
             <Text>
               {user.position} at {user.organization}
             </Text>
           </View>
         </View>
-        <View style={styles.information}>
+        <View style={styles.infoContainer}>
           <View>
             <Icon
               name="home-variant"
@@ -55,12 +55,12 @@ class About extends Component {
               style={styles.icon}
             />
           </View>
-          <View>
+          <View style={styles.info}>
             <Text>Current Location</Text>
             <Text>Lives in Da Nang, Vietnam</Text>
           </View>
         </View>
-        <View style={styles.information}>
+        <View style={styles.infoContainer}>
           <Icon
             name="cake"
             type="entypo"
@@ -68,10 +68,9 @@ class About extends Component {
             size={ICON_SIZE}
             style={styles.icon}
           />
-
           <Text>Born on {transformServerDate.toLocale(user.dob)}</Text>
         </View>
-        <View style={styles.information}>
+        <View style={styles.infoContainer}>
           <View>
             <Icon
               name="car"
@@ -81,21 +80,21 @@ class About extends Component {
               style={styles.icon}
             />
           </View>
-          <View>
+          <View style={styles.info}>
             <Text>Personal Interests</Text>
             <Text>{user.interested_in}</Text>
           </View>
         </View>
-        <View style={styles.information}>
+        <View style={styles.infoContainer}>
           <View>
             <Icon name="description" size={ICON_SIZE} style={styles.icon} />
           </View>
-          <View>
+          <View style={styles.info}>
             <Text>Biography</Text>
-            <Text style={{ flex: 1, paddingRight: 32 }}>{user.bio}</Text>
+            <Text>{user.bio}</Text>
           </View>
         </View>
-        <View style={styles.information}>
+        <View style={styles.infoContainer}>
           <Icon
             name="clock"
             type="material-community"
@@ -105,17 +104,16 @@ class About extends Component {
           />
           <Text>Joined {transformServerDate.toLocale(user.created_at)}</Text>
         </View>
-        <View style={styles.information}>
+        <View style={styles.infoContainer}>
           <Icon
             name="wifi"
             color="#009688"
             size={ICON_SIZE}
             style={styles.icon}
           />
-
           <Text>Followed by 999 people</Text>
         </View>
-        <View style={styles.information}>
+        <View style={styles.infoContainer}>
           <View>
             <Icon
               name="facebook-box"
@@ -125,9 +123,9 @@ class About extends Component {
               style={styles.icon}
             />
           </View>
-          <Text>{user.facebook_id}</Text>
+          <Text style={styles.info}>{user.facebook_id}</Text>
         </View>
-        <View style={styles.information}>
+        <View style={styles.infoContainer}>
           <Icon
             name="twitter"
             type="material-community"
@@ -135,9 +133,9 @@ class About extends Component {
             size={ICON_SIZE}
             style={styles.icon}
           />
-          <Text>{user.twitter_id}</Text>
+          <Text style={styles.info}>{user.twitter_id}</Text>
         </View>
-        <View style={styles.information}>
+        <View style={styles.infoContainer}>
           <Icon
             name="linkedin-box"
             type="material-community"
@@ -145,7 +143,7 @@ class About extends Component {
             size={ICON_SIZE}
             style={styles.icon}
           />
-          <Text>{user.linkedin_id}</Text>
+          <Text style={styles.info}>{user.linkedin_id}</Text>
         </View>
       </View>
     );

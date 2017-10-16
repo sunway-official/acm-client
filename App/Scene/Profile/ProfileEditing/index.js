@@ -8,7 +8,6 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
 } from 'react-native';
-import moment from 'moment';
 import mutation from '~/Graphql/mutation/updateMe.graphql';
 import query from '~/Graphql/query/me.graphql';
 import { NavigationActions } from '~/Redux/Navigation';

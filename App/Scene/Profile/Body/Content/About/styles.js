@@ -29,10 +29,13 @@ export default StyleSheet.create({
     color: grey,
     fontSize: Fonts.size.small,
   },
-  information: {
+  infoContainer: {
     flexDirection: 'row',
     padding: baseMargin,
     backgroundColor: white,
+  },
+  info: {
+    flex: 1,
   },
   icon: {
     marginLeft: baseMargin,
