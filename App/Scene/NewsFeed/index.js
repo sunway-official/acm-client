@@ -18,7 +18,7 @@ import query from '~/Graphql/query/getAllNews.graphql';
 class NewsFeedScene extends Component {
   render() {
     const { loading, allNews } = this.props;
-    console.log(allNews);
+    // console.log(allNews);
 
     if (loading) {
       return (

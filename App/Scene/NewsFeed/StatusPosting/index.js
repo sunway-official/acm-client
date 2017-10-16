@@ -1,6 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, TextInput } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { UserAvatar, TouchableView, Text } from '~/Component';
 import { Colors } from '~/Theme';
@@ -15,9 +15,11 @@ const StatusPosting = () => {
         rippleColor={Colors.secondary}
         style={styles.statusBoxView}
       >
-        <Text style={styles.placeholderStyle}>
-          {"What's on your mind?"}
-        </Text>
+        <TextInput
+          style={[styles.placeholderStyle]}
+          placeholder="What's on your mind?"
+          underlineColorAndroid="transparent"
+        />
       </TouchableView>
       <TouchableOpacity>
         <Icon name="camera" type="material-community" />
