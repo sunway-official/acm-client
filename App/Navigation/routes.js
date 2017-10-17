@@ -63,7 +63,6 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    initial: true,
   },
   myAgenda: {
     name: 'My Agenda',
@@ -107,20 +106,21 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-  },
-  changePassword: {
-    name: 'Change Password',
-    path: '/change-password',
-    screen: ChangePassword,
-    icon: {
-      name: 'face-profile',
-      type: 'material-community',
-    },
+    initial: true,
   },
   profileEditing: {
     name: 'Edit Profile',
     path: '/profile/edit',
     screen: ProfileEditing,
+    icon: {
+      name: 'face-profile',
+      type: 'material-community',
+    },
+  },
+  changePassword: {
+    name: 'Change Password',
+    path: '/change-password',
+    screen: ChangePassword,
     icon: {
       name: 'face-profile',
       type: 'material-community',

@@ -5,12 +5,9 @@ import { required, password } from '~/Lib/validate';
 import { View, KeyboardAvoidingView } from 'react-native';
 import { AnimatableView } from '~/Component';
 import { Icon } from 'react-native-elements';
-
 import styles from './styles';
 import { Colors } from '~/Theme';
-
-import { Text } from '~/Component';
-import FormInput from '~/Component/FormInput';
+import { Text, FormInput } from '~/Component';
 import TouchableView from '~/Component/TouchableView';
 
 const _renderLoadingButton = () => (
@@ -57,6 +54,7 @@ const _renderForm = () => (
       underlineColorAndroid={'transparent'}
       secureTextEntry={true}
       returnKeyType={'next'}
+      containerStyle={styles.containerStyle}
     />
     <Field
       name="confirmNewPassword"
@@ -66,6 +64,7 @@ const _renderForm = () => (
       underlineColorAndroid={'transparent'}
       secureTextEntry={true}
       returnKeyType={'done'}
+      containerStyle={styles.containerStyle}
     />
   </View>
 );

@@ -5,6 +5,7 @@ const { baseMargin } = Metrics;
 const { white } = Colors;
 
 export default StyleSheet.create({
+  container: { flex: 11 },
   modalContainer: {
     alignItems: 'center',
   },

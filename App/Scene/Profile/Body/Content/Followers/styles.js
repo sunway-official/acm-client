@@ -12,10 +12,11 @@ export default StyleSheet.create({
     backgroundColor: white,
     padding: baseMargin,
   },
-  leftOfFollowerContainer: {
+  leftFollowerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  rightFollowerContainer: { paddingRight: baseMargin },
   numberOfFollowerText: {
     color: grey,
     fontSize: 12,

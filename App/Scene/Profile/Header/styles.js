@@ -6,9 +6,6 @@ const avatarWidth = 120;
 const halfHeightOfAvatar = avatarWidth / 2;
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   backgroundImage: { width: '100%', height: '100%' },
   coverPhoto: {
     backgroundColor: 'rgba(0,0,0,0.125)',
