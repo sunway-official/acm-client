@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, TouchableOpacity, TextInput } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Modal, Text, FormInputCustom } from '~/Component';
 import { setModalState } from '~/Redux/Modal';

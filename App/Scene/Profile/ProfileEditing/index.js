@@ -70,7 +70,10 @@ class ProfileEditing extends Component {
           firstname: me.firstname,
           lastname: me.lastname,
           dob: transformServerDate.toLocale(me.dob),
-          gender: { name: me.gender, value: me.gender },
+          gender: {
+            name: me.gender.charAt(0).toUpperCase() + me.gender.slice(1),
+            value: me.gender,
+          },
           interested_in: me.interested_in,
           bio: me.bio,
           organization: me.organization,

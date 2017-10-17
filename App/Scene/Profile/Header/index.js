@@ -40,13 +40,13 @@ class Header extends Component {
   }
 
   _renderInfo() {
-    const { address, user } = this.props;
+    const { user } = this.props;
     return (
       <View style={styles.infoContainer}>
         <Text style={[styles.primaryTextColor, styles.username]} bold>
           {user.firstname} {user.lastname}
         </Text>
-        <Text style={styles.primaryTextColor}>{address}</Text>
+        <Text style={styles.primaryTextColor}>{user.organization}</Text>
       </View>
     );
   }

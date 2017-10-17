@@ -64,11 +64,7 @@ class ProfileScene extends Component {
         }}
         overScrollMode={'never'}
       >
-        <ProfileHeader
-          avatar={DEFAULT_USER_AVATAR}
-          user={me}
-          address="Duy Tan University"
-        />
+        <ProfileHeader avatar={DEFAULT_USER_AVATAR} user={me} />
         <ProfileBody user={me} />
       </ScrollView>
     );
