@@ -6,7 +6,7 @@ import { NavigationActions } from '~/Redux/Navigation';
 import AppNavigation from '~/Navigation';
 import { getInitialRoute } from '~/Navigation/resolver';
 import { gql, compose, graphql } from 'react-apollo';
-
+import { LocalNotification } from '~/Notification';
 import styles from './styles';
 
 import query from '~/Graphql/query/me.graphql';
@@ -38,6 +38,7 @@ class Root extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <LocalNotification />
         <AppNavigation />
       </View>
     );
