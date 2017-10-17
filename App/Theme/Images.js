@@ -1,10 +1,12 @@
 const images = {
   // TODO: image default for test
-  imgDefault50: require('~/Images/default50.png'),
-  imgDefault100: require('~/Images/default100.png'),
-  imgDefault150: require('~/Images/default150.png'),
-  imgDefault200: require('~/Images/default200.png'),
-  imgDefault250: require('~/Images/default250.png'),
+  default: {
+    img50: require('~/Images/default/50.png'),
+    img100: require('~/Images/default/100.png'),
+    img150: require('~/Images/default/150.png'),
+    img200: require('~/Images/default/200.png'),
+    img250: require('~/Images/default/250.png'),
+  },
 
   materialBackground: require('~/Images/material/background.jpg'),
   splash: require('~/Images/splash.png'),

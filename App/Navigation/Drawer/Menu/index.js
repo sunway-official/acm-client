@@ -71,8 +71,8 @@ class Menu extends Component {
   _renderHeaderImage() {
     return (
       <View style={styles.headerImage}>
-        <Image source={Images.imgDefault100} style={styles.profileImage} />
-        <Image source={Images.imgDefault50} style={styles.conferenceImage} />
+        <Image source={Images.default.img100} style={styles.profileImage} />
+        <Image source={Images.default.img50} style={styles.conferenceImage} />
       </View>
     );
   }
