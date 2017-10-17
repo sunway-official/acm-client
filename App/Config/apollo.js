@@ -4,7 +4,8 @@ import {
   /*addGraphQLSubscriptions*/
 } from 'subscriptions-transport-ws';
 import { addGraphQLSubscriptions } from 'add-graphql-subscriptions'; // Fix Yellow box issue
-import { AsyncStorage, Linking } from 'react-native';
+import { AsyncStorage } from 'react-native';
+import { Constants } from 'expo';
 import {
   SERVER_ENDPOINT,
   SERVER_SUBSCRIPTION_ENDPOINT,
@@ -23,7 +24,7 @@ const create = async (initialState = {}) => {
    */
   let networkInterfaceURI = SERVER_ENDPOINT;
   if (IS_DEBUGGING) {
-    const initialURL = await Linking.getInitialURL();
+    const initialURL = Constants.experienceUrl;
     networkInterfaceURI = transformServerEndPoint(initialURL);
   }
 
