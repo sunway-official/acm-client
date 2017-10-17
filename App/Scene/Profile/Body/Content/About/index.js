@@ -18,12 +18,6 @@ class About extends Component {
     this._renderUserInformation = this._renderUserInformation.bind(this);
   }
 
-  // _convertUTCToLocalDate(date) {
-  //   return moment(date)
-  //     .local()
-  //     .format('ll');
-  // }
-
   _renderUserInformation() {
     const { user } = this.props;
     return (

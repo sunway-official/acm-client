@@ -13,7 +13,7 @@ const changeUnderlineColor = ({ touched, error, warning }) => {
   return Colors.lightGrey;
 };
 
-const FormInputCustom = ({
+const FormInput = ({
   input,
   meta: { touched, error, warning },
   containerStyle,
@@ -45,7 +45,7 @@ const FormInputCustom = ({
   );
 };
 
-FormInputCustom.propTypes = {
+FormInput.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
@@ -56,4 +56,4 @@ FormInputCustom.propTypes = {
   customStyle: View.propTypes.style,
 };
 
-export default FormInputCustom;
+export default FormInput;

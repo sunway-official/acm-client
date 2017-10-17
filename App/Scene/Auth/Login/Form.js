@@ -5,8 +5,7 @@ import { required, email, password } from '~/Lib/validate';
 import { Icon } from 'react-native-elements';
 import { Image, View, KeyboardAvoidingView } from 'react-native';
 import { Images, Colors } from '~/Theme';
-import { AnimatableView } from '~/Component';
-import { FormInput, Text, TouchableView } from '~/Component';
+import { FormInput, Text, TouchableView, AnimatableView } from '~/Component';
 import styles from '../styles';
 
 const _renderLoadingButton = () => (

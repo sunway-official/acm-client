@@ -2,12 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, email } from '~/Lib/validate';
-
 import { KeyboardAvoidingView, Image, View } from 'react-native';
 import { Images } from '~/Theme';
-import FormInput from '~/Component/FormInput';
-import TouchableView from '~/Component/TouchableView';
-import Text from '~./Component/Text';
+import { Text, TouchableView, FormInput } from '~/Component';
 import styles from '../styles';
 
 const submit = values => {
