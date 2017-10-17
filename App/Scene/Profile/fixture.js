@@ -1,16 +1,17 @@
+import { DATE_FORMAT } from '~/env';
 import moment from 'moment';
 
 export const DEFAULT_ME = {
-  firstname: '',
-  lastname: '',
-  dob: moment().format('YYYY-MM-DD'),
+  firstname: 'Nguyen Van',
+  lastname: 'A',
+  dob: moment().format(DATE_FORMAT),
   gender: { name: 'Male', value: 'male' },
   interested_in: 'Listen to music and go to travel',
   bio:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.",
   organization: 'ABC Company',
   position: 'Director of Human and Resource Department',
-  language: 'English, France, Japanese, Vietnamese',
+  language: 'English',
   facebook_id: 'facebook.com',
   twitter_id: 'twitter.com',
   linkedin_id: 'linkedin.com',

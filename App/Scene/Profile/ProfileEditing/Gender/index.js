@@ -16,6 +16,10 @@ const data = [
     name: 'Female',
     value: 'female',
   },
+  {
+    name: 'Unknown',
+    value: 'unknown',
+  },
 ];
 
 class GenderForm extends Component {
