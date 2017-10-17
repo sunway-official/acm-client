@@ -27,7 +27,6 @@ export const ROUTES = {
     icon: {
       name: 'home',
     },
-    initial: true,
   },
   login: {
     name: 'Login',
@@ -64,6 +63,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
+    initial: true,
   },
   myAgenda: {
     name: 'My Agenda',
