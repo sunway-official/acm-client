@@ -1,58 +1,114 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity, TextInput } from 'react-native';
+import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import styles from './styles';
 import { Colors } from '~/Theme';
-import { UserAvatar, TouchableView, Text } from '~/Component';
+import {
+  UserAvatar,
+  TouchableView,
+  Text,
+  Modal,
+  AutoExpandingTextInput,
+} from '~/Component';
 
 import { defaultUserAvatar } from '~/Scene/NewsFeed/fixture';
 
 class StatusInput extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      text: '',
+      isVisible: this.props.isVisible,
+    };
     this.post = this.post.bind(this);
+    this.cancel = this.cancel.bind(this);
   }
 
   post() {
     this.props.post(this.state.text);
+    this.cancel();
     this.textInput.clear();
     this.textInput.blur();
   }
 
+  cancel() {
+    this.props.cancel(!this.state.isVisible);
+    this.setState({ isVisible: false });
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <UserAvatar small avatar={defaultUserAvatar} />
-        <TouchableView
-          rippleColor={Colors.secondary}
-          style={styles.statusBoxView}
-        >
-          <TextInput
-            ref={ref => {
-              this.textInput = ref;
-            }}
+      <Modal
+        animationIn="slideInUp"
+        animationOut="slideOutDown"
+        animationInTiming={500}
+        animationOutTiming={500}
+        isVisible={this.state.isVisible}
+        style={styles.modalContainer}
+      >
+        <View style={styles.modalHeader}>
+          <TouchableView onPress={this.cancel}>
+            <Text bold style={{ color: Colors.primary }}>
+              Cancel
+            </Text>
+          </TouchableView>
+          <Text bold medium>
+            Update Status
+          </Text>
+          <TouchableView
+            onPress={this.post}
+            disabled={this.state.text === '' ? true : false}
+          >
+            <Text
+              bold
+              style={
+                this.state.text === ''
+                  ? { color: Colors.grey }
+                  : { color: Colors.primary }
+              }
+            >
+              Post
+            </Text>
+          </TouchableView>
+        </View>
+
+        <View style={styles.modalContent}>
+          <View style={styles.modalContentUserInformation}>
+            <UserAvatar small avatar={defaultUserAvatar} />
+            <Text bold style={styles.modalContentUsername}>
+              Ly Bao Khanh
+            </Text>
+          </View>
+          <AutoExpandingTextInput
+            value={this.state.text}
+            placeholder={"What's on your mind?"}
             onChangeText={text => this.setState({ text })}
-            style={[styles.placeholderStyle]}
-            placeholder="What's on your mind?"
-            underlineColorAndroid="transparent"
+            enablesReturnKeyAutomatically={true}
+            returnKeyType="done"
           />
-        </TouchableView>
-        <TouchableOpacity>
-          <Icon name="camera" type="material-community" />
-        </TouchableOpacity>
-        <TouchableView rippleColor={Colors.primary} onPress={this.post}>
-          <Text>Post</Text>
-        </TouchableView>
-      </View>
+        </View>
+
+        <View style={styles.modalAction}>
+          <TouchableView rippleColor={Colors.primary} borderless={true}>
+            <Icon name="md-photos" type="ionicon" />
+            <Text>Photo</Text>
+          </TouchableView>
+          <TouchableView rippleColor={Colors.primary} borderless={true}>
+            <Icon name="camera" type="material-community" />
+            <Text>Camera</Text>
+          </TouchableView>
+        </View>
+      </Modal>
     );
   }
 }
 
 StatusInput.propTypes = {
+  isVisible: PropTypes.bool,
   post: PropTypes.func.isRequired,
+  cancel: PropTypes.func,
 };
 
 export default StatusInput;

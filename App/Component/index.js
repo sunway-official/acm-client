@@ -9,3 +9,4 @@ export { default as Dialog } from './Dialog';
 export { default as Modal } from './Modal';
 export { default as FilterModal } from './FilterModal';
 export { default as StatusInput } from './StatusInput';
+export { default as AutoExpandingTextInput } from './AutoExpandingTextInput';
