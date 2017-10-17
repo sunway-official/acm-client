@@ -1,14 +1,6 @@
-import moment from 'moment';
-
-// console.log(date);
-
 const modifyDate = number => {
-  // let date = moment(
-  //   new Date().getHours() + new Date().getMinutes() + ' 20171016',
-  //   'HHmm YYYYMMDD',
-  // ).toDate();
   let date = new Date();
-  date.setHours(new Date().getHours());
+  date.setHours(date.getHours());
   date.setMinutes(date.getMinutes() + number);
   return date;
 };
