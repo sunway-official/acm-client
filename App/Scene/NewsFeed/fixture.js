@@ -1,7 +1,7 @@
-export const defaultUserAvatar =
+export const DEFAULT_USER_AVATAR =
   'https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png';
 
-export const news = [
+export const NEWS = [
   {
     username: 'Bill Gates',
     avatar:
@@ -15,7 +15,7 @@ export const news = [
     comments: [
       {
         username: 'Dung Le',
-        avatar: defaultUserAvatar,
+        avatar: DEFAULT_USER_AVATAR,
         comment:
           'If we Stop employing foreign engineers especially from India then there will be another Microsoft in India.',
         time: '5 minutes ago',
@@ -55,6 +55,6 @@ export const news = [
 ];
 
 export default {
-  defaultUserAvatar,
-  news,
+  DEFAULT_USER_AVATAR,
+  NEWS,
 };

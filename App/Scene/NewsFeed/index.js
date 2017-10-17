@@ -4,14 +4,14 @@ import { ScrollView } from 'react-native';
 import styles from './styles';
 import { Colors } from '~/Theme';
 import { News } from '~/Component';
-import { news } from './fixture';
+import { NEWS } from './fixture';
 import StatusPosting from './StatusPosting';
 
 const NewsFeedScene = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <StatusPosting />
-      {news.map((item, index) => <News item={item} key={index} />)}
+      {NEWS.map((item, index) => <News item={item} key={index} />)}
     </ScrollView>
   );
 };

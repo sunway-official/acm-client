@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import DatePicker from 'react-native-datepicker';
+import { transformServerDate } from '~/Transformer';
+import { DATE_FORMAT } from '~/env';
 import moment from 'moment';
 import styles, { customStyles } from './styles';
 
-const DATE_FORMAT = 'YYYY-MM-DD';
-const MIN_DATE = moment('1900-01-01', DATE_FORMAT).format(DATE_FORMAT);
+const MIN_DATE = transformServerDate.toLocale('1900-01-01');
 const MAX_DATE = moment().format(DATE_FORMAT); // current date
 
 const DatePickerForm = ({
@@ -25,7 +26,7 @@ const DatePickerForm = ({
         showIcon={false}
         confirmBtnText="OK"
         cancelBtnText="Cancel"
-        onDateChange={date => onChange(date)}
+        onDateChange={onChange}
         customStyles={customStyles}
         {...others}
       />

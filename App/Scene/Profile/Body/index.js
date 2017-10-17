@@ -6,7 +6,7 @@ import { Text, TouchableView } from '~/Component';
 import { Colors } from '~/Theme';
 import Content from './Content';
 import styles from './styles';
-import { news, followers } from '../fixture';
+import { NEWS, FOLLOWERS } from '../fixture';
 
 class Body extends Component {
   static propTypes = {
@@ -36,17 +36,17 @@ class Body extends Component {
         Activities: {
           title: 'Posts',
           isActive: false,
-          quantity: news.length,
+          quantity: NEWS.length,
         },
         Followers: {
           title: 'Followers',
           isActive: false,
-          quantity: followers.length,
+          quantity: FOLLOWERS.length,
         },
         Following: {
           title: 'Following',
           isActive: false,
-          quantity: followers.length,
+          quantity: FOLLOWERS.length,
         },
       },
     };

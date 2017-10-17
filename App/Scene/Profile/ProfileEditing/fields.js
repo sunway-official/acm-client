@@ -43,9 +43,6 @@ const inputForms = {
     field: {
       name: 'gender',
       component: GenderForm,
-      props: {
-        editable: false,
-      },
     },
   },
   dob: {
@@ -60,6 +57,45 @@ const inputForms = {
       component: DatePicker,
       props: {
         placeholder: 'Birthday',
+      },
+    },
+  },
+  organization: {
+    title: 'Organization',
+    icon: {
+      name: 'briefcase',
+      type: 'entypo',
+      color: '#8BC34A',
+    },
+    field: {
+      name: 'organization',
+      placeholder: 'Organization',
+    },
+  },
+  position: {
+    title: 'Position',
+    icon: {
+      name: 'users',
+      type: 'font-awesome',
+      color: '#E91E63',
+    },
+    field: {
+      name: 'position',
+      placeholder: 'Position',
+    },
+  },
+  interested_in: {
+    title: 'Interested in',
+    icon: {
+      name: 'car',
+      type: 'material-community',
+      color: '#F44336',
+    },
+    field: {
+      name: 'interested_in',
+      props: {
+        placeholder: 'Write your hobbies',
+        multiline: true,
       },
     },
   },
@@ -84,7 +120,7 @@ const inputForms = {
       color: '#4267B2',
     },
     field: {
-      name: 'facebook',
+      name: 'facebook_id',
       props: {
         placeholder: 'Your facebook',
       },
@@ -98,13 +134,13 @@ const inputForms = {
       color: '#1DA1F2',
     },
     field: {
-      name: 'twitter',
+      name: 'twitter_id',
       props: {
         placeholder: 'Your twitter',
       },
     },
   },
-  linked_id: {
+  linkedin_id: {
     title: 'Linked',
     icon: {
       name: 'linkedin-box',
@@ -112,7 +148,7 @@ const inputForms = {
       color: '#0073B1',
     },
     field: {
-      name: 'linked',
+      name: 'linkedin_id',
       props: {
         placeholder: 'Your linked',
       },

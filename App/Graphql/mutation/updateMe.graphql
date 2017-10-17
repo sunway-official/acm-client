@@ -1,18 +1,42 @@
 mutation(
-  $firstname: String!
-  $lastname: String!
+  $firstname: String
+  $lastname: String
   $dob: Date
-  $gender: Gender!
+  $gender: Gender
+  $bio: String
+  $organization: String
+  $position: String
+  $language: String
+  $interested_in: String
+  $facebook_id: String
+  $twitter_id: String
+  $linkedin_id: String
 ) {
   updateMe(
     firstname: $firstname
     lastname: $lastname
     dob: $dob
     gender: $gender
+    bio: $bio
+    organization: $organization
+    position: $position
+    language: $language
+    interested_in: $interested_in
+    facebook_id: $facebook_id
+    twitter_id: $twitter_id
+    linkedin_id: $linkedin_id
   ) {
     firstname
     lastname
     dob
     gender
+    bio
+    organization
+    position
+    language
+    interested_in
+    facebook_id
+    twitter_id
+    linkedin_id
   }
 }

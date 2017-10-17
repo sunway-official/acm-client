@@ -1,55 +1,59 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { TextInput, View } from 'react-native';
-import { Text } from '~/Component';
-import styles from './styles';
+import { View, TextInput } from 'react-native';
+import Text from '../Text';
 import { Colors } from '~/Theme';
+import styles from './styles';
 
-class FormInput extends PureComponent {
-  static propTypes = {
-    input: PropTypes.object,
-    meta: PropTypes.shape({
-      touched: PropTypes.bool,
-      error: PropTypes.string,
-      warning: PropTypes.string,
-    }),
-    containerStyle: View.propTypes.style,
-  };
-
-  render() {
-    const {
-      input,
-      containerStyle,
-      meta: { touched, error, warning },
-      ...others
-    } = this.props;
-
-    const defaultUnderline = { borderColor: Colors.lightGrey };
-    const errorUnderline = error
-      ? { borderColor: Colors.danger }
-      : defaultUnderline;
-    const warningUnderline = warning
-      ? {
-          borderColor: Colors.warning,
-        }
-      : defaultUnderline;
-
-    return (
-      <View style={[containerStyle]}>
-        <TextInput style={[styles.textInput]} {...input} {...others} />
-        {!touched && <Text style={[styles.defaultText, defaultUnderline]} />}
-        {touched &&
-          ((error && (
-            <Text style={[styles.errorText, errorUnderline]}>{error}</Text>
-          )) ||
-            (warning && (
-              <Text style={[styles.warningText, warningUnderline]}>
-                {warning}
-              </Text>
-            )))}
-      </View>
-    );
+const changeUnderlineColor = ({ touched, error, warning }) => {
+  if (touched) {
+    if (error) return Colors.danger;
+    if (warning) return Colors.warning;
   }
-}
+  return Colors.lightGrey;
+};
+
+const FormInput = ({
+  input,
+  meta: { touched, error, warning },
+  containerStyle,
+  customStyle,
+  ...others
+}) => {
+  return (
+    <View style={[styles.container, containerStyle]}>
+      <TextInput
+        {...input}
+        style={[
+          styles.inputForm,
+          {
+            borderBottomColor: changeUnderlineColor({
+              touched,
+              error,
+              warning,
+            }),
+          },
+          customStyle,
+        ]}
+        underlineColorAndroid="transparent"
+        {...others}
+      />
+      {touched &&
+        ((error && <Text style={styles.errorText}>{error}</Text>) ||
+          (warning && <Text style={styles.warningText}>{warning}</Text>))}
+    </View>
+  );
+};
+
+FormInput.propTypes = {
+  input: PropTypes.object,
+  meta: PropTypes.shape({
+    touched: PropTypes.bool,
+    error: PropTypes.string,
+    warning: PropTypes.string,
+  }),
+  containerStyle: View.propTypes.style,
+  customStyle: View.propTypes.style,
+};
 
 export default FormInput;

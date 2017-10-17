@@ -1,9 +1,17 @@
-{
+query {
   me {
     firstname
     lastname
-    email
     dob
     gender
+    bio
+    organization
+    position
+    language
+    interested_in
+    facebook_id
+    twitter_id
+    linkedin_id
+    created_at
   }
 }

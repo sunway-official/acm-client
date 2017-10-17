@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: Colors.white,
   },
+  containerStyle: { marginBottom: Metrics.baseMargin },
   buttonContainer: {
-    alignItems: 'flex-start',
     paddingHorizontal: Metrics.doubleBaseMargin,
     paddingVertical: Metrics.doubleBaseMargin,
   },
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
     backgroundColor: Colors.primary,
   },
-  actionText: { color: Colors.white },
+  actionText: { color: Colors.white, textAlign: 'center' },
   errorText: {
     paddingHorizontal: Metrics.doubleBaseMargin,
     paddingVertical: Metrics.baseMargin,
