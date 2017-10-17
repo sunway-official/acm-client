@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Badge } from 'react-native-elements';
-import { Colors, Metrics } from '../../../../../Theme';
+import { Colors, Metrics } from '~/Theme';
 import { Text, UserAvatar } from '~/Component';
 import { followers } from '~/Scene/Profile/fixture';
 import styles from './styles';
@@ -24,29 +24,28 @@ class Follower extends Component {
   }
 
   _renderFollower(follower, index) {
+    const { follow } = this.state;
     return (
       <View key={index} style={styles.followerContainer}>
         <View style={styles.leftOfFollowerContainer}>
           <UserAvatar medium avatar={follower.avatar} />
           <View marginHorizontal={Metrics.baseMargin}>
-            <Text>
-              {follower.username}
-            </Text>
+            <Text>{follower.username}</Text>
             <Text style={styles.numberOfFollowerText}>
               {follower.followers} followers
             </Text>
           </View>
         </View>
         <Badge
-          value={this.state.follow ? 'Following' : 'Follow'}
-          textStyle={{ color: this.state.follow ? Colors.red : Colors.white }}
+          value={follow ? 'Following' : 'Follow'}
+          textStyle={{ color: follow ? Colors.red : Colors.white }}
           containerStyle={[
             styles.badgeContainer,
             {
-              backgroundColor: this.state.follow ? 'transparent' : Colors.red,
+              backgroundColor: follow ? 'transparent' : Colors.red,
             },
           ]}
-          onPress={() => this._handleFollowPress()}
+          onPress={this._handleFollowPress}
         />
       </View>
     );

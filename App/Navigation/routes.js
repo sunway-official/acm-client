@@ -5,9 +5,9 @@ import NewsFeed from '~/Scene/NewsFeed';
 import Notification from '~/Scene/Notification';
 import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
-import EditProfile from '~/Scene/Profile/EditProfile';
+import ProfileEditing from '~/Scene/Profile/ProfileEditing';
 import Setting from '~/Scene/Setting';
-import Schedule from '~/Scene/Schedule';
+import { Agenda, MyAgenda } from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
 import ChangePassword from '~/Scene/Profile/ChangePassword';
 
@@ -63,17 +63,27 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
+    initial: true,
   },
-  schedule: {
-    name: 'Schedule',
-    path: '/schedule',
-    screen: Schedule,
+  myAgenda: {
+    name: 'My Agenda',
+    path: '/my-agenda',
+    screen: MyAgenda,
     icon: {
-      name: 'calendar-blank',
+      name: 'calendar-today',
       type: 'material-community',
     },
     activeIcon: {
       name: 'calendar-text',
+      type: 'material-community',
+    },
+  },
+  agenda: {
+    name: 'Agenda',
+    path: '/agenda',
+    screen: Agenda,
+    icon: {
+      name: 'calendar-range',
       type: 'material-community',
     },
     // initial: true,
@@ -97,7 +107,6 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
   },
   changePassword: {
     name: 'Change Password',
@@ -108,10 +117,10 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  editProfile: {
+  profileEditing: {
     name: 'Edit Profile',
     path: '/profile/edit',
-    screen: EditProfile,
+    screen: ProfileEditing,
     icon: {
       name: 'face-profile',
       type: 'material-community',

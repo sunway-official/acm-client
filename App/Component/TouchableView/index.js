@@ -36,9 +36,7 @@ class TouchableView extends PureComponent {
       );
       return (
         <TouchableNativeFeedback {...props} background={background}>
-          <View style={style}>
-            {children}
-          </View>
+          <View style={style}>{children}</View>
         </TouchableNativeFeedback>
       );
     } else {

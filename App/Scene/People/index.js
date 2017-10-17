@@ -9,17 +9,14 @@ import { Colors } from '~/Theme';
 
 const text = ['Welcome to People!', 'We are under developement.'];
 
-const PeopleScene = ({ home }) =>
+const PeopleScene = ({ home }) => (
   <View style={styles.container}>
     <View style={styles.centerText}>
-      {text.map((text, index) =>
-        <Text key={index}>
-          {text}
-        </Text>,
-      )}
+      {text.map((text, index) => <Text key={index}>{text}</Text>)}
     </View>
     <Button color={Colors.green} title="Home" onPress={home} />
-  </View>;
+  </View>
+);
 
 PeopleScene.header = {
   leftIcon: 'drawer',

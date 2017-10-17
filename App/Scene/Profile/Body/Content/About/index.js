@@ -21,12 +21,8 @@ class About extends Component {
       <View key={index} style={styles.itemContainer}>
         <Image source={{ uri: item.image }} style={styles.image} />
         <View style={{ justifyContent: 'center' }}>
-          <Text style={styles.title}>
-            {item.title}
-          </Text>
-          <Text style={styles.description}>
-            {item.shortDescription}
-          </Text>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.description}>{item.shortDescription}</Text>
         </View>
       </View>
     );
@@ -39,9 +35,7 @@ class About extends Component {
         <Text>
           {user.lastname} {user.firstname}
         </Text>
-        <Text>
-          {user.email}
-        </Text>
+        <Text>{user.email}</Text>
       </View>
     );
   }
@@ -61,7 +55,7 @@ class About extends Component {
               <Text style={styles.title}>Achievements</Text>
               <Text style={styles.description}>You have 15 out of 27</Text>
             </View>
-            <Text>View All</Text>
+            <Text style={styles.description}>View All</Text>
           </View>
           <View>
             {achievements.map((achievements, index) =>

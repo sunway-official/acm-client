@@ -102,7 +102,7 @@ class ChangePasswordScene extends Component {
     this.props.navigateToLogin();
   }
 
-  _renderDialog = () =>
+  _renderDialog = () => (
     <Dialog isVisible={this.state.isDialogOpen} header={'Alert'}>
       <View
         style={{
@@ -121,7 +121,8 @@ class ChangePasswordScene extends Component {
           <Text>Back to Login</Text>
         </TouchableView>
       </View>
-    </Dialog>;
+    </Dialog>
+  );
 
   render() {
     return (

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Colors, Metrics } from '../../Theme';
+import { Colors, Metrics } from '~/Theme';
 import { Text, UserAvatar } from '~/Component';
 import Comments from './Comments';
 import styles from './styles';
@@ -44,12 +44,8 @@ class News extends Component {
             containerStyle={styles.avatar}
           />
           <View>
-            <Text style={styles.username}>
-              {item.username}
-            </Text>
-            <Text style={styles.secondaryText}>
-              {item.time}
-            </Text>
+            <Text style={styles.username}>{item.username}</Text>
+            <Text style={styles.secondaryText}>{item.time}</Text>
           </View>
         </View>
         <TouchableOpacity>
@@ -62,9 +58,7 @@ class News extends Component {
   _renderStatus(item) {
     return (
       <View>
-        <Text>
-          {item.status}
-        </Text>
+        <Text>{item.status}</Text>
         <Image
           source={{
             uri: item.photo,
@@ -79,9 +73,7 @@ class News extends Component {
     return (
       <TouchableOpacity onPress={onPressHandler} style={styles.interaction}>
         {icon}
-        <Text style={styles.secondaryText}>
-          {text}
-        </Text>
+        <Text style={styles.secondaryText}>{text}</Text>
       </TouchableOpacity>
     );
   }
@@ -121,9 +113,11 @@ class News extends Component {
         <View>
           {this._renderStatus(item)}
           {this._renderInteractionBar(item)}
-          {this.state.showCommentBox
-            ? <Comments comments={item.comments} userAvatar={item.avatar} />
-            : <View />}
+          {this.state.showCommentBox ? (
+            <Comments comments={item.comments} userAvatar={item.avatar} />
+          ) : (
+            <View />
+          )}
         </View>
       </View>
     );

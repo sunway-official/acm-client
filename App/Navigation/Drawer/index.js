@@ -8,6 +8,7 @@ import { KEY, setDrawerState } from '~/Redux/Drawer';
 import Menu from './Menu';
 import { Metrics } from '~/Theme';
 import styles from './styles';
+import { IS_DEBUGGING } from '~/env';
 
 const drawerOffset = 0.8;
 const BACKDROP_ANIMATION_NAME = 'fadeIn';
@@ -15,7 +16,7 @@ const ANIMATION_DELAY = 300;
 const SIDE_MENU_ANIMATION_FRICTION = 9;
 
 const animationFunction = (prop, value) => {
-  if (process.env.IS_DEBUGGING) {
+  if (IS_DEBUGGING) {
     return Animated.timing(prop, {
       toValue: value,
       duration: 0,
@@ -27,7 +28,7 @@ const animationFunction = (prop, value) => {
   });
 };
 
-const Drawer = ({ drawer, setDrawerState, children }) =>
+const Drawer = ({ drawer, setDrawerState, children }) => (
   <SideMenu
     menu={<Menu />}
     isOpen={drawer.isOpen}
@@ -39,14 +40,16 @@ const Drawer = ({ drawer, setDrawerState, children }) =>
   >
     <View style={[styles.container, styles.relativeContainer]}>
       {children}
-      {drawer.isOpen &&
+      {drawer.isOpen && (
         <AninatableView
           animation={BACKDROP_ANIMATION_NAME}
           style={styles.backdrop}
           duration={ANIMATION_DELAY}
-        />}
+        />
+      )}
     </View>
-  </SideMenu>;
+  </SideMenu>
+);
 
 Drawer.propTypes = {
   drawer: PropTypes.object,

@@ -1,5 +1,5 @@
 {
-  "presets": ["babel-preset-expo", "react-native-dotenv"],
+  "presets": ["babel-preset-expo"],
   "plugins": [
     [
       "babel-plugin-root-import",

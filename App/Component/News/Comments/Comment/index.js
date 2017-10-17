@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Text, UserAvatar } from '~/Component';
-import { Colors, Metrics } from '../../../../Theme';
+import { Colors, Metrics } from '~/Theme';
 import styles from './styles';
 
 class Comment extends Component {
@@ -30,17 +30,11 @@ class Comment extends Component {
         <UserAvatar avatar={comment.avatar} />
         <View style={styles.rightOfComment}>
           <View flexDirection="row">
-            <Text bold>
-              {comment.username}
-            </Text>
+            <Text bold>{comment.username}</Text>
             <Icon name="dot-single" type="entypo" color="grey" />
-            <Text style={styles.textColor}>
-              {comment.time}
-            </Text>
+            <Text style={styles.textColor}>{comment.time}</Text>
           </View>
-          <Text>
-            {comment.comment}
-          </Text>
+          <Text>{comment.comment}</Text>
           <View style={styles.rightFooterOfComment}>
             <View style={styles.interactionContainer}>
               <TouchableOpacity>
@@ -64,9 +58,7 @@ class Comment extends Component {
                 size={20}
                 marginRight={Metrics.smallMargin}
               />
-              <Text bold>
-                {comment.love}
-              </Text>
+              <Text bold>{comment.love}</Text>
             </View>
           </View>
         </View>
@@ -76,11 +68,7 @@ class Comment extends Component {
 
   render() {
     const { comment } = this.props;
-    return (
-      <View>
-        {this._renderComments(comment)}
-      </View>
-    );
+    return <View>{this._renderComments(comment)}</View>;
   }
 }
 

@@ -14,7 +14,7 @@ const submit = values => {
   console.log('submitting form', values);
 };
 
-const _renderHeaderImage = () =>
+const _renderHeaderImage = () => (
   <View style={styles.imageContainer}>
     <Image style={styles.image} source={Images.forgotPassword} />
     <Text bold style={styles.title}>
@@ -23,9 +23,10 @@ const _renderHeaderImage = () =>
     <Text light style={styles.description}>
       Enter your email to retrieve your own password
     </Text>
-  </View>;
+  </View>
+);
 
-const _renderForm = () =>
+const _renderForm = () => (
   <View style={styles.formContainer}>
     <Field
       name="email"
@@ -36,18 +37,20 @@ const _renderForm = () =>
       underlineColorAndroid={'transparent'}
       keyboardType={'email-address'}
     />
-  </View>;
+  </View>
+);
 
-const _renderButton = handleSubmit =>
+const _renderButton = handleSubmit => (
   <View style={styles.buttonContainer}>
     <TouchableView onPress={handleSubmit(submit)} style={styles.submitButton}>
       <Text bold style={styles.buttonText}>
         SEND
       </Text>
     </TouchableView>
-  </View>;
+  </View>
+);
 
-const ForgotPasswordForm = ({ handleSubmit }) =>
+const ForgotPasswordForm = ({ handleSubmit }) => (
   <KeyboardAvoidingView
     onSubmit={handleSubmit}
     style={styles.container}
@@ -56,7 +59,8 @@ const ForgotPasswordForm = ({ handleSubmit }) =>
     {_renderHeaderImage()}
     {_renderForm()}
     {_renderButton(handleSubmit)}
-  </KeyboardAvoidingView>;
+  </KeyboardAvoidingView>
+);
 
 ForgotPasswordForm.defaultProps = {
   error: null,

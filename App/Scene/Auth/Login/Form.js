@@ -9,7 +9,7 @@ import { AnimatableView } from '~/Component';
 import { FormInput, Text, TouchableView } from '~/Component';
 import styles from '../styles';
 
-const _renderLoadingButton = () =>
+const _renderLoadingButton = () => (
   <View style={[styles.submitButton, styles.loadingButton]}>
     <AnimatableView
       animation="rotate"
@@ -18,14 +18,16 @@ const _renderLoadingButton = () =>
     >
       <Icon name="loop" color={Colors.white} />
     </AnimatableView>
-  </View>;
+  </View>
+);
 
-const _renderHeaderImage = () =>
+const _renderHeaderImage = () => (
   <View style={styles.imageContainer}>
     <Image style={styles.image} source={Images.login} />
-  </View>;
+  </View>
+);
 
-const _renderForm = () =>
+const _renderForm = () => (
   <View style={styles.formContainer}>
     <Field
       name="email"
@@ -44,27 +46,30 @@ const _renderForm = () =>
       secureTextEntry={true}
       returnKeyType={'done'}
     />
-  </View>;
+  </View>
+);
 
 const _renderButton = args => {
   const { handleSubmit, onLogin, loading } = args;
   return (
     <View style={styles.buttonContainer}>
-      {loading
-        ? _renderLoadingButton()
-        : <TouchableView
-            onPress={handleSubmit(onLogin)}
-            style={styles.submitButton}
-          >
-            <Text bold style={styles.buttonText}>
-              LOGIN
-            </Text>
-          </TouchableView>}
+      {loading ? (
+        _renderLoadingButton()
+      ) : (
+        <TouchableView
+          onPress={handleSubmit(onLogin)}
+          style={styles.submitButton}
+        >
+          <Text bold style={styles.buttonText}>
+            LOGIN
+          </Text>
+        </TouchableView>
+      )}
     </View>
   );
 };
 
-const _renderFooter = onNavigate =>
+const _renderFooter = onNavigate => (
   <View>
     <TouchableView onPress={onNavigate}>
       <Text style={styles.footerText}>Forgot your password.</Text>
@@ -72,15 +77,14 @@ const _renderFooter = onNavigate =>
         {"Don't have an account. Register"}
       </Text>
     </TouchableView>
-  </View>;
+  </View>
+);
 
-const _renderError = error =>
+const _renderError = error => (
   <View>
-    {error === undefined ||
-      <Text style={styles.errorText}>
-        {error}
-      </Text>}
-  </View>;
+    {error === undefined || <Text style={styles.errorText}>{error}</Text>}
+  </View>
+);
 
 const LoginForm = ({
   onLogin,
