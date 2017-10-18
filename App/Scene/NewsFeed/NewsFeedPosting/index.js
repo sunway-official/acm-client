@@ -17,20 +17,15 @@ import { defaultUserAvatar } from '~/Scene/NewsFeed/fixture';
 class NewsFeedPosting extends Component {
   static propTypes = {
     insertNews: PropTypes.func,
-    // showNewsFeedPosting: PropTypes.func,
-    // hideNewsFeedPosting: PropTypes.func,
-    // modal: PropTypes.object,
+    showNewsFeedPosting: PropTypes.func,
+    hideNewsFeedPosting: PropTypes.func,
+    modal: PropTypes.object,
   };
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      isVisibleModal: true,
-    };
-
     this.post = this.post.bind(this);
-    this.visibleModal = this.visibleModal.bind(this);
   }
 
   _renderPostFake() {
@@ -40,7 +35,7 @@ class NewsFeedPosting extends Component {
         <TouchableView
           rippleColor={Colors.primary}
           style={styles.statusBoxView}
-          // onPress={() => this.props.showNewsFeedPosting()}
+          onPress={() => this.props.showNewsFeedPosting()}
         >
           <Text style={[styles.placeholderStyle]}>
             {"What's on your mind?"}
@@ -60,16 +55,12 @@ class NewsFeedPosting extends Component {
       conferenceId: 1, // fake conferences
       contentNews,
     });
-  }
-
-  visibleModal(isVisible) {
-    this.setState({
-      isVisibleModal: isVisible,
-    });
+    console.log('done');
   }
 
   render() {
-    // const isVisible = this.props.modal.isOpen;
+    const isVisible = this.props.modal.isOpen;
+
     return (
       <View style={{ flex: 1 }}>
         {this._renderPostFake()}
@@ -77,7 +68,7 @@ class NewsFeedPosting extends Component {
         <NewsFeedPosts
           isVisible={isVisible}
           post={this.post}
-          // cancel={() => this.visibleModal}
+          cancel={() => this.props.hideNewsFeedPosting()}
         />
       </View>
     );
@@ -93,4 +84,16 @@ const NewsFeedPostingMutation = graphql(gql(INSERT_NEWS_MUTATION), {
   }),
 });
 
-export default compose(NewsFeedPostingMutation)(NewsFeedPosting);
+const mapStateToProps = state => ({
+  modal: state[KEY],
+});
+
+const mapDispatchToProps = dispatch => ({
+  showNewsFeedPosting: () => dispatch(setModalState(true)),
+  hideNewsFeedPosting: () => dispatch(setModalState(false)),
+});
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  NewsFeedPostingMutation,
+)(NewsFeedPosting);

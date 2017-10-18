@@ -9,8 +9,7 @@ import { View } from 'react-native';
 import styles from './styles';
 import { Colors } from '~/Theme';
 import { News } from '~/Component';
-import { news } from './fixture';
-import StatusPosting from './StatusPosting';
+import NewsFeedPosting from './NewsFeedPosting';
 import { AnimatableView } from '~/Component';
 
 import query from '~/Graphql/query/getAllNews.graphql';
@@ -36,7 +35,7 @@ class NewsFeedScene extends Component {
 
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <StatusPosting />
+        <NewsFeedPosting />
         {allNews.map((item, index) => <News item={item} key={index} />)}
       </ScrollView>
     );

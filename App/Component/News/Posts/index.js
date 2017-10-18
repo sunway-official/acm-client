@@ -20,36 +20,30 @@ class Posts extends Component {
     super(props);
     this.state = {
       text: '',
-      isVisible: this.props.isVisible,
     };
+
     this.post = this.post.bind(this);
-    this.cancel = this.cancel.bind(this);
   }
 
   post() {
     this.props.post(this.state.text);
-    this.cancel();
-    this.textInput.clear();
-    this.textInput.blur();
-  }
-
-  cancel() {
-    this.props.cancel(!this.state.isVisible);
-    this.setState({ isVisible: false });
+    this.props.cancel();
   }
 
   render() {
+    const isVisible = this.props.isVisible;
+
     return (
       <Modal
         animationIn="slideInUp"
         animationOut="slideOutDown"
         animationInTiming={500}
         animationOutTiming={500}
-        isVisible={this.state.isVisible}
+        isVisible={isVisible}
         style={styles.container}
       >
         <View style={styles.header}>
-          <TouchableView onPress={this.cancel}>
+          <TouchableView onPress={this.props.cancel}>
             <Text bold style={{ color: Colors.primary }}>
               Cancel
             </Text>
