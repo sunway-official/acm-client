@@ -11,6 +11,7 @@ import styles from './styles';
 class Comment extends Component {
   static propTypes = {
     comment: PropTypes.object,
+    createdAt: PropTypes.string,
   };
 
   constructor(props) {
@@ -26,8 +27,8 @@ class Comment extends Component {
     this.setState({ loveComment: !this.state.loveComment });
   }
 
-  _renderComments(comment) {
-    let secondaryText = moment(comment.updated_at).fromNow();
+  _renderComments(comment, createdAt) {
+    // let secondaryText = moment(comment.updated_at).fromNow();
 
     return (
       <View style={styles.commentContainer}>
@@ -39,7 +40,7 @@ class Comment extends Component {
             </Text>
             <Icon name="dot-single" type="entypo" color="grey" />
             <Text style={styles.textColor}>
-              {secondaryText}
+              {createdAt}
             </Text>
           </View>
           <Text>
@@ -79,10 +80,10 @@ class Comment extends Component {
   }
 
   render() {
-    const { comment } = this.props;
+    const { comment, createdAt } = this.props;
     return (
       <View>
-        {this._renderComments(comment)}
+        {this._renderComments(comment, createdAt)}
       </View>
     );
   }

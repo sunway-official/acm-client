@@ -10,7 +10,16 @@ import Comments from './Comments';
 import styles from './styles';
 
 const { baseMargin, doubleBaseMargin, screenWidth } = Metrics;
-// const photoHeight = screenWidth / 1.8;
+
+const formatCreatedAt = createdAt =>
+  moment(createdAt).calendar(null, {
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]',
+    nextWeek: 'dddd',
+    lastDay: '[Yesterday]',
+    lastWeek: 'dddd',
+    sameElse: 'DD/MM/YYYY',
+  });
 
 class News extends Component {
   static propTypes = {
@@ -39,9 +48,7 @@ class News extends Component {
     );
   }
 
-  _renderNewsHeader(item) {
-    let secondaryText = moment(item.updated_at).fromNow();
-
+  _renderNewsHeader(item, createdAt) {
     return (
       <View style={styles.postHeader}>
         <View style={styles.rightPostHeader}>
@@ -55,7 +62,7 @@ class News extends Component {
               {`${item.user.firstname} ${item.user.lastname}`}
             </Text>
             <Text style={styles.secondaryText}>
-              {secondaryText}
+              {createdAt}
             </Text>
           </View>
         </View>
@@ -153,10 +160,11 @@ class News extends Component {
 
   render() {
     const { item, newsContainerStyle } = this.props;
+    let createdAt = formatCreatedAt(item.updated_at);
 
     return (
       <View style={[styles.container, newsContainerStyle]}>
-        {this._renderNewsHeader(item)}
+        {this._renderNewsHeader(item, createdAt)}
         <View>
           {this._renderStatus(item)}
           {this._renderInteractionBar(item)}
@@ -164,6 +172,7 @@ class News extends Component {
             ? <Comments
                 comments={item.newsComments}
                 userAvatar={item.user.avatar}
+                createdAt={createdAt}
               />
             : <View />}
         </View>
