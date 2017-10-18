@@ -9,7 +9,6 @@ import { KEY, setModalState } from '~/Redux/Modal';
 import { Colors, Metrics } from '~/Theme';
 import FilterModal from '~/Component/FilterModal';
 import Detail from './List';
-import Fixture from '../fixture';
 import query from '~/Graphql/query/getAgenda.graphql';
 import transformer from '../transformer';
 import { transformServerDate } from '~/Transformer';
@@ -55,7 +54,7 @@ class Agenda extends Component {
   );
 
   _renderTabs() {
-    const { data: { getAllSchedules, loading } } = this.props;
+    const { data: { getAllSchedules } } = this.props;
     const schedules = transformer(getAllSchedules, 'start');
     let tabs = {};
 
