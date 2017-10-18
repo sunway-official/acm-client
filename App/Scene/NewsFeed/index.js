@@ -15,8 +15,18 @@ import { AnimatableView } from '~/Component';
 import query from '~/Graphql/query/getAllNews.graphql';
 
 class NewsFeedScene extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onRefresh = this.onRefresh.bind(this);
+  }
+
+  onRefresh() {
+    this.props.refetch();
+  }
+
   render() {
-    const { loading, allNews } = this.props;
+    const { loading, allNews, networkStatus } = this.props;
 
     if (loading) {
       return (
@@ -39,6 +49,8 @@ class NewsFeedScene extends Component {
           data={allNews}
           renderItem={({ item, index }) => <News item={item} key={index} />}
           keyExtractor={(item, index) => index}
+          onRefresh={this.onRefresh}
+          refreshing={networkStatus === 4}
         />
       </View>
     );
@@ -53,6 +65,7 @@ NewsFeedScene.propTypes = {
   loading: PropTypes.bool.isRequired,
   allNews: PropTypes.array,
   refetch: PropTypes.func,
+  networkStatus: PropTypes.number,
   error: PropTypes.object,
 };
 
@@ -69,10 +82,13 @@ NewsFeedScene.footer = {
 };
 
 const NewsFeedSceneWithData = graphql(gql(query), {
-  props: ({ data: { loading, getAllNews, refetch, error } }) => ({
+  props: ({
+    data: { loading, getAllNews, refetch, networkStatus, error },
+  }) => ({
     loading,
     allNews: getAllNews,
     refetch,
+    networkStatus,
     error,
   }),
 })(NewsFeedScene);
