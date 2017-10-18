@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ScrollView } from 'react-native';
+import { ScrollView, FlatList } from 'react-native';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Icon } from 'react-native-elements';
@@ -34,11 +34,21 @@ class NewsFeedScene extends Component {
     }
 
     return (
+      <View style={styles.container}>
+        <NewsFeedPosting />
+        <FlatList
+          data={allNews}
+          renderItem={({ item, index }) => <News item={item} key={index} />}
+          keyExtractor={(item, index) => index}
+        />
+      </View>
+    );
+    /*
       <ScrollView contentContainerStyle={styles.container}>
         <NewsFeedPosting />
         {allNews.map((item, index) => <News item={item} key={index} />)}
       </ScrollView>
-    );
+    */
   }
 }
 

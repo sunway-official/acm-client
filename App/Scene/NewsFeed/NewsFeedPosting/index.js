@@ -62,7 +62,7 @@ class NewsFeedPosting extends Component {
     const isVisible = this.props.modal.isOpen;
 
     return (
-      <View style={{ flex: 1 }}>
+      <View>
         {this._renderPostFake()}
 
         <NewsFeedPosts
