@@ -5,9 +5,13 @@ import { Text } from '~/Component';
 import { Images } from '~/Theme';
 import styles from './styles';
 
+/* eslint-disable no-unused-vars */
+const GENDER_MALE = 'male';
+const GENDER_FEMALE = 'female';
+const GENDER_UNKNOWN = 'unknown';
+/* eslint-enable no-unused-vars */
 class Header extends Component {
   static propTypes = {
-    avatar: PropTypes.string,
     user: PropTypes.object,
     address: PropTypes.string,
   };
@@ -32,9 +36,20 @@ class Header extends Component {
   }
 
   _renderAvatar() {
+    const { user: { avatar, gender } } = this.props;
+
+    let defaultAvatar = Images.avatar['male02'];
+    switch (gender) {
+      case GENDER_MALE:
+        defaultAvatar = Images.avatar['male08'];
+        break;
+      case GENDER_FEMALE:
+        defaultAvatar = Images.avatar['female01'];
+        break;
+    }
     return (
       <View style={styles.avatarSection}>
-        <Image source={{ uri: this.props.avatar }} style={styles.avatar} />
+        <Image source={avatar || defaultAvatar} style={styles.avatar} />
       </View>
     );
   }

@@ -23,11 +23,18 @@ const DROPDOWN_ICON_ANIMATION = 'rotate';
 const ANIMATION_DELAY = 300;
 const ACTIVE_TOUCHABLE_OPACITY = 0.4;
 
+/* eslint-disable no-unused-vars */
+const GENDER_MALE = 'male';
+const GENDER_FEMALE = 'female';
+const GENDER_UNKNOWN = 'unknown';
+/* eslint-enable no-unused-vars */
+
 const DEFAULT_USER = {
   data: {
     firstname: USER_FIRSTNAME,
     lastname: USER_LASTNAME,
     email: USER_EMAIL,
+    avatar: null,
   },
 };
 
@@ -43,6 +50,7 @@ class Menu extends Component {
         lastname: PropTypes.string,
         email: PropTypes.string,
       }),
+      error: PropTypes.any,
     }),
   };
 
@@ -68,10 +76,19 @@ class Menu extends Component {
     this.props.closeDrawer();
   }
 
-  _renderHeaderImage() {
+  _renderHeaderImage({ avatar, gender }) {
+    let defaultAvatar = Images.avatar['male02'];
+    switch (gender) {
+      case GENDER_MALE:
+        defaultAvatar = Images.avatar['male08'];
+        break;
+      case GENDER_FEMALE:
+        defaultAvatar = Images.avatar['female01'];
+        break;
+    }
     return (
       <View style={styles.headerImage}>
-        <Image source={Images.default.img100} style={styles.profileImage} />
+        <Image source={avatar || defaultAvatar} style={styles.profileImage} />
         <Image source={Images.default.img50} style={styles.conferenceImage} />
       </View>
     );
@@ -157,9 +174,10 @@ class Menu extends Component {
   }
 
   render() {
+    const { data } = this.props;
     let me = DEFAULT_USER;
-    if (this.props.data.me) {
-      me = this.props.data.me;
+    if (!data.error && data.me) {
+      me = data.me;
     }
     const { firstname, lastname, email } = me;
     return (
@@ -170,7 +188,7 @@ class Menu extends Component {
             style={[styles.headerBackground]}
           >
             <View style={styles.statusBar} />
-            {this._renderHeaderImage()}
+            {this._renderHeaderImage(me)}
             <View style={styles.headerInfo}>
               <View style={styles.line}>
                 <Text bold style={[styles.text]}>

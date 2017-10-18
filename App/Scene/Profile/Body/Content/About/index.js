@@ -54,16 +54,18 @@ class About extends Component {
             <Text>Lives in Da Nang, Vietnam</Text>
           </View>
         </View>
-        <View style={styles.infoContainer}>
-          <Icon
-            name="cake"
-            type="entypo"
-            color="#e74c3c"
-            size={ICON_SIZE}
-            style={styles.icon}
-          />
-          <Text>Born on {transformServerDate.toLocale(user.dob)}</Text>
-        </View>
+        {user.dob ? (
+          <View style={styles.infoContainer}>
+            <Icon
+              name="cake"
+              type="entypo"
+              color="#e74c3c"
+              size={ICON_SIZE}
+              style={styles.icon}
+            />
+            <Text>Born on {transformServerDate.toLocale(user.dob)}</Text>
+          </View>
+        ) : null}
         <View style={styles.infoContainer}>
           <View>
             <Icon
@@ -107,38 +109,44 @@ class About extends Component {
           />
           <Text>Followed by 999 people</Text>
         </View>
-        <View style={styles.infoContainer}>
-          <View>
+        {user.facebook_id ? (
+          <View style={styles.infoContainer}>
+            <View>
+              <Icon
+                name="facebook-box"
+                type="material-community"
+                color="#4267B2"
+                size={ICON_SIZE}
+                style={styles.icon}
+              />
+            </View>
+            <Text style={styles.info}>{user.facebook_id}</Text>
+          </View>
+        ) : null}
+        {user.twitter_id ? (
+          <View style={styles.infoContainer}>
             <Icon
-              name="facebook-box"
+              name="twitter"
               type="material-community"
-              color="#4267B2"
+              color="#1DA1F2"
               size={ICON_SIZE}
               style={styles.icon}
             />
+            <Text style={styles.info}>{user.twitter_id}</Text>
           </View>
-          <Text style={styles.info}>{user.facebook_id}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-          <Icon
-            name="twitter"
-            type="material-community"
-            color="#1DA1F2"
-            size={ICON_SIZE}
-            style={styles.icon}
-          />
-          <Text style={styles.info}>{user.twitter_id}</Text>
-        </View>
-        <View style={styles.infoContainer}>
-          <Icon
-            name="linkedin-box"
-            type="material-community"
-            color="#0073B1"
-            size={ICON_SIZE}
-            style={styles.icon}
-          />
-          <Text style={styles.info}>{user.linkedin_id}</Text>
-        </View>
+        ) : null}
+        {user.linkedin_id ? (
+          <View style={styles.infoContainer}>
+            <Icon
+              name="linkedin-box"
+              type="material-community"
+              color="#0073B1"
+              size={ICON_SIZE}
+              style={styles.icon}
+            />
+            <Text style={styles.info}>{user.linkedin_id}</Text>
+          </View>
+        ) : null}
       </View>
     );
   }
