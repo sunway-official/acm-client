@@ -32,6 +32,7 @@
     "add-graphql-subscriptions": "^1.0.1",
     "expo": "21.0.2",
     "graphql": "^0.10.5",
+    "immutable": "^4.0.0-rc.9",
     "moment": "^2.18.1",
     "prettier-eslint-cli": "^4.4.0",
     "prop-types": "^15.5.10",

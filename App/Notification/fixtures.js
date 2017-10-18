@@ -1,7 +1,7 @@
 const modifyDate = number => {
   let date = new Date();
   date.setHours(date.getHours());
-  date.setMinutes(date.getMinutes() + number);
+  date.setMinutes(date.getMinutes() + number * 100);
   return date;
 };
 

@@ -7,7 +7,7 @@ import { DATE_FORMAT } from '~/env';
 import moment from 'moment';
 import styles, { customStyles } from './styles';
 
-const MIN_DATE = transformServerDate.toLocale('1900-01-01');
+const MIN_DATE = transformServerDate.toLocal('1900-01-01');
 const MAX_DATE = moment().format(DATE_FORMAT); // current date
 
 const DatePickerForm = ({

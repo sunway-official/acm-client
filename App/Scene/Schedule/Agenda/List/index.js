@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements';
 import { Colors } from '~/Theme';
 import { TouchableView, Text } from '~/Component';
 import styles from './styles';
+import moment from 'moment';
 
 const DEFAULT_ITEM_ICON = {
   type: 'material-community',
@@ -32,7 +33,7 @@ class ListView extends Component {
   }
 
   _renderItem({ item }) {
-    const { active } = item;
+    // console.log('item: ', item);
     return (
       <View style={styles.item}>
         <TouchableView
@@ -41,7 +42,7 @@ class ListView extends Component {
           borderless
         >
           <View style={styles.icon}>
-            {active ? (
+            {item.activity.status ? (
               <Icon {...ACTIVE_ITEM_ICON} />
             ) : (
               <Icon {...DEFAULT_ITEM_ICON} />
@@ -49,12 +50,17 @@ class ListView extends Component {
           </View>
         </TouchableView>
         <View style={styles.timeWrapper}>
-          <Text bold>{item.time}</Text>
+          <Text bold>
+            {moment(item.start)
+              .local()
+              .format('LT')}
+          </Text>
         </View>
         <View style={styles.infoWrapper}>
-          <Text style={styles.primaryText}>{item.title}</Text>
-          <Text style={styles.secondaryText}>{item.shortDescription}</Text>
+          <Text style={styles.primaryText}>{item.activity.title}</Text>
+          <Text style={styles.secondaryText}>{item.room.name}</Text>
         </View>
+        <View style={styles.timeWrapper} />
       </View>
     );
   }

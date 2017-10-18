@@ -62,7 +62,7 @@ class About extends Component {
             size={ICON_SIZE}
             style={styles.icon}
           />
-          <Text>Born on {transformServerDate.toLocale(user.dob)}</Text>
+          <Text>Born on {transformServerDate.toLocal(user.dob)}</Text>
         </View>
         <View style={styles.infoContainer}>
           <View>
@@ -96,7 +96,7 @@ class About extends Component {
             size={ICON_SIZE}
             style={styles.icon}
           />
-          <Text>Joined {transformServerDate.toLocale(user.created_at)}</Text>
+          <Text>Joined {transformServerDate.toLocal(user.created_at)}</Text>
         </View>
         <View style={styles.infoContainer}>
           <Icon

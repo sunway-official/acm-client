@@ -1,0 +1,25 @@
+{
+  getAllSchedules {
+    start
+    end
+    room {
+      id
+      name
+    }
+    activity {
+      id
+      title
+      status
+      conference {
+        id
+      }
+      activityTopics {
+        id
+        topic {
+          description
+          name
+        }
+      }
+    }
+  }
+}

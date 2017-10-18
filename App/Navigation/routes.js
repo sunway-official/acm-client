@@ -85,7 +85,7 @@ export const ROUTES = {
       name: 'calendar-range',
       type: 'material-community',
     },
-    // initial: true,
+    initial: true,
   },
   people: {
     name: 'People',
@@ -106,7 +106,6 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
   },
   profileEditing: {
     name: 'Edit Profile',
