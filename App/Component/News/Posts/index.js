@@ -15,7 +15,7 @@ import {
 
 import { defaultUserAvatar } from '~/Scene/NewsFeed/fixture';
 
-class StatusInput extends Component {
+class Posts extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,9 +46,9 @@ class StatusInput extends Component {
         animationInTiming={500}
         animationOutTiming={500}
         isVisible={this.state.isVisible}
-        style={styles.modalContainer}
+        style={styles.container}
       >
-        <View style={styles.modalHeader}>
+        <View style={styles.header}>
           <TouchableView onPress={this.cancel}>
             <Text bold style={{ color: Colors.primary }}>
               Cancel
@@ -74,10 +74,10 @@ class StatusInput extends Component {
           </TouchableView>
         </View>
 
-        <View style={styles.modalContent}>
-          <View style={styles.modalContentUserInformation}>
+        <View style={styles.content}>
+          <View style={styles.contentUserInformation}>
             <UserAvatar small avatar={defaultUserAvatar} />
-            <Text bold style={styles.modalContentUsername}>
+            <Text bold style={styles.contentUsername}>
               Ly Bao Khanh
             </Text>
           </View>
@@ -90,7 +90,7 @@ class StatusInput extends Component {
           />
         </View>
 
-        <View style={styles.modalAction}>
+        <View style={styles.action}>
           <TouchableView rippleColor={Colors.primary} borderless={true}>
             <Icon name="md-photos" type="ionicon" />
             <Text>Photo</Text>
@@ -105,10 +105,10 @@ class StatusInput extends Component {
   }
 }
 
-StatusInput.propTypes = {
+Posts.propTypes = {
   isVisible: PropTypes.bool,
   post: PropTypes.func.isRequired,
   cancel: PropTypes.func,
 };
 
-export default StatusInput;
+export default Posts;

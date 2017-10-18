@@ -4,12 +4,12 @@ import { Colors, Metrics } from '~/Theme';
 const { white, lightGrey } = Colors;
 
 export default StyleSheet.create({
-  modalContainer: {
+  container: {
     flex: 1,
     backgroundColor: white,
     margin: 0,
   },
-  modalHeader: {
+  header: {
     flex: 0.5,
     flexDirection: 'row',
     backgroundColor: lightGrey,
@@ -19,19 +19,19 @@ export default StyleSheet.create({
     paddingVertical: Metrics.doubleBaseMargin,
     paddingHorizontal: Metrics.doubleBaseMargin,
   },
-  modalContent: {
+  content: {
     flex: 8,
     flexDirection: 'column',
     paddingVertical: Metrics.doubleBaseMargin,
     paddingHorizontal: Metrics.doubleBaseMargin,
   },
-  modalContentUserInformation: {
+  contentUserInformation: {
     flexDirection: 'row',
   },
-  modalContentUsername: {
+  contentUsername: {
     marginLeft: Metrics.baseMargin,
   },
-  modalAction: {
+  action: {
     flex: 1.5,
     flexDirection: 'row',
     justifyContent: 'space-around',

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import { StatusInput } from '~/Component';
+import { connect } from 'react-redux';
+import { KEY, setModalState } from '~/Redux/Modal';
 
 import { graphql, gql, compose } from 'react-apollo';
 import INSERT_NEWS_MUTATION from '~/Graphql/mutation/insertNews.graphql';
@@ -10,13 +10,16 @@ import { Icon } from 'react-native-elements';
 
 import styles from './styles';
 import { Colors } from '~/Theme';
-import { UserAvatar, TouchableView, Text } from '~/Component';
+import { UserAvatar, TouchableView, Text, NewsFeedPosts } from '~/Component';
 
 import { defaultUserAvatar } from '~/Scene/NewsFeed/fixture';
 
-class StatusPosting extends Component {
+class NewsFeedPosting extends Component {
   static propTypes = {
     insertNews: PropTypes.func,
+    // showNewsFeedPosting: PropTypes.func,
+    // hideNewsFeedPosting: PropTypes.func,
+    // modal: PropTypes.object,
   };
 
   constructor(props) {
@@ -28,6 +31,26 @@ class StatusPosting extends Component {
 
     this.post = this.post.bind(this);
     this.visibleModal = this.visibleModal.bind(this);
+  }
+
+  _renderPostFake() {
+    return (
+      <View style={styles.container}>
+        <UserAvatar small avatar={defaultUserAvatar} />
+        <TouchableView
+          rippleColor={Colors.primary}
+          style={styles.statusBoxView}
+          // onPress={() => this.props.showNewsFeedPosting()}
+        >
+          <Text style={[styles.placeholderStyle]}>
+            {"What's on your mind?"}
+          </Text>
+        </TouchableView>
+        <TouchableOpacity>
+          <Icon name="camera" type="material-community" />
+        </TouchableOpacity>
+      </View>
+    );
   }
 
   post(contentNews) {
@@ -46,35 +69,22 @@ class StatusPosting extends Component {
   }
 
   render() {
+    // const isVisible = this.props.modal.isOpen;
     return (
       <View style={{ flex: 1 }}>
-        <View style={styles.container}>
-          <UserAvatar small avatar={defaultUserAvatar} />
-          <TouchableView
-            rippleColor={Colors.primary}
-            style={styles.statusBoxView}
-            // onPress={() => this.visibleModal(true)}
-          >
-            <Text style={[styles.placeholderStyle]}>
-              {"What's on your mind?"}
-            </Text>
-          </TouchableView>
-          <TouchableOpacity>
-            <Icon name="camera" type="material-community" />
-          </TouchableOpacity>
-        </View>
+        {this._renderPostFake()}
 
-        <StatusInput
-          isVisible={this.state.isVisibleModal}
+        <NewsFeedPosts
+          isVisible={isVisible}
           post={this.post}
-          cancel={this.visibleModal}
+          // cancel={() => this.visibleModal}
         />
       </View>
     );
   }
 }
 
-const StatusPostingMutation = graphql(gql(INSERT_NEWS_MUTATION), {
+const NewsFeedPostingMutation = graphql(gql(INSERT_NEWS_MUTATION), {
   props: ({ mutate }) => ({
     insertNews: ({ userId, conferenceId, contentNews }) =>
       mutate({
@@ -83,4 +93,4 @@ const StatusPostingMutation = graphql(gql(INSERT_NEWS_MUTATION), {
   }),
 });
 
-export default compose(StatusPostingMutation)(StatusPosting);
+export default compose(NewsFeedPostingMutation)(NewsFeedPosting);
