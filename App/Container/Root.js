@@ -32,7 +32,6 @@ class Root extends Component {
       this.props.navigateToInitialRoute();
     } catch (error) {
       this.props.login();
-      console.log(error);
     }
   }
 

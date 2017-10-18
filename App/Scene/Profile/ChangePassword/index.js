@@ -155,4 +155,12 @@ const Scene = compose(
   withApollo,
 )(ChangePasswordScene);
 
+Scene.header = {
+  leftIcon: 'back',
+};
+
+Scene.drawer = {
+  disableGestures: true,
+};
+
 export default Scene;
