@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import moment from 'moment';
 
 import { Colors, Metrics } from '~/Theme';
-import { Text, UserAvatar } from '~/Component';
+import { Text, UserAvatar, TouchableView } from '~/Component';
 import Comments from './Comments';
 import styles from './styles';
 
@@ -69,87 +69,32 @@ class News extends Component {
   _renderPhotoView(imageUrl) {
     if (imageUrl.length === 1)
       return (
-        <Image
-          source={{ uri: imageUrl[0] }}
-          style={{
-            resizeMode: 'cover',
-            marginVertical: 8,
-          }}
-        />
+        <Image source={{ uri: imageUrl[0] }} style={styles.coverSingleImage} />
       );
     else
       return (
-        <View
-          style={{
-            flexDirection: 'row',
-            marginVertical: baseMargin,
-            // maxHeight: 200,
-          }}
-        >
+        <View style={styles.photoViewContainer}>
           <View style={{ flex: 2 }}>
-            <Image
-              source={{ uri: imageUrl[0] }}
-              style={{ resizeMode: 'cover', minHeight: 200 }}
-            />
+            <Image source={{ uri: imageUrl[0] }} style={styles.coverImage} />
           </View>
 
-          <View
-            style={{
-              flex: 1,
-              marginHorizontal: baseMargin,
-              maxHeight: 200,
-            }}
-          >
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-              <Image
-                source={{ uri: imageUrl[1] }}
-                style={{
-                  resizeMode: 'cover',
-                  minHeight: 92,
-                  marginBottom: baseMargin,
-                }}
-              />
-              <Image
-                source={{ uri: imageUrl[1] }}
-                style={{
-                  resizeMode: 'cover',
-                  minHeight: 92,
-                  marginBottom: baseMargin,
-                }}
-              />
-              <Image
-                source={{ uri: imageUrl[1] }}
-                style={{
-                  resizeMode: 'cover',
-                  minHeight: 92,
-                  marginBottom: baseMargin,
-                }}
-              />
-              <Image
-                source={{ uri: imageUrl[1] }}
-                style={{
-                  resizeMode: 'cover',
-                  minHeight: 92,
-                  marginBottom: baseMargin,
-                }}
-              />
-              <Image
-                source={{ uri: imageUrl[2] }}
-                style={{
-                  resizeMode: 'cover',
-                  minHeight: 92,
-                  marginBottom: baseMargin,
-                }}
-              />
-              <Image
-                source={{ uri: imageUrl[3] }}
-                style={{
-                  resizeMode: 'cover',
-                  minHeight: 92,
-                  marginBottom: baseMargin,
-                }}
-              />
-            </ScrollView>
+          <View style={styles.photoViewSubContainer}>
+            <Image source={{ uri: imageUrl[1] }} style={styles.smallImage} />
+            {imageUrl.length > 2
+              ? <TouchableView>
+                  <Image
+                    source={{ uri: imageUrl[2] }}
+                    style={styles.smallImage}
+                  />
+                  <Text
+                    medium
+                    style={styles.moreImages}
+                  >{`+ ${imageUrl.length} More`}</Text>
+                </TouchableView>
+              : <Image
+                  source={{ uri: imageUrl[2] }}
+                  style={styles.smallImage}
+                />}
           </View>
         </View>
       );

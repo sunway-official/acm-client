@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { KEY, setModalState } from '~/Redux/Modal';
-
 import { graphql, gql, compose } from 'react-apollo';
-import INSERT_NEWS_MUTATION from '~/Graphql/mutation/insertNews.graphql';
-import { View, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
 
 import styles from './styles';
+import { Icon } from 'react-native-elements';
 import { Colors } from '~/Theme';
+
+import { View, TouchableOpacity } from 'react-native';
 import { UserAvatar, TouchableView, Text, NewsFeedPosts } from '~/Component';
+
+import { KEY, setModalState } from '~/Redux/Modal';
+import INSERT_NEWS_MUTATION from '~/Graphql/mutation/insertNews.graphql';
 
 import { defaultUserAvatar } from '~/Scene/NewsFeed/fixture';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ScrollView, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Icon } from 'react-native-elements';
@@ -17,7 +17,6 @@ import query from '~/Graphql/query/getAllNews.graphql';
 class NewsFeedScene extends Component {
   render() {
     const { loading, allNews } = this.props;
-    // console.log(allNews);
 
     if (loading) {
       return (
@@ -43,12 +42,6 @@ class NewsFeedScene extends Component {
         />
       </View>
     );
-    /*
-      <ScrollView contentContainerStyle={styles.container}>
-        <NewsFeedPosting />
-        {allNews.map((item, index) => <News item={item} key={index} />)}
-      </ScrollView>
-    */
   }
 }
 
