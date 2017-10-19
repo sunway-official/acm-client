@@ -17,6 +17,7 @@ const UserAvatar = props => {
 };
 
 UserAvatar.propTypes = {
+  [TYPE.KEY]: PropTypes.string,
   avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   containerStyle: View.propTypes.style,
   overlayContainerStyle: View.propTypes.style,

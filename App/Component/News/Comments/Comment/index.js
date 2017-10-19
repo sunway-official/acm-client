@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import moment from 'moment';
 
 import { Text, UserAvatar } from '~/Component';
 import { Colors, Metrics, Images } from '~/Theme';

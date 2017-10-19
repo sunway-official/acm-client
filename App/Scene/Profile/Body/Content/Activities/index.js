@@ -4,7 +4,7 @@ import { View, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { News, AnimatableView } from '~/Component';
 
-import { graphql, compose } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import ACTIVITIES_QUERY from '~/Graphql/query/getAllNewsByUserId.graphql';
 

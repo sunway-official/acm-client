@@ -9,7 +9,6 @@ import { Text, UserAvatar, TouchableView } from '~/Component';
 import Comments from './Comments';
 import styles from './styles';
 
-const { baseMargin, doubleBaseMargin, screenWidth } = Metrics;
 const defaultAvatar = Images.avatar['male08'];
 
 const formatCreatedAt = createdAt =>

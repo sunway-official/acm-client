@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { Metrics, Colors, Fonts } from '~/Theme';
 
-const { baseMargin, doubleBaseMargin, screenWidth } = Metrics;
+const { baseMargin, doubleBaseMargin } = Metrics;
 const { white, grey } = Colors;
-const photoHeight = screenWidth / 1.8; // (screenWidth / (photoWidth / photoHeight))
 
 export default StyleSheet.create({
   container: {
