@@ -1,0 +1,7 @@
+mutation($user_id: ID!, $schedule_id: ID!) {
+  insertPersonalSchedule(user_id: $user_id, schedule_id: $schedule_id) {
+    user
+    schedule
+    activity
+  }
+}
