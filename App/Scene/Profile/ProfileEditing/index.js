@@ -40,12 +40,16 @@ class ProfileEditing extends Component {
   }
 
   componentDidMount() {
-    this.setState({ loading: false });
+    this.setState({
+      loading: false,
+    });
   }
 
   async _onUpdate(values) {
     const { mutate, data: { refetch }, navigate } = this.props;
-    this.setState({ loading: true });
+    this.setState({
+      loading: true,
+    });
     try {
       await mutate({
         variables: {
@@ -59,7 +63,9 @@ class ProfileEditing extends Component {
     } catch (err) {
       console.log(err);
     } finally {
-      this.setState({ loading: false });
+      this.setState({
+        loading: false,
+      });
     }
   }
 
@@ -69,10 +75,7 @@ class ProfileEditing extends Component {
       : {
           firstname: me.firstname,
           lastname: me.lastname,
-          dob:
-            me.dob !== null
-              ? transformServerDate.toLocal(me.dob)
-              : transformServerDate.toLocal('1990-01-01'),
+          dob: transformServerDate.toLocale(me.dob || '1990-01-01'),
           gender: {
             name: me.gender.charAt(0).toUpperCase() + me.gender.slice(1),
             value: me.gender,
@@ -92,11 +95,12 @@ class ProfileEditing extends Component {
     const { data: { me, loading } } = this.props;
     return (
       <View>
+        {' '}
         {this.state.loading ? (
           <View style={styles.mutationLoading}>
             <ActivityIndicator color="#2c3e50" />
           </View>
-        ) : null}
+        ) : null}{' '}
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={85}>
           <ScrollView style={styles.container}>
             <Form
@@ -104,16 +108,21 @@ class ProfileEditing extends Component {
               onUpdate={this._onUpdate}
               enableReinitialize
               initialValues={this._getMe(loading, me)}
-            />
-          </ScrollView>
-        </KeyboardAvoidingView>
+            />{' '}
+          </ScrollView>{' '}
+        </KeyboardAvoidingView>{' '}
       </View>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  navigate: routeName => dispatch(NavigationActions.navigate({ routeName })),
+  navigate: routeName =>
+    dispatch(
+      NavigationActions.navigate({
+        routeName,
+      }),
+    ),
 });
 
 const Scene = compose(

@@ -15,6 +15,7 @@ const MyAgenda = () => (
 
 MyAgenda.header = {
   theme: 'dark',
+  statusBarBackgroundColor: Colors.primary,
   actions: [
     {
       icon: {

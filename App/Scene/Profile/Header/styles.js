@@ -21,9 +21,9 @@ export default StyleSheet.create({
   avatar: {
     width: avatarWidth,
     height: avatarWidth,
-    borderWidth: 3,
-    borderColor: Colors.white,
     borderRadius: halfHeightOfAvatar,
+    borderWidth: 2,
+    borderColor: Colors.white,
     resizeMode: 'cover',
   },
   infoContainer: {

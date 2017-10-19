@@ -1,5 +1,6 @@
 query {
   me {
+    id
     firstname
     lastname
     dob
@@ -8,6 +9,7 @@ query {
     organization
     position
     language
+    avatar
     interested_in
     facebook_id
     twitter_id

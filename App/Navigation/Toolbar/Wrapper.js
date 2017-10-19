@@ -123,7 +123,11 @@ class HeaderWrapper extends Component {
 
     let onIconPress = this._openDrawer;
     let icon = {};
-    if (header && header.leftIcon === LEFT_ICON_IS_BACK) {
+    if (
+      navigation.index !== 0 && // Only work If current scene is NOT initial Scene
+      header && // If header is available
+      header.leftIcon === LEFT_ICON_IS_BACK // Get leftIcon type
+    ) {
       onIconPress = this._navigateBack;
       icon.name = 'arrow-back';
     }
