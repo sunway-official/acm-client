@@ -12,7 +12,7 @@ import { News } from '~/Component';
 import NewsFeedPosting from './NewsFeedPosting';
 import { AnimatableView } from '~/Component';
 
-import query from '~/Graphql/query/getAllNews.graphql';
+import NEWS_FEED_QUERY from '~/Graphql/query/getAllNews.graphql';
 
 class NewsFeedScene extends Component {
   constructor(props) {
@@ -81,7 +81,7 @@ NewsFeedScene.footer = {
   activeColor: Colors.primary,
 };
 
-const NewsFeedSceneWithData = graphql(gql(query), {
+const NewsFeedSceneWithData = graphql(gql(NEWS_FEED_QUERY), {
   props: ({
     data: { loading, getAllNews, refetch, networkStatus, error },
   }) => ({

@@ -8,10 +8,17 @@ import { Icon } from 'react-native-elements';
 import { Colors } from '~/Theme';
 
 import { View, TouchableOpacity } from 'react-native';
-import { UserAvatar, TouchableView, Text, NewsFeedPosts } from '~/Component';
+import {
+  UserAvatar,
+  TouchableView,
+  Text,
+  NewsFeedPosts,
+  AnimatableView,
+} from '~/Component';
 
 import { KEY, setModalState } from '~/Redux/Modal';
 import INSERT_NEWS_MUTATION from '~/Graphql/mutation/insertNews.graphql';
+import ME_QUERY from '~/Graphql/query/me.graphql';
 
 import { defaultUserAvatar } from '~/Scene/NewsFeed/fixture';
 
@@ -21,6 +28,8 @@ class NewsFeedPosting extends Component {
     showNewsFeedPosting: PropTypes.func,
     hideNewsFeedPosting: PropTypes.func,
     modal: PropTypes.object,
+    loading: PropTypes.bool,
+    me: PropTypes.object,
   };
 
   constructor(props) {
@@ -50,17 +59,34 @@ class NewsFeedPosting extends Component {
   }
 
   post(contentNews) {
-    console.log(contentNews);
+    // TODO: remove comment when publish app
+    // console.log(this.props.me.id);
+    // console.log(contentNews);
     this.props.insertNews({
-      userId: 11, // bk user id
+      userId: this.props.me.id, // bk user id
       conferenceId: 1, // fake conferences
       contentNews,
     });
-    console.log('done');
+    // console.log('done');
   }
 
   render() {
+    const { loading } = this.props;
     const isVisible = this.props.modal.isOpen;
+
+    if (loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <AnimatableView
+            animation="rotate"
+            duration={1000}
+            iterationCount="infinite"
+          >
+            <Icon name="loop" />
+          </AnimatableView>
+        </View>
+      );
+    }
 
     return (
       <View>
@@ -85,6 +111,13 @@ const NewsFeedPostingMutation = graphql(gql(INSERT_NEWS_MUTATION), {
   }),
 });
 
+const MeQuery = graphql(gql(ME_QUERY), {
+  props: ({ data: { loading, me } }) => ({
+    loading,
+    me,
+  }),
+});
+
 const mapStateToProps = state => ({
   modal: state[KEY],
 });
@@ -97,4 +130,5 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   NewsFeedPostingMutation,
+  MeQuery,
 )(NewsFeedPosting);
