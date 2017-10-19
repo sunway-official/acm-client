@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import { Colors, Metrics } from '~/Theme';
+import { transformServerDate } from '../../../../Transformer';
 
 /**
  * This Component built only for demo
@@ -12,6 +13,14 @@ import { Colors, Metrics } from '~/Theme';
  * change anything if you want to override
  */
 class ItemDetail extends Component {
+  static propTypes = {
+    detail: PropTypes.object,
+    // title: PropTypes.string,
+    // time: PropTypes.string,
+    // shortDescription: PropTypes.string,
+    // backgroundColor: PropTypes.string,
+  };
+
   constructor(props) {
     super(props);
 
@@ -26,17 +35,19 @@ class ItemDetail extends Component {
   }
 
   render() {
-    const { title, time, shortDescription } = this.props;
+    const { detail } = this.props;
+    console.log('detail: ', detail);
 
     return (
       <View>
         <View style={styles.itemWrapper}>
           <View style={styles.itemInfo}>
             <Text style={[styles.itemText]} bold>
-              {title}
+              {detail.activity.title}
             </Text>
-            <Text style={[styles.itemText]}>{time}</Text>
-            <Text style={[styles.itemText]}>{shortDescription}</Text>
+            <Text style={[styles.itemText]}>
+              {transformServerDate.toLocalTime(detail.schedule.start)}
+            </Text>
           </View>
           <TouchableView
             style={styles.itemAction}
@@ -62,12 +73,5 @@ class ItemDetail extends Component {
     );
   }
 }
-
-ItemDetail.propTypes = {
-  title: PropTypes.string,
-  time: PropTypes.string,
-  shortDescription: PropTypes.string,
-  backgroundColor: PropTypes.string,
-};
 
 export default ItemDetail;

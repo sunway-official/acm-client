@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
 import { Text } from '~/Component';
@@ -25,53 +25,81 @@ const ACTIVE_ITEM_ICON = {
   size: 17,
 };
 
-const MyAgendaItem = ({ activities, date }) => {
-  activities = activities.filter(item => item.active);
-  // const month = moment(date, DATE_FORMAT).format('MMM');
-  const day = moment(date, DATE_FORMAT).format('D');
-  const stringDay = moment(date, DATE_FORMAT).format('ddd');
-  const currentDate = moment(date, DATE_FORMAT).format(DATE_FORMAT);
-  const isToday = TODAY == currentDate;
-  const isBefore = TODAY > currentDate;
+class MyAgendaItem extends Component {
+  constructor(props) {
+    super(props);
+    this._renderItem = this._renderItem.bind(this);
+  }
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.headerWrapper}>
-        {/*<Text style={styles.headerTextDay} bold>
+  _renderItem({ item }) {
+    return <ItemDetail detail={item} />;
+  }
+
+  render() {
+    const { activities, date } = this.props;
+    console.log('In Item: ', activities);
+
+    // activities = activities.filter(item => item.active);
+    // const month = moment(date, DATE_FORMAT).format('MMM');
+    const day = moment(date, DATE_FORMAT).format('D');
+    const stringDay = moment(date, DATE_FORMAT).format('ddd');
+    const currentDate = moment(date, DATE_FORMAT).format(DATE_FORMAT);
+    console.log('day: ', moment(date, DATE_FORMAT));
+    // console.log('string day: ', stringDay);
+    // console.log('current: ', currentDate);
+    const isToday = TODAY == currentDate;
+    const isBefore = TODAY > currentDate;
+    return (
+      <View style={styles.container}>
+        <View style={styles.headerWrapper}>
+          {/*<Text style={styles.headerTextDay} bold>
           4th
         </Text>
         <Text style={styles.headerTextDay}>April</Text>*/}
-      </View>
-      <View style={[styles.contentContainer, isBefore ? { opacity: 0.5 } : {}]}>
-        <View style={styles.contentDate}>
-          <Text style={[styles.textDay, isToday ? styles.todayDayInner : {}]}>
-            {day}
-          </Text>
-          <Text style={[styles.textMonth, isToday ? styles.todayDayInner : {}]}>
-            {stringDay}
-          </Text>
         </View>
+        <View
+          style={[styles.contentContainer, isBefore ? { opacity: 0.5 } : {}]}
+        >
+          <View style={styles.contentDate}>
+            <Text style={[styles.textDay, isToday ? styles.todayDayInner : {}]}>
+              {day}
+            </Text>
+            <Text
+              style={[styles.textMonth, isToday ? styles.todayDayInner : {}]}
+            >
+              {stringDay}
+            </Text>
+          </View>
+          {/**
+  *          <View style={styles.contentDate}>
+            <Text style={[styles.textDay, isToday ? styles.todayDayInner : {}]}>
+              {transformServerDate.toLocal(date)}
+            </Text>
+          </View>
+  */}
 
-        <View style={styles.lineWrapper}>
-          <View style={styles.circleBackground}>
-            {isToday ? (
-              <Icon {...ACTIVE_ITEM_ICON} />
-            ) : (
-              <Icon {...DEFAULT_ITEM_ICON} />
-            )}
+          <View style={styles.lineWrapper}>
+            <View style={styles.circleBackground}>
+              {isToday ? (
+                <Icon {...ACTIVE_ITEM_ICON} />
+              ) : (
+                <Icon {...DEFAULT_ITEM_ICON} />
+              )}
+            </View>
+          </View>
+          <View style={styles.contentWrapper}>
+            <FlatList
+              data={activities}
+              keyExtractor={(item, index) => index}
+              renderItem={this._renderItem}
+            />
           </View>
         </View>
-        <View style={styles.contentWrapper}>
-          <FlatList
-            data={activities}
-            keyExtractor={(item, index) => index}
-            renderItem={({ item }) => <ItemDetail {...item} />}
-          />
-        </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
+
 MyAgendaItem.propTypes = {
   activities: PropTypes.array,
   date: PropTypes.any,

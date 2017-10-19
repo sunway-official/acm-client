@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, Text } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { Colors } from '~/Theme';
 import PropTypes from 'prop-types';
 import Item from '../Item';
@@ -10,7 +10,7 @@ import { DATE_FORMAT } from '~/env';
 
 import styles from './styles';
 
-const HEADER_TITLE_DATE_FORMAT = 'MMMM';
+// const HEADER_TITLE_DATE_FORMAT = 'MMMM';
 
 const getItemColor = index => {
   let color = Colors.primary;
@@ -61,19 +61,15 @@ const onViewableItemsChangedHandler = ({
   const { index } = viewableItems[0];
   const { date } = data[index];
   setHeader({
-    title: moment(date, DATE_FORMAT).format(HEADER_TITLE_DATE_FORMAT),
+    title: moment(date, DATE_FORMAT).format(),
   });
 };
 
 const MyAgendaList = ({ data, setHeader }) => {
-  console.log('object: ', data);
   return (
     <View style={styles.container}>
       <View style={styles.verticalLine} />
-      <Text>Hello</Text>
-
-      {/**
-        <FlatList
+      <FlatList
         data={data}
         renderItem={({ item, index }) => (
           <Item {...item} color={getItemColor(index)} />
@@ -82,7 +78,6 @@ const MyAgendaList = ({ data, setHeader }) => {
         onViewableItemsChanged={({ ...info }) =>
           onViewableItemsChangedHandler({ ...info, data, setHeader })}
       />
-       */}
     </View>
   );
 };

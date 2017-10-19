@@ -87,7 +87,6 @@ class Agenda extends Component {
   render() {
     const { data: { loading } } = this.props;
     const isFilterOpen = this.props.modal.isOpen;
-    // TO DO: Handle null -> add indicator
     const Tabs = loading ? this._renderLoading() : this._renderTabs();
     return (
       <View style={styles.container}>

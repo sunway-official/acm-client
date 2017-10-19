@@ -13,7 +13,6 @@ import styles from './styles';
 class Root extends Component {
   static propTypes = {
     back: PropTypes.func,
-    client: PropTypes.object,
     login: PropTypes.func,
     setUser: PropTypes.func,
     navigateToInitialRoute: PropTypes.func,

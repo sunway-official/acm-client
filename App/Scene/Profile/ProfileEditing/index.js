@@ -108,9 +108,9 @@ class ProfileEditing extends Component {
               onUpdate={this._onUpdate}
               enableReinitialize
               initialValues={this._getMe(loading, me)}
-            />{' '}
-          </ScrollView>{' '}
-        </KeyboardAvoidingView>{' '}
+            />
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     );
   }

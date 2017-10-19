@@ -5,10 +5,10 @@ import { Icon } from 'react-native-elements';
 import { Colors } from '~/Theme';
 import { TouchableView, Text } from '~/Component';
 import styles from './styles';
-import moment from 'moment';
 import { gql, graphql, compose } from 'react-apollo';
 import mutation from '~/Graphql/mutation/updatePersonalSchedule.graphql';
 import query from '~/Graphql/query/me.graphql';
+import { transformServerDate } from '../../../../Transformer';
 
 const DEFAULT_ITEM_ICON = {
   type: 'material-community',
@@ -44,7 +44,7 @@ class ListView extends Component {
   async _addPersonalSchedule(item) {
     const { mutate, data: { me } } = this.props;
     try {
-      const res = await mutate({
+      await mutate({
         variables: {
           user_id: me.id,
           schedule_id: item.id,
@@ -52,7 +52,6 @@ class ListView extends Component {
           activity_id: item.activity.id,
         },
       });
-      console.log('Response: ', res);
     } catch (error) {
       console.log(error);
     }
@@ -76,11 +75,7 @@ class ListView extends Component {
           </View>
         </TouchableView>
         <View style={styles.timeWrapper}>
-          <Text bold>
-            {moment(item.start)
-              .local()
-              .format('LT')}
-          </Text>
+          <Text bold>{transformServerDate.toLocalTime(item.start)}</Text>
         </View>
         <View style={styles.infoWrapper}>
           <Text style={styles.primaryText}>{item.activity.title}</Text>

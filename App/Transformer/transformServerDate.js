@@ -11,7 +11,14 @@ export const toLocal = (date, format = DATE_FORMAT) => {
     .format(format);
 };
 
+export const toLocalTime = (time, format = 'LT') => {
+  return moment(time)
+    .local()
+    .format(format);
+};
+
 export default {
   toUTC,
   toLocal,
+  toLocalTime,
 };
