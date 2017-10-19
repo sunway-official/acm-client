@@ -5,7 +5,7 @@ import { graphql, gql, compose } from 'react-apollo';
 
 import styles from './styles';
 import { Icon } from 'react-native-elements';
-import { Colors } from '~/Theme';
+import { Colors, Images } from '~/Theme';
 
 import { View, TouchableOpacity } from 'react-native';
 import {
@@ -20,7 +20,7 @@ import { KEY, setModalState } from '~/Redux/Modal';
 import INSERT_NEWS_MUTATION from '~/Graphql/mutation/insertNews.graphql';
 import ME_QUERY from '~/Graphql/query/me.graphql';
 
-import { defaultUserAvatar } from '~/Scene/NewsFeed/fixture';
+const defaultAvatar = Images.avatar['male08'];
 
 class NewsFeedPosting extends Component {
   static propTypes = {
@@ -41,7 +41,7 @@ class NewsFeedPosting extends Component {
   _renderPostFake() {
     return (
       <View style={styles.container}>
-        <UserAvatar small avatar={defaultUserAvatar} />
+        <UserAvatar small avatar={defaultAvatar} />
         <TouchableView
           rippleColor={Colors.primary}
           style={styles.statusBoxView}

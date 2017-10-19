@@ -5,8 +5,10 @@ import { Icon } from 'react-native-elements';
 import moment from 'moment';
 
 import { Text, UserAvatar } from '~/Component';
-import { Colors, Metrics } from '~/Theme';
+import { Colors, Metrics, Images } from '~/Theme';
 import styles from './styles';
+
+const defaultAvatar = Images.avatar['male08'];
 
 class Comment extends Component {
   static propTypes = {
@@ -32,7 +34,11 @@ class Comment extends Component {
 
     return (
       <View style={styles.commentContainer}>
-        <UserAvatar avatar={comment.user.avatar} />
+        <UserAvatar
+          avatar={
+            comment.user.avatar === null ? defaultAvatar : comment.user.avatar
+          }
+        />
         <View style={styles.rightOfComment}>
           <View flexDirection="row">
             <Text bold>

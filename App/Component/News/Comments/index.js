@@ -8,7 +8,7 @@ import styles from './styles';
 class Comments extends Component {
   static propTypes = {
     comments: PropTypes.array,
-    userAvatar: PropTypes.string,
+    userAvatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     createdAt: PropTypes.string,
   };
 

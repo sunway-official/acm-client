@@ -4,12 +4,13 @@ import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import moment from 'moment';
 
-import { Colors, Metrics } from '~/Theme';
+import { Colors, Metrics, Images } from '~/Theme';
 import { Text, UserAvatar, TouchableView } from '~/Component';
 import Comments from './Comments';
 import styles from './styles';
 
 const { baseMargin, doubleBaseMargin, screenWidth } = Metrics;
+const defaultAvatar = Images.avatar['male08'];
 
 const formatCreatedAt = createdAt =>
   moment(createdAt).calendar(null, {
@@ -54,7 +55,9 @@ class News extends Component {
         <View style={styles.rightPostHeader}>
           <UserAvatar
             small
-            avatar={item.user.avatar}
+            avatar={
+              item.user.avatar === null ? defaultAvatar : item.user.avatar
+            }
             containerStyle={styles.avatar}
           />
           <View>
@@ -164,7 +167,9 @@ class News extends Component {
           {this.state.showCommentBox ? (
             <Comments
               comments={item.newsComments}
-              userAvatar={item.user.avatar}
+              userAvatar={
+                item.user.avatar === null ? defaultAvatar : item.user.avatar
+              }
               createdAt={createdAt}
             />
           ) : (
