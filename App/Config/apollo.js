@@ -4,13 +4,8 @@ import {
   /*addGraphQLSubscriptions*/
 } from 'subscriptions-transport-ws';
 import { addGraphQLSubscriptions } from 'add-graphql-subscriptions'; // Fix Yellow box issue
-import { AsyncStorage, Linking } from 'react-native';
-import {
-  SERVER_ENDPOINT,
-  SERVER_SUBSCRIPTION_ENDPOINT,
-  IS_DEBUGGING,
-} from '~/env';
-import { transformServerEndPoint } from '../Transformer';
+import { AsyncStorage } from 'react-native';
+import { SERVER_ENDPOINT, SERVER_SUBSCRIPTION_ENDPOINT } from '~/env';
 
 let apolloClient = null;
 
@@ -18,17 +13,8 @@ const create = async (initialState = {}) => {
   const token = await AsyncStorage.getItem('token');
   const refreshToken = await AsyncStorage.getItem('refreshToken');
 
-  /**
-   * Change end point if debugger is enable
-   */
-  let networkInterfaceURI = SERVER_ENDPOINT;
-  if (IS_DEBUGGING) {
-    const initialURL = await Linking.getInitialURL();
-    networkInterfaceURI = transformServerEndPoint(initialURL);
-  }
-
   const networkInterface = createNetworkInterface({
-    uri: networkInterfaceURI,
+    uri: SERVER_ENDPOINT,
     opts: {
       // Additional options like `credentials` or `headers`
     },
@@ -58,13 +44,16 @@ const create = async (initialState = {}) => {
   networkInterface.useAfter([
     {
       applyAfterware: ({ response }, next) => {
-        response.clone().json().then(res => {
-          if (res.errors && res.errors[0].message === 'unauthorized') {
-            AsyncStorage.multiRemove(['id', 'token', 'refreshToken']).then(
-              next,
-            );
-          }
-        });
+        response
+          .clone()
+          .json()
+          .then(res => {
+            if (res.errors && res.errors[0].message === 'unauthorized') {
+              AsyncStorage.multiRemove(['id', 'token', 'refreshToken']).then(
+                next,
+              );
+            }
+          });
         const token = response.headers.get('X-Token');
         const refreshToken = response.headers.get('X-Refresh-Token');
         if (token && refreshToken) {

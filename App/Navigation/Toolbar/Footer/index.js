@@ -102,14 +102,15 @@ class Footer extends Component {
 
     return (
       <View style={this._wrapperStyles()}>
-        {disable ||
+        {disable || (
           <AnimatableView
             style={[styles.footer, this._footerStyles(), containerStyle]}
             animation={visible ? 'slideInUp' : 'slideOutDown'}
             duration={HIDDING_DELAY}
           >
             {this._renderTabs()}
-          </AnimatableView>}
+          </AnimatableView>
+        )}
       </View>
     );
   }

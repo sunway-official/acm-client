@@ -79,7 +79,7 @@ class FilterModal extends Component {
     return contentsButton;
   }
 
-  _renderHeader = onCancelPress =>
+  _renderHeader = onCancelPress => (
     <View style={styles.headerContainer}>
       <View>
         <Text light style={styles.headerText}>
@@ -94,9 +94,10 @@ class FilterModal extends Component {
           size={closeIcon.size}
         />
       </TouchableView>
-    </View>;
+    </View>
+  );
 
-  _renderButton = onCancelPress =>
+  _renderButton = onCancelPress => (
     <View style={styles.actionContainer}>
       <TouchableView style={styles.actionSubmitText} onPress={onCancelPress}>
         <Text style={styles.actionText}>Cancel</Text>
@@ -110,7 +111,8 @@ class FilterModal extends Component {
       <TouchableView style={styles.actionSubmitText} onPress={() => null}>
         <Text style={styles.actionText}>Apply</Text>
       </TouchableView>
-    </View>;
+    </View>
+  );
 
   setOnPress(check, index) {
     let newIsCheck = this.state.isCheck;

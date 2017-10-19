@@ -5,39 +5,40 @@ import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
 import AppNavigation from '~/Navigation';
 import { getInitialRoute } from '~/Navigation/resolver';
-import { gql, compose, graphql } from 'react-apollo';
-
-import styles from './styles';
-
+import { gql, compose, withApollo } from 'react-apollo';
+import { LocalNotification } from '~/Notification';
 import query from '~/Graphql/query/me.graphql';
+import styles from './styles';
 
 class Root extends Component {
   static propTypes = {
     back: PropTypes.func,
     client: PropTypes.object,
     login: PropTypes.func,
+    setUser: PropTypes.func,
     navigateToInitialRoute: PropTypes.func,
+    client: PropTypes.object,
     data: PropTypes.shape({
+      me: PropTypes.object,
       error: PropTypes.any,
     }),
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    const { client } = this.props;
     BackHandler.addEventListener('hardwareBackPress', this.props.back);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { data: { error } } = this.props;
-    if (prevProps.data.error !== error && error) {
-      this.props.login();
-    } else {
+    try {
+      await client.query({ query: gql(query) });
       this.props.navigateToInitialRoute();
+    } catch (error) {
+      this.props.login();
     }
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <LocalNotification />
         <AppNavigation />
       </View>
     );
@@ -50,12 +51,10 @@ const mapDispatchToProps = dispatch => {
     login: () => dispatch(NavigationActions.reset({ routeName: 'login' })),
     navigateToInitialRoute: () =>
       dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
+    setUser: user => dispatch(setUser(user)),
   };
 };
 
-export default compose(
-  connect(undefined, mapDispatchToProps),
-  graphql(gql(query), {
-    options: { notifyOnNetworkStatusChange: true },
-  }),
-)(Root);
+export default compose(connect(undefined, mapDispatchToProps), withApollo)(
+  Root,
+);

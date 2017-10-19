@@ -61,9 +61,7 @@ class News extends Component {
             <Text style={styles.username}>
               {`${item.user.firstname} ${item.user.lastname}`}
             </Text>
-            <Text style={styles.secondaryText}>
-              {createdAt}
-            </Text>
+            <Text style={styles.secondaryText}>{createdAt}</Text>
           </View>
         </View>
         <TouchableOpacity>
@@ -87,21 +85,20 @@ class News extends Component {
 
           <View style={styles.photoViewSubContainer}>
             <Image source={{ uri: imageUrl[1] }} style={styles.smallImage} />
-            {imageUrl.length > 2
-              ? <TouchableView>
-                  <Image
-                    source={{ uri: imageUrl[2] }}
-                    style={styles.smallImage}
-                  />
-                  <Text
-                    medium
-                    style={styles.moreImages}
-                  >{`+ ${imageUrl.length} More`}</Text>
-                </TouchableView>
-              : <Image
+            {imageUrl.length > 2 ? (
+              <TouchableView>
+                <Image
                   source={{ uri: imageUrl[2] }}
                   style={styles.smallImage}
-                />}
+                />
+                <Text
+                  medium
+                  style={styles.moreImages}
+                >{`+ ${imageUrl.length} More`}</Text>
+              </TouchableView>
+            ) : (
+              <Image source={{ uri: imageUrl[2] }} style={styles.smallImage} />
+            )}
           </View>
         </View>
       );
@@ -112,9 +109,7 @@ class News extends Component {
 
     return (
       <View>
-        <Text>
-          {item.content}
-        </Text>
+        <Text>{item.content}</Text>
         {this._renderPhotoView(url)}
       </View>
     );
@@ -124,9 +119,7 @@ class News extends Component {
     return (
       <TouchableOpacity onPress={onPressHandler} style={styles.interaction}>
         {icon}
-        <Text style={styles.secondaryText}>
-          {text}
-        </Text>
+        <Text style={styles.secondaryText}>{text}</Text>
       </TouchableOpacity>
     );
   }
@@ -168,13 +161,15 @@ class News extends Component {
         <View>
           {this._renderStatus(item)}
           {this._renderInteractionBar(item)}
-          {this.state.showCommentBox
-            ? <Comments
-                comments={item.newsComments}
-                userAvatar={item.user.avatar}
-                createdAt={createdAt}
-              />
-            : <View />}
+          {this.state.showCommentBox ? (
+            <Comments
+              comments={item.newsComments}
+              userAvatar={item.user.avatar}
+              createdAt={createdAt}
+            />
+          ) : (
+            <View />
+          )}
         </View>
       </View>
     );

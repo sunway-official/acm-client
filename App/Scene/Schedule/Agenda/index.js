@@ -19,12 +19,13 @@ class Agenda extends Component {
     modal: PropTypes.object,
   };
 
-  _renderFilter = isOpen =>
+  _renderFilter = isOpen => (
     <FilterModal
       isVisible={isOpen}
       onBackdropPress={() => this.props.hideFilterModal()}
       onCancelPress={() => this.props.hideFilterModal()}
-    />;
+    />
+  );
 
   render() {
     const isFilterOpen = this.props.modal.isOpen;
@@ -73,6 +74,7 @@ const TabsView = TabNavigator(tabs, {
 
 Agenda.header = {
   theme: 'dark',
+  statusBarBackgroundColor: Colors.primary,
   actions: [
     {
       icon: {

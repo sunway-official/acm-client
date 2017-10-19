@@ -28,7 +28,7 @@ const animationFunction = (prop, value) => {
   });
 };
 
-const Drawer = ({ drawer, setDrawerState, children }) =>
+const Drawer = ({ drawer, setDrawerState, children }) => (
   <SideMenu
     menu={<Menu />}
     isOpen={drawer.isOpen}
@@ -40,14 +40,16 @@ const Drawer = ({ drawer, setDrawerState, children }) =>
   >
     <View style={[styles.container, styles.relativeContainer]}>
       {children}
-      {drawer.isOpen &&
+      {drawer.isOpen && (
         <AninatableView
           animation={BACKDROP_ANIMATION_NAME}
           style={styles.backdrop}
           duration={ANIMATION_DELAY}
-        />}
+        />
+      )}
     </View>
-  </SideMenu>;
+  </SideMenu>
+);
 
 Drawer.propTypes = {
   drawer: PropTypes.object,

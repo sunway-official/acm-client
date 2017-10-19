@@ -39,13 +39,9 @@ class Comment extends Component {
               {`${comment.user.firstname} ${comment.user.lastname}`}
             </Text>
             <Icon name="dot-single" type="entypo" color="grey" />
-            <Text style={styles.textColor}>
-              {createdAt}
-            </Text>
+            <Text style={styles.textColor}>{createdAt}</Text>
           </View>
-          <Text>
-            {comment.content}
-          </Text>
+          <Text>{comment.content}</Text>
           <View style={styles.rightFooterOfComment}>
             <View style={styles.interactionContainer}>
               <TouchableOpacity>
@@ -69,9 +65,7 @@ class Comment extends Component {
                 size={20}
                 marginRight={Metrics.baseMargin}
               />
-              <Text>
-                {'2'}
-              </Text>
+              <Text>{'2'}</Text>
             </View>
           </View>
         </View>
@@ -81,11 +75,7 @@ class Comment extends Component {
 
   render() {
     const { comment, createdAt } = this.props;
-    return (
-      <View>
-        {this._renderComments(comment, createdAt)}
-      </View>
-    );
+    return <View>{this._renderComments(comment, createdAt)}</View>;
   }
 }
 

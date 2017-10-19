@@ -6,11 +6,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import getReducers from './rootReducer';
 
 const middlewares = [thunk];
-const enhancer = composeWithDevTools(
-  {
-    // Options: https://github.com/jhen0409/react-native-debugger#options
-  },
-)(applyMiddleware(...middlewares));
+const enhancer = composeWithDevTools({
+  // Options: https://github.com/jhen0409/react-native-debugger#options
+})(applyMiddleware(...middlewares));
 
 const initStore = apolloClient => {
   const store = createStore(getReducers(apolloClient), enhancer);

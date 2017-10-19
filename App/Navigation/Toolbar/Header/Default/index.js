@@ -149,14 +149,15 @@ class DefaultHeaderContent extends Component {
             />
           </TouchableView>
         </View>
-        {hideTitle ||
+        {hideTitle || (
           <View style={styles.centerWrapper}>
             <View style={styles.titleWrapper}>
               <Text bold style={[styles.title, this._textStyles()]}>
                 {title}
               </Text>
             </View>
-          </View>}
+          </View>
+        )}
         <View style={styles.rightWrapper}>
           {this._renderMenus()}
           {actions.map(this._renderAction)}

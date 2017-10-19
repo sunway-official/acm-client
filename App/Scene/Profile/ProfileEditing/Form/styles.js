@@ -16,4 +16,12 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: white,
   },
+  iconStyle: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  fieldContainer: {
+    flex: 11,
+    marginLeft: baseMargin,
+  },
 });

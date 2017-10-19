@@ -5,9 +5,13 @@ import { Text } from '~/Component';
 import { Images } from '~/Theme';
 import styles from './styles';
 
+/* eslint-disable no-unused-vars */
+const GENDER_MALE = 'male';
+const GENDER_FEMALE = 'female';
+const GENDER_UNKNOWN = 'unknown';
+/* eslint-enable no-unused-vars */
 class Header extends Component {
   static propTypes = {
-    avatar: PropTypes.string,
     user: PropTypes.object,
     address: PropTypes.string,
   };
@@ -16,49 +20,68 @@ class Header extends Component {
     user: {
       firstname: 'Sunway',
       lastname: 'Team',
-      email: 'sunway.offical@gmail.com',
     },
   };
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      headerHeight: 500,
+    };
+
     this._renderAvatar = this._renderAvatar.bind(this);
     this._renderInfo = this._renderInfo.bind(this);
+    this._viewDimensions = this._viewDimensions.bind(this);
   }
 
   _renderAvatar() {
+    const { user: { avatar, gender } } = this.props;
+
+    let defaultAvatar = Images.avatar['male02'];
+    switch (gender) {
+      case GENDER_MALE:
+        defaultAvatar = Images.avatar['male08'];
+        break;
+      case GENDER_FEMALE:
+        defaultAvatar = Images.avatar['female01'];
+        break;
+    }
     return (
       <View style={styles.avatarSection}>
-        <Image source={{ uri: this.props.avatar }} style={styles.avatar} />
+        <Image source={avatar || defaultAvatar} style={styles.avatar} />
       </View>
     );
   }
 
   _renderInfo() {
-    const { address, user } = this.props;
+    const { user } = this.props;
     return (
       <View style={styles.infoContainer}>
         <Text style={[styles.primaryTextColor, styles.username]} bold>
           {user.firstname} {user.lastname}
         </Text>
-        <Text style={styles.primaryTextColor}>
-          {user.email}
-        </Text>
-        <Text style={styles.primaryTextColor}>
-          {address}
-        </Text>
+        <Text style={styles.primaryTextColor}>{user.organization}</Text>
       </View>
     );
   }
 
+  _viewDimensions(layout) {
+    const { height } = layout;
+    this.setState({ headerHeight: height });
+  }
+
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{ height: this.state.headerHeight }}>
         <Image
           source={Images.materialBackground}
           style={styles.backgroundImage}
         >
-          <View style={styles.coverPhoto}>
+          <View
+            style={styles.coverPhoto}
+            onLayout={event => this._viewDimensions(event.nativeEvent.layout)}
+          >
             {this._renderAvatar()}
             {this._renderInfo()}
           </View>

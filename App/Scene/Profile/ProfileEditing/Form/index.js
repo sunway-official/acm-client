@@ -4,7 +4,6 @@ import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Field, reduxForm } from 'redux-form';
 import { Text, FormInput, TouchableView } from '~/Component';
-
 import fields from '../fields';
 import styles from './styles';
 
@@ -24,28 +23,18 @@ class UpdateProfileForm extends Component {
   _renderForms(form, key, titleOption = true) {
     return (
       <View key={key} style={styles.inputContainer}>
-        {titleOption
-          ? <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-              }}
-            >
-              <Icon size={18} {...form.icon} />
-            </View>
-          : null}
+        {titleOption ? (
+          <View style={styles.iconStyle}>
+            <Icon size={18} {...form.icon} />
+          </View>
+        ) : null}
         <Field
           component={FormInput}
           underlineColorAndroid="transparent"
           keyboardType="default"
           {...form.field}
           {...form.field.props}
-          containerStyle={{
-            flex: 11,
-            // backgroundColor: 'red',
-            marginLeft: 8,
-            justifyContent: 'center',
-          }}
+          containerStyle={styles.fieldContainer}
         />
       </View>
     );

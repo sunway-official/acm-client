@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image } from 'react-native';
+import { View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { Text } from '~/Component';
-import { achievements } from '~/Scene/Profile/fixture';
 import styles from './styles';
+import { transformServerDate } from '~/Transformer';
+
+const ICON_SIZE = 18;
 
 class About extends Component {
   static propTypes = {
@@ -12,36 +15,138 @@ class About extends Component {
 
   constructor(props) {
     super(props);
-    this._renderItem = this._renderItem.bind(this);
     this._renderUserInformation = this._renderUserInformation.bind(this);
-  }
-
-  _renderItem(item, index) {
-    return (
-      <View key={index} style={styles.itemContainer}>
-        <Image source={{ uri: item.image }} style={styles.image} />
-        <View style={{ justifyContent: 'center' }}>
-          <Text style={styles.title}>
-            {item.title}
-          </Text>
-          <Text style={styles.description}>
-            {item.shortDescription}
-          </Text>
-        </View>
-      </View>
-    );
   }
 
   _renderUserInformation() {
     const { user } = this.props;
     return (
-      <View style={styles.information}>
-        <Text>
-          {user.lastname} {user.firstname}
-        </Text>
-        <Text>
-          {user.email}
-        </Text>
+      <View>
+        <View style={styles.infoContainer}>
+          <View>
+            <Icon
+              name="briefcase"
+              type="entypo"
+              color="#8BC34A"
+              size={ICON_SIZE}
+              style={styles.icon}
+            />
+          </View>
+          <View style={styles.info}>
+            <Text>Working places</Text>
+            <Text>
+              {user.position} at {user.organization}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.infoContainer}>
+          <View>
+            <Icon
+              name="home-variant"
+              type="material-community"
+              color="#FF9800"
+              size={ICON_SIZE}
+              style={styles.icon}
+            />
+          </View>
+          <View style={styles.info}>
+            <Text>Current Location</Text>
+            <Text>Lives in Da Nang, Vietnam</Text>
+          </View>
+        </View>
+        {user.dob ? (
+          <View style={styles.infoContainer}>
+            <Icon
+              name="cake"
+              type="entypo"
+              color="#e74c3c"
+              size={ICON_SIZE}
+              style={styles.icon}
+            />
+            <Text>Born on {transformServerDate.toLocale(user.dob)}</Text>
+          </View>
+        ) : null}
+        <View style={styles.infoContainer}>
+          <View>
+            <Icon
+              name="car"
+              type="material-community"
+              color="#FFEB3B"
+              size={ICON_SIZE}
+              style={styles.icon}
+            />
+          </View>
+          <View style={styles.info}>
+            <Text>Personal Interests</Text>
+            <Text>{user.interested_in}</Text>
+          </View>
+        </View>
+        <View style={styles.infoContainer}>
+          <View>
+            <Icon name="description" size={ICON_SIZE} style={styles.icon} />
+          </View>
+          <View style={styles.info}>
+            <Text>Biography</Text>
+            <Text>{user.bio}</Text>
+          </View>
+        </View>
+        <View style={styles.infoContainer}>
+          <Icon
+            name="clock"
+            type="material-community"
+            color="#607D8B"
+            size={ICON_SIZE}
+            style={styles.icon}
+          />
+          <Text>Joined {transformServerDate.toLocale(user.created_at)}</Text>
+        </View>
+        <View style={styles.infoContainer}>
+          <Icon
+            name="wifi"
+            color="#009688"
+            size={ICON_SIZE}
+            style={styles.icon}
+          />
+          <Text>Followed by 999 people</Text>
+        </View>
+        {user.facebook_id ? (
+          <View style={styles.infoContainer}>
+            <View>
+              <Icon
+                name="facebook-box"
+                type="material-community"
+                color="#4267B2"
+                size={ICON_SIZE}
+                style={styles.icon}
+              />
+            </View>
+            <Text style={styles.info}>{user.facebook_id}</Text>
+          </View>
+        ) : null}
+        {user.twitter_id ? (
+          <View style={styles.infoContainer}>
+            <Icon
+              name="twitter"
+              type="material-community"
+              color="#1DA1F2"
+              size={ICON_SIZE}
+              style={styles.icon}
+            />
+            <Text style={styles.info}>{user.twitter_id}</Text>
+          </View>
+        ) : null}
+        {user.linkedin_id ? (
+          <View style={styles.infoContainer}>
+            <Icon
+              name="linkedin-box"
+              type="material-community"
+              color="#0073B1"
+              size={ICON_SIZE}
+              style={styles.icon}
+            />
+            <Text style={styles.info}>{user.linkedin_id}</Text>
+          </View>
+        ) : null}
       </View>
     );
   }
@@ -49,26 +154,15 @@ class About extends Component {
   render() {
     return (
       <View>
-        <View style={styles.section}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>Information</Text>
-          </View>
-          {this._renderUserInformation()}
-        </View>
-        <View style={styles.section}>
-          <View style={styles.titleContainer}>
-            <View>
-              <Text style={styles.title}>Achievements</Text>
-              <Text style={styles.description}>You have 15 out of 27</Text>
-            </View>
-            <Text style={styles.description}>View All</Text>
+        <View style={styles.titleContainer}>
+          <View style={styles.sectionIcon}>
+            <Icon name="network" type="entypo" color="white" size={18} />
           </View>
           <View>
-            {achievements.map((achievements, index) =>
-              this._renderItem(achievements, index),
-            )}
+            <Text style={styles.title}>Intro</Text>
           </View>
         </View>
+        {this._renderUserInformation()}
       </View>
     );
   }

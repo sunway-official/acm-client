@@ -8,17 +8,14 @@ import styles from './styles';
 
 const text = ['Welcome to Setting Scene!'];
 
-const SettingScene = ({ home }) =>
+const SettingScene = ({ home }) => (
   <View style={styles.container}>
     <View style={styles.centerText}>
-      {text.map((text, index) =>
-        <Text key={index}>
-          {text}
-        </Text>,
-      )}
+      {text.map((text, index) => <Text key={index}>{text}</Text>)}
     </View>
     <Button title="Home" onPress={home} />
-  </View>;
+  </View>
+);
 
 SettingScene.drawer = {
   secondary: true,

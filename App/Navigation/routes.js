@@ -108,19 +108,19 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  changePassword: {
-    name: 'Change Password',
-    path: '/change-password',
-    screen: ChangePassword,
+  profileEditing: {
+    name: 'Edit Profile',
+    path: '/profile/edit',
+    screen: ProfileEditing,
     icon: {
       name: 'face-profile',
       type: 'material-community',
     },
   },
-  profileEditing: {
-    name: 'Edit Profile',
-    path: '/profile/edit',
-    screen: ProfileEditing,
+  changePassword: {
+    name: 'Change Password',
+    path: '/change-password',
+    screen: ChangePassword,
     icon: {
       name: 'face-profile',
       type: 'material-community',

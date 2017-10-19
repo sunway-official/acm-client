@@ -102,7 +102,7 @@ class ChangePasswordScene extends Component {
     this.props.navigateToLogin();
   }
 
-  _renderDialog = () =>
+  _renderDialog = () => (
     <Dialog isVisible={this.state.isDialogOpen} header={'Alert'}>
       <View
         style={{
@@ -121,7 +121,8 @@ class ChangePasswordScene extends Component {
           <Text>Back to Login</Text>
         </TouchableView>
       </View>
-    </Dialog>;
+    </Dialog>
+  );
 
   render() {
     return (
@@ -153,5 +154,13 @@ const Scene = compose(
   graphql(gql(mutation)),
   withApollo,
 )(ChangePasswordScene);
+
+Scene.header = {
+  leftIcon: 'back',
+};
+
+Scene.drawer = {
+  disableGestures: true,
+};
 
 export default Scene;

@@ -41,9 +41,9 @@ class Comments extends Component {
     const { comments, userAvatar, createdAt } = this.props;
     return (
       <View>
-        {comments.map((comment, index) =>
-          <Comment comment={comment} key={index} createdAt={createdAt} />,
-        )}
+        {comments.map((comment, index) => (
+          <Comment comment={comment} key={index} createdAt={createdAt} />
+        ))}
         {this._renderCommentInputBox(userAvatar)}
       </View>
     );

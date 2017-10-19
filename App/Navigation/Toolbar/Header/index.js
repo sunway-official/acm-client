@@ -103,23 +103,26 @@ class Header extends Component {
           backgroundColor={Colors.primaryDark}
           barStyle={this._statusBarStyle()}
         />
-        {disable ||
+        {disable || (
           <AnimatableView
             style={[styles.header, this._headerStyles(), containerStyle]}
             animation={visible ? 'slideInDown' : 'slideOutUp'}
             duration={HIDDING_DELAY}
           >
-            {search.enable &&
-              <SearchContent {...this.props} {...this.props.search} />}
-            {search.enable ||
+            {search.enable && (
+              <SearchContent {...this.props} {...this.props.search} />
+            )}
+            {search.enable || (
               <AnimatableView
                 animation={SWITCH_CONTENT_ANIMATION}
                 duration={SWITCH_CONTENT_DELAY}
                 style={styles.container}
               >
                 <DefaultContent {...this.props} />
-              </AnimatableView>}
-          </AnimatableView>}
+              </AnimatableView>
+            )}
+          </AnimatableView>
+        )}
       </View>
     );
   }

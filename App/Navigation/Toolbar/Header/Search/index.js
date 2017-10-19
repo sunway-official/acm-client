@@ -116,9 +116,7 @@ class HeaderSearchContent extends Component {
   render() {
     return (
       <View style={[styles.container, styles.searchWrapper]}>
-        <View style={styles.leftWrapper}>
-          {this._renderBack()}
-        </View>
+        <View style={styles.leftWrapper}>{this._renderBack()}</View>
         <Field
           name="value"
           type="text"

@@ -35,12 +35,8 @@ class ItemDetail extends Component {
             <Text style={[styles.itemText]} bold>
               {title}
             </Text>
-            <Text style={[styles.itemText]}>
-              {time}
-            </Text>
-            <Text style={[styles.itemText]}>
-              {shortDescription}
-            </Text>
+            <Text style={[styles.itemText]}>{time}</Text>
+            <Text style={[styles.itemText]}>{shortDescription}</Text>
           </View>
           <TouchableView
             style={styles.itemAction}
@@ -55,12 +51,13 @@ class ItemDetail extends Component {
             />
           </TouchableView>
         </View>
-        {this.state.track ||
+        {this.state.track || (
           <TouchableView
             rippleColor={Colors.white}
             style={styles.blurWrapper}
             onPress={() => setTimeout(this._setTrackingState, 300)}
-          />}
+          />
+        )}
       </View>
     );
   }
