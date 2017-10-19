@@ -74,6 +74,7 @@ const TabsView = TabNavigator(tabs, {
 
 Agenda.header = {
   theme: 'dark',
+  statusBarBackgroundColor: Colors.primary,
   actions: [
     {
       icon: {
