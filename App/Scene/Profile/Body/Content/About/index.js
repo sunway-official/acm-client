@@ -71,7 +71,7 @@ class About extends Component {
             <Icon
               name="car"
               type="material-community"
-              color="#FFEB3B"
+              color="#2ecc71"
               size={ICON_SIZE}
               style={styles.icon}
             />
@@ -98,8 +98,9 @@ class About extends Component {
             size={ICON_SIZE}
             style={styles.icon}
           />
-          <Text>Joined {transformServerDate.toLocale(user.created_at)}</Text>
+          <Text>Joined on {transformServerDate.toLocale(user.created_at)}</Text>
         </View>
+        {/*
         <View style={styles.infoContainer}>
           <Icon
             name="wifi"
@@ -109,6 +110,7 @@ class About extends Component {
           />
           <Text>Followed by 999 people</Text>
         </View>
+        */}
         {user.facebook_id ? (
           <View style={styles.infoContainer}>
             <View>
@@ -120,7 +122,10 @@ class About extends Component {
                 style={styles.icon}
               />
             </View>
-            <Text style={styles.info}>{user.facebook_id}</Text>
+            <Text style={styles.info}>
+              {'facebook.com/'}
+              {user.facebook_id}
+            </Text>
           </View>
         ) : null}
         {user.twitter_id ? (
@@ -132,7 +137,10 @@ class About extends Component {
               size={ICON_SIZE}
               style={styles.icon}
             />
-            <Text style={styles.info}>{user.twitter_id}</Text>
+            <Text style={styles.info}>
+              {'twitter.com/'}
+              {user.twitter_id}
+            </Text>
           </View>
         ) : null}
         {user.linkedin_id ? (
@@ -144,7 +152,10 @@ class About extends Component {
               size={ICON_SIZE}
               style={styles.icon}
             />
-            <Text style={styles.info}>{user.linkedin_id}</Text>
+            <Text style={styles.info}>
+              {'linkedin.com/'}
+              {user.linkedin_id}
+            </Text>
           </View>
         ) : null}
       </View>
@@ -153,7 +164,7 @@ class About extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <View style={styles.titleContainer}>
           <View style={styles.sectionIcon}>
             <Icon name="network" type="entypo" color="white" size={18} />

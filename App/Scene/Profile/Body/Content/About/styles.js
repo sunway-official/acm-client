@@ -6,6 +6,9 @@ const { white, grey } = Colors;
 const { size } = Fonts;
 
 export default StyleSheet.create({
+  container: {
+    marginBottom: baseMargin,
+  },
   titleContainer: {
     flexDirection: 'row',
     padding: baseMargin,
