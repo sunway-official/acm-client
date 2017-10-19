@@ -1,7 +1,15 @@
-import AppEnviroments from '../env';
 import { transformServerEndPoint } from '~/Transformer';
 import { Constants } from 'expo';
 import { Platform } from 'react-native';
+import DevelopmentEnv from '../env';
+import ProductionEnv from '../env.example.production';
+
+let env = [];
+if (__DEV__) {
+  env = DevelopmentEnv;
+} else {
+  env = ProductionEnv;
+}
 
 /**
  * Export local env
@@ -17,7 +25,8 @@ export const IS_IOS = Platform.OS === 'ios';
  * Export global env
  */
 // Export all default enviroment
-Object.keys(AppEnviroments).map(key => {
+Object.keys(env).map(key => {
+  // console.log(key);
   switch (key) {
     case 'SERVER_ENDPOINT': {
       if (IS_DEBUGGING || IS_DEVICE) {
@@ -28,7 +37,7 @@ Object.keys(AppEnviroments).map(key => {
       }
     }
     default:
-      module.exports[key] = AppEnviroments[key];
+      module.exports[key] = env[key];
       break;
   }
 });

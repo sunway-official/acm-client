@@ -1,4 +1,13 @@
 {
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    ".expo": true,
+    ".idea": true
+  },
   "javascript.validate.enable": false,
   "prettier.semi": true,
   "prettier.singleQuote": true,
@@ -7,8 +16,5 @@
   "prettier.tabWidth": 2,
   "prettier.eslintIntegration": true,
   "editor.formatOnSave": true,
-  "eslint.autoFixOnSave": true,
-  "path-intellisense.mappings": {
-    "~": "${workspaceRoot}/App"
-  }
+  "eslint.autoFixOnSave": true
 }
