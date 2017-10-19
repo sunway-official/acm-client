@@ -8,7 +8,6 @@ import styles from './styles';
 
 const MyAgenda = () => (
   <View style={styles.container}>
-    {/*<DatePicker date={new Date()} />*/}
     <List data={fixture} />
   </View>
 );

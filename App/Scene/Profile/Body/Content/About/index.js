@@ -65,7 +65,7 @@ class About extends Component {
               size={ICON_SIZE}
               style={styles.icon}
             />{' '}
-            <Text> Born on {transformServerDate.toLocale(user.dob)} </Text>{' '}
+            <Text> Born on {transformServerDate.toLocal(user.dob)} </Text>{' '}
           </View>
         ) : null}{' '}
         <View style={styles.infoContainer}>
@@ -105,7 +105,7 @@ class About extends Component {
           />{' '}
           <Text>
             {' '}
-            Joined on {transformServerDate.toLocale(user.created_at)}{' '}
+            Joined on {transformServerDate.toLocal(user.created_at)}{' '}
           </Text>{' '}
         </View>{' '}
         {/*

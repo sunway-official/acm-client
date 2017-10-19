@@ -6,6 +6,9 @@ import { Colors } from '~/Theme';
 import { TouchableView, Text } from '~/Component';
 import styles from './styles';
 import moment from 'moment';
+import { gql, graphql, compose } from 'react-apollo';
+import mutation from '~/Graphql/mutation/updatePersonalSchedule.graphql';
+import query from '~/Graphql/query/me.graphql';
 
 const DEFAULT_ITEM_ICON = {
   type: 'material-community',
@@ -25,21 +28,45 @@ class ListView extends Component {
   static propTypes = {
     detail: PropTypes.array,
     calendarIcon: PropTypes.object,
+    mutate: PropTypes.func,
+    data: PropTypes.shape({
+      loading: PropTypes.bool,
+      me: PropTypes.object,
+    }),
   };
 
   constructor(props, context) {
     super(props, context);
     this._renderItem = this._renderItem.bind(this);
+    this._addPersonalSchedule = this._addPersonalSchedule.bind(this);
+  }
+
+  async _addPersonalSchedule(activityId) {
+    const { mutate, data: { me, loading } } = this.props;
+    if (loading) {
+      console.log('loading...');
+    } else {
+      console.log('me: ', me.id);
+    }
+    console.log('activity: ', activityId);
+    console.log('me: ', me.id);
+    try {
+      await mutate({
+        variables: { user_id: me.id, schedule_id: activityId },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   _renderItem({ item }) {
-    // console.log('item: ', item);
     return (
       <View style={styles.item}>
         <TouchableView
           style={styles.iconWrapper}
           rippleColor={Colors.primary}
           borderless
+          onPress={() => this._addPersonalSchedule(item.activity.id)}
         >
           <View style={styles.icon}>
             {item.activity.status ? (
@@ -79,4 +106,4 @@ class ListView extends Component {
   }
 }
 
-export default ListView;
+export default compose(graphql(gql(query)), graphql(gql(mutation)))(ListView);

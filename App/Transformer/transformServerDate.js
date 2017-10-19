@@ -5,7 +5,7 @@ export const toUTC = (date, format = DATE_FORMAT) => {
   return moment(date, format).toISOString();
 };
 
-export const toLocale = (date, format = DATE_FORMAT) => {
+export const toLocal = (date, format = DATE_FORMAT) => {
   return moment(date)
     .local()
     .format(format);
