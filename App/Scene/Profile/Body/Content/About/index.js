@@ -31,16 +31,21 @@ class About extends Component {
               size={ICON_SIZE}
               style={styles.icon}
             />{' '}
+            {' '}
           </View>{' '}
+          {' '}
           <View style={styles.info}>
-            <Text> Working places </Text>{' '}
+            <Text> Working places </Text> {' '}
             <Text>
               {' '}
               {user.position}
-              at {user.organization}{' '}
+              at {user.organization} {' '}
             </Text>{' '}
+            {' '}
           </View>{' '}
+          {' '}
         </View>{' '}
+        {' '}
         <View style={styles.infoContainer}>
           <View>
             <Icon
@@ -50,12 +55,16 @@ class About extends Component {
               size={ICON_SIZE}
               style={styles.icon}
             />{' '}
+            {' '}
           </View>{' '}
+          {' '}
           <View style={styles.info}>
-            <Text> Current Location </Text>{' '}
-            <Text> Lives in Da Nang, Vietnam </Text>{' '}
+            <Text> Current Location </Text> {' '}
+            <Text> Lives in Da Nang, Vietnam </Text> {' '}
           </View>{' '}
+          {' '}
         </View>{' '}
+        {' '}
         {user.dob ? (
           <View style={styles.infoContainer}>
             <Icon
@@ -65,9 +74,10 @@ class About extends Component {
               size={ICON_SIZE}
               style={styles.icon}
             />{' '}
-            <Text> Born on {transformServerDate.toLocal(user.dob)} </Text>{' '}
+            <Text> Born on {transformServerDate.toLocal(user.dob)} </Text> {' '}
           </View>
         ) : null}{' '}
+        {' '}
         <View style={styles.infoContainer}>
           <View>
             <Icon
@@ -77,24 +87,27 @@ class About extends Component {
               size={ICON_SIZE}
               style={styles.icon}
             />{' '}
+            {' '}
           </View>{' '}
+          {' '}
           <View style={styles.info}>
-            <Text> Personal Interests </Text>{' '}
-            <Text> {user.interested_in} </Text>{' '}
+            <Text> Personal Interests </Text> {' '}
+            <Text> {user.interested_in} </Text> {' '}
           </View>{' '}
+          {' '}
         </View>{' '}
+        {' '}
         <View style={styles.infoContainer}>
           <View>
-            <Icon
-              name="description"
-              size={ICON_SIZE}
-              style={styles.icon}
-            />{' '}
+            <Icon name="description" size={ICON_SIZE} style={styles.icon} /> {' '}
           </View>{' '}
+          {' '}
           <View style={styles.info}>
-            <Text> Biography </Text> <Text> {user.bio} </Text>{' '}
+            <Text> Biography </Text> <Text> {user.bio} </Text> {' '}
           </View>{' '}
+          {' '}
         </View>{' '}
+        {' '}
         <View style={styles.infoContainer}>
           <Icon
             name="clock"
@@ -103,22 +116,26 @@ class About extends Component {
             size={ICON_SIZE}
             style={styles.icon}
           />{' '}
+          {' '}
           <Text>
             {' '}
-            Joined on {transformServerDate.toLocal(user.created_at)}{' '}
+            Joined on {transformServerDate.toLocal(user.created_at)} {' '}
           </Text>{' '}
+          {' '}
         </View>{' '}
+        {' '}
         {/*
-                <View style={styles.infoContainer}>
-                  <Icon
-                    name="wifi"
-                    color="#009688"
-                    size={ICON_SIZE}
-                    style={styles.icon}
-                  />
-                  <Text>Followed by 999 people</Text>
-                </View>
-                */}{' '}
+                        <View style={styles.infoContainer}>
+                          <Icon
+                            name="wifi"
+                            color="#009688"
+                            size={ICON_SIZE}
+                            style={styles.icon}
+                          />
+                          <Text>Followed by 999 people</Text>
+                        </View>
+                        */}{' '}
+        {' '}
         {user.facebook_id ? (
           <View style={styles.infoContainer}>
             <View>
@@ -175,13 +192,15 @@ class About extends Component {
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <View style={styles.sectionIcon}>
-            <Icon name="network" type="entypo" color="white" size={18} />{' '}
+            <Icon name="network" type="entypo" color="white" size={18} /> {' '}
           </View>{' '}
+          {' '}
           <View>
-            <Text style={styles.title}> Intro </Text>{' '}
+            <Text style={styles.title}> Intro </Text> {' '}
           </View>{' '}
+          {' '}
         </View>{' '}
-        {this._renderUserInformation()}{' '}
+        {this._renderUserInformation()} {' '}
       </View>
     );
   }
