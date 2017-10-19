@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { gql, graphql, compose } from 'react-apollo';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { navigate } from '~/Redux/Navigation/action';
@@ -12,6 +12,7 @@ import Detail from './List';
 import query from '~/Graphql/query/getAgenda.graphql';
 import transformer from '../transformer';
 import { transformServerDate } from '~/Transformer';
+import styles from './styles';
 
 const TABS_CONFIG = {
   tabBarComponent: TabBarTop,
@@ -75,19 +76,21 @@ class Agenda extends Component {
     return TabNavigator(tabs, TABS_CONFIG);
   }
 
+  _renderLoading() {
+    return () => (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
   render() {
     const { data: { loading } } = this.props;
     const isFilterOpen = this.props.modal.isOpen;
     // TO DO: Handle null -> add indicator
-    const Tabs = loading
-      ? () => (
-          <View>
-            <Text>Loading</Text>
-          </View>
-        )
-      : this._renderTabs();
+    const Tabs = loading ? this._renderLoading() : this._renderTabs();
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         {this._renderFilter(isFilterOpen)}
         <Tabs />
       </View>
