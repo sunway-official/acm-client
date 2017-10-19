@@ -41,19 +41,18 @@ class ListView extends Component {
     this._addPersonalSchedule = this._addPersonalSchedule.bind(this);
   }
 
-  async _addPersonalSchedule(activityId) {
-    const { mutate, data: { me, loading } } = this.props;
-    if (loading) {
-      console.log('loading...');
-    } else {
-      console.log('me: ', me.id);
-    }
-    console.log('activity: ', activityId);
-    console.log('me: ', me.id);
+  async _addPersonalSchedule(item) {
+    const { mutate, data: { me } } = this.props;
     try {
-      await mutate({
-        variables: { user_id: me.id, schedule_id: activityId },
+      const res = await mutate({
+        variables: {
+          user_id: me.id,
+          schedule_id: item.id,
+          conference_id: item.activity.conference.id,
+          activity_id: item.activity.id,
+        },
       });
+      console.log('Response: ', res);
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +65,7 @@ class ListView extends Component {
           style={styles.iconWrapper}
           rippleColor={Colors.primary}
           borderless
-          onPress={() => this._addPersonalSchedule(item.activity.id)}
+          onPress={() => this._addPersonalSchedule(item)}
         >
           <View style={styles.icon}>
             {item.activity.status ? (

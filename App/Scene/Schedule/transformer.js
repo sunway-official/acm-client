@@ -32,7 +32,7 @@ export default (data, key) => {
     // Return new conference date object with its activities
     result = result.push({
       date: activities.first()[KEY],
-      activities,
+      activities: activities.toJS(),
     });
   });
 

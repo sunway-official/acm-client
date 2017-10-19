@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, Text } from 'react-native';
 import { Colors } from '~/Theme';
 import PropTypes from 'prop-types';
 import Item from '../Item';
@@ -65,21 +65,27 @@ const onViewableItemsChangedHandler = ({
   });
 };
 
-const MyAgendaList = ({ data, setHeader }) => (
-  <View style={styles.container}>
-    <View style={styles.verticalLine} />
+const MyAgendaList = ({ data, setHeader }) => {
+  console.log('object: ', data);
+  return (
+    <View style={styles.container}>
+      <View style={styles.verticalLine} />
+      <Text>Hello</Text>
 
-    <FlatList
-      data={data}
-      renderItem={({ item, index }) => (
-        <Item {...item} color={getItemColor(index)} />
-      )}
-      keyExtractor={(item, index) => index}
-      onViewableItemsChanged={({ ...info }) =>
-        onViewableItemsChangedHandler({ ...info, data, setHeader })}
-    />
-  </View>
-);
+      {/**
+        <FlatList
+        data={data}
+        renderItem={({ item, index }) => (
+          <Item {...item} color={getItemColor(index)} />
+        )}
+        keyExtractor={(item, index) => index}
+        onViewableItemsChanged={({ ...info }) =>
+          onViewableItemsChangedHandler({ ...info, data, setHeader })}
+      />
+       */}
+    </View>
+  );
+};
 
 MyAgendaList.propTypes = {
   data: PropTypes.array,

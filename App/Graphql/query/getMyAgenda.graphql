@@ -1,11 +1,13 @@
 {
-  getAllSchedules {
+  getAllPersonalSchedules {
     id
-    start
-    end
-    room {
-      id
-      name
+    schedule {
+      start
+      end
+      room {
+        id
+        name
+      }
     }
     activity {
       id
