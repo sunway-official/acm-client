@@ -34,7 +34,7 @@ export default StyleSheet.create({
     width: Metrics.images.large,
     height: Metrics.images.large,
     borderRadius: Metrics.images.large / 2,
-    borderWidth: 10,
+    borderWidth: 1,
     borderColor: Colors.white,
   },
   conferenceImage: {
