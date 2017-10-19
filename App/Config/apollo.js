@@ -5,13 +5,7 @@ import {
 } from 'subscriptions-transport-ws';
 import { addGraphQLSubscriptions } from 'add-graphql-subscriptions'; // Fix Yellow box issue
 import { AsyncStorage } from 'react-native';
-import { Constants } from 'expo';
-import {
-  SERVER_ENDPOINT,
-  SERVER_SUBSCRIPTION_ENDPOINT,
-  IS_DEBUGGING,
-} from '~/env';
-import { transformServerEndPoint } from '../Transformer';
+import { SERVER_ENDPOINT, SERVER_SUBSCRIPTION_ENDPOINT } from '~/env';
 
 let apolloClient = null;
 
@@ -19,17 +13,8 @@ const create = async (initialState = {}) => {
   const token = await AsyncStorage.getItem('token');
   const refreshToken = await AsyncStorage.getItem('refreshToken');
 
-  /**
-   * Change end point if debugger is enable
-   */
-  let networkInterfaceURI = SERVER_ENDPOINT;
-  if (IS_DEBUGGING) {
-    const initialURL = Constants.experienceUrl;
-    networkInterfaceURI = transformServerEndPoint(initialURL);
-  }
-
   const networkInterface = createNetworkInterface({
-    uri: networkInterfaceURI,
+    uri: SERVER_ENDPOINT,
     opts: {
       // Additional options like `credentials` or `headers`
     },
