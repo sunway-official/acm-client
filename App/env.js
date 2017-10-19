@@ -18,7 +18,6 @@ export const IS_IOS = Platform.OS === 'ios';
  */
 // Export all default enviroment
 Object.keys(AppEnviroments).map(key => {
-  console.log(key);
   switch (key) {
     case 'SERVER_ENDPOINT': {
       if (IS_DEBUGGING || IS_DEVICE) {

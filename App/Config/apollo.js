@@ -1,9 +1,6 @@
 import { ApolloClient, createNetworkInterface } from 'react-apollo';
-import {
-  SubscriptionClient,
-  /*addGraphQLSubscriptions*/
-} from 'subscriptions-transport-ws';
-import { addGraphQLSubscriptions } from 'add-graphql-subscriptions'; // Fix Yellow box issue
+import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { addGraphQLSubscriptions } from 'add-graphql-subscriptions';
 import { AsyncStorage } from 'react-native';
 import { SERVER_ENDPOINT, SERVER_SUBSCRIPTION_ENDPOINT } from '~/env';
 
