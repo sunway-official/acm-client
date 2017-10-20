@@ -27,6 +27,7 @@ class Posts extends Component {
 
   post() {
     this.props.post(this.state.text);
+    this.setState({ text: '' });
     this.props.cancel();
   }
 

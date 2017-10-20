@@ -43,7 +43,7 @@ class NewsFeedPosting extends Component {
       <View style={styles.container}>
         <UserAvatar small avatar={defaultAvatar} />
         <TouchableView
-          rippleColor={Colors.primary}
+          rippleColor={Colors.grey}
           style={styles.statusBoxView}
           onPress={() => this.props.showNewsFeedPosting()}
         >
