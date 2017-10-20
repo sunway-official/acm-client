@@ -9,9 +9,10 @@ import { KEY, setModalState } from '~/Redux/Modal';
 import { Colors, Metrics } from '~/Theme';
 import FilterModal from '~/Component/FilterModal';
 import Detail from './List';
-import query from '~/Graphql/query/getAgenda.graphql';
-import transformer from '../transformer';
+import transformer from '~/Transformer/schedules/agenda';
 import { transformServerDate } from '~/Transformer';
+import queryAgenda from '~/Graphql/query/getAgenda.graphql';
+import queryMyAgenda from '~/Graphql/query/getMyAgenda.graphql';
 import styles from './styles';
 
 const TABS_CONFIG = {
@@ -40,11 +41,23 @@ class Agenda extends Component {
     showFilterModal: PropTypes.func,
     hideFilterModal: PropTypes.func,
     modal: PropTypes.object,
-    data: PropTypes.shape({
-      getAllSchedules: PropTypes.array,
-      loading: PropTypes.bool,
+    agenda: PropTypes.shape({
+      data: PropTypes.shape({
+        getAllSchedules: PropTypes.array,
+        loading: PropTypes.bool,
+      }),
+    }),
+    myAgenda: PropTypes.shape({
+      data: PropTypes.shape({
+        refetch: PropTypes.func,
+      }),
     }),
   };
+
+  componentWillUnmount() {
+    console.log('Refetch my agenda data');
+    this.props.myAgenda.data.refetch();
+  }
 
   _renderFilter = isOpen => (
     <FilterModal
@@ -55,7 +68,7 @@ class Agenda extends Component {
   );
 
   _renderTabs() {
-    const { data: { getAllSchedules } } = this.props;
+    const { agenda: { data: { getAllSchedules } } } = this.props;
     const schedules = transformer(getAllSchedules, 'start');
     let tabs = {};
 
@@ -85,7 +98,7 @@ class Agenda extends Component {
   }
 
   render() {
-    const { data: { loading } } = this.props;
+    const { agenda: { data: { loading } } } = this.props;
     const isFilterOpen = this.props.modal.isOpen;
     const Tabs = loading ? this._renderLoading() : this._renderTabs();
     return (
@@ -134,6 +147,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default compose(
-  graphql(gql(query)),
+  graphql(gql(queryAgenda), {
+    props: ({ data, loading }) => ({
+      agenda: { data, loading },
+    }),
+  }),
+  graphql(gql(queryMyAgenda), {
+    props: ({ data, loading }) => ({
+      myAgenda: { data, loading },
+    }),
+  }),
   connect(mapStateToProps, mapDispatchToProps),
 )(Agenda);

@@ -5,7 +5,7 @@ import { withApollo, gql } from 'react-apollo';
 import setMyAgendaScheduleAsync from './handler/myAgenda';
 
 import myAgendaQuery from '~/Graphql/query/getMyAgenda.graphql';
-import myAgendaTransformer from '~/Scene/Schedule/MyAgenda/transformer';
+import myAgendaTransformer from '~/Transformer/schedules/myAgenda';
 
 /**
  * Must use React Component for using Apollo Client

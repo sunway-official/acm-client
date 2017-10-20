@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, ActivityIndicator, Button } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { Colors } from '~/Theme';
 import { navigate } from '~/Redux/Navigation/action';
 import List from './List';
 import styles from './styles';
 import { graphql, gql } from 'react-apollo';
 import query from '~/Graphql/query/getMyAgenda.graphql';
-import transformer from './transformer';
+import transformer from '~/Transformer/schedules/myAgenda';
 
 class MyAgenda extends Component {
-  componentDidMount() {
-    const { data } = this.props;
-    data.refetch();
-  }
-
   _renderLoading() {
     return (
       <View style={styles.loadingContainer}>
@@ -24,7 +19,7 @@ class MyAgenda extends Component {
   }
 
   render() {
-    const { data: { refetch, loading, getAllPersonalSchedules } } = this.props;
+    const { data: { loading, getAllPersonalSchedules } } = this.props;
     return loading ? (
       this._renderLoading()
     ) : (
@@ -63,4 +58,8 @@ MyAgenda.footer = {
   activeColor: Colors.primary,
 };
 
-export default graphql(gql(query))(MyAgenda);
+export default graphql(gql(query), {
+  options: {
+    notifyOnNetworkStatusChange: true,
+  },
+})(MyAgenda);
