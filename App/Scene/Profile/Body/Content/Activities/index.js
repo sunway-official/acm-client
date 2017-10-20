@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
-import { Icon } from 'react-native-elements';
-import { News, AnimatableView } from '~/Component';
+import { News, LoadingIndicator } from '~/Component';
 
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -25,13 +24,7 @@ class Activities extends Component {
     if (loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center' }}>
-          <AnimatableView
-            animation="rotate"
-            duration={1000}
-            iterationCount="infinite"
-          >
-            <Icon name="loop" />
-          </AnimatableView>
+          <LoadingIndicator />
         </View>
       );
     }
