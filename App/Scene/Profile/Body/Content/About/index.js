@@ -156,7 +156,7 @@ class About extends Component {
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <View style={styles.sectionIcon}>
-            <Icon name="network" type="entypo" color="white" size={18} />
+            <Icon name="network" type="entypo" color="white" size={ICON_SIZE} />
           </View>
           <View>
             <Text style={styles.title}>Intro</Text>
