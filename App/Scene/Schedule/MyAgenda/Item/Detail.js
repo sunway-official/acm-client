@@ -15,10 +15,6 @@ import { transformServerDate } from '../../../../Transformer';
 class ItemDetail extends Component {
   static propTypes = {
     detail: PropTypes.object,
-    // title: PropTypes.string,
-    // time: PropTypes.string,
-    // shortDescription: PropTypes.string,
-    // backgroundColor: PropTypes.string,
   };
 
   constructor(props) {
@@ -36,7 +32,6 @@ class ItemDetail extends Component {
 
   render() {
     const { detail } = this.props;
-    console.log('detail: ', detail);
 
     return (
       <View>

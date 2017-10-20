@@ -37,25 +37,23 @@ class MyAgendaItem extends Component {
 
   render() {
     const { activities, date } = this.props;
-    console.log('In Item: ', activities);
 
-    // activities = activities.filter(item => item.active);
-    // const month = moment(date, DATE_FORMAT).format('MMM');
-    const day = moment(date, DATE_FORMAT).format('D');
-    const stringDay = moment(date, DATE_FORMAT).format('ddd');
-    const currentDate = moment(date, DATE_FORMAT).format(DATE_FORMAT);
-    console.log('day: ', moment(date, DATE_FORMAT));
-    // console.log('string day: ', stringDay);
-    // console.log('current: ', currentDate);
+    const momentDate = moment(new Date(date));
+    const day = momentDate.format('D');
+    const stringDay = momentDate.format('ddd');
+    const currentDate = momentDate.format(DATE_FORMAT);
+
     const isToday = TODAY == currentDate;
     const isBefore = TODAY > currentDate;
     return (
       <View style={styles.container}>
         <View style={styles.headerWrapper}>
-          {/*<Text style={styles.headerTextDay} bold>
-          4th
-        </Text>
-        <Text style={styles.headerTextDay}>April</Text>*/}
+          {/*
+            <Text style={styles.headerTextDay} bold>
+              4th
+            </Text>
+            <Text style={styles.headerTextDay}>April</Text>
+          */}
         </View>
         <View
           style={[styles.contentContainer, isBefore ? { opacity: 0.5 } : {}]}
@@ -70,13 +68,6 @@ class MyAgendaItem extends Component {
               {stringDay}
             </Text>
           </View>
-          {/**
-  *          <View style={styles.contentDate}>
-            <Text style={[styles.textDay, isToday ? styles.todayDayInner : {}]}>
-              {transformServerDate.toLocal(date)}
-            </Text>
-          </View>
-  */}
 
           <View style={styles.lineWrapper}>
             <View style={styles.circleBackground}>
@@ -103,10 +94,6 @@ class MyAgendaItem extends Component {
 MyAgendaItem.propTypes = {
   activities: PropTypes.array,
   date: PropTypes.any,
-  color: PropTypes.shape({
-    background: PropTypes.string,
-    primary: PropTypes.string,
-  }),
 };
 
 export default MyAgendaItem;
