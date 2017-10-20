@@ -1,57 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
+import { gql, graphql, compose } from 'react-apollo';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { navigate } from '~/Redux/Navigation/action';
 import { connect } from 'react-redux';
 import { KEY, setModalState } from '~/Redux/Modal';
-
 import { Colors, Metrics } from '~/Theme';
 import FilterModal from '~/Component/FilterModal';
 import Detail from './List';
+import transformer from '~/Transformer/schedules/agenda';
+import { transformServerDate } from '~/Transformer';
+import transformExistedSchedule from '~/Transformer/schedules/existedSchedule';
+import queryAgenda from '~/Graphql/query/getAgenda.graphql';
+import queryMyAgenda from '~/Graphql/query/getMyAgenda.graphql';
+import styles from './styles';
 
-import Fixture from '../fixture';
-
-class Agenda extends Component {
-  static propTypes = {
-    showFilterModal: PropTypes.func,
-    hideFilterModal: PropTypes.func,
-    modal: PropTypes.object,
-  };
-
-  _renderFilter = isOpen => (
-    <FilterModal
-      isVisible={isOpen}
-      onBackdropPress={() => this.props.hideFilterModal()}
-      onCancelPress={() => this.props.hideFilterModal()}
-    />
-  );
-
-  render() {
-    const isFilterOpen = this.props.modal.isOpen;
-    return (
-      <View style={{ flex: 1 }}>
-        {this._renderFilter(isFilterOpen)}
-        <TabsView />
-      </View>
-    );
-  }
-}
-
-const tabs = {};
-Fixture.map((schedule, index) => {
-  const key = 'Day ' + (index + 1);
-  const { activities, date } = schedule;
-  tabs = {
-    ...tabs,
-    [key]: {
-      screen: () => <Detail detail={activities} />,
-      navigationOptions: { tabBarLabel: date },
-    },
-  };
-});
-
-const TabsView = TabNavigator(tabs, {
+const TABS_CONFIG = {
   tabBarComponent: TabBarTop,
   tabBarPosition: 'top',
   swipeEnabled: true,
@@ -70,7 +35,89 @@ const TabsView = TabNavigator(tabs, {
     },
     upperCaseLabel: false,
   },
-});
+};
+
+class Agenda extends Component {
+  static propTypes = {
+    showFilterModal: PropTypes.func,
+    hideFilterModal: PropTypes.func,
+    modal: PropTypes.object,
+    agenda: PropTypes.shape({
+      data: PropTypes.shape({
+        getAllSchedules: PropTypes.array,
+        loading: PropTypes.bool,
+      }),
+    }),
+    myAgenda: PropTypes.shape({
+      data: PropTypes.shape({
+        refetch: PropTypes.func,
+      }),
+    }),
+  };
+
+  componentWillUnmount() {
+    console.log('Refetch my agenda data');
+    this.props.myAgenda.data.refetch();
+  }
+
+  _renderFilter = isOpen => (
+    <FilterModal
+      isVisible={isOpen}
+      onBackdropPress={() => this.props.hideFilterModal()}
+      onCancelPress={() => this.props.hideFilterModal()}
+    />
+  );
+
+  _renderTabs() {
+    const {
+      agenda: { data: { getAllSchedules } },
+      myAgenda: { data: { getAllPersonalSchedules } },
+    } = this.props;
+    const filteredSchedules = transformExistedSchedule(
+      getAllSchedules,
+      getAllPersonalSchedules,
+      'existed',
+    );
+    const schedules = transformer(filteredSchedules, 'start');
+    let tabs = {};
+
+    schedules.map((schedule, index) => {
+      const key = 'Day ' + (index + 1);
+      const { activities, date } = schedule;
+      tabs = {
+        ...tabs,
+        [key]: {
+          screen: () => <Detail detail={activities} />,
+          navigationOptions: {
+            tabBarLabel: transformServerDate.toLocal(date),
+          },
+        },
+      };
+    });
+
+    return TabNavigator(tabs, TABS_CONFIG);
+  }
+
+  _renderLoading() {
+    return () => (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
+  render() {
+    const { agenda: { data: { loading } } } = this.props;
+    const isFilterOpen = this.props.modal.isOpen;
+    const Tabs = loading ? this._renderLoading() : this._renderTabs();
+    return (
+      <View style={styles.container}>
+        {this._renderFilter(isFilterOpen)}
+        <Tabs />
+      </View>
+    );
+  }
+}
 
 Agenda.header = {
   theme: 'dark',
@@ -94,6 +141,7 @@ Agenda.header = {
     },
   ],
 };
+
 Agenda.drawer = {
   primary: true,
 };
@@ -107,4 +155,16 @@ const mapDispatchToProps = dispatch => ({
   hideFilterModal: () => dispatch(setModalState(false)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Agenda);
+export default compose(
+  graphql(gql(queryAgenda), {
+    props: ({ data, loading }) => ({
+      agenda: { data, loading },
+    }),
+  }),
+  graphql(gql(queryMyAgenda), {
+    props: ({ data, loading }) => ({
+      myAgenda: { data, loading },
+    }),
+  }),
+  connect(mapStateToProps, mapDispatchToProps),
+)(Agenda);

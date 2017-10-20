@@ -20,8 +20,7 @@
     "copy-env": "cp env.example.development.js env.js",
     "postinstall": "run-p rndebugger-open fix-react-navigation copy-env",
     "precommit": "run-s lint-staged lint",
-    "prettier-eslint:fix:App":
-      "prettier-eslint \"App/**/*.js\" --single-quote --trailing-comma all --print-width 80 --tab-width 2 --write",
+    "prettier-eslint:fix:App": "prettier-eslint \"App/**/*.js\" --single-quote --trailing-comma all --print-width 80 --tab-width 2 --write",
     "prettier-eslint:fix": "run-s prettier-eslint:fix:App"
   },
   "lint-staged": {
@@ -34,7 +33,8 @@
     "add-graphql-subscriptions": "^1.0.1",
     "expo": "22.0.0",
     "graphql": "^0.10.5",
-    "moment": "^2.8.1",
+    "immutable": "^4.0.0-rc.9",
+    "moment": "^2.18.1",
     "prettier-eslint-cli": "^4.4.0",
     "prop-types": "^15.5.10",
     "react": "16.0.0-beta.5",

@@ -13,7 +13,6 @@ import styles from './styles';
 class Root extends Component {
   static propTypes = {
     back: PropTypes.func,
-    client: PropTypes.object,
     login: PropTypes.func,
     setUser: PropTypes.func,
     navigateToInitialRoute: PropTypes.func,
@@ -24,15 +23,18 @@ class Root extends Component {
     }),
   };
 
-  async componentDidMount() {
+  async componentWillMount() {
     const { client } = this.props;
-    BackHandler.addEventListener('hardwareBackPress', this.props.back);
     try {
       await client.query({ query: gql(query) });
       this.props.navigateToInitialRoute();
     } catch (error) {
       this.props.login();
     }
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.props.back);
   }
 
   render() {

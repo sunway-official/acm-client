@@ -1,17 +1,43 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { View, ActivityIndicator } from 'react-native';
 import { Colors } from '~/Theme';
 import { navigate } from '~/Redux/Navigation/action';
 import List from './List';
-import fixture from '../fixture';
 import styles from './styles';
+import { graphql, gql } from 'react-apollo';
+import query from '~/Graphql/query/getMyAgenda.graphql';
+import transformer from '~/Transformer/schedules/myAgenda';
 
-const MyAgenda = () => (
-  <View style={styles.container}>
-    {/*<DatePicker date={new Date()} />*/}
-    <List data={fixture} />
-  </View>
-);
+class MyAgenda extends Component {
+  _renderLoading() {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
+  render() {
+    const { data: { loading, getAllPersonalSchedules } } = this.props;
+    return loading ? (
+      this._renderLoading()
+    ) : (
+      <View style={styles.container}>
+        <List
+          data={transformer(getAllPersonalSchedules, 'start', 'schedule')}
+        />
+      </View>
+    );
+  }
+}
+
+MyAgenda.propTypes = {
+  data: PropTypes.shape({
+    loading: PropTypes.bool,
+    getAllPersonalSchedules: PropTypes.array,
+  }),
+};
 
 MyAgenda.header = {
   theme: 'dark',
@@ -32,4 +58,8 @@ MyAgenda.footer = {
   activeColor: Colors.primary,
 };
 
-export default MyAgenda;
+export default graphql(gql(query), {
+  options: {
+    notifyOnNetworkStatusChange: true,
+  },
+})(MyAgenda);

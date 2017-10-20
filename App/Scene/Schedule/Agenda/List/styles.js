@@ -12,7 +12,8 @@ const Detail = StyleSheet.create({
     left: 44,
     borderLeftWidth: 2,
     borderLeftColor: Colors.lightGrey,
-    height: '100%',
+    marginVertical: '3%',
+    height: '94%',
   },
   item: {
     flexDirection: 'row',
@@ -30,7 +31,7 @@ const Detail = StyleSheet.create({
     borderRadius: 13,
   },
   timeWrapper: {
-    width: 48,
+    width: 56,
     justifyContent: 'center',
     marginHorizontal: Metrics.doubleBaseMargin,
   },

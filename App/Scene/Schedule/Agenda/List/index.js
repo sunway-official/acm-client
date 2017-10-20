@@ -1,24 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
-import { Icon } from 'react-native-elements';
-import { Colors } from '~/Theme';
-import { TouchableView, Text } from '~/Component';
 import styles from './styles';
-
-const DEFAULT_ITEM_ICON = {
-  type: 'material-community',
-  name: 'checkbox-blank-circle-outline',
-  color: Colors.primary,
-  size: 26,
-};
-
-const ACTIVE_ITEM_ICON = {
-  type: 'material-community',
-  name: 'checkbox-marked-circle',
-  color: Colors.primary,
-  size: 26,
-};
+import Item from '../Item';
 
 class ListView extends Component {
   static propTypes = {
@@ -26,38 +10,14 @@ class ListView extends Component {
     calendarIcon: PropTypes.object,
   };
 
-  constructor(props, context) {
-    super(props, context);
-    this._renderItem = this._renderItem.bind(this);
+  constructor(props) {
+    super(props);
   }
 
   _renderItem({ item }) {
-    const { active } = item;
-    return (
-      <View style={styles.item}>
-        <TouchableView
-          style={styles.iconWrapper}
-          rippleColor={Colors.primary}
-          borderless
-        >
-          <View style={styles.icon}>
-            {active ? (
-              <Icon {...ACTIVE_ITEM_ICON} />
-            ) : (
-              <Icon {...DEFAULT_ITEM_ICON} />
-            )}
-          </View>
-        </TouchableView>
-        <View style={styles.timeWrapper}>
-          <Text bold>{item.time}</Text>
-        </View>
-        <View style={styles.infoWrapper}>
-          <Text style={styles.primaryText}>{item.title}</Text>
-          <Text style={styles.secondaryText}>{item.shortDescription}</Text>
-        </View>
-      </View>
-    );
+    return <Item item={item} />;
   }
+
   render() {
     const { detail } = this.props;
     return (

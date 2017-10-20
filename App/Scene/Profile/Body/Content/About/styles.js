@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   titleContainer: {
     flexDirection: 'row',
-    padding: baseMargin,
+    paddingHorizontal: baseMargin,
     paddingVertical: doubleBaseMargin,
     backgroundColor: white,
     alignItems: 'center',

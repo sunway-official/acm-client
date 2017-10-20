@@ -1,0 +1,30 @@
+{
+  getAllPersonalSchedules {
+    id
+    schedule {
+      id
+      start
+      end
+      room {
+        id
+        name
+      }
+    }
+    activity {
+      id
+      title
+      description
+      status
+      conference {
+        id
+      }
+      activityTopics {
+        id
+        topic {
+          description
+          name
+        }
+      }
+    }
+  }
+}

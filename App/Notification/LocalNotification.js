@@ -1,8 +1,11 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Permissions } from 'expo';
-import { withApollo } from 'react-apollo';
+import { withApollo, gql } from 'react-apollo';
 import setMyAgendaScheduleAsync from './handler/myAgenda';
-import fixtures from './fixtures';
+
+import myAgendaQuery from '~/Graphql/query/getMyAgenda.graphql';
+import myAgendaTransformer from '~/Transformer/schedules/myAgenda';
 
 /**
  * Must use React Component for using Apollo Client
@@ -12,10 +15,28 @@ class LocalNotification extends Component {
   async componentDidMount() {
     let permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (permission.status === 'granted') {
+      const { client } = this.props;
       /**
-      * TO DO: Handle fetching my agenda schedule
+      * Handle my agenda schedule
       */
-      await setMyAgendaScheduleAsync(fixtures);
+
+      // Create new observable query for my agenda
+      const observableQuery = await client.watchQuery({
+        query: gql(myAgendaQuery),
+        notifyOnNetworkStatusChange: true,
+      });
+      // Listen to whenever the query has changed
+      observableQuery.subscribe({
+        next: ({ data: { getAllPersonalSchedules } }) => {
+          console.log(getAllPersonalSchedules);
+          setMyAgendaScheduleAsync(
+            myAgendaTransformer(getAllPersonalSchedules, 'start', 'schedule'),
+          );
+        },
+      });
+      /**
+      * TO DO: Handle my other local notifications
+      */
     }
   }
 
@@ -24,6 +45,8 @@ class LocalNotification extends Component {
   }
 }
 
-LocalNotification.propTypes = {};
+LocalNotification.propTypes = {
+  client: PropTypes.object,
+};
 
 export default withApollo(LocalNotification);

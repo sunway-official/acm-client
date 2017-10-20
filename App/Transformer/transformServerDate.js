@@ -5,13 +5,20 @@ export const toUTC = (date, format = DATE_FORMAT) => {
   return moment(date, format).toISOString();
 };
 
-export const toLocale = (date, format = DATE_FORMAT) => {
+export const toLocal = (date, format = DATE_FORMAT) => {
   return moment(date)
+    .local()
+    .format(format);
+};
+
+export const toLocalTime = (time, format = 'LT') => {
+  return moment(time)
     .local()
     .format(format);
 };
 
 export default {
   toUTC,
-  toLocale,
+  toLocal,
+  toLocalTime,
 };

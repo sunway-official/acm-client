@@ -1,3 +1,7 @@
+/**
+ * Deprecated
+ */
+
 import moment from 'moment';
 import { DATE_FORMAT } from '~/env';
 
