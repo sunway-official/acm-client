@@ -79,9 +79,9 @@ class ListView extends Component {
         </View>
         <View style={styles.infoWrapper}>
           <Text style={styles.primaryText}>{item.activity.title}</Text>
-          <Text style={styles.secondaryText}>{item.room.name}</Text>
+          <Text style={styles.primaryText}>{item.room.name}</Text>
+          <Text style={styles.secondaryText}>{item.activity.description}</Text>
         </View>
-        <View style={styles.timeWrapper} />
       </View>
     );
   }

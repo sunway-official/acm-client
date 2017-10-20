@@ -13,6 +13,7 @@
     activity {
       id
       title
+      description
       status
       conference {
         id
