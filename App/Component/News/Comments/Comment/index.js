@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
+
 import { Text, UserAvatar } from '~/Component';
-import { Colors, Metrics } from '~/Theme';
+import { Colors, Metrics, Images } from '~/Theme';
 import styles from './styles';
+
+const defaultAvatar = Images.avatar['male08'];
 
 class Comment extends Component {
   static propTypes = {
     comment: PropTypes.object,
+    createdAt: PropTypes.string,
   };
 
   constructor(props) {
@@ -24,17 +28,25 @@ class Comment extends Component {
     this.setState({ loveComment: !this.state.loveComment });
   }
 
-  _renderComments(comment) {
+  _renderComments(comment, createdAt) {
+    // let secondaryText = moment(comment.updated_at).fromNow();
+
     return (
       <View style={styles.commentContainer}>
-        <UserAvatar avatar={comment.avatar} />
+        <UserAvatar
+          avatar={
+            comment.user.avatar === null ? defaultAvatar : comment.user.avatar
+          }
+        />
         <View style={styles.rightOfComment}>
           <View flexDirection="row">
-            <Text bold>{comment.username}</Text>
+            <Text bold>
+              {`${comment.user.firstname} ${comment.user.lastname}`}
+            </Text>
             <Icon name="dot-single" type="entypo" color="grey" />
-            <Text style={styles.textColor}>{comment.time}</Text>
+            <Text style={styles.textColor}>{createdAt}</Text>
           </View>
-          <Text>{comment.comment}</Text>
+          <Text>{comment.content}</Text>
           <View style={styles.rightFooterOfComment}>
             <View style={styles.interactionContainer}>
               <TouchableOpacity>
@@ -56,9 +68,9 @@ class Comment extends Component {
                 type="ionicon"
                 color={Colors.red}
                 size={20}
-                marginRight={Metrics.smallMargin}
+                marginRight={Metrics.baseMargin}
               />
-              <Text bold>{comment.love}</Text>
+              <Text>{'2'}</Text>
             </View>
           </View>
         </View>
@@ -67,8 +79,8 @@ class Comment extends Component {
   }
 
   render() {
-    const { comment } = this.props;
-    return <View>{this._renderComments(comment)}</View>;
+    const { comment, createdAt } = this.props;
+    return <View>{this._renderComments(comment, createdAt)}</View>;
   }
 }
 

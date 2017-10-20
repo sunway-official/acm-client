@@ -3,8 +3,7 @@ import { Metrics } from '~/Theme';
 
 export default StyleSheet.create({
   container: {
-    flexGrow: 1,
-    paddingHorizontal: Metrics.baseMargin,
+    marginHorizontal: Metrics.baseMargin,
     paddingTop: Metrics.baseMargin,
   },
 });

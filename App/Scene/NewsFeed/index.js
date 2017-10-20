@@ -1,26 +1,72 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ScrollView } from 'react-native';
+import { FlatList } from 'react-native';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import { Icon } from 'react-native-elements';
+import { View } from 'react-native';
+
 import styles from './styles';
 import { Colors } from '~/Theme';
 import { News } from '~/Component';
-import { NEWS } from './fixture';
-import StatusPosting from './StatusPosting';
+import NewsFeedPosting from './NewsFeedPosting';
+import { AnimatableView } from '~/Component';
 
-const NewsFeedScene = () => {
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <StatusPosting />
-      {NEWS.map((item, index) => <News item={item} key={index} />)}
-    </ScrollView>
-  );
-};
+import NEWS_FEED_QUERY from '~/Graphql/query/getAllNews.graphql';
+
+class NewsFeedScene extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onRefresh = this.onRefresh.bind(this);
+  }
+
+  onRefresh() {
+    this.props.refetch();
+  }
+
+  render() {
+    const { loading, allNews, networkStatus } = this.props;
+
+    if (loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <AnimatableView
+            animation="rotate"
+            duration={1000}
+            iterationCount="infinite"
+          >
+            <Icon name="loop" />
+          </AnimatableView>
+        </View>
+      );
+    }
+
+    return (
+      <View style={styles.container}>
+        <NewsFeedPosting />
+        <FlatList
+          data={allNews}
+          renderItem={({ item, index }) => <News item={item} key={index} />}
+          keyExtractor={(item, index) => index}
+          onRefresh={this.onRefresh}
+          refreshing={networkStatus === 4}
+        />
+      </View>
+    );
+  }
+}
 
 NewsFeedScene.propTypes = {
   home: PropTypes.func,
   setTitle: PropTypes.func,
   toggleHeader: PropTypes.func,
   toggleFooter: PropTypes.func,
+  loading: PropTypes.bool.isRequired,
+  allNews: PropTypes.array,
+  refetch: PropTypes.func,
+  networkStatus: PropTypes.number,
+  error: PropTypes.object,
 };
 
 NewsFeedScene.header = {
@@ -35,4 +81,16 @@ NewsFeedScene.footer = {
   activeColor: Colors.primary,
 };
 
-export default NewsFeedScene;
+const NewsFeedSceneWithData = graphql(gql(NEWS_FEED_QUERY), {
+  props: ({
+    data: { loading, getAllNews, refetch, networkStatus, error },
+  }) => ({
+    loading,
+    allNews: getAllNews,
+    refetch,
+    networkStatus,
+    error,
+  }),
+})(NewsFeedScene);
+
+export default NewsFeedSceneWithData;

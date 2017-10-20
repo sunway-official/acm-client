@@ -11,20 +11,14 @@ const TYPE = {
 };
 
 const UserAvatar = props => {
-  return (
-    <Avatar
-      {...props}
-      rounded
-      source={{
-        uri: props.avatar,
-      }}
-    />
-  );
+  const sourceAvatar =
+    typeof props.avatar === 'number' ? props.avatar : { uri: props.avatar };
+  return <Avatar {...props} rounded source={sourceAvatar} />;
 };
 
 UserAvatar.propTypes = {
   [TYPE.KEY]: PropTypes.string,
-  avatar: PropTypes.string,
+  avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   containerStyle: View.propTypes.style,
   overlayContainerStyle: View.propTypes.style,
 };
