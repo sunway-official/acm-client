@@ -31,7 +31,7 @@ const Detail = StyleSheet.create({
     borderRadius: 13,
   },
   timeWrapper: {
-    width: 48,
+    width: 56,
     justifyContent: 'center',
     marginHorizontal: Metrics.doubleBaseMargin,
   },

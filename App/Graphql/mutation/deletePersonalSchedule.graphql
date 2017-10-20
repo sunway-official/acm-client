@@ -1,0 +1,5 @@
+mutation($id: ID!) {
+  deletePersonalSchedule(id: $id) {
+    id
+  }
+}
