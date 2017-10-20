@@ -6,4 +6,8 @@ export default StyleSheet.create({
     marginHorizontal: Metrics.baseMargin,
     paddingTop: Metrics.baseMargin,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
 });

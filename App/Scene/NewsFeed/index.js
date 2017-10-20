@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 import { FlatList } from 'react-native';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Icon } from 'react-native-elements';
 import { View } from 'react-native';
-
 import styles from './styles';
 import { Colors } from '~/Theme';
-import { News } from '~/Component';
+import { News, LoadingIndicator } from '~/Component';
 import NewsFeedPosting from './NewsFeedPosting';
-import { AnimatableView } from '~/Component';
 
 import NEWS_FEED_QUERY from '~/Graphql/query/getAllNews.graphql';
 
@@ -30,14 +27,8 @@ class NewsFeedScene extends Component {
 
     if (loading) {
       return (
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <AnimatableView
-            animation="rotate"
-            duration={1000}
-            iterationCount="infinite"
-          >
-            <Icon name="loop" />
-          </AnimatableView>
+        <View style={styles.loadingContainer}>
+          <LoadingIndicator />
         </View>
       );
     }
