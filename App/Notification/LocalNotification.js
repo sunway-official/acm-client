@@ -15,17 +15,28 @@ class LocalNotification extends Component {
   async componentDidMount() {
     let permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (permission.status === 'granted') {
-      /**
-      * TO DO: Handle fetching my agenda schedule
-      */
       const { client } = this.props;
-      const { data: { getAllPersonalSchedules } } = await client.query({
+      /**
+      * Handle my agenda schedule
+      */
+
+      // Create new observable query for my agenda
+      const observableQuery = await client.watchQuery({
         query: gql(myAgendaQuery),
+        notifyOnNetworkStatusChange: true,
       });
-      // Apply schedule
-      await setMyAgendaScheduleAsync(
-        myAgendaTransformer(getAllPersonalSchedules, 'start', 'schedule'),
-      );
+      // Listen to whenever the query has changed
+      observableQuery.subscribe({
+        next: ({ data: { getAllPersonalSchedules } }) => {
+          console.log(getAllPersonalSchedules);
+          setMyAgendaScheduleAsync(
+            myAgendaTransformer(getAllPersonalSchedules, 'start', 'schedule'),
+          );
+        },
+      });
+      /**
+      * TO DO: Handle my other local notifications
+      */
     }
   }
 
