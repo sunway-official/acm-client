@@ -78,6 +78,19 @@ class News extends Component {
       return (
         <Image source={{ uri: imageUrl[0] }} style={styles.coverSingleImage} />
       );
+    if (imageUrl.length === 2)
+      return (
+        <View style={styles.photoViewTwoImage}>
+          <Image
+            source={{ uri: imageUrl[0] }}
+            style={styles.firstMediumImage}
+          />
+          <Image
+            source={{ uri: imageUrl[1] }}
+            style={styles.secondMediumImage}
+          />
+        </View>
+      );
     else
       return (
         <View style={styles.photoViewContainer}>

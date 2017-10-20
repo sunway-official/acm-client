@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Metrics, Colors, Fonts } from '~/Theme';
 
-const { baseMargin, doubleBaseMargin } = Metrics;
+const { baseMargin, doubleBaseMargin, smallMargin } = Metrics;
 const { white, grey } = Colors;
 
 export default StyleSheet.create({
@@ -54,6 +54,23 @@ export default StyleSheet.create({
     resizeMode: 'cover',
     minHeight: 200,
     marginVertical: baseMargin,
+  },
+  photoViewTwoImage: {
+    flex: 1,
+    flexDirection: 'row',
+    marginVertical: baseMargin,
+  },
+  firstMediumImage: {
+    flex: 2,
+    resizeMode: 'cover',
+    minHeight: 200,
+    marginRight: smallMargin,
+  },
+  secondMediumImage: {
+    flex: 2,
+    resizeMode: 'cover',
+    minHeight: 200,
+    marginLeft: smallMargin,
   },
   coverImage: {
     resizeMode: 'cover',
