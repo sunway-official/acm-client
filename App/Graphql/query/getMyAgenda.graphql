@@ -2,6 +2,7 @@
   getAllPersonalSchedules {
     id
     schedule {
+      id
       start
       end
       room {

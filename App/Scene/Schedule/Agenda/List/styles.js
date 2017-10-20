@@ -12,7 +12,8 @@ const Detail = StyleSheet.create({
     left: 44,
     borderLeftWidth: 2,
     borderLeftColor: Colors.lightGrey,
-    height: '100%',
+    marginVertical: '3%',
+    height: '94%',
   },
   item: {
     flexDirection: 'row',

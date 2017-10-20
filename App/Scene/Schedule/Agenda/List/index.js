@@ -67,7 +67,7 @@ class ListView extends Component {
           onPress={() => this._addPersonalSchedule(item)}
         >
           <View style={styles.icon}>
-            {item.activity.status ? (
+            {item.existed ? (
               <Icon {...ACTIVE_ITEM_ICON} />
             ) : (
               <Icon {...DEFAULT_ITEM_ICON} />

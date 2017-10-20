@@ -11,6 +11,7 @@ import FilterModal from '~/Component/FilterModal';
 import Detail from './List';
 import transformer from '~/Transformer/schedules/agenda';
 import { transformServerDate } from '~/Transformer';
+import transformExistedSchedule from '~/Transformer/schedules/existedSchedule';
 import queryAgenda from '~/Graphql/query/getAgenda.graphql';
 import queryMyAgenda from '~/Graphql/query/getMyAgenda.graphql';
 import styles from './styles';
@@ -68,8 +69,16 @@ class Agenda extends Component {
   );
 
   _renderTabs() {
-    const { agenda: { data: { getAllSchedules } } } = this.props;
-    const schedules = transformer(getAllSchedules, 'start');
+    const {
+      agenda: { data: { getAllSchedules } },
+      myAgenda: { data: { getAllPersonalSchedules } },
+    } = this.props;
+    const filteredSchedules = transformExistedSchedule(
+      getAllSchedules,
+      getAllPersonalSchedules,
+      'existed',
+    );
+    const schedules = transformer(filteredSchedules, 'start');
     let tabs = {};
 
     schedules.map((schedule, index) => {
