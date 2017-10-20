@@ -23,15 +23,18 @@ class Root extends Component {
     }),
   };
 
-  async componentDidMount() {
+  async componentWillMount() {
     const { client } = this.props;
-    BackHandler.addEventListener('hardwareBackPress', this.props.back);
     try {
       await client.query({ query: gql(query) });
       this.props.navigateToInitialRoute();
     } catch (error) {
       this.props.login();
     }
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.props.back);
   }
 
   render() {

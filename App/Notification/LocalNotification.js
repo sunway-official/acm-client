@@ -1,8 +1,11 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Permissions } from 'expo';
-import { withApollo } from 'react-apollo';
+import { withApollo, gql } from 'react-apollo';
 import setMyAgendaScheduleAsync from './handler/myAgenda';
-import fixtures from './fixtures';
+
+import myAgendaQuery from '~/Graphql/query/getMyAgenda.graphql';
+import myAgendaTransformer from '~/Scene/Schedule/MyAgenda/transformer';
 
 /**
  * Must use React Component for using Apollo Client
@@ -15,7 +18,14 @@ class LocalNotification extends Component {
       /**
       * TO DO: Handle fetching my agenda schedule
       */
-      await setMyAgendaScheduleAsync(fixtures);
+      const { client } = this.props;
+      const { data: { getAllPersonalSchedules } } = await client.query({
+        query: gql(myAgendaQuery),
+      });
+      // Apply schedule
+      await setMyAgendaScheduleAsync(
+        myAgendaTransformer(getAllPersonalSchedules, 'start', 'schedule'),
+      );
     }
   }
 
@@ -24,6 +34,8 @@ class LocalNotification extends Component {
   }
 }
 
-LocalNotification.propTypes = {};
+LocalNotification.propTypes = {
+  client: PropTypes.object,
+};
 
 export default withApollo(LocalNotification);

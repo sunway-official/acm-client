@@ -1,3 +1,7 @@
+/**
+ * Deprecated
+ */
+
 const modifyDate = number => {
   let date = new Date();
   date.setHours(date.getHours());

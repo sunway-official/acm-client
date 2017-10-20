@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Button } from 'react-native';
 import { Colors } from '~/Theme';
 import { navigate } from '~/Redux/Navigation/action';
 import List from './List';
@@ -9,21 +9,33 @@ import { graphql, gql } from 'react-apollo';
 import query from '~/Graphql/query/getMyAgenda.graphql';
 import transformer from './transformer';
 
-const renderLoading = () => (
-  <View style={styles.loadingContainer}>
-    <ActivityIndicator />
-  </View>
-);
+class MyAgenda extends Component {
+  componentDidMount() {
+    const { data } = this.props;
+    data.refetch();
+  }
 
-const MyAgenda = ({ data: { loading, getAllPersonalSchedules } }) => {
-  return loading ? (
-    renderLoading()
-  ) : (
-    <View style={styles.container}>
-      <List data={transformer(getAllPersonalSchedules, 'start', 'schedule')} />
-    </View>
-  );
-};
+  _renderLoading() {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
+  render() {
+    const { data: { refetch, loading, getAllPersonalSchedules } } = this.props;
+    return loading ? (
+      this._renderLoading()
+    ) : (
+      <View style={styles.container}>
+        <List
+          data={transformer(getAllPersonalSchedules, 'start', 'schedule')}
+        />
+      </View>
+    );
+  }
+}
 
 MyAgenda.propTypes = {
   data: PropTypes.shape({

@@ -1,12 +1,13 @@
 import { Notifications } from 'expo';
 import { AsyncStorage } from 'react-native';
-
+import { transformServerDate } from '~/Transformer';
 /**
  * Async & Await handler for My Agenda Local Notification
  * Author: Tri Pham
  */
 
 const STORAGE_KEY = 'MY_AGENDA_LOCAL_NOTIFICATIONS';
+const DEFAULT_NOTIFICATION_ID = 0;
 const NOTIFICATION_CONFIG = {
   ios: {
     sound: true,
@@ -18,20 +19,19 @@ const NOTIFICATION_CONFIG = {
     vibrate: true,
   },
 };
-
-const setLocalNotificationSchedule = async activity => {
+const setLocalNotificationSchedule = async item => {
   // Set up notification
   const localNotification = {
     ...NOTIFICATION_CONFIG,
-    title: activity.title,
-    body: activity.shortDescription,
+    title: item.activity.title,
+    body: item.schedule.room.name || '',
   };
   const schedulingOptions = {
-    time: activity.time,
+    time: new Date(transformServerDate.toLocal(item.schedule.start)).getTime(),
   };
-  let notificationId = null;
-  // Register if activity is NOT in the past
-  if (schedulingOptions.time > new Date()) {
+  let notificationId = DEFAULT_NOTIFICATION_ID;
+  // Register if item is NOT in the past
+  if (schedulingOptions.time > new Date().getTime()) {
     notificationId = await Notifications.scheduleLocalNotificationAsync(
       localNotification,
       schedulingOptions,
@@ -42,11 +42,14 @@ const setLocalNotificationSchedule = async activity => {
 
 const cancelLocalNotification = async () => {
   // Get & parse notification ID from storage
-  let notifications = (await AsyncStorage.getItem(STORAGE_KEY)) || '[]';
-  notifications = JSON.parse(notifications)[0] || [];
+  const data = await AsyncStorage.getItem(STORAGE_KEY);
+  let notifications = data || '[]';
+  notifications = JSON.parse(notifications) || [];
   // Cancel Expo Local Notifications
   await Promise.all(
-    notifications.map(id => Notifications.cancelScheduledNotificationAsync(id)),
+    notifications.map(item =>
+      item.map(id => Notifications.cancelScheduledNotificationAsync(id)),
+    ),
   );
 };
 
