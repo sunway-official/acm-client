@@ -4,7 +4,7 @@
     "slug": "acm",
     "privacy": "public",
     "orientation": "portrait",
-    "sdkVersion": "22.0.0",
+    "sdkVersion": "21.0.0",
     "ios": {
       "bundleIdentifier": "com.sunway.acmclient"
     },
