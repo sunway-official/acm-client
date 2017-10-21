@@ -5,6 +5,7 @@
     "privacy": "public",
     "orientation": "portrait",
     "sdkVersion": "21.0.0",
+    "version": "0.2.0",
     "ios": {
       "bundleIdentifier": "com.sunway.acmclient"
     },
