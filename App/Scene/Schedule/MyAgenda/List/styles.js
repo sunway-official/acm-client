@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '~/Theme';
+import { Colors, Metrics } from '~/Theme';
 
-const Schedule = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -12,6 +12,18 @@ const Schedule = StyleSheet.create({
     borderLeftColor: Colors.lightGrey,
     height: '100%',
   },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  warningText: { color: Colors.grey },
+  gotoBtn: {
+    padding: Metrics.baseMargin,
+    marginTop: Metrics.baseMargin,
+    backgroundColor: Colors.primary,
+  },
+  goToText: {
+    color: Colors.white,
+  },
 });
-
-export default Schedule;

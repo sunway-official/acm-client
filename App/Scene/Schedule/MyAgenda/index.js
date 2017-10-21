@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, ActivityIndicator } from 'react-native';
 import { Colors } from '~/Theme';
-import { Text, TouchableView } from '~/Component';
-import { connect } from 'react-redux';
 import { navigate } from '~/Redux/Navigation/action';
-import List from './List';
-import styles from './styles';
-import { graphql, gql, compose } from 'react-apollo';
+import { graphql, gql } from 'react-apollo';
 import query from '~/Graphql/query/getMyAgenda.graphql';
 import transformer from '~/Transformer/schedules/myAgenda';
+import List from './List';
+import styles from './styles';
 
 class MyAgenda extends Component {
   _renderLoading() {
@@ -21,30 +19,14 @@ class MyAgenda extends Component {
   }
 
   render() {
-    const {
-      data: { loading, getAllPersonalSchedules },
-      goToAgenda,
-    } = this.props;
+    const { data: { loading, getAllPersonalSchedules } } = this.props;
     return loading ? (
       this._renderLoading()
     ) : (
       <View style={styles.container}>
-        {getAllPersonalSchedules.length === 0 ? (
-          <View style={styles.emptyContainer}>
-            <Text style={styles.warningText}>You have no schedules</Text>
-            <TouchableView
-              onPress={goToAgenda}
-              style={styles.gotoBtn}
-              rippleColor={Colors.white}
-            >
-              <Text style={styles.goToText}>Go to Agenda</Text>
-            </TouchableView>
-          </View>
-        ) : (
-          <List
-            data={transformer(getAllPersonalSchedules, 'start', 'schedule')}
-          />
-        )}
+        <List
+          data={transformer(getAllPersonalSchedules, 'start', 'schedule')}
+        />
       </View>
     );
   }
@@ -55,7 +37,6 @@ MyAgenda.propTypes = {
     loading: PropTypes.bool,
     getAllPersonalSchedules: PropTypes.array,
   }),
-  goToAgenda: PropTypes.func,
 };
 
 MyAgenda.header = {
@@ -77,15 +58,8 @@ MyAgenda.footer = {
   activeColor: Colors.primary,
 };
 
-const mapDispatchToProps = dispatch => ({
-  goToAgenda: () => dispatch(navigate({ routeName: 'agenda' })),
-});
-
-export default compose(
-  graphql(gql(query), {
-    options: {
-      notifyOnNetworkStatusChange: true,
-    },
-  }),
-  connect(undefined, mapDispatchToProps),
-)(MyAgenda);
+export default graphql(gql(query), {
+  options: {
+    notifyOnNetworkStatusChange: true,
+  },
+})(MyAgenda);
