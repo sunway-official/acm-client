@@ -34,3 +34,5 @@ Object.keys(env).map(key => {
       break;
   }
 });
+
+console.log('Server endpoint URI: ', module.exports['SERVER_ENDPOINT']);
