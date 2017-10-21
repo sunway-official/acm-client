@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Text } from '~/Component';
+import { Text, AnchorText } from '~/Component';
 import styles from './styles';
 import { transformServerDate } from '~/Transformer';
 
@@ -120,7 +120,7 @@ class About extends Component {
                 style={styles.icon}
               />
             </View>
-            <Text style={styles.info}>{user.facebook_id}</Text>
+            <AnchorText href={user.facebook_id} style={styles.info} />
           </View>
         ) : null}
         {user.twitter_id ? (
@@ -132,7 +132,7 @@ class About extends Component {
               size={ICON_SIZE}
               style={styles.icon}
             />
-            <Text style={styles.info}>{user.twitter_id}</Text>
+            <AnchorText href={user.twitter_id} style={styles.info} />
           </View>
         ) : null}
         {user.linkedin_id ? (
@@ -144,7 +144,7 @@ class About extends Component {
               size={ICON_SIZE}
               style={styles.icon}
             />
-            <Text style={styles.info}>{user.linkedin_id}</Text>
+            <AnchorText href={user.linkedin_id} style={styles.info} />
           </View>
         ) : null}
       </View>
