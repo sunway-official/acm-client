@@ -14,6 +14,7 @@ export default (agenda, myAgenda, key) => {
       if (myAgendaItem.schedule.id === schedule.id) {
         schedule = {
           ...schedule,
+          personalScheduleId: myAgendaItem.id,
           [KEY]: true,
         };
       }

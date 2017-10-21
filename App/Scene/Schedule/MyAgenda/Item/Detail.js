@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import { Colors, Metrics } from '~/Theme';
-import { transformServerDate } from '../../../../Transformer';
+import { transformServerDate } from '~/Transformer';
 
 /**
  * This Component built only for demo
