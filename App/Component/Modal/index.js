@@ -119,7 +119,7 @@ class CustomModal extends Component {
     );
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     // On modal open request, we slide the view up and fade in the backdrop
     if (this.props.isVisible && !prevProps.isVisible) {
       this._open();
@@ -148,7 +148,7 @@ class CustomModal extends Component {
     this.animationOut = animationOut;
   };
 
-  _handleDimensionsUpdate = dimensionsUpdate => {
+  _handleDimensionsUpdate = () => {
     // Here we update the device dimensions in the state if the layout changed (triggering a render)
     const deviceWidth = Dimensions.get('window').width;
     const deviceHeight = Dimensions.get('window').height;
@@ -198,6 +198,7 @@ class CustomModal extends Component {
   };
 
   render() {
+    /* eslint-disable no-unused-vars */
     const {
       animationIn,
       animationInTiming,
@@ -216,6 +217,7 @@ class CustomModal extends Component {
       style,
       ...otherProps
     } = this.props;
+    /* eslint-enable */
     const { deviceWidth, deviceHeight } = this.state;
 
     const computedStyle = [

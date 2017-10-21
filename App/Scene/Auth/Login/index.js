@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { AsyncStorage, Keyboard, View, Text } from 'react-native';
+import { AsyncStorage, Keyboard } from 'react-native';
 import { NavigationActions } from '~/Redux/Navigation';
 import LoginForm from '../Login/Form';
 import { getInitialRoute } from '~/Navigation/resolver';
