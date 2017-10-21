@@ -4,7 +4,6 @@ import { addGraphQLSubscriptions } from 'add-graphql-subscriptions';
 import { AsyncStorage } from 'react-native';
 import { SERVER_ENDPOINT, SERVER_SUBSCRIPTION_ENDPOINT } from '~/env';
 
-// console.log(SERVER_ENDPOINT, SERVER_SUBSCRIPTION_ENDPOINT);
 let apolloClient = null;
 
 const create = async (initialState = {}) => {

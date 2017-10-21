@@ -7,7 +7,6 @@ import LoginForm from '../Login/Form';
 import { getInitialRoute } from '~/Navigation/resolver';
 import { compose, gql, graphql, withApollo } from 'react-apollo';
 import mutation from '~/Graphql/mutation/login.graphql';
-import { SERVER_ENDPOINT, SERVER_SUBSCRIPTION_ENDPOINT } from '~/env';
 
 class LoginScene extends Component {
   static propTypes = {
@@ -77,19 +76,12 @@ class LoginScene extends Component {
   render() {
     const { navigateToForgotPassword } = this.props;
     return (
-      <View flex={1} marginTop={24}>
-        <Text>__DEV__: {__DEV__ ? 'true' : 'false'}</Text>
-        <Text>SERVER_ENDPOINT: {SERVER_ENDPOINT}</Text>
-        <Text>
-          SERVER_SUBSCRIPTION_ENDPOINT: {SERVER_SUBSCRIPTION_ENDPOINT}
-        </Text>
-        <LoginForm
-          loading={this.state.loading}
-          loginError={this.state.error}
-          onLogin={this._submit}
-          onNavigate={navigateToForgotPassword}
-        />
-      </View>
+      <LoginForm
+        loading={this.state.loading}
+        loginError={this.state.error}
+        onLogin={this._submit}
+        onNavigate={navigateToForgotPassword}
+      />
     );
   }
 }
