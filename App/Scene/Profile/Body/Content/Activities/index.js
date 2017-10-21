@@ -1,15 +1,67 @@
-import React from 'react';
-// import PropTypes from 'prop-types';
-import { View } from 'react-native';
-import { News } from '~/Component';
-import { NEWS } from '~/Scene/Profile/fixture';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { View, FlatList } from 'react-native';
+import { News, LoadingIndicator } from '~/Component';
 
-const Activities = () => {
-  return (
-    <View>{NEWS.map((item, index) => <News item={item} key={index} />)}</View>
-  );
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import ACTIVITIES_QUERY from '~/Graphql/query/getAllNewsByUserId.graphql';
+
+class Activities extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onRefresh = this.onRefresh.bind(this);
+  }
+
+  onRefresh() {
+    this.props.refetch();
+  }
+
+  render() {
+    const { loading, allNews, networkStatus } = this.props;
+
+    if (loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <LoadingIndicator />
+        </View>
+      );
+    }
+
+    return (
+      <View>
+        <FlatList
+          data={allNews}
+          renderItem={({ item, index }) => <News item={item} key={index} />}
+          keyExtractor={(item, index) => index}
+          onRefresh={this.onRefresh}
+          refreshing={networkStatus === 4}
+        />
+      </View>
+    );
+  }
+}
+
+Activities.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  allNews: PropTypes.array,
+  refetch: PropTypes.func,
+  networkStatus: PropTypes.number,
+  error: PropTypes.object,
 };
 
-Activities.propTypes = {};
+const ActivitiesWithQuery = graphql(gql(ACTIVITIES_QUERY), {
+  options: () => ({ variables: { user_id: 2 } }),
+  props: ({
+    data: { loading, getNewsByUserID, refetch, networkStatus, error },
+  }) => ({
+    loading,
+    allNews: getNewsByUserID,
+    refetch,
+    networkStatus,
+    error,
+  }),
+})(Activities);
 
-export default Activities;
+export default ActivitiesWithQuery;

@@ -8,3 +8,6 @@ export { default as DatePicker } from './DatePicker';
 export { default as Dialog } from './Dialog';
 export { default as Modal } from './Modal';
 export { default as FilterModal } from './FilterModal';
+export { default as LoadingIndicator } from './LoadingIndicator';
+export { default as AutoExpandingTextInput } from './AutoExpandingTextInput';
+export { default as NewsFeedPosts } from './News/Posts';

@@ -8,7 +8,8 @@ import styles from './styles';
 class Comments extends Component {
   static propTypes = {
     comments: PropTypes.array,
-    userAvatar: PropTypes.string,
+    userAvatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    createdAt: PropTypes.string,
   };
 
   constructor(props) {
@@ -37,11 +38,11 @@ class Comments extends Component {
   }
 
   render() {
-    const { comments, userAvatar } = this.props;
+    const { comments, userAvatar, createdAt } = this.props;
     return (
       <View>
         {comments.map((comment, index) => (
-          <Comment comment={comment} key={index} />
+          <Comment comment={comment} key={index} createdAt={createdAt} />
         ))}
         {this._renderCommentInputBox(userAvatar)}
       </View>

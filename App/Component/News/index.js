@@ -2,10 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Colors, Metrics } from '~/Theme';
-import { Text, UserAvatar } from '~/Component';
+import moment from 'moment';
+
+import { Colors, Metrics, Images } from '~/Theme';
+import { Text, UserAvatar, TouchableView } from '~/Component';
 import Comments from './Comments';
 import styles from './styles';
+
+const defaultAvatar = Images.avatar['male08'];
+
+const formatCreatedAt = createdAt =>
+  moment(createdAt).calendar(null, {
+    sameDay: '[Today]',
+    nextDay: '[Tomorrow]',
+    nextWeek: 'dddd',
+    lastDay: '[Yesterday]',
+    lastWeek: 'dddd',
+    sameElse: 'DD/MM/YYYY',
+  });
 
 class News extends Component {
   static propTypes = {
@@ -34,18 +48,22 @@ class News extends Component {
     );
   }
 
-  _renderNewsHeader(item) {
+  _renderNewsHeader(item, createdAt) {
     return (
       <View style={styles.postHeader}>
         <View style={styles.rightPostHeader}>
           <UserAvatar
             small
-            avatar={item.avatar}
+            avatar={
+              item.user.avatar === null ? defaultAvatar : item.user.avatar
+            }
             containerStyle={styles.avatar}
           />
           <View>
-            <Text style={styles.username}>{item.username}</Text>
-            <Text style={styles.secondaryText}>{item.time}</Text>
+            <Text style={styles.username}>
+              {`${item.user.firstname} ${item.user.lastname}`}
+            </Text>
+            <Text style={styles.secondaryText}>{createdAt}</Text>
           </View>
         </View>
         <TouchableOpacity>
@@ -55,16 +73,59 @@ class News extends Component {
     );
   }
 
+  _renderPhotoView(imageUrl) {
+    if (imageUrl.length === 1)
+      return (
+        <Image source={{ uri: imageUrl[0] }} style={styles.coverSingleImage} />
+      );
+    if (imageUrl.length === 2)
+      return (
+        <View style={styles.photoViewTwoImage}>
+          <Image
+            source={{ uri: imageUrl[0] }}
+            style={styles.firstMediumImage}
+          />
+          <Image
+            source={{ uri: imageUrl[1] }}
+            style={styles.secondMediumImage}
+          />
+        </View>
+      );
+    else
+      return (
+        <View style={styles.photoViewContainer}>
+          <View style={{ flex: 2 }}>
+            <Image source={{ uri: imageUrl[0] }} style={styles.coverImage} />
+          </View>
+
+          <View style={styles.photoViewSubContainer}>
+            <Image source={{ uri: imageUrl[1] }} style={styles.smallImage} />
+            {imageUrl.length > 2 ? (
+              <TouchableView>
+                <Image
+                  source={{ uri: imageUrl[2] }}
+                  style={styles.smallImage}
+                />
+                <Text
+                  medium
+                  style={styles.moreImages}
+                >{`+ ${imageUrl.length} More`}</Text>
+              </TouchableView>
+            ) : (
+              <Image source={{ uri: imageUrl[2] }} style={styles.smallImage} />
+            )}
+          </View>
+        </View>
+      );
+  }
+
   _renderStatus(item) {
+    const url = item.newsPhotos.map(newsPhoto => newsPhoto.url);
+
     return (
       <View>
-        <Text>{item.status}</Text>
-        <Image
-          source={{
-            uri: item.photo,
-          }}
-          style={styles.photo}
-        />
+        <Text>{item.content}</Text>
+        {this._renderPhotoView(url)}
       </View>
     );
   }
@@ -86,12 +147,12 @@ class News extends Component {
           this.state.isLove
             ? this._renderIcon('ios-heart', 'ionicon', Colors.red)
             : this._renderIcon('ios-heart-outline', 'ionicon'),
-          item.love,
+          item.newsLikes.length,
         )}
         {this._renderInteraction(
           this._onPressComment,
           this._renderIcon('comment', 'evilicon'),
-          item.comments.length,
+          item.newsComments.length,
         )}
       </View>
     );
@@ -107,14 +168,22 @@ class News extends Component {
 
   render() {
     const { item, newsContainerStyle } = this.props;
+    let createdAt = formatCreatedAt(item.updated_at);
+
     return (
       <View style={[styles.container, newsContainerStyle]}>
-        {this._renderNewsHeader(item)}
+        {this._renderNewsHeader(item, createdAt)}
         <View>
           {this._renderStatus(item)}
           {this._renderInteractionBar(item)}
           {this.state.showCommentBox ? (
-            <Comments comments={item.comments} userAvatar={item.avatar} />
+            <Comments
+              comments={item.newsComments}
+              userAvatar={
+                item.user.avatar === null ? defaultAvatar : item.user.avatar
+              }
+              createdAt={createdAt}
+            />
           ) : (
             <View />
           )}

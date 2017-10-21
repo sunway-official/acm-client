@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { Metrics, Colors, Fonts } from '~/Theme';
 
-const { baseMargin, doubleBaseMargin, screenWidth } = Metrics;
+const { baseMargin, doubleBaseMargin, smallMargin } = Metrics;
 const { white, grey } = Colors;
-const photoHeight = screenWidth / 1.8; // (screenWidth / (photoWidth / photoHeight))
 
 export default StyleSheet.create({
   container: {
@@ -30,12 +29,6 @@ export default StyleSheet.create({
     color: grey,
     fontSize: Fonts.size.small,
   },
-  photo: {
-    width: '100%',
-    height: photoHeight,
-    resizeMode: 'contain',
-    marginVertical: baseMargin,
-  },
   interactionBarContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -47,5 +40,56 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  photoViewContainer: {
+    flexDirection: 'row',
+    marginVertical: baseMargin,
+  },
+  photoViewSubContainer: {
+    flex: 1,
+    marginHorizontal: baseMargin,
+    maxHeight: 200,
+  },
+  coverSingleImage: {
+    resizeMode: 'cover',
+    minHeight: 200,
+    marginVertical: baseMargin,
+  },
+  photoViewTwoImage: {
+    flex: 1,
+    flexDirection: 'row',
+    marginVertical: baseMargin,
+  },
+  firstMediumImage: {
+    flex: 2,
+    resizeMode: 'cover',
+    minHeight: 200,
+    marginRight: smallMargin,
+  },
+  secondMediumImage: {
+    flex: 2,
+    resizeMode: 'cover',
+    minHeight: 200,
+    marginLeft: smallMargin,
+  },
+  coverImage: {
+    resizeMode: 'cover',
+    minHeight: 200,
+  },
+  smallImage: {
+    resizeMode: 'cover',
+    minHeight: 92,
+    marginBottom: baseMargin,
+  },
+  moreImages: {
+    position: 'absolute',
+    color: Colors.white,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
   },
 });

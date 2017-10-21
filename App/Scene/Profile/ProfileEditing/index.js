@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { gql, graphql, compose } from 'react-apollo';
-import {
-  View,
-  ScrollView,
-  KeyboardAvoidingView,
-  ActivityIndicator,
-} from 'react-native';
+import { View, ScrollView, KeyboardAvoidingView } from 'react-native';
 import mutation from '~/Graphql/mutation/updateMe.graphql';
 import query from '~/Graphql/query/me.graphql';
+import { LoadingIndicator } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
 import { transformServerDate } from '~/Transformer';
 import { DATE_FORMAT } from '~/env';
@@ -98,7 +94,7 @@ class ProfileEditing extends Component {
         {' '}
         {this.state.loading ? (
           <View style={styles.mutationLoading}>
-            <ActivityIndicator color="#2c3e50" />
+            <LoadingIndicator color="#2c3e50" />
           </View>
         ) : null}{' '}
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={85}>
