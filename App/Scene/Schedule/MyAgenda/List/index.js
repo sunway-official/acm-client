@@ -6,7 +6,6 @@ import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { DATE_FORMAT } from '~/env';
-
 import styles from './styles';
 
 /**

@@ -56,7 +56,6 @@ class Agenda extends Component {
   };
 
   componentWillUnmount() {
-    console.log('Refetch my agenda data');
     this.props.myAgenda.data.refetch();
   }
 

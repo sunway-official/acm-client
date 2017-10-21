@@ -1,36 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
 import styles from './styles';
 import Item from '../Item';
 
-class ListView extends Component {
-  static propTypes = {
-    detail: PropTypes.array,
-    calendarIcon: PropTypes.object,
-  };
+/* eslint-disable react/prop-types */
+const _renderItem = ({ item }) => {
+  return <Item item={item} />;
+};
+/* eslint-enable react/prop-types */
 
-  constructor(props) {
-    super(props);
-  }
+const ListView = ({ detail }) => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.verticalLine} />
+      <FlatList
+        data={detail}
+        keyExtractor={(item, index) => index}
+        renderItem={_renderItem}
+      />
+    </View>
+  );
+};
 
-  _renderItem({ item }) {
-    return <Item item={item} />;
-  }
-
-  render() {
-    const { detail } = this.props;
-    return (
-      <View style={styles.container}>
-        <View style={styles.verticalLine} />
-        <FlatList
-          data={detail}
-          keyExtractor={(item, index) => index}
-          renderItem={this._renderItem}
-        />
-      </View>
-    );
-  }
-}
+ListView.propTypes = {
+  detail: PropTypes.array,
+  item: PropTypes.object,
+};
 
 export default ListView;

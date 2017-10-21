@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Fonts, Metrics, Colors } from '~/Theme';
 
-const Schedule = StyleSheet.create({
+export default StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: Metrics.baseMargin,
@@ -44,7 +44,6 @@ const Schedule = StyleSheet.create({
   todayDayInner: { color: Colors.deepOrange },
   textMonth: {
     fontSize: Fonts.size.medium,
-    // color: Colors.grey,
   },
   itemWrapper: {
     flex: 1,
@@ -65,9 +64,4 @@ const Schedule = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: Metrics.baseMargin,
   },
-  itemText: {
-    // color: Colors.white,
-  },
 });
-
-export default Schedule;
