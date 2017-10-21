@@ -86,7 +86,6 @@ export const ROUTES = {
       name: 'calendar-range',
       type: 'material-community',
     },
-    initial: true,
   },
   people: {
     name: 'People',

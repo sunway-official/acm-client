@@ -1,16 +1,7 @@
 import { transformServerEndPoint } from '~/Transformer';
 import { Constants } from 'expo';
 import { Platform } from 'react-native';
-import DevelopmentEnv from '../env';
-import ProductionEnv from '../env.example.production';
-
-let env = [];
-if (__DEV__) {
-  env = DevelopmentEnv;
-} else {
-  env = ProductionEnv;
-}
-
+import env from '../env';
 /**
  * Export local env
  */
@@ -29,11 +20,13 @@ Object.keys(env).map(key => {
   // console.log(key);
   switch (key) {
     case 'SERVER_ENDPOINT': {
-      if (IS_DEBUGGING || IS_DEVICE) {
-        module.exports['SERVER_ENDPOINT'] = transformServerEndPoint(
-          IS_ANDROID ? Constants.experienceUrl : Constants.linkingUrl,
-        );
-        break;
+      if (__DEV__) {
+        if (IS_DEBUGGING || IS_DEVICE) {
+          module.exports['SERVER_ENDPOINT'] = transformServerEndPoint(
+            IS_ANDROID ? Constants.experienceUrl : Constants.linkingUrl,
+          );
+          break;
+        }
       }
     }
     default:
@@ -41,3 +34,5 @@ Object.keys(env).map(key => {
       break;
   }
 });
+
+console.log('Server endpoint URI: ', module.exports['SERVER_ENDPOINT']);
