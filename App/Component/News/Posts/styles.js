@@ -37,4 +37,14 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
+  imagesContainer: {
+    paddingTop: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  imageUploaded: {
+    width: 120,
+    height: 120,
+    marginLeft: 4,
+  },
 });

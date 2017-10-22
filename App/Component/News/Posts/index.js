@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
+
+import { ImagePicker } from 'expo';
 
 import styles from './styles';
 import { Colors, Images } from '~/Theme';
@@ -20,9 +22,11 @@ class Posts extends Component {
     super(props);
     this.state = {
       text: '',
+      images: [],
     };
 
     this.post = this.post.bind(this);
+    this.cancel = this.cancel.bind(this);
   }
 
   post() {
@@ -31,10 +35,31 @@ class Posts extends Component {
     this.props.cancel();
   }
 
+  cancel() {
+    this.setState({ text: '', images: [] });
+    this.props.cancel();
+  }
+
+  _pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    imageTemp = this.state.images;
+    imageTemp.push(result.uri);
+
+    if (!result.cancelled) {
+      this.setState({ images: imageTemp });
+    }
+  };
+
   _renderHeader() {
+    const { text, images } = this.state;
+
     return (
       <View style={styles.header}>
-        <TouchableView onPress={this.props.cancel}>
+        <TouchableView onPress={this.cancel}>
           <Text bold style={{ color: Colors.primary }}>
             Cancel
           </Text>
@@ -42,10 +67,7 @@ class Posts extends Component {
         <Text bold medium>
           Update Status
         </Text>
-        <TouchableView
-          onPress={this.post}
-          disabled={this.state.text === '' ? true : false}
-        >
+        <TouchableView onPress={this.post} disabled={text ? true : false}>
           <Text
             bold
             style={
@@ -63,13 +85,17 @@ class Posts extends Component {
 
   _renderContents() {
     const { username } = this.props;
+    let { images } = this.state;
+
+    // TODO: remove when merge code
+    console.log(images);
 
     return (
       <View style={styles.content}>
         <View style={styles.contentUserInformation}>
           <UserAvatar small avatar={defaultAvatar} />
           <Text bold style={styles.contentUsername}>
-            {this.props.username}
+            {username}
           </Text>
         </View>
         <AutoExpandingTextInput
@@ -79,6 +105,16 @@ class Posts extends Component {
           enablesReturnKeyAutomatically={true}
           returnKeyType="done"
         />
+        <View style={styles.imagesContainer}>
+          {images &&
+            images.map((image, index) => (
+              <Image
+                key={index}
+                source={{ uri: image }}
+                style={styles.imageUploaded}
+              />
+            ))}
+        </View>
       </View>
     );
   }
@@ -86,7 +122,11 @@ class Posts extends Component {
   _renderActions() {
     return (
       <View style={styles.action}>
-        <TouchableView rippleColor={Colors.primary} borderless={true}>
+        <TouchableView
+          rippleColor={Colors.primary}
+          borderless={true}
+          onPress={this._pickImage}
+        >
           <Icon name="md-photos" type="ionicon" />
           <Text>Photo</Text>
         </TouchableView>
