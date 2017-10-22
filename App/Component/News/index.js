@@ -25,6 +25,7 @@ class News extends Component {
   static propTypes = {
     item: PropTypes.object,
     newsContainerStyle: PropTypes.object,
+    userId: PropTypes.string,
   };
 
   constructor(props) {
@@ -167,7 +168,7 @@ class News extends Component {
   }
 
   render() {
-    const { item, newsContainerStyle } = this.props;
+    const { item, newsContainerStyle, userId } = this.props;
     let createdAt = formatCreatedAt(item.updated_at);
 
     return (
@@ -183,6 +184,8 @@ class News extends Component {
                 item.user.avatar === null ? defaultAvatar : item.user.avatar
               }
               createdAt={createdAt}
+              newsId={item.id}
+              userId={userId}
             />
           ) : (
             <View />

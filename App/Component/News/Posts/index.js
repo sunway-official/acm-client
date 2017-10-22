@@ -67,7 +67,10 @@ class Posts extends Component {
         <Text bold medium>
           Update Status
         </Text>
-        <TouchableView onPress={this.post} disabled={text ? true : false}>
+        <TouchableView
+          onPress={this.post}
+          disabled={text === '' ? true : false}
+        >
           <Text
             bold
             style={
@@ -88,7 +91,7 @@ class Posts extends Component {
     let { images } = this.state;
 
     // TODO: remove when merge code
-    console.log(images);
+    // console.log(images);
 
     return (
       <View style={styles.content}>

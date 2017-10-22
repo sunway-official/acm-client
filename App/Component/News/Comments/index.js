@@ -1,20 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TextInput, TouchableOpacity } from 'react-native';
+import { graphql, compose } from 'react-apollo';
+import gql from 'graphql-tag';
 import { Text, UserAvatar } from '~/Component';
 import Comment from './Comment';
 import styles from './styles';
+
+import { Colors } from '~/Theme';
+
+import INSERT_NEWS_COMMENT_MUTATION from '~/Graphql/mutation/insertNewsComment.graphql';
 
 class Comments extends Component {
   static propTypes = {
     comments: PropTypes.array,
     userAvatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     createdAt: PropTypes.string,
+    newsId: PropTypes.string,
+    userId: PropTypes.string,
+    insertNewsComment: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
+    this.state = {
+      text: '',
+    };
     this._renderCommentInputBox = this._renderCommentInputBox.bind(this);
+    this.send = this.send.bind(this);
+  }
+
+  send() {
+    const { newsId, userId } = this.props;
+
+    this.props.insertNewsComment({
+      news_id: newsId,
+      user_id: userId,
+      content_comment: this.state.text,
+    });
   }
 
   _renderCommentInputBox(userAvatar) {
@@ -27,10 +50,21 @@ class Comments extends Component {
             placeholderTextColor="#bdc3c7"
             multiline={true}
             underlineColorAndroid="rgba(0,0,0,0)"
+            onChangeText={text => this.setState({ text })}
             style={styles.textInputStyle}
           />
-          <TouchableOpacity style={styles.commentSubmitButton}>
-            <Text style={styles.sendCommentBtn}>Send</Text>
+          <TouchableOpacity
+            style={styles.commentSubmitButton}
+            onPress={this.send}
+          >
+            <Text
+              style={[
+                styles.sendCommentBtn,
+                this.state.text !== '' ? { color: Colors.primary } : {},
+              ]}
+            >
+              Send
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -39,6 +73,7 @@ class Comments extends Component {
 
   render() {
     const { comments, userAvatar, createdAt } = this.props;
+
     return (
       <View>
         {comments.map((comment, index) => (
@@ -50,4 +85,13 @@ class Comments extends Component {
   }
 }
 
-export default Comments;
+const InsertNewsCommentMutation = graphql(gql(INSERT_NEWS_COMMENT_MUTATION), {
+  props: ({ mutate }) => ({
+    insertNewsComment: ({ news_id, user_id, content_comment }) =>
+      mutate({
+        variables: { news_id, user_id, content_comment },
+      }),
+  }),
+});
+
+export default compose(InsertNewsCommentMutation)(Comments);

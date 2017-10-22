@@ -1,0 +1,5 @@
+mutation($news_id: ID!, $user_id: ID!, $content_comment: String!){
+  insertNewsComment(news_id: $news_id, user_id: $user_id, content: $content_comment){
+    id
+  }
+}
