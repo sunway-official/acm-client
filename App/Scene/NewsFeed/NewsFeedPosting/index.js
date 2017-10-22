@@ -72,7 +72,10 @@ class NewsFeedPosting extends Component {
 
   render() {
     const { loading } = this.props;
+    const { firstname, lastname } = this.props.me;
     const isVisible = this.props.modal.isOpen;
+
+    const username = `${firstname} ${lastname}`;
 
     if (loading) {
       return (
@@ -96,6 +99,7 @@ class NewsFeedPosting extends Component {
           isVisible={isVisible}
           post={this.post}
           cancel={() => this.props.hideNewsFeedPosting()}
+          username={username}
         />
       </View>
     );

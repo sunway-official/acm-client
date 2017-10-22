@@ -62,12 +62,14 @@ class Posts extends Component {
   }
 
   _renderContents() {
+    const { username } = this.props;
+
     return (
       <View style={styles.content}>
         <View style={styles.contentUserInformation}>
           <UserAvatar small avatar={defaultAvatar} />
           <Text bold style={styles.contentUsername}>
-            Ly Bao Khanh
+            {this.props.username}
           </Text>
         </View>
         <AutoExpandingTextInput
@@ -120,6 +122,7 @@ Posts.propTypes = {
   isVisible: PropTypes.bool,
   post: PropTypes.func.isRequired,
   cancel: PropTypes.func,
+  username: PropTypes.string,
 };
 
 export default Posts;
