@@ -38,6 +38,8 @@ class Comments extends Component {
       user_id: userId,
       content_comment: this.state.text,
     });
+
+    this.setState({ text: '' });
   }
 
   _renderCommentInputBox(userAvatar) {
@@ -46,11 +48,14 @@ class Comments extends Component {
         <UserAvatar avatar={userAvatar} />
         <View style={styles.commentInputBox}>
           <TextInput
+            value={this.state.text}
             placeholder="Type a comment ..."
             placeholderTextColor="#bdc3c7"
             multiline={true}
             underlineColorAndroid="rgba(0,0,0,0)"
             onChangeText={text => this.setState({ text })}
+            enablesReturnKeyAutomatically={true}
+            returnKeyType="done"
             style={styles.textInputStyle}
           />
           <TouchableOpacity

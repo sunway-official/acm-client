@@ -18,7 +18,6 @@ import {
 
 import { KEY, setModalState } from '~/Redux/Modal';
 import INSERT_NEWS_MUTATION from '~/Graphql/mutation/insertNews.graphql';
-import ME_QUERY from '~/Graphql/query/me.graphql';
 
 const defaultAvatar = Images.avatar['male08'];
 
@@ -29,7 +28,8 @@ class NewsFeedPosting extends Component {
     hideNewsFeedPosting: PropTypes.func,
     modal: PropTypes.object,
     loading: PropTypes.bool,
-    me: PropTypes.object,
+    userId: PropTypes.string,
+    username: PropTypes.string,
   };
 
   constructor(props) {
@@ -63,7 +63,7 @@ class NewsFeedPosting extends Component {
     // console.log(this.props.me.id);
     // console.log(contentNews);
     this.props.insertNews({
-      userId: this.props.me.id, // bk user id
+      userId: this.props.userId, // bk user id
       conferenceId: 1, // fake conferences
       contentNews,
     });
@@ -71,11 +71,8 @@ class NewsFeedPosting extends Component {
   }
 
   render() {
-    const { loading } = this.props;
-    const { firstname, lastname } = this.props.me;
+    const { loading, username } = this.props;
     const isVisible = this.props.modal.isOpen;
-
-    const username = `${firstname} ${lastname}`;
 
     if (loading) {
       return (
@@ -115,13 +112,6 @@ const NewsFeedPostingMutation = graphql(gql(INSERT_NEWS_MUTATION), {
   }),
 });
 
-const MeQuery = graphql(gql(ME_QUERY), {
-  props: ({ data: { loading, me } }) => ({
-    loading,
-    me,
-  }),
-});
-
 const mapStateToProps = state => ({
   modal: state[KEY],
 });
@@ -134,5 +124,4 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   NewsFeedPostingMutation,
-  MeQuery,
 )(NewsFeedPosting);

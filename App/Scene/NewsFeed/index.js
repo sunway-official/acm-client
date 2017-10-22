@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FlatList } from 'react-native';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { View } from 'react-native';
 import styles from './styles';
@@ -9,7 +9,8 @@ import { Colors } from '~/Theme';
 import { News, LoadingIndicator } from '~/Component';
 import NewsFeedPosting from './NewsFeedPosting';
 
-import NEWS_FEED_QUERY from '~/Graphql/query/getAllNews.graphql';
+import ALL_NEWS_QUERY from '~/Graphql/query/getAllNews.graphql';
+import ME_QUERY from '~/Graphql/query/me.graphql';
 
 class NewsFeedScene extends Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class NewsFeedScene extends Component {
   }
 
   render() {
-    const { loading, allNews, networkStatus } = this.props;
+    const { loading, allNews, networkStatus, me } = this.props;
+    const username = `${me.firstname} ${me.lastname}`;
 
     if (loading) {
       return (
@@ -35,10 +37,12 @@ class NewsFeedScene extends Component {
 
     return (
       <View style={styles.container}>
-        <NewsFeedPosting />
+        <NewsFeedPosting userId={me.id} username={username} />
         <FlatList
           data={allNews}
-          renderItem={({ item, index }) => <News item={item} key={index} />}
+          renderItem={({ item, index }) => (
+            <News item={item} key={index} userId={me.id} />
+          )}
           keyExtractor={(item, index) => index}
           onRefresh={this.onRefresh}
           refreshing={networkStatus === 4}
@@ -58,6 +62,7 @@ NewsFeedScene.propTypes = {
   refetch: PropTypes.func,
   networkStatus: PropTypes.number,
   error: PropTypes.object,
+  me: PropTypes.object,
 };
 
 NewsFeedScene.header = {
@@ -72,7 +77,14 @@ NewsFeedScene.footer = {
   activeColor: Colors.primary,
 };
 
-const NewsFeedSceneWithData = graphql(gql(NEWS_FEED_QUERY), {
+const MeQuery = graphql(gql(ME_QUERY), {
+  props: ({ data: { loading, me } }) => ({
+    loading,
+    me,
+  }),
+});
+
+const AllNewsQuery = graphql(gql(ALL_NEWS_QUERY), {
   props: ({
     data: { loading, getAllNews, refetch, networkStatus, error },
   }) => ({
@@ -82,6 +94,6 @@ const NewsFeedSceneWithData = graphql(gql(NEWS_FEED_QUERY), {
     networkStatus,
     error,
   }),
-})(NewsFeedScene);
+});
 
-export default NewsFeedSceneWithData;
+export default compose(AllNewsQuery, MeQuery)(NewsFeedScene);
