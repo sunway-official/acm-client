@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose, graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import moment from 'moment';
 
 import { Colors, Metrics, Images } from '~/Theme';
-import { Text, UserAvatar, TouchableView } from '~/Component';
+import { Text, UserAvatar, TouchableView, LoadingIndicator } from '~/Component';
 import Comments from './Comments';
 import styles from './styles';
+
+import NEWS_LIKE_BY_ID_QUERY from '~/Graphql/query/getNewsLikeById.graphql';
 
 const defaultAvatar = Images.avatar['male08'];
 
@@ -26,6 +30,8 @@ class News extends Component {
     item: PropTypes.object,
     newsContainerStyle: PropTypes.object,
     userId: PropTypes.string,
+    loading: PropTypes.bool,
+    newsLikeById: PropTypes.object,
   };
 
   constructor(props) {
@@ -140,12 +146,23 @@ class News extends Component {
     );
   }
 
-  _renderInteractionBar(item) {
+  _renderInteractionBar(item, userId) {
+    const { newsLikeById, loading } = this.props;
+
+    if (loading) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <LoadingIndicator />
+        </View>
+      );
+    }
+
+    let newsLikeByUserId = newsLikeById.user.id;
     return (
       <View style={styles.interactionBarContainer}>
         {this._renderInteraction(
           this._onPressLove,
-          this.state.isLove
+          userId === newsLikeByUserId
             ? this._renderIcon('ios-heart', 'ionicon', Colors.red)
             : this._renderIcon('ios-heart-outline', 'ionicon'),
           item.newsLikes.length,
@@ -176,7 +193,7 @@ class News extends Component {
         {this._renderNewsHeader(item, createdAt)}
         <View>
           {this._renderStatus(item)}
-          {this._renderInteractionBar(item)}
+          {this._renderInteractionBar(item, userId)}
           {this.state.showCommentBox ? (
             <Comments
               comments={item.newsComments}
@@ -196,4 +213,12 @@ class News extends Component {
   }
 }
 
-export default News;
+const NewsLikeByIdQuery = graphql(gql(NEWS_LIKE_BY_ID_QUERY), {
+  options: { variables: { id: 109 } },
+  props: ({ data: { loading, getNewsLikeByID } }) => ({
+    loading,
+    newsLikeById: getNewsLikeByID,
+  }),
+});
+
+export default compose(NewsLikeByIdQuery)(News);
