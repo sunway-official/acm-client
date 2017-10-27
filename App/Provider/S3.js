@@ -58,9 +58,7 @@ export const get = params => {
         reject(err);
       }
       const buffer = data.Body.toString('base64');
-      resolve({
-        uri: BASE64_PREFIX + buffer,
-      });
+      resolve(BASE64_PREFIX + buffer);
     });
   });
 };

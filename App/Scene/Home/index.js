@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button, Image } from 'react-native';
-import { Text } from '~/Component';
+import { View, Button } from 'react-native';
+import { S3Image } from '~/Component';
 import { ImagePicker } from 'expo';
 import { Colors } from '~/Theme';
 import styles from './styles';
@@ -15,16 +15,9 @@ class HomeScene extends Component {
     super(props);
 
     this.state = {
-      image: null,
+      image: 'girl.jpg',
     };
     this._handleImagePicker = this._handleImagePicker.bind(this);
-  }
-
-  async componentDidMount() {
-    // Name of the key
-    const Key = 'girl.jpg';
-    const image = await S3.get({ Key });
-    this.setState({ image });
   }
 
   async _handleImagePicker() {
@@ -35,8 +28,7 @@ class HomeScene extends Component {
     if (!result.cancelled) {
       const { Key } = await S3.put(result);
 
-      const image = await S3.get({ Key });
-      this.setState({ image });
+      this.setState({ image: Key });
     }
   }
 
@@ -49,10 +41,10 @@ class HomeScene extends Component {
           onPress={this._handleImagePicker}
         />
         <View marginBottom={24} />
-        <Image
+        <S3Image
           resizeMode="cover"
           style={{ width: 250, height: 250 }}
-          source={this.state.image}
+          Key={this.state.image}
         />
       </View>
     );

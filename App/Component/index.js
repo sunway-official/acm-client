@@ -12,3 +12,4 @@ export { default as FilterModal } from './FilterModal';
 export { default as LoadingIndicator } from './LoadingIndicator';
 export { default as AutoExpandingTextInput } from './AutoExpandingTextInput';
 export { default as NewsFeedPosts } from './News/Posts';
+export { default as S3Image } from './S3Image';
