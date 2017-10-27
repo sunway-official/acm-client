@@ -6,6 +6,7 @@ import {
   S3_BUCKET_NAME,
   S3_BUCKET_REGION,
 } from '~/env';
+import uuid from 'uuid/v1';
 
 const BASE64_PREFIX = 'data:image/png;base64,';
 
@@ -24,7 +25,7 @@ export const put = ({ uri, base64 }, { ...options }) => {
 
     const params = {
       Bucket: S3_BUCKET_NAME,
-      Key: 'girl.' + fileType,
+      Key: uuid() + '.' + fileType,
       Body: new Buffer(base64, 'base64'),
       ...options,
     };
