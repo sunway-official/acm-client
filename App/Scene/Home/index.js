@@ -45,6 +45,7 @@ class HomeScene extends Component {
       <View style={styles.container}>
         <Button
           title="Pick image to Submit to S3"
+          color={Colors.primary}
           onPress={this._handleImagePicker}
         />
         <View marginBottom={24} />
