@@ -7,14 +7,9 @@ import { Colors } from '~/Theme';
 import styles from './styles';
 import { S3 } from '~/Provider';
 
-const text = [
-  'Welcome to acm!',
-  'We are under developement.',
-  'Shake your phone to open the developer menu.',
-  'Press Menu button on the top left corner',
-  'to connect to other scene.',
-];
-
+/*
+  Amazon S3 Provider example
+*/
 class HomeScene extends Component {
   constructor(props) {
     super(props);
@@ -48,20 +43,16 @@ class HomeScene extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View marginTop={24} />
-        <View style={styles.centerText}>
-          {text.map((text, index) => <Text key={index}>{text}</Text>)}
-        </View>
-        {/*
-        Amazon S3 put file
-        */}
-        <View marginBottom={24} />
         <Button
           title="Pick image to Submit to S3"
           onPress={this._handleImagePicker}
         />
         <View marginBottom={24} />
-        <Image style={{ width: 150, height: 250 }} source={this.state.image} />
+        <Image
+          resizeMode="cover"
+          style={{ width: 250, height: 250 }}
+          source={this.state.image}
+        />
       </View>
     );
   }
