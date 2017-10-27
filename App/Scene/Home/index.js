@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
+import { View, Button, Image } from 'react-native';
 import { Text } from '~/Component';
-import { connect } from 'react-redux';
-import { addHeaderOptions } from '~/Redux/Toolbar/action';
+import { ImagePicker } from 'expo';
 import { Colors } from '~/Theme';
 import styles from './styles';
+import { S3 } from '~/Provider';
 
 const text = [
   'Welcome to acm!',
@@ -15,17 +15,57 @@ const text = [
   'to connect to other scene.',
 ];
 
-const HomeScene = ({ showSearch, hideSearch }) => (
-  <View style={styles.container}>
-    <View style={styles.centerText}>
-      {text.map((text, index) => <Text key={index}>{text}</Text>)}
-    </View>
-    <Button title="Show search box" onPress={showSearch} />
-    <View marginBottom={24} />
-    <Button title="Hide search box" onPress={hideSearch} />
-  </View>
-);
+class HomeScene extends Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      image: null,
+    };
+    this._handleImagePicker = this._handleImagePicker.bind(this);
+  }
+
+  async componentDidMount() {
+    // Name of the key
+    const Key = 'girl.jpg';
+    const image = await S3.get({ Key });
+    this.setState({ image });
+  }
+
+  async _handleImagePicker() {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      base64: true, // Required. S3 need base64 source
+    });
+
+    if (!result.cancelled) {
+      const { Key } = await S3.put(result);
+
+      const image = await S3.get({ Key });
+      this.setState({ image });
+    }
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <View marginTop={24} />
+        <View style={styles.centerText}>
+          {text.map((text, index) => <Text key={index}>{text}</Text>)}
+        </View>
+        {/*
+        Amazon S3 put file
+        */}
+        <View marginBottom={24} />
+        <Button
+          title="Pick image to Submit to S3"
+          onPress={this._handleImagePicker}
+        />
+        <View marginBottom={24} />
+        <Image style={{ width: 150, height: 250 }} source={this.state.image} />
+      </View>
+    );
+  }
+}
 HomeScene.drawer = {
   primary: true,
 };
@@ -35,8 +75,8 @@ HomeScene.header = {
   float: true,
   title: null,
   theme: 'dark',
-  backgroundColor: Colors.blue,
-  statusBarBackgroundColor: Colors.blue,
+  backgroundColor: Colors.primary,
+  statusBarBackgroundColor: Colors.primary,
   actions: [
     {
       icon: {
@@ -57,24 +97,4 @@ HomeScene.propTypes = {
   hideSearch: PropTypes.func,
 };
 
-const mapDispatchToProps = dispatch => ({
-  showSearch: () =>
-    dispatch(
-      addHeaderOptions({
-        search: {
-          placeholder: 'Search something',
-          enable: true,
-        },
-        leftIcon: 'back',
-      }),
-    ),
-  hideSearch: () =>
-    dispatch(
-      addHeaderOptions({
-        search: {},
-        leftIcon: 'drawer',
-      }),
-    ),
-});
-
-export default connect(undefined, mapDispatchToProps)(HomeScene);
+export default HomeScene;
