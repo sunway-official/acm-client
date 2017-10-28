@@ -19,7 +19,6 @@ class LocalNotification extends Component {
       /**
       * Handle my agenda schedule
       */
-
       // Create new observable query for my agenda
       const observableQuery = await client.watchQuery({
         query: gql(myAgendaQuery),
@@ -32,9 +31,17 @@ class LocalNotification extends Component {
             myAgendaTransformer(getAllPersonalSchedules, 'start', 'schedule'),
           );
         },
+        error: () => {
+          /**
+           * Required by OservableQuery.subscribe
+           * but just a dummy function
+           * Other component will handle this
+          */
+        },
       });
+
       /**
-      * TO DO: Handle my other local notifications
+      * TO DO: Handle other local notifications
       */
     }
   }

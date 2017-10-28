@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { compose, graphql, gql } from 'react-apollo';
+import { compose, graphql, gql, withApollo } from 'react-apollo';
 import { AnimatableView } from '~/Component';
 import { Text } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
@@ -52,6 +52,7 @@ class Menu extends Component {
       }),
       error: PropTypes.any,
     }),
+    client: PropTypes.any,
   };
 
   constructor(props) {
@@ -61,6 +62,7 @@ class Menu extends Component {
     this._renderSecondaryMenu = this._renderSecondaryMenu.bind(this);
     this._renderDropdownButton = this._renderDropdownButton.bind(this);
     this._onMenuItemPress = this._onMenuItemPress.bind(this);
+    this._renderLogoutMenuItem = this._renderLogoutMenuItem.bind(this);
 
     this.state = {
       secondaryMenu: false,
@@ -150,6 +152,7 @@ class Menu extends Component {
         );
       }
     });
+    items.push(this._renderLogoutMenuItem());
     return this._withWrapper(items);
   }
 
@@ -170,7 +173,25 @@ class Menu extends Component {
         );
       }
     });
+    items.push(this._renderLogoutMenuItem());
     return this._withWrapper(items);
+  }
+
+  _renderLogoutMenuItem() {
+    const logoutFn = async () => {
+      this.props.closeDrawer();
+      await AsyncStorage.multiRemove(['token', 'refreshToken']);
+      this.props.client.resetStore();
+      this.props.navigate('login');
+    };
+    return (
+      <MenuItem
+        key={'logout'}
+        name={'Logout'}
+        icon={{ name: 'home' }}
+        onPress={logoutFn}
+      />
+    );
   }
 
   render() {
@@ -223,5 +244,10 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  graphql(gql(query)),
+  graphql(gql(query), {
+    error: () => {
+      console.log('error');
+    },
+  }),
+  withApollo,
 )(Menu);

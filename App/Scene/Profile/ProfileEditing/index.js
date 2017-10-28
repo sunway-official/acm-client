@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { gql, graphql, compose } from 'react-apollo';
-import { View, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { View, ScrollView, KeyboardAvoidingView, Keyboard } from 'react-native';
 import mutation from '~/Graphql/mutation/updateMe.graphql';
 import query from '~/Graphql/query/me.graphql';
 import { LoadingIndicator } from '~/Component';
@@ -41,11 +41,16 @@ class ProfileEditing extends Component {
     });
   }
 
+  componentWillUnmount() {
+    Keyboard.dismiss();
+  }
+
   async _onUpdate(values) {
     const { mutate, data: { refetch }, navigate } = this.props;
-    this.setState({
-      loading: true,
-    });
+
+    this.setState({ loading: true });
+    Keyboard.dismiss();
+
     try {
       await mutate({
         variables: {
@@ -59,9 +64,7 @@ class ProfileEditing extends Component {
     } catch (err) {
       console.log(err);
     } finally {
-      this.setState({
-        loading: false,
-      });
+      this.setState({ loading: false });
     }
   }
 
