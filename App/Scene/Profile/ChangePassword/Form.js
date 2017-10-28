@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, password } from '~/Lib/validate';
 import { View, KeyboardAvoidingView } from 'react-native';
-import { AnimatableView } from '~/Component';
-import { Icon } from 'react-native-elements';
+import { LoadingIndicator } from '~/Component';
 import styles from './styles';
 import { Colors } from '~/Theme';
 import { Text, FormInput } from '~/Component';
@@ -12,13 +11,7 @@ import TouchableView from '~/Component/TouchableView';
 
 const _renderLoadingButton = () => (
   <View style={[styles.loadingContainer, , styles.loadingText]}>
-    <AnimatableView
-      animation="rotate"
-      duration={1000}
-      iterationCount="infinite"
-    >
-      <Icon name="loop" color={Colors.white} />
-    </AnimatableView>
+    <LoadingIndicator />
   </View>
 );
 

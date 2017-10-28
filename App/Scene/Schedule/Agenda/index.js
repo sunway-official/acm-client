@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, ActivityIndicator } from 'react-native';
+import { View } from 'react-native';
 import { gql, graphql, compose } from 'react-apollo';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { navigate } from '~/Redux/Navigation/action';
 import { connect } from 'react-redux';
 import { KEY, setModalState } from '~/Redux/Modal';
 import { Colors, Metrics } from '~/Theme';
-import FilterModal from '~/Component/FilterModal';
+import { FilterModal, LoadingIndicator } from '~/Component';
 import Detail from './List';
 import transformer from '~/Transformer/schedules/agenda';
 import { transformServerDate } from '~/Transformer';
@@ -100,7 +100,7 @@ class Agenda extends Component {
   _renderLoading() {
     return () => (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator />
+        <LoadingIndicator />
       </View>
     );
   }

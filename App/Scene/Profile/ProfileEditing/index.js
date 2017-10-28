@@ -93,7 +93,7 @@ class ProfileEditing extends Component {
       <View>
         {this.state.loading ? (
           <View style={styles.mutationLoading}>
-            <LoadingIndicator color="#2c3e50" />
+            <LoadingIndicator />
           </View>
         ) : null}
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={85}>
