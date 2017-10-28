@@ -18,7 +18,7 @@ const S3 = new AWS.S3({
   },
 });
 
-export const put = ({ uri, base64 }, { ...options }) => {
+export const putAsync = ({ uri, base64, ...options }) => {
   return new Promise((resolve, reject) => {
     let uriParts = uri.split('.');
     let fileType = uriParts[uriParts.length - 1];
@@ -42,7 +42,7 @@ export const put = ({ uri, base64 }, { ...options }) => {
   });
 };
 
-export const get = params => {
+export const getAsync = params => {
   if (params === undefined || params.Key === undefined) {
     throw "Key is required for params S3.get() \n Example: \n\t S3.get({ Key: 'Hello.jpg' })";
   }
@@ -63,4 +63,4 @@ export const get = params => {
   });
 };
 
-export default { put, get };
+export default { putAsync, getAsync };

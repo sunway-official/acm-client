@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Button } from 'react-native';
-import { S3Image } from '~/Component';
 import { ImagePicker } from 'expo';
+import { S3 } from '~/Provider';
+import { S3Image } from '~/Component';
+
 import { Colors } from '~/Theme';
 import styles from './styles';
-import { S3 } from '~/Provider';
 
 /*
   Amazon S3 Provider example
@@ -26,7 +27,8 @@ class HomeScene extends Component {
     });
 
     if (!result.cancelled) {
-      const { Key } = await S3.put(result);
+      const { uri, base64 } = result;
+      const { Key } = await S3.putAsync({ uri, base64 });
 
       this.setState({ image: Key });
     }

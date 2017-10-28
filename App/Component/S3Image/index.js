@@ -21,7 +21,7 @@ class S3Image extends Component {
   }
 
   async _setImage(Key) {
-    const imageUri = await S3.get({ Key });
+    const imageUri = await S3.getAsync({ Key });
     this.setState({ imageUri });
   }
 
