@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { compose, graphql, gql } from 'react-apollo';
-import { AnimatableView } from '~/Component';
-import { Text } from '~/Component';
+import { compose, graphql, gql, withApollo } from 'react-apollo';
+import { AnimatableView, Text } from '~/Component';
+import { IS_DEBUGGING } from '~/env';
 import { NavigationActions } from '~/Redux/Navigation';
 import { KEY as ROUTES_KEY } from '~/Redux/Routes';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
@@ -52,6 +52,7 @@ class Menu extends Component {
       }),
       error: PropTypes.any,
     }),
+    client: PropTypes.any,
   };
 
   constructor(props) {
@@ -61,6 +62,7 @@ class Menu extends Component {
     this._renderSecondaryMenu = this._renderSecondaryMenu.bind(this);
     this._renderDropdownButton = this._renderDropdownButton.bind(this);
     this._onMenuItemPress = this._onMenuItemPress.bind(this);
+    this._renderLogoutMenuItem = this._renderLogoutMenuItem.bind(this);
 
     this.state = {
       secondaryMenu: false,
@@ -97,7 +99,9 @@ class Menu extends Component {
   _renderDropdownButton() {
     let icon = null; // AnimatableView ref
     const onPress = () => {
-      icon[DROPDOWN_ICON_ANIMATION](ANIMATION_DELAY * 2);
+      if (!IS_DEBUGGING) {
+        icon[DROPDOWN_ICON_ANIMATION](ANIMATION_DELAY * 2);
+      }
       this.setState({
         secondaryMenu: !this.state.secondaryMenu,
       });
@@ -170,7 +174,27 @@ class Menu extends Component {
         );
       }
     });
+    items.push(this._renderLogoutMenuItem());
     return this._withWrapper(items);
+  }
+  /**
+   * Handle logout
+   */
+  _renderLogoutMenuItem() {
+    const logoutFn = async () => {
+      this.props.closeDrawer();
+      await AsyncStorage.multiRemove(['token', 'refreshToken']);
+      await this.props.client.resetStore();
+      this.props.navigate('login');
+    };
+    return (
+      <MenuItem
+        key={'logout'}
+        name={'Logout'}
+        icon={{ name: 'logout-variant', type: 'material-community' }}
+        onPress={logoutFn}
+      />
+    );
   }
 
   render() {
@@ -223,5 +247,10 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  graphql(gql(query)),
+  graphql(gql(query), {
+    error: () => {
+      console.log('error');
+    },
+  }),
+  withApollo,
 )(Menu);

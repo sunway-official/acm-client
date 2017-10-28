@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
 import { gql, graphql, compose, withApollo } from 'react-apollo';
-
 import { Metrics } from '~/Theme';
 import { KEY, setModalState } from '~/Redux/Modal';
 import mutation from '~/Graphql/mutation/updatePassword.graphql';
@@ -42,6 +41,10 @@ class ChangePasswordScene extends Component {
         isDialogOpen: false,
       });
     }
+  }
+
+  componentWillUnmount() {
+    Keyboard.dismiss();
   }
 
   _canSave(values) {

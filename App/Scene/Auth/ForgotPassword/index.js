@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Keyboard } from 'react-native';
 import ForgotPasswordForm from './Form';
 
-const ForgotPasswordScene = () => <ForgotPasswordForm />;
+class ForgotPasswordScene extends Component {
+  componentWillUnmount() {
+    Keyboard.dismiss();
+  }
 
+  render() {
+    return <ForgotPasswordForm />;
+  }
+}
 ForgotPasswordScene.header = {
   disable: true,
   theme: 'light',
