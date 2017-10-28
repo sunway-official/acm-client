@@ -28,7 +28,6 @@ class LocalNotification extends Component {
       // Listen to whenever the query has changed
       observableQuery.subscribe({
         next: ({ data: { getAllPersonalSchedules } }) => {
-          console.log(getAllPersonalSchedules);
           setMyAgendaScheduleAsync(
             myAgendaTransformer(getAllPersonalSchedules, 'start', 'schedule'),
           );
