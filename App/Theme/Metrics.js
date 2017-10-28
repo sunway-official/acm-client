@@ -1,6 +1,6 @@
-import { Dimensions, Platform, StatusBar } from 'react-native';
+import { Dimensions, StatusBar } from 'react-native';
+import { IS_ANDROID, IS_IOS } from '~/env';
 
-const IS_ANDROID = Platform.OS === 'android';
 const { width, height } = Dimensions.get('window');
 
 const metrics = {
@@ -14,7 +14,7 @@ const metrics = {
   horizontalLineHeight: 1,
   screenWidth: width < height ? width : height,
   screenHeight: width < height ? height : width,
-  navBarHeight: Platform.OS === 'ios' ? 64 : 54,
+  navBarHeight: IS_IOS ? 64 : 54,
   buttonRadius: 4,
   statusBarHeight: IS_ANDROID ? StatusBar.currentHeight : 20,
   toolBarHeight: 56,
