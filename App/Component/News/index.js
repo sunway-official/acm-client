@@ -7,11 +7,11 @@ import { Icon } from 'react-native-elements';
 import moment from 'moment';
 
 import { Colors, Metrics, Images } from '~/Theme';
-import { Text, UserAvatar, TouchableView, LoadingIndicator } from '~/Component';
+import { Text, UserAvatar, TouchableView } from '~/Component';
 import Comments from './Comments';
 import styles from './styles';
 
-import NEWS_LIKE_BY_ID_QUERY from '~/Graphql/query/getNewsLikeById.graphql';
+import INSERT_NEWS_LIKE_MUTATION from '~/Graphql/mutation/insertNewsLike.graphql';
 
 const defaultAvatar = Images.avatar['male08'];
 
@@ -32,6 +32,7 @@ class News extends Component {
     userId: PropTypes.string,
     loading: PropTypes.bool,
     newsLikeById: PropTypes.object,
+    insertNewsLike: PropTypes.func,
   };
 
   constructor(props) {
@@ -42,6 +43,15 @@ class News extends Component {
     };
     this._onPressComment = this._onPressComment.bind(this);
     this._onPressLove = this._onPressLove.bind(this);
+  }
+
+  componentDidMount() {
+    const { userId, item } = this.props;
+    let isLove = item.newsLikes.some(newsLike => newsLike.user.id === userId);
+
+    if (isLove) {
+      this.setState({ isLove: true });
+    }
   }
 
   _renderIcon(name, type, color) {
@@ -146,23 +156,14 @@ class News extends Component {
     );
   }
 
-  _renderInteractionBar(item, userId) {
-    const { newsLikeById, loading } = this.props;
+  _renderInteractionBar(item) {
+    let isLove = this.state.isLove;
 
-    if (loading) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <LoadingIndicator />
-        </View>
-      );
-    }
-
-    let newsLikeByUserId = newsLikeById.user.id;
     return (
       <View style={styles.interactionBarContainer}>
         {this._renderInteraction(
           this._onPressLove,
-          userId === newsLikeByUserId
+          isLove
             ? this._renderIcon('ios-heart', 'ionicon', Colors.red)
             : this._renderIcon('ios-heart-outline', 'ionicon'),
           item.newsLikes.length,
@@ -181,7 +182,17 @@ class News extends Component {
   }
 
   _onPressLove() {
-    this.setState({ isLove: !this.state.isLove });
+    const { item, userId } = this.props;
+
+    if (!this.state.isLove) {
+      this.setState({ isLove: !this.state.isLove });
+      this.props.insertNewsLike({
+        news_id: item.id,
+        user_id: userId,
+      });
+    } else {
+      console.log('loved recently!');
+    }
   }
 
   render() {
@@ -193,7 +204,7 @@ class News extends Component {
         {this._renderNewsHeader(item, createdAt)}
         <View>
           {this._renderStatus(item)}
-          {this._renderInteractionBar(item, userId)}
+          {this._renderInteractionBar(item)}
           {this.state.showCommentBox ? (
             <Comments
               comments={item.newsComments}
@@ -213,12 +224,13 @@ class News extends Component {
   }
 }
 
-const NewsLikeByIdQuery = graphql(gql(NEWS_LIKE_BY_ID_QUERY), {
-  options: { variables: { id: 109 } },
-  props: ({ data: { loading, getNewsLikeByID } }) => ({
-    loading,
-    newsLikeById: getNewsLikeByID,
+const InsertNewsLikeMutation = graphql(gql(INSERT_NEWS_LIKE_MUTATION), {
+  props: ({ mutate }) => ({
+    insertNewsLike: ({ news_id, user_id }) =>
+      mutate({
+        variables: { news_id, user_id },
+      }),
   }),
 });
 
-export default compose(NewsLikeByIdQuery)(News);
+export default compose(InsertNewsLikeMutation)(News);
