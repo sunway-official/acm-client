@@ -12,6 +12,7 @@ import Comments from './Comments';
 import styles from './styles';
 
 import INSERT_NEWS_LIKE_MUTATION from '~/Graphql/mutation/insertNewsLike.graphql';
+import DELETE_NEWS_LIKE_MUTATION from '~/Graphql/mutation/deleteNewsLike.graphql';
 
 const defaultAvatar = Images.avatar['male08'];
 
@@ -33,6 +34,7 @@ class News extends Component {
     loading: PropTypes.bool,
     newsLikeById: PropTypes.object,
     insertNewsLike: PropTypes.func,
+    deleteNewsLike: PropTypes.func,
   };
 
   constructor(props) {
@@ -185,13 +187,18 @@ class News extends Component {
     const { item, userId } = this.props;
 
     if (!this.state.isLove) {
-      this.setState({ isLove: !this.state.isLove });
+      this.setState({ isLove: true });
       this.props.insertNewsLike({
         news_id: item.id,
         user_id: userId,
       });
     } else {
-      console.log('loved recently!');
+      this.setState({ isLove: false });
+      this.props.deleteNewsLike({
+        newsLike_id: item.newsLikes.map(
+          newsLike => (newsLike.user.id === userId ? newsLike.id : null),
+        ),
+      });
     }
   }
 
@@ -233,4 +240,13 @@ const InsertNewsLikeMutation = graphql(gql(INSERT_NEWS_LIKE_MUTATION), {
   }),
 });
 
-export default compose(InsertNewsLikeMutation)(News);
+const DeleteNewsLikeMutation = graphql(gql(DELETE_NEWS_LIKE_MUTATION), {
+  props: ({ mutate }) => ({
+    deleteNewsLike: ({ newsLike_id }) =>
+      mutate({
+        variables: { newsLike_id },
+      }),
+  }),
+});
+
+export default compose(InsertNewsLikeMutation, DeleteNewsLikeMutation)(News);
