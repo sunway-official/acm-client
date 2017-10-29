@@ -18,7 +18,6 @@ class NewsFeedPosting extends Component {
     showNewsFeedPosting: PropTypes.func,
     hideNewsFeedPosting: PropTypes.func,
     modal: PropTypes.object,
-    loading: PropTypes.bool,
     userId: PropTypes.string,
     username: PropTypes.string,
     post: PropTypes.func,

@@ -29,8 +29,6 @@ class Comment extends Component {
   }
 
   _renderComments(comment, createdAt) {
-    // let secondaryText = moment(comment.updated_at).fromNow();
-
     return (
       <View style={styles.commentContainer}>
         <UserAvatar

@@ -19,9 +19,9 @@ class Activities extends Component {
   }
 
   render() {
-    const { loading, allNews, networkStatus, user } = this.props;
+    const { allNews, networkStatus, user } = this.props;
 
-    if (loading) {
+    if (networkStatus === 1) {
       return (
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <LoadingIndicator />
@@ -55,21 +55,19 @@ Activities.propTypes = {
   allNews: PropTypes.array,
   refetch: PropTypes.func,
   networkStatus: PropTypes.number,
-  error: PropTypes.object,
   user: PropTypes.object,
 };
 
 const ActivitiesWithQuery = graphql(gql(ACTIVITIES_QUERY), {
   options: ownProps => ({ variables: { user_id: ownProps.user.id } }),
-  props: ({
-    data: { loading, getNewsByUserID, refetch, networkStatus, error },
-  }) => ({
-    loading,
+  props: ({ data: { getNewsByUserID, refetch, networkStatus } }) => ({
     allNews: getNewsByUserID,
     refetch,
     networkStatus,
-    error,
   }),
+  options: {
+    notifyOnNetworkStatusChange: true,
+  },
 })(Activities);
 
 export default ActivitiesWithQuery;

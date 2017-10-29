@@ -101,18 +101,16 @@ class NewsFeedScene extends Component {
 }
 
 NewsFeedScene.propTypes = {
+  allNews: PropTypes.array,
+  me: PropTypes.object,
+  networkStatus: PropTypes.number,
+  refetch: PropTypes.func,
+  fetchMore: PropTypes.func,
   home: PropTypes.func,
+  insertNews: PropTypes.func,
   setTitle: PropTypes.func,
   toggleHeader: PropTypes.func,
   toggleFooter: PropTypes.func,
-  loading: PropTypes.bool.isRequired,
-  allNews: PropTypes.array,
-  refetch: PropTypes.func,
-  networkStatus: PropTypes.number,
-  error: PropTypes.object,
-  me: PropTypes.object,
-  insertNews: PropTypes.func,
-  fetchMore: PropTypes.func,
 };
 
 NewsFeedScene.header = {
@@ -135,14 +133,10 @@ const MeQuery = graphql(gql(ME_QUERY), {
 });
 
 const AllNewsQuery = graphql(gql(ALL_NEWS_QUERY), {
-  props: ({
-    data: { loading, getAllNews, refetch, networkStatus, error, fetchMore },
-  }) => ({
-    loading,
+  props: ({ data: { getAllNews, refetch, networkStatus, fetchMore } }) => ({
     allNews: getAllNews,
     refetch,
     networkStatus,
-    error,
     fetchMore,
   }),
   options: {

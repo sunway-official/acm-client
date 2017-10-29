@@ -31,7 +31,6 @@ class News extends Component {
     item: PropTypes.object,
     newsContainerStyle: PropTypes.object,
     userId: PropTypes.string,
-    loading: PropTypes.bool,
     newsLikeById: PropTypes.object,
     insertNewsLike: PropTypes.func,
     deleteNewsLike: PropTypes.func,
