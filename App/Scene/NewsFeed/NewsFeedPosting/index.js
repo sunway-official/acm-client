@@ -7,13 +7,7 @@ import { Icon } from 'react-native-elements';
 import { Colors, Images } from '~/Theme';
 
 import { View, TouchableOpacity } from 'react-native';
-import {
-  UserAvatar,
-  TouchableView,
-  Text,
-  NewsFeedPosts,
-  AnimatableView,
-} from '~/Component';
+import { UserAvatar, TouchableView, Text, NewsFeedPosts } from '~/Component';
 
 import { KEY, setModalState } from '~/Redux/Modal';
 

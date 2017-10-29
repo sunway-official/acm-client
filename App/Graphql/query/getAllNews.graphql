@@ -1,5 +1,5 @@
-{
-  getAllNews {
+query($pageNumber: Int, $pageSize: Int){
+  getAllNews(pageNumber: $pageNumber, pageSize: $pageSize) {
     id
     user {
       id

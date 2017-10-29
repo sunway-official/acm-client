@@ -55,7 +55,7 @@ class Posts extends Component {
   };
 
   _renderHeader() {
-    const { text, images } = this.state;
+    const { text } = this.state;
 
     return (
       <View style={styles.header}>

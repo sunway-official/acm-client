@@ -22,6 +22,8 @@ import ME_QUERY from '~/Graphql/query/me.graphql';
 //   }
 // };
 
+const PAGE_SIZE = 20;
+
 class NewsFeedScene extends Component {
   constructor(props) {
     super(props);
@@ -45,10 +47,10 @@ class NewsFeedScene extends Component {
   }
 
   render() {
-    const { loading, allNews, networkStatus, me } = this.props;
+    const { allNews, networkStatus, me, fetchMore } = this.props;
     const username = `${me.firstname} ${me.lastname}`;
 
-    if (loading) {
+    if (networkStatus === 1) {
       return (
         <View style={styles.loadingContainer}>
           <LoadingIndicator />
@@ -61,6 +63,7 @@ class NewsFeedScene extends Component {
         <NewsFeedPosting userId={me.id} username={username} post={this.post} />
         <FlatList
           data={allNews}
+          refreshing={networkStatus === 4}
           renderItem={({ item, index }) => (
             <News
               item={item}
@@ -71,7 +74,26 @@ class NewsFeedScene extends Component {
           )}
           keyExtractor={(item, index) => index}
           onRefresh={this._onRefresh}
-          refreshing={networkStatus === 4}
+          onEndReachedThreshold={0.5}
+          onEndReached={() => {
+            fetchMore({
+              variables: { pageNumber: allNews.length / PAGE_SIZE + 1 },
+              updateQuery: (previousResult, { fetchMoreResult }) => {
+                if (
+                  !fetchMoreResult ||
+                  fetchMoreResult.getAllNews.length === 0
+                ) {
+                  return previousResult;
+                }
+
+                return {
+                  getAllNews: previousResult.getAllNews.concat(
+                    fetchMoreResult.getAllNews,
+                  ),
+                };
+              },
+            });
+          }}
         />
       </View>
     );
@@ -90,6 +112,7 @@ NewsFeedScene.propTypes = {
   error: PropTypes.object,
   me: PropTypes.object,
   insertNews: PropTypes.func,
+  fetchMore: PropTypes.func,
 };
 
 NewsFeedScene.header = {
@@ -113,16 +136,18 @@ const MeQuery = graphql(gql(ME_QUERY), {
 
 const AllNewsQuery = graphql(gql(ALL_NEWS_QUERY), {
   props: ({
-    data: { loading, getAllNews, refetch, networkStatus, error },
+    data: { loading, getAllNews, refetch, networkStatus, error, fetchMore },
   }) => ({
     loading,
     allNews: getAllNews,
     refetch,
     networkStatus,
     error,
+    fetchMore,
   }),
   options: {
     notifyOnNetworkStatusChange: true,
+    variables: { pageNumber: 0, pageSize: PAGE_SIZE },
   },
 });
 
