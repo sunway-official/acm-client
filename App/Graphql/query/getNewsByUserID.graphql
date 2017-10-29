@@ -16,6 +16,9 @@ query getNewsByUserID($user_id: ID!){
       id
       created_at
       updated_at
+      user {
+        id
+      }
     }
     newsComments {
       user {

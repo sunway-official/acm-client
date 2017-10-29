@@ -28,7 +28,7 @@ class Content extends Component {
       case 'About':
         return withAnimation(About, user);
       case 'Posts':
-        return withAnimation(Activities);
+        return withAnimation(Activities, user);
       case 'Followers':
         return withAnimation(Followers);
       case 'Following':

@@ -5,7 +5,7 @@ import { News, LoadingIndicator } from '~/Component';
 
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import ACTIVITIES_QUERY from '~/Graphql/query/getAllNewsByUserId.graphql';
+import ACTIVITIES_QUERY from '~/Graphql/query/getNewsByUserID.graphql';
 
 class Activities extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Activities extends Component {
   }
 
   render() {
-    const { loading, allNews, networkStatus } = this.props;
+    const { loading, allNews, networkStatus, user } = this.props;
 
     if (loading) {
       return (
@@ -33,7 +33,14 @@ class Activities extends Component {
       <View>
         <FlatList
           data={allNews}
-          renderItem={({ item, index }) => <News item={item} key={index} />}
+          renderItem={({ item, index }) => (
+            <News
+              item={item}
+              key={index}
+              userId={user.id}
+              onRefresh={this.onRefresh}
+            />
+          )}
           keyExtractor={(item, index) => index}
           onRefresh={this.onRefresh}
           refreshing={networkStatus === 4}
@@ -49,10 +56,11 @@ Activities.propTypes = {
   refetch: PropTypes.func,
   networkStatus: PropTypes.number,
   error: PropTypes.object,
+  user: PropTypes.object,
 };
 
 const ActivitiesWithQuery = graphql(gql(ACTIVITIES_QUERY), {
-  options: () => ({ variables: { user_id: 2 } }),
+  options: ownProps => ({ variables: { user_id: ownProps.user.id } }),
   props: ({
     data: { loading, getNewsByUserID, refetch, networkStatus, error },
   }) => ({
