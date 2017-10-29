@@ -42,6 +42,7 @@ class News extends Component {
     this.state = {
       showCommentBox: false,
       isLove: false,
+      numberOfLove: 0,
     };
     this._onPressComment = this._onPressComment.bind(this);
     this._onPressLove = this._onPressLove.bind(this);
@@ -52,9 +53,16 @@ class News extends Component {
     let isLove = item.newsLikes.some(newsLike => newsLike.user.id === userId);
 
     if (isLove) {
-      this.setState({ isLove: true });
+      this.setState({ isLove: true, numberOfLove: item.newsLikes.length });
     }
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return (
+  //     nextProps.item !== this.props.item ||
+  //     nextState.isLove !== this.state.isLove
+  //   );
+  // }
 
   _renderIcon(name, type, color) {
     return (
@@ -159,7 +167,7 @@ class News extends Component {
   }
 
   _renderInteractionBar(item) {
-    let isLove = this.state.isLove;
+    let { isLove, numberOfLove } = this.state;
 
     return (
       <View style={styles.interactionBarContainer}>
@@ -168,7 +176,7 @@ class News extends Component {
           isLove
             ? this._renderIcon('ios-heart', 'ionicon', Colors.red)
             : this._renderIcon('ios-heart-outline', 'ionicon'),
-          item.newsLikes.length,
+          numberOfLove,
         )}
         {this._renderInteraction(
           this._onPressComment,
@@ -185,24 +193,31 @@ class News extends Component {
 
   _onPressLove() {
     const { item, userId, onRefresh } = this.props;
+    const { isLove, numberOfLove } = this.state;
 
-    if (!this.state.isLove) {
-      this.setState({ isLove: true });
+    if (isLove === false) {
+      this.setState({
+        isLove: true,
+        numberOfLove: numberOfLove + 1,
+      });
       this.props
         .insertNewsLike({
           news_id: item.id,
           user_id: userId,
         })
-        .then(onRefresh);
+        .then(onRefresh());
     } else {
-      this.setState({ isLove: false });
+      this.setState({
+        isLove: false,
+        numberOfLove: numberOfLove - 1,
+      });
       this.props
         .deleteNewsLike({
           newsLike_id: item.newsLikes.map(
-            newsLike => (newsLike.user.id === userId ? newsLike.id : null),
+            newsLike => (newsLike.user.id === userId ? newsLike.id : undefined),
           ),
         })
-        .then(onRefresh);
+        .then(onRefresh());
     }
   }
 

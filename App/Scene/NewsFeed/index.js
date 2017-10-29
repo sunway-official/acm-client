@@ -22,18 +22,36 @@ import ME_QUERY from '~/Graphql/query/me.graphql';
 //   }
 // };
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 10;
 
 class NewsFeedScene extends Component {
   constructor(props) {
     super(props);
 
     this._onRefresh = this._onRefresh.bind(this);
+    this._onEndReached = this._onEndReached.bind(this);
     this.post = this.post.bind(this);
   }
 
   _onRefresh() {
     this.props.refetch();
+  }
+
+  _onEndReached(allNews) {
+    this.props.fetchMore({
+      variables: { pageNumber: Math.floor(allNews.length / PAGE_SIZE + 1) },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult || fetchMoreResult.getAllNews.length === 0) {
+          return previousResult;
+        }
+
+        return {
+          getAllNews: previousResult.getAllNews.concat(
+            fetchMoreResult.getAllNews,
+          ),
+        };
+      },
+    });
   }
 
   post(contentNews) {
@@ -46,8 +64,35 @@ class NewsFeedScene extends Component {
       .then(this._onRefresh);
   }
 
+  _renderNewsFeedPosting(me, username) {
+    return (
+      <NewsFeedPosting userId={me.id} username={username} post={this.post} />
+    );
+  }
+
+  _renderNewsFeedList(allNews, networkStatus, me) {
+    return (
+      <FlatList
+        data={allNews}
+        refreshing={networkStatus === 4}
+        renderItem={({ item, index }) => (
+          <News
+            item={item}
+            key={index}
+            userId={me.id}
+            onRefresh={this._onRefresh}
+          />
+        )}
+        keyExtractor={(item, index) => index}
+        onRefresh={this._onRefresh}
+        onEndReachedThreshold={0.5}
+        onEndReached={this._onEndReached(allNews)}
+      />
+    );
+  }
+
   render() {
-    const { allNews, networkStatus, me, fetchMore } = this.props;
+    const { allNews, networkStatus, me } = this.props;
     const username = `${me.firstname} ${me.lastname}`;
 
     if (networkStatus === 1) {
@@ -60,41 +105,8 @@ class NewsFeedScene extends Component {
 
     return (
       <View style={styles.container}>
-        <NewsFeedPosting userId={me.id} username={username} post={this.post} />
-        <FlatList
-          data={allNews}
-          refreshing={networkStatus === 4}
-          renderItem={({ item, index }) => (
-            <News
-              item={item}
-              key={index}
-              userId={me.id}
-              onRefresh={this._onRefresh}
-            />
-          )}
-          keyExtractor={(item, index) => index}
-          onRefresh={this._onRefresh}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => {
-            fetchMore({
-              variables: { pageNumber: allNews.length / PAGE_SIZE + 1 },
-              updateQuery: (previousResult, { fetchMoreResult }) => {
-                if (
-                  !fetchMoreResult ||
-                  fetchMoreResult.getAllNews.length === 0
-                ) {
-                  return previousResult;
-                }
-
-                return {
-                  getAllNews: previousResult.getAllNews.concat(
-                    fetchMoreResult.getAllNews,
-                  ),
-                };
-              },
-            });
-          }}
-        />
+        {this._renderNewsFeedPosting(me, username)}
+        {this._renderNewsFeedList(allNews, networkStatus, me)}
       </View>
     );
   }
