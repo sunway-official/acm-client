@@ -35,6 +35,7 @@ class News extends Component {
     newsLikeById: PropTypes.object,
     insertNewsLike: PropTypes.func,
     deleteNewsLike: PropTypes.func,
+    onRefresh: PropTypes.func,
   };
 
   constructor(props) {
@@ -184,26 +185,30 @@ class News extends Component {
   }
 
   _onPressLove() {
-    const { item, userId } = this.props;
+    const { item, userId, onRefresh } = this.props;
 
     if (!this.state.isLove) {
       this.setState({ isLove: true });
-      this.props.insertNewsLike({
-        news_id: item.id,
-        user_id: userId,
-      });
+      this.props
+        .insertNewsLike({
+          news_id: item.id,
+          user_id: userId,
+        })
+        .then(onRefresh);
     } else {
       this.setState({ isLove: false });
-      this.props.deleteNewsLike({
-        newsLike_id: item.newsLikes.map(
-          newsLike => (newsLike.user.id === userId ? newsLike.id : null),
-        ),
-      });
+      this.props
+        .deleteNewsLike({
+          newsLike_id: item.newsLikes.map(
+            newsLike => (newsLike.user.id === userId ? newsLike.id : null),
+          ),
+        })
+        .then(onRefresh);
     }
   }
 
   render() {
-    const { item, newsContainerStyle, userId } = this.props;
+    const { item, newsContainerStyle, userId, onRefresh } = this.props;
     let createdAt = formatCreatedAt(item.updated_at);
 
     return (
@@ -221,6 +226,7 @@ class News extends Component {
               createdAt={createdAt}
               newsId={item.id}
               userId={userId}
+              onRefresh={onRefresh}
             />
           ) : (
             <View />

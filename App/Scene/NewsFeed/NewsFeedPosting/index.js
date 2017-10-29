@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { graphql, gql, compose } from 'react-apollo';
 
 import styles from './styles';
 import { Icon } from 'react-native-elements';
@@ -17,25 +16,22 @@ import {
 } from '~/Component';
 
 import { KEY, setModalState } from '~/Redux/Modal';
-import INSERT_NEWS_MUTATION from '~/Graphql/mutation/insertNews.graphql';
 
 const defaultAvatar = Images.avatar['male08'];
 
 class NewsFeedPosting extends Component {
   static propTypes = {
-    insertNews: PropTypes.func,
     showNewsFeedPosting: PropTypes.func,
     hideNewsFeedPosting: PropTypes.func,
     modal: PropTypes.object,
     loading: PropTypes.bool,
     userId: PropTypes.string,
     username: PropTypes.string,
+    post: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
-
-    this.post = this.post.bind(this);
   }
 
   _renderPostFake() {
@@ -58,35 +54,9 @@ class NewsFeedPosting extends Component {
     );
   }
 
-  post(contentNews) {
-    // TODO: remove comment when publish app
-    // console.log(this.props.me.id);
-    // console.log(contentNews);
-    this.props.insertNews({
-      userId: this.props.userId, // bk user id
-      conferenceId: 1, // fake conferences
-      contentNews,
-    });
-    // console.log('done');
-  }
-
   render() {
-    const { loading, username } = this.props;
+    const { username, post } = this.props;
     const isVisible = this.props.modal.isOpen;
-
-    if (loading) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <AnimatableView
-            animation="rotate"
-            duration={1000}
-            iterationCount="infinite"
-          >
-            <Icon name="loop" />
-          </AnimatableView>
-        </View>
-      );
-    }
 
     return (
       <View>
@@ -94,7 +64,7 @@ class NewsFeedPosting extends Component {
 
         <NewsFeedPosts
           isVisible={isVisible}
-          post={this.post}
+          post={post}
           cancel={() => this.props.hideNewsFeedPosting()}
           username={username}
         />
@@ -102,15 +72,6 @@ class NewsFeedPosting extends Component {
     );
   }
 }
-
-const NewsFeedPostingMutation = graphql(gql(INSERT_NEWS_MUTATION), {
-  props: ({ mutate }) => ({
-    insertNews: ({ userId, conferenceId, contentNews }) =>
-      mutate({
-        variables: { userId, conferenceId, contentNews },
-      }),
-  }),
-});
 
 const mapStateToProps = state => ({
   modal: state[KEY],
@@ -121,7 +82,4 @@ const mapDispatchToProps = dispatch => ({
   hideNewsFeedPosting: () => dispatch(setModalState(false)),
 });
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  NewsFeedPostingMutation,
-)(NewsFeedPosting);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsFeedPosting);

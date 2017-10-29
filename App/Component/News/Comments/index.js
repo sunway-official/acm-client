@@ -19,6 +19,7 @@ class Comments extends Component {
     newsId: PropTypes.string,
     userId: PropTypes.string,
     insertNewsComment: PropTypes.func,
+    onRefresh: PropTypes.func,
   };
 
   constructor(props) {
@@ -31,13 +32,15 @@ class Comments extends Component {
   }
 
   send() {
-    const { newsId, userId } = this.props;
+    const { newsId, userId, onRefresh } = this.props;
 
-    this.props.insertNewsComment({
-      news_id: newsId,
-      user_id: userId,
-      content_comment: this.state.text,
-    });
+    this.props
+      .insertNewsComment({
+        news_id: newsId,
+        user_id: userId,
+        content_comment: this.state.text,
+      })
+      .then(onRefresh);
 
     this.setState({ text: '' });
   }

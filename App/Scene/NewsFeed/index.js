@@ -10,17 +10,38 @@ import { News, LoadingIndicator } from '~/Component';
 import NewsFeedPosting from './NewsFeedPosting';
 
 import ALL_NEWS_QUERY from '~/Graphql/query/getAllNews.graphql';
+import INSERT_NEWS_MUTATION from '~/Graphql/mutation/insertNews.graphql';
 import ME_QUERY from '~/Graphql/query/me.graphql';
+
+// const isDuplicateNews = (newNews, existingNews) => {
+//   if (existingNews !== undefined) {
+//     return (
+//       newNews.id !== null &&
+//       existingNews.some(oldNews => newNews.id === oldNews.id)
+//     );
+//   }
+// };
 
 class NewsFeedScene extends Component {
   constructor(props) {
     super(props);
 
-    this.onRefresh = this.onRefresh.bind(this);
+    this._onRefresh = this._onRefresh.bind(this);
+    this.post = this.post.bind(this);
   }
 
-  onRefresh() {
+  _onRefresh() {
     this.props.refetch();
+  }
+
+  post(contentNews) {
+    this.props
+      .insertNews({
+        userId: this.props.me.id,
+        conferenceId: 1,
+        contentNews,
+      })
+      .then(this._onRefresh);
   }
 
   render() {
@@ -37,14 +58,19 @@ class NewsFeedScene extends Component {
 
     return (
       <View style={styles.container}>
-        <NewsFeedPosting userId={me.id} username={username} />
+        <NewsFeedPosting userId={me.id} username={username} post={this.post} />
         <FlatList
           data={allNews}
           renderItem={({ item, index }) => (
-            <News item={item} key={index} userId={me.id} />
+            <News
+              item={item}
+              key={index}
+              userId={me.id}
+              onRefresh={this._onRefresh}
+            />
           )}
           keyExtractor={(item, index) => index}
-          onRefresh={this.onRefresh}
+          onRefresh={this._onRefresh}
           refreshing={networkStatus === 4}
         />
       </View>
@@ -63,6 +89,7 @@ NewsFeedScene.propTypes = {
   networkStatus: PropTypes.number,
   error: PropTypes.object,
   me: PropTypes.object,
+  insertNews: PropTypes.func,
 };
 
 NewsFeedScene.header = {
@@ -94,6 +121,40 @@ const AllNewsQuery = graphql(gql(ALL_NEWS_QUERY), {
     networkStatus,
     error,
   }),
+  options: {
+    notifyOnNetworkStatusChange: true,
+  },
 });
 
-export default compose(AllNewsQuery, MeQuery)(NewsFeedScene);
+const NewsFeedPostingMutation = graphql(gql(INSERT_NEWS_MUTATION), {
+  props: ({ mutate }) => ({
+    insertNews: ({ userId, conferenceId, contentNews }) =>
+      mutate({
+        variables: { userId, conferenceId, contentNews },
+        // update: (store, { data: { insertNews } }) => {
+        //   const data = store.readQuery({
+        //     query: gql(ALL_NEWS_QUERY),
+        //     variables: {
+        //       id: insertNews.id,
+        //     },
+        //   });
+
+        //   if (isDuplicateNews(insertNews, data.getAllNews)) {
+        //     return data;
+        //   }
+
+        //   store.writeQuery({
+        //     query: gql(ALL_NEWS_QUERY),
+        //     variables: {
+        //       id: insertNews.id,
+        //     },
+        //     data,
+        //   });
+        // },
+      }),
+  }),
+});
+
+export default compose(AllNewsQuery, MeQuery, NewsFeedPostingMutation)(
+  NewsFeedScene,
+);
