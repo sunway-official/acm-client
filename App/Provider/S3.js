@@ -44,7 +44,9 @@ export const putAsync = ({ uri, base64, ...options }) => {
 
 export const getAsync = params => {
   if (params === undefined || params.Key === undefined) {
-    throw "Key is required for params S3.get() \n Example: \n\t S3.get({ Key: 'Hello.jpg' })";
+    throw new Error(
+      "Key is required for params S3.getAsync() \nExample: \n\t S3.getAsync({ Key: 'Hello.jpg' })",
+    );
   }
   const { Key = undefined, ...options } = params;
   return new Promise((resolve, reject) => {
