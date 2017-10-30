@@ -6,7 +6,10 @@ import { ImagePicker } from 'expo';
 import { connect } from 'react-redux';
 import { Colors } from '~/Theme';
 import { S3 } from '~/Provider';
-import { addHeaderOptions } from '~/Redux/Toolbar/action';
+import {
+  addHeaderOptions,
+  closeMenu as closeHeaderMenu,
+} from '~/Redux/Toolbar/action';
 import ProfileHeader from './Header';
 import ProfileBody from './Body';
 import { DEFAULT_USER_AVATAR } from './fixture';
@@ -35,6 +38,7 @@ class ProfileScene extends Component {
       refetch: PropTypes.func,
     }),
     header: PropTypes.object,
+    closeHeaderMenu: PropTypes.func,
     updateAvatar: PropTypes.func,
   };
 
@@ -73,7 +77,8 @@ class ProfileScene extends Component {
       const result = await ImagePicker.launchImageLibraryAsync({
         base64: true, // Required. S3 need base64 source
       });
-
+      // Close header menu
+      this.props.closeHeaderMenu();
       if (!result.cancelled) {
         const { uri, base64 } = result;
         // Then put file to S3
@@ -97,35 +102,16 @@ class ProfileScene extends Component {
     };
   }
 
-  // _getUploadAvatarFromCameraForHeaderMenuAction() {
-  //   const onPress = async () => {
-  //     // Launch Image Picker to pick file
-  //     const result = await ImagePicker.launchImageLibraryAsync({
-  //       base64: true, // Required. S3 need base64 source
-  //     });
-
-  //     if (!result.cancelled) {
-  //       const { uri, base64 } = result;
-  //       // Then put file to S3
-  //       const { Key } = await S3.putAsync({ uri, base64 });
-  //       // Then call a mutatation to save avatar
-  //       await this.props.updateAvatar({
-  //         variables: {
-  //           avatar: Key,
-  //         },
-  //       });
-  //       // Finally refetch QUERY_ME after
-  //       this.props.data.refetch();
-  //     }
-  //   };
-  //   return {
-  //     title: 'Take Photo',
-  //     icon: {
-  //       name: 'camera-alt',
-  //     },
-  //     onPress,
-  //   };
-  // }
+  _getUploadAvatarFromCameraForHeaderMenuAction() {
+    const onPress = async () => {};
+    return {
+      title: 'Take Photo',
+      icon: {
+        name: 'camera-alt',
+      },
+      onPress,
+    };
+  }
 
   _handleScrolling(e) {
     const { data: { me }, setCustomHeader } = this.props;
@@ -205,6 +191,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setCustomHeader: header => dispatch(addHeaderOptions(header)),
+  closeHeaderMenu: () => dispatch(closeHeaderMenu()),
 });
 
 export default compose(
