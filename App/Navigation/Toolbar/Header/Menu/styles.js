@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Metrics, Colors } from '~/Theme';
 import { IS_ANDROID } from '~/env';
 

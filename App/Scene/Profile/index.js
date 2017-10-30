@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, gql, compose } from 'react-apollo';
 import { ScrollView } from 'react-native';
-import { ImagePicker } from 'expo';
+import { ImagePicker, ImageCropper } from 'expo';
 import { connect } from 'react-redux';
 import { Colors } from '~/Theme';
 import { S3 } from '~/Provider';
@@ -41,10 +41,10 @@ class ProfileScene extends Component {
   constructor(props) {
     super(props);
     this._handleScrolling = this._handleScrolling.bind(this);
-    this._getUploadAvatarFromFileForHeaderItem = this._getUploadAvatarFromFileForHeaderItem.bind(
+    this._getUploadAvatarFromFileForHeaderMenuAction = this._getUploadAvatarFromFileForHeaderMenuAction.bind(
       this,
     );
-    this._getUploadAvatarFromCameraForHeaderItem = this._getUploadAvatarFromCameraForHeaderItem.bind(
+    this._getUploadAvatarFromCameraForHeaderMenuAction = this._getUploadAvatarFromCameraForHeaderMenuAction.bind(
       this,
     );
   }
@@ -53,33 +53,38 @@ class ProfileScene extends Component {
     const { header: { options }, setCustomHeader } = this.props;
     if (options.menu && options.menu.actions.length === 2) {
       const { menu } = options;
+      // Add new menu items
       setCustomHeader({
         menu: {
           ...menu,
           actions: [
             ...menu.actions,
-            this._getUploadAvatarFromCameraForHeaderItem(),
-            this._getUploadAvatarFromFileForHeaderItem(),
+            this._getUploadAvatarFromCameraForHeaderMenuAction(),
+            this._getUploadAvatarFromFileForHeaderMenuAction(),
           ],
         },
       });
     }
   }
 
-  _getUploadAvatarFromFileForHeaderItem() {
+  _getUploadAvatarFromFileForHeaderMenuAction() {
     const onPress = async () => {
+      // Launch Image Picker to pick file
       const result = await ImagePicker.launchImageLibraryAsync({
         base64: true, // Required. S3 need base64 source
       });
 
       if (!result.cancelled) {
         const { uri, base64 } = result;
+        // Then put file to S3
         const { Key } = await S3.putAsync({ uri, base64 });
+        // Then call a mutatation to save avatar
         await this.props.updateAvatar({
           variables: {
             avatar: Key,
           },
         });
+        // Finally refetch QUERY_ME after
         this.props.data.refetch();
       }
     };
@@ -92,20 +97,24 @@ class ProfileScene extends Component {
     };
   }
 
-  _getUploadAvatarFromCameraForHeaderItem() {
+  _getUploadAvatarFromCameraForHeaderMenuAction() {
     const onPress = async () => {
+      // Launch Image Picker to pick file
       const result = await ImagePicker.launchImageLibraryAsync({
         base64: true, // Required. S3 need base64 source
       });
 
       if (!result.cancelled) {
         const { uri, base64 } = result;
+        // Then put file to S3
         const { Key } = await S3.putAsync({ uri, base64 });
+        // Then call a mutatation to save avatar
         await this.props.updateAvatar({
           variables: {
             avatar: Key,
           },
         });
+        // Finally refetch QUERY_ME after
         this.props.data.refetch();
       }
     };
