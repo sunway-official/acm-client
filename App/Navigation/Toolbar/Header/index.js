@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, StatusBar, Platform } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { AnimatableView } from '~/Component';
 import { Colors, Metrics } from '~/Theme';
+import { IS_ANDROID } from '~/env';
 import SearchContent from './Search';
 import DefaultContent from './Default';
 import styles from './styles';
 
-const IS_ANDROID = Platform.OS === 'android';
 const THEME_DARK = 'dark';
 const THEME_LIGHT = 'light';
 const HIDDING_DELAY = 150;

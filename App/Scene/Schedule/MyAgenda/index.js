@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, ActivityIndicator } from 'react-native';
+import { View } from 'react-native';
 import { Colors } from '~/Theme';
+import { LoadingIndicator } from '~/Component';
 import { navigate } from '~/Redux/Navigation/action';
 import { graphql, gql } from 'react-apollo';
 import query from '~/Graphql/query/getMyAgenda.graphql';
@@ -13,7 +14,7 @@ class MyAgenda extends Component {
   _renderLoading() {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator />
+        <LoadingIndicator />
       </View>
     );
   }

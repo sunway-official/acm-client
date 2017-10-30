@@ -6,8 +6,8 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity,
 } from 'react-native';
+import { IS_ANDROID } from '~/env';
 
-const IS_ANDROID = Platform.OS === 'android';
 const IS_RIPPLE_EFFECT_SUPPORTED = Platform.Version >= 21 && IS_ANDROID;
 
 class TouchableView extends PureComponent {

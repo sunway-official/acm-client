@@ -73,12 +73,12 @@ class HeaderWrapper extends Component {
     return styles;
   }
 
-  _childrenStyles(headerFloat, footerFloat) {
+  _childrenStyles(headerFloat) {
     const { drawer, toolbar } = this.props;
     const { header, footer } = this.state;
     let styles = {
-      paddingTop: headerFloat ? 0 : header.height,
-      paddingBottom: footerFloat ? 0 : footer.height || 0,
+      paddingTop: headerFloat ? 0 : header.height - 1,
+      paddingBottom: toolbar.footer.visible ? footer.height : 0,
     };
     if (
       (toolbar.header.options && toolbar.header.options.disable) ||

@@ -1,7 +1,6 @@
 import { StyleSheet, Platform } from 'react-native';
 import { Metrics, Colors } from '~/Theme';
-
-const IS_ANDROID = Platform.OS === 'android';
+import { IS_ANDROID } from '~/env';
 
 export default StyleSheet.create({
   modal: {
