@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, gql, compose } from 'react-apollo';
 import { ScrollView } from 'react-native';
+import { ImagePicker } from 'expo';
 import { connect } from 'react-redux';
 import { Colors } from '~/Theme';
+import { S3 } from '~/Provider';
 import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import ProfileHeader from './Header';
 import ProfileBody from './Body';
 import { DEFAULT_USER_AVATAR } from './fixture';
 import { NavigationActions } from '~/Redux/Navigation';
-import query from '~/Graphql/query/me.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
+import UPDATE_AVATAR from './updateAvatar.graphql';
 import { DEFAULT_ME } from './fixture';
 
 const PRIMARY_HEADER = {
@@ -29,12 +32,90 @@ class ProfileScene extends Component {
     setCustomHeader: PropTypes.func,
     data: PropTypes.shape({
       me: PropTypes.object,
+      refetch: PropTypes.func,
     }),
+    header: PropTypes.object,
+    updateAvatar: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
     this._handleScrolling = this._handleScrolling.bind(this);
+    this._getUploadAvatarFromFileForHeaderItem = this._getUploadAvatarFromFileForHeaderItem.bind(
+      this,
+    );
+    this._getUploadAvatarFromCameraForHeaderItem = this._getUploadAvatarFromCameraForHeaderItem.bind(
+      this,
+    );
+  }
+
+  componentDidUpdate() {
+    const { header: { options }, setCustomHeader } = this.props;
+    if (options.menu && options.menu.actions.length === 2) {
+      const { menu } = options;
+      setCustomHeader({
+        menu: {
+          ...menu,
+          actions: [
+            ...menu.actions,
+            this._getUploadAvatarFromCameraForHeaderItem(),
+            this._getUploadAvatarFromFileForHeaderItem(),
+          ],
+        },
+      });
+    }
+  }
+
+  _getUploadAvatarFromFileForHeaderItem() {
+    const onPress = async () => {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        base64: true, // Required. S3 need base64 source
+      });
+
+      if (!result.cancelled) {
+        const { uri, base64 } = result;
+        const { Key } = await S3.putAsync({ uri, base64 });
+        await this.props.updateAvatar({
+          variables: {
+            avatar: Key,
+          },
+        });
+        this.props.data.refetch();
+      }
+    };
+    return {
+      title: 'Upload Photo',
+      icon: {
+        name: 'cloud-upload',
+      },
+      onPress,
+    };
+  }
+
+  _getUploadAvatarFromCameraForHeaderItem() {
+    const onPress = async () => {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        base64: true, // Required. S3 need base64 source
+      });
+
+      if (!result.cancelled) {
+        const { uri, base64 } = result;
+        const { Key } = await S3.putAsync({ uri, base64 });
+        await this.props.updateAvatar({
+          variables: {
+            avatar: Key,
+          },
+        });
+        this.props.data.refetch();
+      }
+    };
+    return {
+      title: 'Take Photo',
+      icon: {
+        name: 'camera-alt',
+      },
+      onPress,
+    };
   }
 
   _handleScrolling(e) {
@@ -109,11 +190,18 @@ ProfileScene.footer = {
   activeColor: Colors.red,
 };
 
+const mapStateToProps = state => ({
+  header: state['toolbar'].header,
+});
+
 const mapDispatchToProps = dispatch => ({
   setCustomHeader: header => dispatch(addHeaderOptions(header)),
 });
 
 export default compose(
-  connect(undefined, mapDispatchToProps),
-  graphql(gql(query)),
+  connect(mapStateToProps, mapDispatchToProps),
+  graphql(gql(QUERY_ME)),
+  graphql(gql(UPDATE_AVATAR), {
+    name: 'updateAvatar',
+  }),
 )(ProfileScene);

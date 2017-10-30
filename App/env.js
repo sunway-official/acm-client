@@ -41,5 +41,3 @@ Object.keys(env).map(key => {
       break;
   }
 });
-
-console.log(module.exports['S3_GET_PREFIX']);

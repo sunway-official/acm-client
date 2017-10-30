@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import { S3_GET_PREFIX } from '~/env';
 
 const TYPE = {
   SMALL: 'small',
@@ -12,7 +13,9 @@ const TYPE = {
 
 const UserAvatar = props => {
   const sourceAvatar =
-    typeof props.avatar === 'number' ? props.avatar : { uri: props.avatar };
+    typeof props.avatar === 'number'
+      ? props.avatar
+      : { uri: S3_GET_PREFIX + props.avatar };
   return <Avatar {...props} rounded source={sourceAvatar} />;
 };
 
