@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { compose, graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import { compose, gql, graphql } from 'react-apollo';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import moment from 'moment';
@@ -11,8 +10,8 @@ import { Text, UserAvatar, TouchableView } from '~/Component';
 import Comments from './Comments';
 import styles from './styles';
 
-import INSERT_NEWS_LIKE_MUTATION from '~/Graphql/mutation/insertNewsLike.graphql';
-import DELETE_NEWS_LIKE_MUTATION from '~/Graphql/mutation/deleteNewsLike.graphql';
+import MUTATION_INSERT_NEWS_LIKE from '~/Graphql/mutation/insertNewsLike.graphql';
+import MUTATION_DELETE_NEWS_LIKE from '~/Graphql/mutation/deleteNewsLike.graphql';
 
 const defaultAvatar = Images.avatar['male08'];
 
@@ -251,7 +250,7 @@ class News extends Component {
   }
 }
 
-const InsertNewsLikeMutation = graphql(gql(INSERT_NEWS_LIKE_MUTATION), {
+const InsertNewsLikeWithMutation = graphql(gql(MUTATION_INSERT_NEWS_LIKE), {
   props: ({ mutate }) => ({
     insertNewsLike: ({ news_id, user_id }) =>
       mutate({
@@ -260,7 +259,7 @@ const InsertNewsLikeMutation = graphql(gql(INSERT_NEWS_LIKE_MUTATION), {
   }),
 });
 
-const DeleteNewsLikeMutation = graphql(gql(DELETE_NEWS_LIKE_MUTATION), {
+const DeleteNewsLikeWithMutation = graphql(gql(MUTATION_DELETE_NEWS_LIKE), {
   props: ({ mutate }) => ({
     deleteNewsLike: ({ newsLike_id }) =>
       mutate({
@@ -269,4 +268,6 @@ const DeleteNewsLikeMutation = graphql(gql(DELETE_NEWS_LIKE_MUTATION), {
   }),
 });
 
-export default compose(InsertNewsLikeMutation, DeleteNewsLikeMutation)(News);
+export default compose(InsertNewsLikeWithMutation, DeleteNewsLikeWithMutation)(
+  News,
+);

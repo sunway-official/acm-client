@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TextInput, TouchableOpacity } from 'react-native';
-import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
+import { compose, gql, graphql } from 'react-apollo';
 import { Text, UserAvatar } from '~/Component';
 import Comment from './Comment';
 import styles from './styles';
 
 import { Colors } from '~/Theme';
 
-import INSERT_NEWS_COMMENT_MUTATION from '~/Graphql/mutation/insertNewsComment.graphql';
+import MUTATION_INSERT_NEWS_COMMENT from '~/Graphql/mutation/insertNewsComment.graphql';
 
 class Comments extends Component {
   static propTypes = {
@@ -93,13 +92,16 @@ class Comments extends Component {
   }
 }
 
-const InsertNewsCommentMutation = graphql(gql(INSERT_NEWS_COMMENT_MUTATION), {
-  props: ({ mutate }) => ({
-    insertNewsComment: ({ news_id, user_id, content_comment }) =>
-      mutate({
-        variables: { news_id, user_id, content_comment },
-      }),
-  }),
-});
+const InsertNewsCommentWithMutation = graphql(
+  gql(MUTATION_INSERT_NEWS_COMMENT),
+  {
+    props: ({ mutate }) => ({
+      insertNewsComment: ({ news_id, user_id, content_comment }) =>
+        mutate({
+          variables: { news_id, user_id, content_comment },
+        }),
+    }),
+  },
+);
 
-export default compose(InsertNewsCommentMutation)(Comments);
+export default compose(InsertNewsCommentWithMutation)(Comments);

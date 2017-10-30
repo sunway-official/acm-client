@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
 import { News, LoadingIndicator } from '~/Component';
 
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import ACTIVITIES_QUERY from '~/Graphql/query/getNewsByUserID.graphql';
+import { gql, graphql } from 'react-apollo';
+import QUERY_ACTIVITIES from '~/Graphql/query/getNewsByUserID.graphql';
 
 class Activities extends Component {
   constructor(props) {
@@ -58,7 +57,7 @@ Activities.propTypes = {
   user: PropTypes.object,
 };
 
-const ActivitiesWithQuery = graphql(gql(ACTIVITIES_QUERY), {
+const ActivitiesWithQuery = graphql(gql(QUERY_ACTIVITIES), {
   options: ownProps => ({ variables: { user_id: ownProps.user.id } }),
   props: ({ data: { getNewsByUserID, refetch, networkStatus } }) => ({
     allNews: getNewsByUserID,

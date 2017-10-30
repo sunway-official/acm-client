@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FlatList } from 'react-native';
-import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
+import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
 import styles from './styles';
 import { Colors } from '~/Theme';
 import { News, LoadingIndicator } from '~/Component';
 import NewsFeedPosting from './NewsFeedPosting';
 
-import ALL_NEWS_QUERY from '~/Graphql/query/getAllNews.graphql';
-import INSERT_NEWS_MUTATION from '~/Graphql/mutation/insertNews.graphql';
-import ME_QUERY from '~/Graphql/query/me.graphql';
+import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
+import MUTATION_INSERT_NEWS from '~/Graphql/mutation/insertNews.graphql';
 
 // const isDuplicateNews = (newNews, existingNews) => {
 //   if (existingNews !== undefined) {
@@ -137,14 +136,14 @@ NewsFeedScene.footer = {
   activeColor: Colors.primary,
 };
 
-const MeQuery = graphql(gql(ME_QUERY), {
+const MeQuery = graphql(gql(QUERY_ME), {
   props: ({ data: { loading, me } }) => ({
     loading,
     me,
   }),
 });
 
-const AllNewsQuery = graphql(gql(ALL_NEWS_QUERY), {
+const AllNewsQuery = graphql(gql(QUERY_ALL_NEWS), {
   props: ({ data: { getAllNews, refetch, networkStatus, fetchMore } }) => ({
     allNews: getAllNews,
     refetch,
@@ -157,14 +156,14 @@ const AllNewsQuery = graphql(gql(ALL_NEWS_QUERY), {
   },
 });
 
-const NewsFeedPostingMutation = graphql(gql(INSERT_NEWS_MUTATION), {
+const NewsFeedPostingMutation = graphql(gql(MUTATION_INSERT_NEWS), {
   props: ({ mutate }) => ({
     insertNews: ({ userId, conferenceId, contentNews }) =>
       mutate({
         variables: { userId, conferenceId, contentNews },
         // update: (store, { data: { insertNews } }) => {
         //   const data = store.readQuery({
-        //     query: gql(ALL_NEWS_QUERY),
+        //     query: gql(QUERY_ALL_NEWS),
         //     variables: {
         //       id: insertNews.id,
         //     },
@@ -175,7 +174,7 @@ const NewsFeedPostingMutation = graphql(gql(INSERT_NEWS_MUTATION), {
         //   }
 
         //   store.writeQuery({
-        //     query: gql(ALL_NEWS_QUERY),
+        //     query: gql(QUERY_ALL_NEWS),
         //     variables: {
         //       id: insertNews.id,
         //     },
