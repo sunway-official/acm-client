@@ -7,7 +7,7 @@ import AppNavigation from '~/Navigation';
 import { getInitialRoute } from '~/Navigation/resolver';
 import { gql, compose, withApollo } from 'react-apollo';
 import { LocalNotification } from '~/Notification';
-import query from '~/Graphql/query/me.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
 import styles from './styles';
 
 class Root extends Component {
@@ -26,7 +26,7 @@ class Root extends Component {
   async componentWillMount() {
     const { client } = this.props;
     try {
-      await client.query({ query: gql(query) });
+      await client.query({ query: gql(QUERY_ME) });
       this.props.navigateToInitialRoute();
     } catch (error) {
       this.props.login();

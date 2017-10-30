@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { gql, graphql, compose } from 'react-apollo';
 import { View, ScrollView, KeyboardAvoidingView, Keyboard } from 'react-native';
-import mutation from '~/Graphql/mutation/updateMe.graphql';
-import query from '~/Graphql/query/me.graphql';
+import UPDATE_ME from '~/Graphql/mutation/updateMe.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
 import { LoadingIndicator } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
 import { transformServerDate } from '~/Transformer';
@@ -124,8 +124,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Scene = compose(
-  graphql(gql(mutation)),
-  graphql(gql(query)),
+  graphql(gql(UPDATE_ME)),
+  graphql(gql(QUERY_ME)),
   connect(undefined, mapDispatchToProps),
 )(ProfileEditing);
 

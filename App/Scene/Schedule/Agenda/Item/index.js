@@ -8,7 +8,7 @@ import { transformServerDate } from '~/Transformer';
 import { gql, graphql, compose } from 'react-apollo';
 import insertMutation from '~/Graphql/mutation/insertPersonalSchedule.graphql';
 import deleteMutation from '~/Graphql/mutation/deletePersonalSchedule.graphql';
-import query from '~/Graphql/query/me.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
 import styles from './styles';
 
 const DEFAULT_ITEM_ICON = {
@@ -114,7 +114,7 @@ class Item extends Component {
 }
 
 export default compose(
-  graphql(gql(query)),
+  graphql(gql(QUERY_ME)),
   graphql(gql(insertMutation), { name: 'insertMutation' }),
   graphql(gql(deleteMutation), { name: 'deleteMutation' }),
 )(Item);

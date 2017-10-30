@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Image } from 'react-native';
 import { Text } from '~/Component';
 import { Images } from '~/Theme';
+import { S3_GET_PREFIX } from '~/env';
 import styles from './styles';
 
 /* eslint-disable no-unused-vars */
@@ -36,20 +37,29 @@ class Header extends Component {
   }
 
   _renderAvatar() {
-    const { user: { avatar, gender } } = this.props;
-
+    let { user: { avatar, gender } } = this.props;
     let defaultAvatar = Images.avatar['male02'];
-    switch (gender) {
-      case GENDER_MALE:
-        defaultAvatar = Images.avatar['male08'];
-        break;
-      case GENDER_FEMALE:
-        defaultAvatar = Images.avatar['female01'];
-        break;
+    if (avatar) {
+      avatar = { uri: S3_GET_PREFIX + avatar };
+    } else {
+      let defaultAvatar = Images.avatar['male02'];
+      switch (gender) {
+        case GENDER_MALE:
+          defaultAvatar = Images.avatar['male08'];
+          break;
+        case GENDER_FEMALE:
+          defaultAvatar = Images.avatar['female01'];
+          break;
+      }
+      avatar = defaultAvatar;
     }
     return (
       <View style={styles.avatarSection}>
-        <Image source={avatar || defaultAvatar} style={styles.avatar} />
+        <Image
+          source={avatar}
+          defaultSource={defaultAvatar}
+          style={styles.avatar}
+        />
       </View>
     );
   }
