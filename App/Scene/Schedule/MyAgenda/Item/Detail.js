@@ -32,16 +32,23 @@ class ItemDetail extends Component {
 
   render() {
     const { detail } = this.props;
+    console.log(detail.activity.title, ': ', detail.activity.isBefore);
 
     return (
       <View>
-        <View style={styles.itemWrapper}>
+        <View
+          style={[
+            styles.itemWrapper,
+            { opacity: detail.activity.isBefore ? 0.5 : 1 },
+          ]}
+        >
           <View style={styles.itemInfo}>
             <Text style={[styles.itemText]} bold>
               {detail.activity.title}
             </Text>
             <Text style={[styles.itemText]}>
-              {transformServerDate.toLocalTime(detail.schedule.start)}
+              {transformServerDate.toLocalTime(detail.schedule.start)} -{' '}
+              {transformServerDate.toLocalTime(detail.schedule.end)}
             </Text>
           </View>
           <TouchableView

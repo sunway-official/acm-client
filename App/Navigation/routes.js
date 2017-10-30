@@ -27,7 +27,6 @@ export const ROUTES = {
     icon: {
       name: 'home',
     },
-    initial: true,
   },
   login: {
     name: 'Login',
@@ -86,6 +85,7 @@ export const ROUTES = {
       name: 'calendar-range',
       type: 'material-community',
     },
+    initial: true,
   },
   people: {
     name: 'People',
