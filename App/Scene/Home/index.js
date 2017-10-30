@@ -50,6 +50,7 @@ class HomeScene extends Component {
           style={{ width: 150, height: 150 }}
           Key={this.state.image}
         />
+        <View marginBottom={24} />
         {/*
           Image use for GET public Object
         */}

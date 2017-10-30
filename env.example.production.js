@@ -7,4 +7,5 @@ export default {
   S3_SECRET_KEY: '',
   S3_BUCKET_NAME: 'sunway-acm-dev',
   S3_BUCKET_REGION: 'ap-southeast-1',
+  S3_GET_PREFIX: 'https://s3-<BUCKET_REGION>.amazonaws.com/<BUCKET_NAME>/',
 };
