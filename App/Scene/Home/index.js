@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
+import { View, Button, Image } from 'react-native';
 import { ImagePicker } from 'expo';
 import { S3 } from '~/Provider';
 import { S3Image } from '~/Component';
-
+import { S3_GET_PREFIX } from '~/env';
 import { Colors } from '~/Theme';
 import styles from './styles';
 
@@ -29,7 +29,6 @@ class HomeScene extends Component {
     if (!result.cancelled) {
       const { uri, base64 } = result;
       const { Key } = await S3.putAsync({ uri, base64 });
-
       this.setState({ image: Key });
     }
   }
@@ -43,10 +42,23 @@ class HomeScene extends Component {
           onPress={this._handleImagePicker}
         />
         <View marginBottom={24} />
+        {/*
+          S3Image use for GET private Object
+        */}
         <S3Image
           resizeMode="cover"
-          style={{ width: 250, height: 250 }}
+          style={{ width: 150, height: 150 }}
           Key={this.state.image}
+        />
+        {/*
+          Image use for GET public Object
+        */}
+        <Image
+          resizeMode="cover"
+          style={{ width: 150, height: 150 }}
+          source={{
+            uri: S3_GET_PREFIX + this.state.image,
+          }}
         />
       </View>
     );

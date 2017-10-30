@@ -11,6 +11,8 @@ export const IS_DEBUGGING = typeof atob !== 'undefined';
 export const IS_DEVICE = Constants.isDevice;
 export const IS_ANDROID = Platform.OS === 'android';
 export const IS_IOS = Platform.OS === 'ios';
+// For GET S3 service
+export const S3_GET_PREFIX = `https://s3-${env.S3_BUCKET_REGION}.amazonaws.com/${env.S3_BUCKET_NAME}/`;
 
 /**
  * Export global env
@@ -34,5 +36,3 @@ Object.keys(env).map(key => {
       break;
   }
 });
-
-console.log('Server endpoint URI: ', module.exports['SERVER_ENDPOINT']);
