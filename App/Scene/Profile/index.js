@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, gql, compose } from 'react-apollo';
 import { ScrollView } from 'react-native';
-import { ImagePicker, ImageCropper } from 'expo';
+import { ImagePicker } from 'expo';
 import { connect } from 'react-redux';
 import { Colors } from '~/Theme';
 import { S3 } from '~/Provider';
@@ -59,7 +59,7 @@ class ProfileScene extends Component {
           ...menu,
           actions: [
             ...menu.actions,
-            this._getUploadAvatarFromCameraForHeaderMenuAction(),
+            // this._getUploadAvatarFromCameraForHeaderMenuAction(),
             this._getUploadAvatarFromFileForHeaderMenuAction(),
           ],
         },
@@ -97,35 +97,35 @@ class ProfileScene extends Component {
     };
   }
 
-  _getUploadAvatarFromCameraForHeaderMenuAction() {
-    const onPress = async () => {
-      // Launch Image Picker to pick file
-      const result = await ImagePicker.launchImageLibraryAsync({
-        base64: true, // Required. S3 need base64 source
-      });
+  // _getUploadAvatarFromCameraForHeaderMenuAction() {
+  //   const onPress = async () => {
+  //     // Launch Image Picker to pick file
+  //     const result = await ImagePicker.launchImageLibraryAsync({
+  //       base64: true, // Required. S3 need base64 source
+  //     });
 
-      if (!result.cancelled) {
-        const { uri, base64 } = result;
-        // Then put file to S3
-        const { Key } = await S3.putAsync({ uri, base64 });
-        // Then call a mutatation to save avatar
-        await this.props.updateAvatar({
-          variables: {
-            avatar: Key,
-          },
-        });
-        // Finally refetch QUERY_ME after
-        this.props.data.refetch();
-      }
-    };
-    return {
-      title: 'Take Photo',
-      icon: {
-        name: 'camera-alt',
-      },
-      onPress,
-    };
-  }
+  //     if (!result.cancelled) {
+  //       const { uri, base64 } = result;
+  //       // Then put file to S3
+  //       const { Key } = await S3.putAsync({ uri, base64 });
+  //       // Then call a mutatation to save avatar
+  //       await this.props.updateAvatar({
+  //         variables: {
+  //           avatar: Key,
+  //         },
+  //       });
+  //       // Finally refetch QUERY_ME after
+  //       this.props.data.refetch();
+  //     }
+  //   };
+  //   return {
+  //     title: 'Take Photo',
+  //     icon: {
+  //       name: 'camera-alt',
+  //     },
+  //     onPress,
+  //   };
+  // }
 
   _handleScrolling(e) {
     const { data: { me }, setCustomHeader } = this.props;
