@@ -32,7 +32,6 @@ class ItemDetail extends Component {
 
   render() {
     const { detail } = this.props;
-    console.log(detail.activity.title, ': ', detail.activity.isBefore);
 
     return (
       <View>

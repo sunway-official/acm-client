@@ -103,6 +103,10 @@ class Item extends Component {
         </TouchableView>
         <View style={styles.timeWrapper}>
           <Text bold>{transformServerDate.toLocalTime(item.start)}</Text>
+          <Text bold style={{ textAlign: 'center' }}>
+            -
+          </Text>
+          <Text bold>{transformServerDate.toLocalTime(item.end)}</Text>
         </View>
         <View style={styles.infoWrapper}>
           <Text style={styles.primaryText}>{item.activity.title}</Text>

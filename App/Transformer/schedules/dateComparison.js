@@ -1,17 +1,10 @@
 import moment from 'moment';
-import { transformServerDate } from '../../Transformer';
 
 const normalDate = date => {
-  // format('L'): dd/MM/yyyy
-  return moment(date).format('L');
+  return Number(moment(date).format('YYYYMMDD'));
 };
 
 export const dateComparison = date => {
-  /*
-   * isToday = dateOfSchedule === TODAY;
-   * isBefore = dateOfSchedule < TODAY;
-   * isFuture = dateOfSchedule > TODAY;
-   */
   if (normalDate(date) < normalDate()) {
     return -1;
   }
@@ -24,14 +17,13 @@ export const dateComparison = date => {
 };
 
 export const timeComparison = activities => {
-  // format('LT'): HH:mm mma (e.g. 12:30 am)
-  const current_time = transformServerDate.toLocalTime(moment());
+  const current_time = new Date().getTime();
   activities.map(detail => {
-    const endTime = transformServerDate.toLocalTime(detail.schedule.end);
-    if (endTime >= current_time) {
-      detail.activity.isAfter = true;
+    const endTime = new Date(detail.schedule.end).getTime();
+    if (endTime < current_time) {
+      detail.activity.isBefore = true;
     } else {
-      detail.activity.isAfter = false;
+      detail.activity.isBefore = false;
     }
   });
 
