@@ -57,7 +57,7 @@ class Header extends Component {
       <View style={styles.avatarSection}>
         <Image
           source={avatar}
-          defaultSource={defaultAvatar}
+          defaultSource={Images.default['img200']}
           style={styles.avatar}
         />
       </View>

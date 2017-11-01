@@ -100,7 +100,7 @@ class Menu extends Component {
       <View style={styles.headerImage}>
         <Image
           source={avatar}
-          defaultSource={defaultAvatar}
+          defaultSource={Images.default['img200']}
           style={styles.profileImage}
         />
         <Image source={Images.default.img50} style={styles.conferenceImage} />
