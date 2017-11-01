@@ -82,7 +82,7 @@ class MyAgendaItem extends Component {
           </View>
           <View style={styles.contentWrapper}>
             <FlatList
-              data={comparison === 0 ? timeComparison(activities) : activities}
+              data={timeComparison(activities)}
               keyExtractor={(item, index) => index}
               renderItem={this._renderItem}
             />

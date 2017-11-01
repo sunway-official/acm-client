@@ -46,6 +46,7 @@ class Agenda extends Component {
       data: PropTypes.shape({
         getAllSchedules: PropTypes.array,
         loading: PropTypes.bool,
+        refetch: PropTypes.func,
       }),
     }),
     myAgenda: PropTypes.shape({
