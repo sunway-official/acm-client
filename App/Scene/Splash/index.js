@@ -16,6 +16,7 @@ const SplashScene = () => (
 SplashScene.header = {
   disable: true,
   theme: 'light',
+  statusBarBackgroundColor: Colors.primary,
 };
 
 SplashScene.footer = {

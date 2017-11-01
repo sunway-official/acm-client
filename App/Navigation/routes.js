@@ -141,6 +141,7 @@ export const ROUTES = {
 export const config = {
   navigationOptions: {
     header: null,
+    gesturesEnabled: false,
   },
   cardStyle: {
     shadowOpacity: 0,

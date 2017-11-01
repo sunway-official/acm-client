@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
 import { gql, graphql, compose, withApollo } from 'react-apollo';
+import { Text, TouchableView, LoadingIndicator, Dialog } from '~/Component';
 import { Metrics } from '~/Theme';
 import { KEY, setModalState } from '~/Redux/Modal';
 import mutation from '~/Graphql/mutation/updatePassword.graphql';
 import ChangePasswordForm from '../ChangePassword/Form';
-import Dialog from '~/Component/Dialog';
-import Text from '~/Component/Text';
-import TouchableView from '~/Component/TouchableView';
+import styles from './styles';
 
 class ChangePasswordScene extends Component {
   static propTypes = {
@@ -136,6 +135,11 @@ class ChangePasswordScene extends Component {
           onPasswordChanged={this._handleUpdate}
         />
         {this._renderDialog()}
+        {this.state.loading ? (
+          <View style={styles.loadingContainer}>
+            <LoadingIndicator />
+          </View>
+        ) : null}
       </View>
     );
   }

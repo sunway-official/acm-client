@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, gql, compose } from 'react-apollo';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { ImagePicker } from 'expo';
 import { connect } from 'react-redux';
+import { LoadingIndicator } from '~/Component';
 import { Colors } from '~/Theme';
 import { S3 } from '~/Provider';
 import {
@@ -17,6 +18,7 @@ import { NavigationActions } from '~/Redux/Navigation';
 import QUERY_ME from '~/Graphql/query/me.graphql';
 import UPDATE_AVATAR from './updateAvatar.graphql';
 import { DEFAULT_ME } from './fixture';
+import styles from './styles';
 
 const PRIMARY_HEADER = {
   hideTitle: false,
@@ -44,11 +46,19 @@ class ProfileScene extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      loading: false,
+    };
+
     this._handleScrolling = this._handleScrolling.bind(this);
     this._getUploadAvatarFromFileForHeaderMenuAction = this._getUploadAvatarFromFileForHeaderMenuAction.bind(
       this,
     );
     this._getUploadAvatarFromCameraForHeaderMenuAction = this._getUploadAvatarFromCameraForHeaderMenuAction.bind(
+      this,
+    );
+    this._handleUploadingAvatarAsync = this._handleUploadingAvatarAsync.bind(
       this,
     );
   }
@@ -63,7 +73,7 @@ class ProfileScene extends Component {
           ...menu,
           actions: [
             ...menu.actions,
-            // this._getUploadAvatarFromCameraForHeaderMenuAction(),
+            this._getUploadAvatarFromCameraForHeaderMenuAction(),
             this._getUploadAvatarFromFileForHeaderMenuAction(),
           ],
         },
@@ -75,23 +85,12 @@ class ProfileScene extends Component {
     const onPress = async () => {
       // Launch Image Picker to pick file
       const result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [1, 1],
         base64: true, // Required. S3 need base64 source
       });
-      // Close header menu
-      this.props.closeHeaderMenu();
-      if (!result.cancelled) {
-        const { uri, base64 } = result;
-        // Then put file to S3
-        const { Key } = await S3.putAsync({ uri, base64 });
-        // Then call a mutatation to save avatar
-        await this.props.updateAvatar({
-          variables: {
-            avatar: Key,
-          },
-        });
-        // Finally refetch QUERY_ME after
-        this.props.data.refetch();
-      }
+
+      await this._handleUploadingAvatarAsync(result);
     };
     return {
       title: 'Upload Photo',
@@ -103,7 +102,16 @@ class ProfileScene extends Component {
   }
 
   _getUploadAvatarFromCameraForHeaderMenuAction() {
-    const onPress = async () => {};
+    const onPress = async () => {
+      // Launch Image Picker to pick file
+      const result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [1, 1],
+        base64: true, // Required. S3 need base64 source
+      });
+
+      await this._handleUploadingAvatarAsync(result);
+    };
     return {
       title: 'Take Photo',
       icon: {
@@ -111,6 +119,26 @@ class ProfileScene extends Component {
       },
       onPress,
     };
+  }
+
+  async _handleUploadingAvatarAsync(result) {
+    // Close header menu
+    this.props.closeHeaderMenu();
+    if (!result.cancelled) {
+      this.setState({ loading: true });
+      const { uri, base64 } = result;
+      // Then put file to S3
+      const { Key } = await S3.putAsync({ uri, base64 });
+      // Then call a mutatation to save avatar
+      await this.props.updateAvatar({
+        variables: {
+          avatar: Key,
+        },
+      });
+      // Finally refetch QUERY_ME after
+      await this.props.data.refetch();
+      this.setState({ loading: false });
+    }
   }
 
   _handleScrolling(e) {
@@ -124,6 +152,17 @@ class ProfileScene extends Component {
     } else {
       setCustomHeader(SECONDARY_HEADER);
     }
+  }
+
+  _renderLoading(loading) {
+    if (loading) {
+      return (
+        <View style={styles.loadingContainer}>
+          <LoadingIndicator />
+        </View>
+      );
+    }
+    return null;
   }
 
   render() {
@@ -142,6 +181,7 @@ class ProfileScene extends Component {
       >
         <ProfileHeader avatar={DEFAULT_USER_AVATAR} user={me} />
         <ProfileBody user={me} />
+        {this._renderLoading(this.state.loading)}
       </ScrollView>
     );
   }
