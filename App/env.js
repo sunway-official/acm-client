@@ -28,11 +28,16 @@ Object.keys(env).map(key => {
           break;
         }
       }
+      module.exports[key] = env[key];
+      break;
     }
+    case 'S3_GET_PREFIX':
+      module.exports['S3_GET_PREFIX'] = env[key]
+        .replace(/(<BUCKET_REGION>)/, env.S3_BUCKET_REGION)
+        .replace(/(<BUCKET_NAME>)/, env.S3_BUCKET_NAME);
+      break;
     default:
       module.exports[key] = env[key];
       break;
   }
 });
-
-console.log('Server endpoint URI: ', module.exports['SERVER_ENDPOINT']);

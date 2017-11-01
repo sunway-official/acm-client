@@ -40,14 +40,12 @@ const styles = StyleSheet.create({
     color: Colors.lightDeepOrange,
   },
   loadingContainer: {
-    borderWidth: 0.5,
-    marginTop: Metrics.doubleBaseMargin,
-    borderRadius: Metrics.buttonCornerRadius,
-    paddingVertical: Metrics.baseMargin,
-    paddingHorizontal: Metrics.baseMargin,
-  },
-  loadingText: {
-    backgroundColor: Colors.grey,
+    position: 'absolute',
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(255,255,255,0.8)',
+    justifyContent: 'center',
   },
 });
 

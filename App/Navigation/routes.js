@@ -27,7 +27,6 @@ export const ROUTES = {
     icon: {
       name: 'home',
     },
-    initial: true,
   },
   login: {
     name: 'Login',
@@ -106,6 +105,7 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
+    initial: true,
   },
   profileEditing: {
     name: 'Edit Profile',
@@ -141,6 +141,7 @@ export const ROUTES = {
 export const config = {
   navigationOptions: {
     header: null,
+    gesturesEnabled: false,
   },
   cardStyle: {
     shadowOpacity: 0,

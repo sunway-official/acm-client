@@ -11,7 +11,8 @@ import { KEY as ROUTES_KEY } from '~/Redux/Routes';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { setDrawerState } from '~/Redux/Drawer';
 import { Images, Metrics, Colors } from '~/Theme';
-import { query } from '~/Graphql/query/me.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
+import { S3_GET_PREFIX } from '~/env';
 import styles from './styles';
 import MenuItem from './Item';
 
@@ -78,19 +79,29 @@ class Menu extends Component {
     this.props.closeDrawer();
   }
 
-  _renderHeaderImage({ avatar, gender }) {
+  _renderHeaderImage(user) {
+    let { avatar, gender } = user;
     let defaultAvatar = Images.avatar['male02'];
-    switch (gender) {
-      case GENDER_MALE:
-        defaultAvatar = Images.avatar['male08'];
-        break;
-      case GENDER_FEMALE:
-        defaultAvatar = Images.avatar['female01'];
-        break;
+    if (avatar) {
+      avatar = { uri: S3_GET_PREFIX + avatar };
+    } else {
+      switch (gender) {
+        case GENDER_MALE:
+          defaultAvatar = Images.avatar['male08'];
+          break;
+        case GENDER_FEMALE:
+          defaultAvatar = Images.avatar['female01'];
+          break;
+      }
+      avatar = defaultAvatar;
     }
     return (
       <View style={styles.headerImage}>
-        <Image source={avatar || defaultAvatar} style={styles.profileImage} />
+        <Image
+          source={avatar}
+          defaultSource={Images.default['img200']}
+          style={styles.profileImage}
+        />
         <Image source={Images.default.img50} style={styles.conferenceImage} />
       </View>
     );
@@ -247,7 +258,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  graphql(gql(query), {
+  graphql(gql(QUERY_ME), {
     error: () => {
       console.log('error');
     },

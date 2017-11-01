@@ -1,4 +1,4 @@
-import AWS from 'aws-sdk';
+import AWS from 'aws-sdk/dist/aws-sdk-react-native';
 import { Buffer } from 'buffer';
 import {
   S3_ACCESS_KEY,
@@ -25,8 +25,9 @@ export const putAsync = ({ uri, base64, ...options }) => {
 
     const params = {
       Bucket: S3_BUCKET_NAME,
-      Key: uuid() + '.' + fileType,
-      Body: new Buffer(base64, 'base64'),
+      Key: uuid() + '.' + fileType, // Generate random UUID
+      Body: new Buffer(base64, 'base64'), // Tranform file to base64
+      ACL: 'public-read', // By default: putObject will set file to public
       ...options,
     };
 
@@ -44,13 +45,15 @@ export const putAsync = ({ uri, base64, ...options }) => {
 
 export const getAsync = params => {
   if (params === undefined || params.Key === undefined) {
-    throw "Key is required for params S3.get() \n Example: \n\t S3.get({ Key: 'Hello.jpg' })";
+    throw new Error(
+      "Key is required for params S3.getAsync() \nExample: \n\t S3.getAsync({ Key: 'Hello.jpg' })",
+    );
   }
   const { Key = undefined, ...options } = params;
   return new Promise((resolve, reject) => {
     const params = {
       Bucket: S3_BUCKET_NAME,
-      Key,
+      Key, // getObject by Key
       ...options,
     };
     S3.getObject(params, (err, data) => {
