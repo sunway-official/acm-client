@@ -85,7 +85,6 @@ class Menu extends Component {
     if (avatar) {
       avatar = { uri: S3_GET_PREFIX + avatar };
     } else {
-      let defaultAvatar = Images.avatar['male02'];
       switch (gender) {
         case GENDER_MALE:
           defaultAvatar = Images.avatar['male08'];
