@@ -20,14 +20,14 @@ Object.keys(env).map(key => {
   // console.log(key);
   switch (key) {
     case 'SERVER_ENDPOINT': {
-      if (__DEV__) {
-        if (IS_DEBUGGING || IS_DEVICE) {
-          module.exports['SERVER_ENDPOINT'] = transformServerEndPoint(
-            IS_ANDROID ? Constants.experienceUrl : Constants.linkingUrl,
-          );
-          break;
-        }
+      // if (__DEV__) {
+      if (IS_DEBUGGING || IS_DEVICE) {
+        module.exports['SERVER_ENDPOINT'] = transformServerEndPoint(
+          IS_ANDROID ? Constants.experienceUrl : Constants.linkingUrl,
+        );
+        break;
       }
+      // }
       module.exports[key] = env[key];
       break;
     }

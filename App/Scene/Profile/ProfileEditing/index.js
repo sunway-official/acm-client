@@ -35,12 +35,6 @@ class ProfileEditing extends Component {
     this._getMe = this._getMe.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({
-      loading: false,
-    });
-  }
-
   componentWillUnmount() {
     Keyboard.dismiss();
   }
@@ -94,11 +88,6 @@ class ProfileEditing extends Component {
     const { data: { me, loading } } = this.props;
     return (
       <View>
-        {this.state.loading ? (
-          <View style={styles.mutationLoading}>
-            <LoadingIndicator />
-          </View>
-        ) : null}
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={85}>
           <ScrollView style={styles.container}>
             <Form
@@ -109,6 +98,11 @@ class ProfileEditing extends Component {
             />
           </ScrollView>
         </KeyboardAvoidingView>
+        {this.state.loading ? (
+          <View style={styles.mutationLoading}>
+            <LoadingIndicator />
+          </View>
+        ) : null}
       </View>
     );
   }
@@ -128,5 +122,13 @@ const Scene = compose(
   graphql(gql(QUERY_ME)),
   connect(undefined, mapDispatchToProps),
 )(ProfileEditing);
+
+Scene.header = {
+  leftIcon: 'back',
+};
+
+Scene.drawer = {
+  disableGestures: true,
+};
 
 export default Scene;

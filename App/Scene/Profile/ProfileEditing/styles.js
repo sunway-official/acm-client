@@ -12,12 +12,11 @@ export default StyleSheet.create({
     position: 'relative',
   },
   mutationLoading: {
+    position: 'absolute',
+    flex: 1,
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.03)',
-    position: 'absolute',
-    zIndex: 2,
-    display: 'flex',
+    backgroundColor: 'rgba(255,255,255,0.8)',
     justifyContent: 'center',
   },
 });
