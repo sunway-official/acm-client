@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FlatList } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
+import { S3 } from '~/Provider';
 import styles from './styles';
 import { Colors } from '~/Theme';
 import { News, LoadingIndicator } from '~/Component';
@@ -11,6 +12,7 @@ import NewsFeedPosting from './NewsFeedPosting';
 import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
 import MUTATION_INSERT_NEWS from '~/Graphql/mutation/insertNews.graphql';
+import MUTATION_INSERT_NEWS_PHOTO from '~/Graphql/mutation/insertNewsPhoto.graphql';
 
 // const isDuplicateNews = (newNews, existingNews) => {
 //   if (existingNews !== undefined) {
@@ -53,14 +55,39 @@ class NewsFeedScene extends Component {
     });
   }
 
-  post(contentNews) {
-    this.props
-      .insertNews({
-        userId: this.props.me.id,
-        conferenceId: 1,
-        contentNews,
-      })
-      .then(this._onRefresh);
+  async postNews(content) {
+    return await this.props.insertNews({
+      userId: this.props.me.id,
+      conferenceId: 1,
+      contentNews: content,
+    });
+  }
+
+  async postPhoto(photo, newsId) {
+    const { uri, base64 } = photo;
+    const { Key } = await S3.putAsync({ uri, base64 });
+    console.log('key ', Key);
+
+    await this.props.insertNewsPhoto({
+      news_id: newsId,
+      name: 'this is only image for test',
+      url: Key,
+    });
+  }
+
+  async post(contentNews, newsPhotos) {
+    // insert news
+    const newNews = await this.postNews(contentNews);
+    // TODO: debug
+    console.log('id', newNews.data.insertNews.id);
+
+    if (newsPhotos) {
+      await newsPhotos.map(photo =>
+        this.postPhoto(photo, newNews.data.insertNews.id),
+      );
+    }
+
+    await this._onRefresh();
   }
 
   _renderNewsFeedPosting(me, username) {
@@ -119,6 +146,7 @@ NewsFeedScene.propTypes = {
   fetchMore: PropTypes.func,
   home: PropTypes.func,
   insertNews: PropTypes.func,
+  insertNewsPhoto: PropTypes.func,
   setTitle: PropTypes.func,
   toggleHeader: PropTypes.func,
   toggleFooter: PropTypes.func,
@@ -185,6 +213,18 @@ const NewsFeedPostingMutation = graphql(gql(MUTATION_INSERT_NEWS), {
   }),
 });
 
-export default compose(AllNewsQuery, MeQuery, NewsFeedPostingMutation)(
-  NewsFeedScene,
-);
+const NewsFeedPostingPhotoMutation = graphql(gql(MUTATION_INSERT_NEWS_PHOTO), {
+  props: ({ mutate }) => ({
+    insertNewsPhoto: ({ news_id, name, url }) =>
+      mutate({
+        variables: { news_id, name, url },
+      }),
+  }),
+});
+
+export default compose(
+  AllNewsQuery,
+  MeQuery,
+  NewsFeedPostingMutation,
+  NewsFeedPostingPhotoMutation,
+)(NewsFeedScene);

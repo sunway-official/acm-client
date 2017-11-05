@@ -4,6 +4,7 @@ import { compose, gql, graphql } from 'react-apollo';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import moment from 'moment';
+import { S3_GET_PREFIX } from '~/env';
 
 import { Colors, Metrics, Images } from '~/Theme';
 import { Text, UserAvatar, TouchableView } from '~/Component';
@@ -102,34 +103,43 @@ class News extends Component {
   _renderPhotoView(imageUrl) {
     if (imageUrl.length === 1)
       return (
-        <Image source={{ uri: imageUrl[0] }} style={styles.coverSingleImage} />
+        <Image
+          source={{ uri: S3_GET_PREFIX + imageUrl[0] }}
+          style={styles.coverSingleImage}
+        />
       );
     if (imageUrl.length === 2)
       return (
         <View style={styles.photoViewTwoImage}>
           <Image
-            source={{ uri: imageUrl[0] }}
+            source={{ uri: S3_GET_PREFIX + imageUrl[0] }}
             style={styles.firstMediumImage}
           />
           <Image
-            source={{ uri: imageUrl[1] }}
+            source={{ uri: S3_GET_PREFIX + imageUrl[1] }}
             style={styles.secondMediumImage}
           />
         </View>
       );
-    else
+    if (imageUrl.length > 2)
       return (
         <View style={styles.photoViewContainer}>
           <View style={{ flex: 2 }}>
-            <Image source={{ uri: imageUrl[0] }} style={styles.coverImage} />
+            <Image
+              source={{ uri: S3_GET_PREFIX + imageUrl[0] }}
+              style={styles.coverImage}
+            />
           </View>
 
           <View style={styles.photoViewSubContainer}>
-            <Image source={{ uri: imageUrl[1] }} style={styles.smallImage} />
+            <Image
+              source={{ uri: S3_GET_PREFIX + imageUrl[1] }}
+              style={styles.smallImage}
+            />
             {imageUrl.length > 2 ? (
               <TouchableView>
                 <Image
-                  source={{ uri: imageUrl[2] }}
+                  source={{ uri: S3_GET_PREFIX + imageUrl[2] }}
                   style={styles.smallImage}
                 />
                 <Text
@@ -138,7 +148,10 @@ class News extends Component {
                 >{`+ ${imageUrl.length}`}</Text>
               </TouchableView>
             ) : (
-              <Image source={{ uri: imageUrl[2] }} style={styles.smallImage} />
+              <Image
+                source={{ uri: S3_GET_PREFIX + imageUrl[2] }}
+                style={styles.smallImage}
+              />
             )}
           </View>
         </View>

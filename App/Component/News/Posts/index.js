@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
-
 import { ImagePicker } from 'expo';
 
 import styles from './styles';
@@ -30,9 +29,9 @@ class Posts extends Component {
   }
 
   post() {
-    this.props.post(this.state.text);
-    this.setState({ text: '' });
-    this.props.cancel();
+    const { text, images } = this.state;
+    this.props.post(text, images);
+    this.cancel();
   }
 
   cancel() {
@@ -44,10 +43,11 @@ class Posts extends Component {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [4, 3],
+      base64: true,
     });
 
     imageTemp = this.state.images;
-    imageTemp.push(result.uri);
+    imageTemp.push(result);
 
     if (!result.cancelled) {
       this.setState({ images: imageTemp });
@@ -113,7 +113,7 @@ class Posts extends Component {
             images.map((image, index) => (
               <Image
                 key={index}
-                source={{ uri: image }}
+                source={{ uri: image.uri }}
                 style={styles.imageUploaded}
               />
             ))}
