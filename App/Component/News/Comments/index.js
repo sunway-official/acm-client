@@ -32,19 +32,27 @@ class Comments extends Component {
 
   send() {
     const { newsId, userId, onRefresh } = this.props;
+    const { text } = this.state;
 
-    this.props
-      .insertNewsComment({
-        news_id: newsId,
-        user_id: userId,
-        content_comment: this.state.text,
-      })
-      .then(onRefresh);
+    if (text !== '') {
+      this.props
+        .insertNewsComment({
+          news_id: newsId,
+          user_id: userId,
+          content_comment: text,
+        })
+        .then(onRefresh);
 
-    this.setState({ text: '' });
+      this.setState({ text: '' });
+    } else {
+      // TODO: show alert
+      console.log('input empty');
+    }
   }
 
   _renderCommentInputBox(userAvatar) {
+    let isDisabled = this.state.text === '';
+
     return (
       <View style={styles.commentInputBoxContainer}>
         <UserAvatar avatar={userAvatar} />
@@ -63,11 +71,12 @@ class Comments extends Component {
           <TouchableOpacity
             style={styles.commentSubmitButton}
             onPress={this.send}
+            disabled={isDisabled}
           >
             <Text
               style={[
                 styles.sendCommentBtn,
-                this.state.text !== '' ? { color: Colors.primary } : {},
+                isDisabled ? {} : { color: Colors.primary },
               ]}
             >
               Send

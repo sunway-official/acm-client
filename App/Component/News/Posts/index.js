@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements';
 import { ImagePicker } from 'expo';
 
 import styles from './styles';
-import { Colors, Images } from '~/Theme';
+import { Colors } from '~/Theme';
 import {
   UserAvatar,
   TouchableView,
@@ -14,9 +14,17 @@ import {
   AutoExpandingTextInput,
 } from '~/Component';
 
-const defaultAvatar = Images.avatar['male08'];
+// Posts.
 
 class Posts extends Component {
+  static propTypes = {
+    isVisible: PropTypes.bool,
+    handlePost: PropTypes.func.isRequired,
+    handleCancel: PropTypes.func.isRequired,
+    username: PropTypes.string.isRequired,
+    avatar: PropTypes.string,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -24,19 +32,19 @@ class Posts extends Component {
       images: [],
     };
 
-    this.post = this.post.bind(this);
-    this.cancel = this.cancel.bind(this);
+    this._handlePost = this._handlePost.bind(this);
+    this._handleCancel = this._handleCancel.bind(this);
   }
 
-  post() {
+  _handlePost() {
     const { text, images } = this.state;
-    this.props.post(text, images);
-    this.cancel();
+    this.props.handlePost(text, images);
+    this._handleCancel();
   }
 
-  cancel() {
+  _handleCancel() {
     this.setState({ text: '', images: [] });
-    this.props.cancel();
+    this.props.handleCancel();
   }
 
   _pickImage = async () => {
@@ -46,20 +54,20 @@ class Posts extends Component {
       base64: true,
     });
 
-    imageTemp = this.state.images;
-    imageTemp.push(result);
-
     if (!result.cancelled) {
+      imageTemp = this.state.images;
+      imageTemp.push(result);
       this.setState({ images: imageTemp });
     }
   };
 
   _renderHeader() {
-    const { text } = this.state;
+    const { text, images } = this.state;
+    let isDisabled = text === '' && images.length === 0;
 
     return (
       <View style={styles.header}>
-        <TouchableView onPress={this.cancel}>
+        <TouchableView onPress={this._handleCancel}>
           <Text bold style={{ color: Colors.primary }}>
             Cancel
           </Text>
@@ -67,16 +75,11 @@ class Posts extends Component {
         <Text bold medium>
           Update Status
         </Text>
-        <TouchableView
-          onPress={this.post}
-          disabled={text === '' ? true : false}
-        >
+        <TouchableView onPress={this._handlePost} disabled={isDisabled}>
           <Text
             bold
             style={
-              this.state.text === ''
-                ? { color: Colors.grey }
-                : { color: Colors.primary }
+              isDisabled ? { color: Colors.grey } : { color: Colors.primary }
             }
           >
             Post
@@ -86,17 +89,13 @@ class Posts extends Component {
     );
   }
 
-  _renderContents() {
-    const { username } = this.props;
+  _renderContents(username, avatar) {
     let { images } = this.state;
-
-    // TODO: remove when merge code
-    // console.log(images);
 
     return (
       <View style={styles.content}>
         <View style={styles.contentUserInformation}>
-          <UserAvatar small avatar={defaultAvatar} />
+          <UserAvatar small avatar={avatar} />
           <Text bold style={styles.contentUsername}>
             {username}
           </Text>
@@ -142,30 +141,21 @@ class Posts extends Component {
   }
 
   render() {
-    const isVisible = this.props.isVisible;
+    const { isVisible, username, avatar } = this.props;
 
     return (
       <Modal
         animationIn="slideInUp"
         animationOut="slideOutDown"
-        animationInTiming={500}
-        animationOutTiming={500}
         isVisible={isVisible}
         style={styles.container}
       >
         {this._renderHeader()}
-        {this._renderContents()}
+        {this._renderContents(username, avatar)}
         {this._renderActions()}
       </Modal>
     );
   }
 }
-
-Posts.propTypes = {
-  isVisible: PropTypes.bool,
-  post: PropTypes.func.isRequired,
-  cancel: PropTypes.func,
-  username: PropTypes.string,
-};
 
 export default Posts;

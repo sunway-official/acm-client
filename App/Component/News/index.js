@@ -26,6 +26,8 @@ const formatCreatedAt = createdAt =>
     sameElse: 'DD/MM/YYYY',
   });
 
+const isTheSame = (firstParams, secondParams) => firstParams === secondParams;
+
 class News extends Component {
   static propTypes = {
     item: PropTypes.object,
@@ -41,8 +43,9 @@ class News extends Component {
     super(props);
     this.state = {
       showCommentBox: false,
-      isLove: false,
       numberOfLove: 0,
+      isLove: false,
+      isDisabledLove: false,
     };
     this._onPressComment = this._onPressComment.bind(this);
     this._onPressLove = this._onPressLove.bind(this);
@@ -50,19 +53,13 @@ class News extends Component {
 
   componentDidMount() {
     const { userId, item } = this.props;
-    let isLove = item.newsLikes.some(newsLike => newsLike.user.id === userId);
+    let isLove = item.newsLikes.some(newsLike =>
+      isTheSame(newsLike.user.id, userId),
+    );
 
-    if (isLove) {
+    if (isLove)
       this.setState({ isLove: true, numberOfLove: item.newsLikes.length });
-    }
   }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return (
-  //     nextProps.item !== this.props.item ||
-  //     nextState.isLove !== this.state.isLove
-  //   );
-  // }
 
   _renderIcon(name, type, color) {
     return (
@@ -76,20 +73,15 @@ class News extends Component {
   }
 
   _renderNewsHeader(item, createdAt) {
+    let avatar = item.user.avatar === null ? defaultAvatar : item.user.avatar;
+    let username = `${item.user.firstname} ${item.user.lastname}`;
+
     return (
       <View style={styles.postHeader}>
         <View style={styles.rightPostHeader}>
-          <UserAvatar
-            small
-            avatar={
-              item.user.avatar === null ? defaultAvatar : item.user.avatar
-            }
-            containerStyle={styles.avatar}
-          />
+          <UserAvatar small avatar={avatar} containerStyle={styles.avatar} />
           <View>
-            <Text style={styles.username}>
-              {`${item.user.firstname} ${item.user.lastname}`}
-            </Text>
+            <Text style={styles.username}>{username}</Text>
             <Text style={styles.secondaryText}>{createdAt}</Text>
           </View>
         </View>
@@ -100,58 +92,43 @@ class News extends Component {
     );
   }
 
+  _renderPhotoImage(imageUrl, position, styles) {
+    return (
+      <Image
+        source={{ uri: S3_GET_PREFIX + imageUrl[position] }}
+        style={styles}
+      />
+    );
+  }
+
   _renderPhotoView(imageUrl) {
-    if (imageUrl.length === 1)
-      return (
-        <Image
-          source={{ uri: S3_GET_PREFIX + imageUrl[0] }}
-          style={styles.coverSingleImage}
-        />
-      );
+    if (imageUrl.length === 1) {
+      return this._renderPhotoImage(imageUrl, 0, styles.coverSingleImage);
+    }
     if (imageUrl.length === 2)
       return (
         <View style={styles.photoViewTwoImage}>
-          <Image
-            source={{ uri: S3_GET_PREFIX + imageUrl[0] }}
-            style={styles.firstMediumImage}
-          />
-          <Image
-            source={{ uri: S3_GET_PREFIX + imageUrl[1] }}
-            style={styles.secondMediumImage}
-          />
+          {this._renderPhotoImage(imageUrl, 0, styles.firstMediumImage)}
+          {this._renderPhotoImage(imageUrl, 1, styles.secondMediumImage)}
         </View>
       );
     if (imageUrl.length > 2)
       return (
         <View style={styles.photoViewContainer}>
           <View style={{ flex: 2 }}>
-            <Image
-              source={{ uri: S3_GET_PREFIX + imageUrl[0] }}
-              style={styles.coverImage}
-            />
+            {this._renderPhotoImage(imageUrl, 0, styles.coverImage)}
           </View>
 
           <View style={styles.photoViewSubContainer}>
-            <Image
-              source={{ uri: S3_GET_PREFIX + imageUrl[1] }}
-              style={styles.smallImage}
-            />
+            {this._renderPhotoImage(imageUrl, 1, styles.smallImage)}
             {imageUrl.length > 2 ? (
               <TouchableView>
-                <Image
-                  source={{ uri: S3_GET_PREFIX + imageUrl[2] }}
-                  style={styles.smallImage}
-                />
-                <Text
-                  medium
-                  style={styles.moreImages}
-                >{`+ ${imageUrl.length}`}</Text>
+                {this._renderPhotoImage(imageUrl, 2, styles.smallImage)}
+                <Text medium style={styles.moreImages}>{`+ ${imageUrl.length -
+                  2}`}</Text>
               </TouchableView>
             ) : (
-              <Image
-                source={{ uri: S3_GET_PREFIX + imageUrl[2] }}
-                style={styles.smallImage}
-              />
+              this._renderPhotoImage(imageUrl, 2, styles.smallImage)
             )}
           </View>
         </View>
@@ -163,15 +140,20 @@ class News extends Component {
 
     return (
       <View>
-        <Text>{item.content}</Text>
+        {item.content ? <Text>{item.content}</Text> : undefined}
         {this._renderPhotoView(url)}
       </View>
     );
   }
 
   _renderInteraction(onPressHandler, icon, text) {
+    const { isDisabledLove } = this.state;
     return (
-      <TouchableOpacity onPress={onPressHandler} style={styles.interaction}>
+      <TouchableOpacity
+        onPress={onPressHandler}
+        style={styles.interaction}
+        disabled={isDisabledLove}
+      >
         {icon}
         <Text style={styles.secondaryText}>{text}</Text>
       </TouchableOpacity>
@@ -200,42 +182,57 @@ class News extends Component {
   }
 
   _onPressComment() {
-    this.setState({ showCommentBox: !this.state.showCommentBox });
+    this.setState(prevState => ({
+      showCommentBox: !prevState.showCommentBox,
+    }));
   }
 
-  _onPressLove() {
+  async _insertNewsLike(newsId, userId) {
+    this.setState(prevState => ({
+      isDisabledLove: !prevState.isDisabledLove,
+      isLove: !prevState.isLove,
+      numberOfLove: prevState.numberOfLove + 1,
+    }));
+
+    await this.props.insertNewsLike({
+      news_id: newsId,
+      user_id: userId,
+    });
+  }
+
+  async _deleteNewsLike(newsLikes, userId) {
+    this.setState(prevState => ({
+      isDisabledLove: !prevState.isDisabledLove,
+      isLove: !prevState.isLove,
+      numberOfLove: prevState.numberOfLove - 1,
+    }));
+
+    await this.props.deleteNewsLike({
+      newsLike_id: newsLikes.map(
+        newsLike =>
+          isTheSame(newsLike.user.id, userId) ? newsLike.id : undefined,
+      ),
+    });
+  }
+
+  async _onPressLove() {
     const { item, userId, onRefresh } = this.props;
-    const { isLove, numberOfLove } = this.state;
+    const { isLove } = this.state;
 
     if (isLove === false) {
-      this.setState({
-        isLove: true,
-        numberOfLove: numberOfLove + 1,
-      });
-      this.props
-        .insertNewsLike({
-          news_id: item.id,
-          user_id: userId,
-        })
-        .then(onRefresh());
+      await this._insertNewsLike(item.id, userId);
+      await onRefresh();
     } else {
-      this.setState({
-        isLove: false,
-        numberOfLove: numberOfLove - 1,
-      });
-      this.props
-        .deleteNewsLike({
-          newsLike_id: item.newsLikes.map(
-            newsLike => (newsLike.user.id === userId ? newsLike.id : undefined),
-          ),
-        })
-        .then(onRefresh());
+      await this._deleteNewsLike(item.newsLikes, userId);
+      await onRefresh();
     }
+    this.setState(prevState => ({ isDisabledLove: !prevState.isDisabledLove }));
   }
 
   render() {
     const { item, newsContainerStyle, userId, onRefresh } = this.props;
     let createdAt = formatCreatedAt(item.updated_at);
+    let avatar = item.user.avatar === null ? defaultAvatar : item.user.avatar;
 
     return (
       <View style={[styles.container, newsContainerStyle]}>
@@ -246,9 +243,7 @@ class News extends Component {
           {this.state.showCommentBox ? (
             <Comments
               comments={item.newsComments}
-              userAvatar={
-                item.user.avatar === null ? defaultAvatar : item.user.avatar
-              }
+              userAvatar={avatar}
               createdAt={createdAt}
               newsId={item.id}
               userId={userId}

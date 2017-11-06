@@ -18,23 +18,35 @@ class NewsFeedPosting extends Component {
     showNewsFeedPosting: PropTypes.func,
     hideNewsFeedPosting: PropTypes.func,
     modal: PropTypes.object,
-    userId: PropTypes.string,
-    username: PropTypes.string,
-    post: PropTypes.func,
+    avatar: PropTypes.string,
+    userId: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    handlePost: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
+
+    this._handleShowModal = this._handleShowModal.bind(this);
+    this._handleHideModal = this._handleHideModal.bind(this);
   }
 
-  _renderPostFake() {
+  _handleShowModal() {
+    this.props.showNewsFeedPosting();
+  }
+
+  _handleHideModal() {
+    this.props.hideNewsFeedPosting();
+  }
+
+  _renderPostFake(avatar) {
     return (
       <View style={styles.container}>
-        <UserAvatar small avatar={defaultAvatar} />
+        <UserAvatar small avatar={avatar === null ? defaultAvatar : avatar} />
         <TouchableView
           rippleColor={Colors.grey}
           style={styles.statusBoxView}
-          onPress={() => this.props.showNewsFeedPosting()}
+          onPress={this._handleShowModal}
         >
           <Text style={[styles.placeholderStyle]}>
             {"What's on your mind?"}
@@ -48,18 +60,19 @@ class NewsFeedPosting extends Component {
   }
 
   render() {
-    const { username, post } = this.props;
+    const { username, handlePost, avatar } = this.props;
     const isVisible = this.props.modal.isOpen;
 
     return (
       <View>
-        {this._renderPostFake()}
+        {this._renderPostFake(avatar)}
 
         <NewsFeedPosts
           isVisible={isVisible}
-          post={post}
-          cancel={() => this.props.hideNewsFeedPosting()}
+          handlePost={handlePost}
+          handleCancel={this._handleHideModal}
           username={username}
+          avatar={avatar}
         />
       </View>
     );

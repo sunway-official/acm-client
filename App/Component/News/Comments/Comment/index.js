@@ -25,7 +25,7 @@ class Comment extends Component {
   }
 
   _onPressLove() {
-    this.setState({ loveComment: !this.state.loveComment });
+    this.setState(prevState => ({ loveComment: !prevState.loveComment }));
   }
 
   _renderComments(comment, createdAt) {
@@ -45,7 +45,7 @@ class Comment extends Component {
             <Text style={styles.textColor}>{createdAt}</Text>
           </View>
           <Text>{comment.content}</Text>
-          <View style={styles.rightFooterOfComment}>
+          {/*<View style={styles.rightFooterOfComment}>
             <View style={styles.interactionContainer}>
               <TouchableOpacity>
                 <Text style={styles.replyTextStyle}>Reply</Text>
@@ -70,7 +70,7 @@ class Comment extends Component {
               />
               <Text>{'2'}</Text>
             </View>
-          </View>
+                </View>*/}
         </View>
       </View>
     );

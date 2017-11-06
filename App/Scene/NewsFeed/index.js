@@ -26,12 +26,38 @@ import MUTATION_INSERT_NEWS_PHOTO from '~/Graphql/mutation/insertNewsPhoto.graph
 const PAGE_SIZE = 10;
 
 class NewsFeedScene extends Component {
+  static propTypes = {
+    allNews: PropTypes.array,
+    me: PropTypes.object.isRequired,
+    networkStatus: PropTypes.number,
+    refetch: PropTypes.func,
+    fetchMore: PropTypes.func,
+    home: PropTypes.func,
+    insertNews: PropTypes.func,
+    insertNewsPhoto: PropTypes.func,
+    setTitle: PropTypes.func,
+    toggleHeader: PropTypes.func,
+    toggleFooter: PropTypes.func,
+  };
+
+  static header = {
+    leftIcon: 'drawer',
+    theme: 'dark',
+    backgroundColor: Colors.primary,
+    statusBarBackgroundColor: Colors.primary,
+  };
+
+  static footer = {
+    show: true,
+    activeColor: Colors.primary,
+  };
+
   constructor(props) {
     super(props);
 
     this._onRefresh = this._onRefresh.bind(this);
     this._onEndReached = this._onEndReached.bind(this);
-    this.post = this.post.bind(this);
+    this._handlePost = this._handlePost.bind(this);
   }
 
   _onRefresh() {
@@ -39,8 +65,10 @@ class NewsFeedScene extends Component {
   }
 
   _onEndReached(allNews) {
+    let pageNumber = Math.floor(allNews.length / PAGE_SIZE + 1);
+
     this.props.fetchMore({
-      variables: { pageNumber: Math.floor(allNews.length / PAGE_SIZE + 1) },
+      variables: { pageNumber: pageNumber },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         if (!fetchMoreResult || fetchMoreResult.getAllNews.length === 0) {
           return previousResult;
@@ -55,19 +83,20 @@ class NewsFeedScene extends Component {
     });
   }
 
-  async postNews(content) {
-    return await this.props.insertNews({
+  _handlePostNews(content) {
+    return this.props.insertNews({
       userId: this.props.me.id,
       conferenceId: 1,
       contentNews: content,
     });
   }
 
-  async postPhoto(photo, newsId) {
+  async _handlePostPhoto(photo, newsId) {
     const { uri, base64 } = photo;
     const { Key } = await S3.putAsync({ uri, base64 });
     console.log('key ', Key);
 
+    // TODO: fill name for news photo
     await this.props.insertNewsPhoto({
       news_id: newsId,
       name: 'this is only image for test',
@@ -75,24 +104,26 @@ class NewsFeedScene extends Component {
     });
   }
 
-  async post(contentNews, newsPhotos) {
-    // insert news
-    const newNews = await this.postNews(contentNews);
-    // TODO: debug
-    console.log('id', newNews.data.insertNews.id);
+  async _handlePost(contentNews, newsPhotos) {
+    const newNews = await this._handlePostNews(contentNews);
 
     if (newsPhotos) {
       await newsPhotos.map(photo =>
-        this.postPhoto(photo, newNews.data.insertNews.id),
+        this._handlePostPhoto(photo, newNews.data.insertNews.id),
       );
     }
 
     await this._onRefresh();
   }
 
-  _renderNewsFeedPosting(me, username) {
+  _renderNewsFeedPosting(me) {
     return (
-      <NewsFeedPosting userId={me.id} username={username} post={this.post} />
+      <NewsFeedPosting
+        avatar={me.avatar}
+        userId={me.id}
+        username={`${me.firstname} ${me.lastname}`}
+        handlePost={this._handlePost}
+      />
     );
   }
 
@@ -111,7 +142,7 @@ class NewsFeedScene extends Component {
         )}
         keyExtractor={(item, index) => index}
         onRefresh={this._onRefresh}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.8}
         onEndReached={this._onEndReached(allNews)}
       />
     );
@@ -119,7 +150,6 @@ class NewsFeedScene extends Component {
 
   render() {
     const { allNews, networkStatus, me } = this.props;
-    const username = `${me.firstname} ${me.lastname}`;
 
     if (networkStatus === 1) {
       return (
@@ -131,38 +161,12 @@ class NewsFeedScene extends Component {
 
     return (
       <View style={styles.container}>
-        {this._renderNewsFeedPosting(me, username)}
+        {this._renderNewsFeedPosting(me)}
         {this._renderNewsFeedList(allNews, networkStatus, me)}
       </View>
     );
   }
 }
-
-NewsFeedScene.propTypes = {
-  allNews: PropTypes.array,
-  me: PropTypes.object,
-  networkStatus: PropTypes.number,
-  refetch: PropTypes.func,
-  fetchMore: PropTypes.func,
-  home: PropTypes.func,
-  insertNews: PropTypes.func,
-  insertNewsPhoto: PropTypes.func,
-  setTitle: PropTypes.func,
-  toggleHeader: PropTypes.func,
-  toggleFooter: PropTypes.func,
-};
-
-NewsFeedScene.header = {
-  leftIcon: 'drawer',
-  theme: 'dark',
-  backgroundColor: Colors.primary,
-  statusBarBackgroundColor: Colors.primary,
-};
-
-NewsFeedScene.footer = {
-  show: true,
-  activeColor: Colors.primary,
-};
 
 const MeQuery = graphql(gql(QUERY_ME), {
   props: ({ data: { loading, me } }) => ({
