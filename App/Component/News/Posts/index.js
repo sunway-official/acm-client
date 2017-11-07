@@ -14,7 +14,11 @@ import {
   AutoExpandingTextInput,
 } from '~/Component';
 
-// Posts.
+const ImagePickerConfig = {
+  allowsEditing: true,
+  aspect: [4, 3],
+  base64: true,
+};
 
 class Posts extends Component {
   static propTypes = {
@@ -34,6 +38,8 @@ class Posts extends Component {
 
     this._handlePost = this._handlePost.bind(this);
     this._handleCancel = this._handleCancel.bind(this);
+    this._handlePickImage = this._handlePickImage.bind(this);
+    this._handleCaptureImage = this._handleCaptureImage.bind(this);
   }
 
   _handlePost() {
@@ -47,19 +53,25 @@ class Posts extends Component {
     this.props.handleCancel();
   }
 
-  _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-      base64: true,
-    });
+  _pushImagesToArray(result) {
+    imageTemp = this.state.images;
+    imageTemp.push(result);
+    this.setState({ images: imageTemp });
+  }
 
+  async _handlePickImage() {
+    let result = await ImagePicker.launchImageLibraryAsync(ImagePickerConfig);
     if (!result.cancelled) {
-      imageTemp = this.state.images;
-      imageTemp.push(result);
-      this.setState({ images: imageTemp });
+      await this._pushImagesToArray(result);
     }
-  };
+  }
+
+  async _handleCaptureImage() {
+    let result = await ImagePicker.launchCameraAsync(ImagePickerConfig);
+    if (!result.cancelled) {
+      await this._pushImagesToArray(result);
+    }
+  }
 
   _renderHeader() {
     const { text, images } = this.state;
@@ -127,12 +139,16 @@ class Posts extends Component {
         <TouchableView
           rippleColor={Colors.primary}
           borderless={true}
-          onPress={this._pickImage}
+          onPress={this._handlePickImage}
         >
           <Icon name="md-photos" type="ionicon" />
           <Text>Photo</Text>
         </TouchableView>
-        <TouchableView rippleColor={Colors.primary} borderless={true}>
+        <TouchableView
+          rippleColor={Colors.primary}
+          borderless={true}
+          onPress={this._handleCaptureImage}
+        >
           <Icon name="camera" type="material-community" />
           <Text>Camera</Text>
         </TouchableView>

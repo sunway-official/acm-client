@@ -52,7 +52,7 @@ class NewsFeedPosting extends Component {
             {"What's on your mind?"}
           </Text>
         </TouchableView>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this._handleShowModal}>
           <Icon name="camera" type="material-community" />
         </TouchableOpacity>
       </View>
