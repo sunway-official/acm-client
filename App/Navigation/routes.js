@@ -65,12 +65,12 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  appMaps: {
-    name: 'App Maps',
+  maps: {
+    name: 'Maps',
     path: '/maps',
     screen: AppMaps,
     icon: {
-      name: 'newspaper',
+      name: 'google-maps',
       type: 'material-community',
     },
     initial: true,

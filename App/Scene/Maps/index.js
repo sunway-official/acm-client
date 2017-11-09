@@ -72,4 +72,8 @@ const AppMapsWithQuery = graphql(gql(getConferenceByIDQuery), {
   options: () => ({ variables: { id: 1 } }),
 })(AppMaps);
 
+AppMapsWithQuery.drawer = {
+  primary: true,
+};
+
 export default AppMapsWithQuery;
