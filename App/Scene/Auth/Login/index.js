@@ -34,18 +34,12 @@ class LoginScene extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      error: undefined,
-      loading: false,
-    };
-
     this._submit = this._submit.bind(this);
   }
 
-  async _submit(values) {
+  async _submit(values, setFieldError) {
     const { mutate } = this.props;
 
-    this.setState({ loading: true });
     Keyboard.dismiss();
     try {
       const { data: { login: { token, refreshToken } } } = await mutate({
@@ -60,15 +54,11 @@ class LoginScene extends Component {
     } catch ({ graphQLErrors }) {
       const error = graphQLErrors[0];
       if (error.message === 'wrong-email-or-password') {
-        this.setState({
-          error: 'Wrong email or password.',
-          loading: false,
-        });
+        setFieldError('email', 'Wrong email or password!');
       } else if (error.message === 'user-not-exists') {
-        this.setState({
-          error: 'User is not exists',
-          loading: false,
-        });
+        setFieldError('email', 'User is not exist!');
+      } else {
+        setFieldError('email', 'Opps, somethings bad happened!');
       }
     }
   }
@@ -80,12 +70,7 @@ class LoginScene extends Component {
   render() {
     const { navigateToForgotPassword } = this.props;
     return (
-      <LoginForm
-        loading={this.state.loading}
-        loginError={this.state.error}
-        onLogin={this._submit}
-        onNavigate={navigateToForgotPassword}
-      />
+      <LoginForm onLogin={this._submit} onNavigate={navigateToForgotPassword} />
     );
   }
 }

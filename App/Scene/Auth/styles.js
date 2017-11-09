@@ -42,6 +42,15 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     marginHorizontal: Metrics.baseMargin,
   },
+  disabledSubmitButton: {
+    height: Metrics.buttonHeight,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: Metrics.buttonCornerRadius,
+    backgroundColor: Colors.blueGrey,
+    marginHorizontal: Metrics.baseMargin,
+  },
   loadingButton: {
     backgroundColor: Colors.grey,
   },

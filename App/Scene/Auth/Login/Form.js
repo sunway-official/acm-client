@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
-import { required, email, password } from '~/Lib/validate';
-import { Icon } from 'react-native-elements';
 import { Image, View, KeyboardAvoidingView } from 'react-native';
+import {
+  Icon,
+  FormLabel,
+  FormInput,
+  FormValidationMessage,
+} from 'react-native-elements';
+import { withFormik } from 'formik';
+import yup from 'yup';
+
+import { Text, TouchableView, AnimatableView } from '~/Component';
 import { Images, Colors } from '~/Theme';
-import { FormInput, Text, TouchableView, AnimatableView } from '~/Component';
 import styles from '../styles';
+import { PASSWORD_REGEX } from '~/Lib/constants';
 
 const _renderLoadingButton = () => (
   <View style={[styles.submitButton, styles.loadingButton]}>
@@ -26,101 +33,141 @@ const _renderHeaderImage = () => (
   </View>
 );
 
-const _renderForm = () => (
-  <View style={styles.formContainer}>
-    <Field
-      name="email"
-      component={FormInput}
-      validate={[required, email]}
-      placeholder="Email"
-      underlineColorAndroid={'transparent'}
-      keyboardType={'email-address'}
-    />
-    <Field
-      name="password"
-      component={FormInput}
-      validate={[required, password]}
-      placeholder="Password"
-      underlineColorAndroid={'transparent'}
-      secureTextEntry={true}
-      returnKeyType={'done'}
-    />
-  </View>
-);
-
-const _renderButton = args => {
-  const { handleSubmit, onLogin, loading } = args;
-  return (
-    <View style={styles.buttonContainer}>
-      {loading ? (
-        _renderLoadingButton()
-      ) : (
-        <TouchableView
-          onPress={handleSubmit(onLogin)}
-          style={styles.submitButton}
-        >
-          <Text bold style={styles.buttonText}>
-            LOGIN
-          </Text>
-        </TouchableView>
-      )}
-    </View>
-  );
-};
-
-const _renderFooter = onNavigate => (
-  <View>
-    <TouchableView onPress={onNavigate}>
-      <Text style={styles.footerText}>Forgot your password.</Text>
-      <Text medium style={styles.signUpText}>
-        {"Don't have an account. Register"}
-      </Text>
-    </TouchableView>
-  </View>
-);
-
-const _renderError = error => (
-  <View>
-    {error === undefined || <Text style={styles.errorText}>{error}</Text>}
-  </View>
-);
-
 const LoginForm = ({
-  onLogin,
   onNavigate,
+  values,
   handleSubmit,
-  loading,
-  loginError,
+  setFieldValue,
+  setFieldTouched,
+  dirty,
+  isValid,
+  isSubmitting,
+  errors,
+  touched,
 }) => {
+  const isInvalid = dirty && !isValid;
   return (
     <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
       {_renderHeaderImage()}
-      {_renderForm()}
-      {_renderError(loginError)}
-      {_renderButton({ handleSubmit, onLogin, loading })}
-      {_renderFooter(onNavigate)}
+      <View style={styles.formContainer}>
+        <FormLabel>Email</FormLabel>
+        <FormInput
+          name="email"
+          value={values.email}
+          onChangeText={text => {
+            setFieldValue('email', text);
+            setFieldTouched('email', true);
+          }}
+          onBlur={() => {
+            setFieldTouched('password', false);
+          }}
+        />
+        {touched.email &&
+          errors.email && (
+            <FormValidationMessage>{errors.email}</FormValidationMessage>
+          )}
+
+        <FormLabel>Password</FormLabel>
+        <FormInput
+          name="password"
+          secureTextEntry
+          value={values.password}
+          onChangeText={text => {
+            setFieldValue('password', text);
+            setFieldTouched('password', true);
+          }}
+          onBlur={() => {
+            setFieldTouched('password', false);
+          }}
+        />
+        {touched.password &&
+          errors.password && (
+            <FormValidationMessage>{errors.password}</FormValidationMessage>
+          )}
+      </View>
+      <View style={styles.buttonContainer}>
+        {isSubmitting ? (
+          _renderLoadingButton()
+        ) : (
+          <TouchableView
+            disabled={isInvalid}
+            onPress={handleSubmit}
+            style={
+              dirty && !isValid
+                ? styles.disabledSubmitButton
+                : styles.submitButton
+            }
+          >
+            <Text bold style={styles.buttonText}>
+              LOGIN
+            </Text>
+          </TouchableView>
+        )}
+      </View>
+      <View>
+        <TouchableView onPress={onNavigate}>
+          <Text style={styles.footerText}>Forgot your password.</Text>
+          <Text medium style={styles.signUpText}>
+            {"Don't have an account. Register"}
+          </Text>
+        </TouchableView>
+      </View>
     </KeyboardAvoidingView>
   );
-};
-
-LoginForm.defaultProps = {
-  error: null,
 };
 
 LoginForm.propTypes = {
   onLogin: PropTypes.func,
   onNavigate: PropTypes.func,
-  handleSubmit: PropTypes.func,
-  reset: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  invalid: PropTypes.bool.isRequired,
-  error: PropTypes.string,
-  loginError: PropTypes.string,
-  loading: PropTypes.bool,
+  // Formik goodies
+  values: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }).isRequired,
+  setFieldValue: PropTypes.func.isRequired,
+  setFieldTouched: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  dirty: PropTypes.bool.isRequired,
+  isValid: PropTypes.bool.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({
+    email: PropTypes.string,
+    password: PropTypes.string,
+  }),
+  touched: PropTypes.shape({
+    email: PropTypes.bool,
+    password: PropTypes.bool,
+  }).isRequired,
 };
 
-LoginForm = reduxForm({
-  form: 'login',
-})(LoginForm);
+LoginForm.defaultProps = {
+  touched: {
+    email: false,
+    password: false,
+  },
+};
 
-export default LoginForm;
+export default withFormik({
+  displayName: 'LoginFormContainer',
+  mapPropsToValues: props => ({
+    email: '',
+    password: '',
+  }),
+  validationSchema: yup.object().shape({
+    email: yup
+      .string()
+      .required('Email is required!')
+      .email('Invalid email address'),
+    password: yup
+      .string()
+      .required('Password is required')
+      .matches(PASSWORD_REGEX, 'Invalid password!'),
+  }),
+  validateOnBlur: true,
+  validateOnChange: true,
+  handleSubmit: (values, { props, setSubmitting, setFieldError }) => {
+    setSubmitting(true);
+    props.onLogin(values, setFieldError);
+    setSubmitting(false);
+  },
+})(LoginForm);

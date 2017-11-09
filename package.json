@@ -33,6 +33,7 @@
     "aws-sdk": "^2.141.0",
     "buffer": "^4.9.1",
     "expo": "21.0.2",
+    "formik": "^0.10.3",
     "graphql": "^0.10.5",
     "immutable": "^4.0.0-rc.9",
     "moment": "^2.18.1",
@@ -52,7 +53,8 @@
     "redux-form": "^7.1.1",
     "redux-thunk": "^2.2.0",
     "subscriptions-transport-ws": "^0.9.1",
-    "uuid": "^3.1.0"
+    "uuid": "^3.1.0",
+    "yup": "^0.23.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
