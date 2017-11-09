@@ -1,33 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
-import { View, Text, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { MapView } from 'expo';
-
 import { graphql, gql } from 'react-apollo';
-
+import { LoadingIndicator } from '~/Component';
+import { Colors } from '~/Theme';
 import getConferenceByIDQuery from '~/Graphql/query/getConferenceById.graphql';
+import styles from './styles';
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-});
-
-class AppMaps extends PureComponent {
+class ConferenceLocation extends PureComponent {
   static propTypes = {
     data: PropTypes.objectOf(PropTypes.any),
   };
@@ -36,7 +17,7 @@ class AppMaps extends PureComponent {
     return (
       <View style={styles.container}>
         {loading ? (
-          <Text>Loading...</Text>
+          <LoadingIndicator />
         ) : (
           <MapView
             style={styles.map}
@@ -68,12 +49,22 @@ class AppMaps extends PureComponent {
   }
 }
 
-const AppMapsWithQuery = graphql(gql(getConferenceByIDQuery), {
-  options: () => ({ variables: { id: 1 } }),
-})(AppMaps);
+const ConferenceLocationWrapper = graphql(gql(getConferenceByIDQuery), {
+  options: () => ({
+    variables: {
+      // Will handle this issue later
+      id: 1,
+    },
+  }),
+})(ConferenceLocation);
 
-AppMapsWithQuery.drawer = {
+ConferenceLocationWrapper.drawer = {
   primary: true,
 };
 
-export default AppMapsWithQuery;
+ConferenceLocationWrapper.header = {
+  theme: 'dark',
+  statusBarBackgroundColor: Colors.primary,
+};
+
+export default ConferenceLocationWrapper;
