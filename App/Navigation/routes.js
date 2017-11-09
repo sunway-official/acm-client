@@ -64,6 +64,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
+    initial: true,
   },
   myAgenda: {
     name: 'My Agenda',
@@ -106,7 +107,6 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: false,
   },
   profileEditing: {
     name: 'Edit Profile',
@@ -145,7 +145,6 @@ export const ROUTES = {
       name: 'google-maps',
       type: 'material-community',
     },
-    initial: true,
   },
 };
 
