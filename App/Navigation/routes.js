@@ -10,6 +10,7 @@ import Setting from '~/Scene/Setting';
 import { Agenda, MyAgenda } from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
 import ChangePassword from '~/Scene/Profile/ChangePassword';
+import AppMaps from '~/Scene/Maps';
 
 export const ROUTES = {
   splash: {
@@ -64,6 +65,16 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
+  appMaps: {
+    name: 'App Maps',
+    path: '/maps',
+    screen: AppMaps,
+    icon: {
+      name: 'newspaper',
+      type: 'material-community',
+    },
+    initial: true,
+  },
   myAgenda: {
     name: 'My Agenda',
     path: '/my-agenda',
@@ -105,7 +116,7 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
+    initial: false,
   },
   profileEditing: {
     name: 'Edit Profile',
