@@ -1,33 +1,30 @@
-query getNewsByUserID($user_id: ID!){
-  getNewsByUserID(user_id: $user_id) {
+query getConferenceByIDQuery($id: ID!) {
+  getConferenceByID(id: $id) {
     id
-    user{
+    title
+    description
+    start_date
+    end_date
+    organizerDetail {
       id
-      firstname
-      lastname
-      avatar
+      name
+      email
+      website
+      phone
     }
-    content
-    newsPhotos {
+    coOrganizerDetails {
       id
-      url
-    }
-    newsLikes {
-      id
-      created_at
-      updated_at
-    }
-    newsComments {
-      user {
-        firstname
-        lastname
-        avatar
+      name
+      email
+      website
+      phone
+      conference {
+        id
       }
-      content
-      created_at
-      updated_at
     }
-    created_at
-    updated_at
+    address {
+      lat
+      long
+    }
   }
 }
