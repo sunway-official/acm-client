@@ -45,7 +45,9 @@ class Comment extends Component {
             <Text style={styles.textColor}>{createdAt}</Text>
           </View>
           <Text>{comment.content}</Text>
-          {/*<View style={styles.rightFooterOfComment}>
+          {/*
+          // TODO: waiting for mutation
+          <View style={styles.rightFooterOfComment}>
             <View style={styles.interactionContainer}>
               <TouchableOpacity>
                 <Text style={styles.replyTextStyle}>Reply</Text>
