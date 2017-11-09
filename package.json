@@ -19,7 +19,8 @@
     "fix-react-navigation": "cp -r Lib/react-navigation node_modules",
     "postinstall": "run-p rndebugger-open fix-react-navigation",
     "precommit": "run-s lint-staged lint",
-    "prettier-eslint:fix:App": "prettier-eslint \"App/**/*.js\" --single-quote --trailing-comma all --print-width 80 --tab-width 2 --write",
+    "prettier-eslint:fix:App":
+      "prettier-eslint \"App/**/*.js\" --single-quote --trailing-comma all --print-width 80 --tab-width 2 --write",
     "prettier-eslint:fix": "run-s prettier-eslint:fix:App"
   },
   "lint-staged": {
