@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '~/Theme';
-import { Metrics, Fonts } from '../../../../Theme/index';
+import { Metrics, Fonts } from '~/Theme/index';
 
 const sceneHeight =
   Metrics.screenHeight - Metrics.toolBarHeight - Metrics.statusBarHeight;

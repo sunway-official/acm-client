@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image } from 'react-native';
+import { Image } from 'react-native';
 import { Text, TouchableView } from '~/Component';
 import styles from './styles';
 import { randomBackground } from './fixtures';
