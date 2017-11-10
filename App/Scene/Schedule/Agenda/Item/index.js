@@ -10,6 +10,10 @@ import insertMutation from '~/Graphql/mutation/insertPersonalSchedule.graphql';
 import deleteMutation from '~/Graphql/mutation/deletePersonalSchedule.graphql';
 import query from '~/Graphql/query/me.graphql';
 import styles from './styles';
+import {
+  dateComparison,
+  timeComparison,
+} from '../../../../Transformer/schedules/dateComparison';
 
 const DEFAULT_ITEM_ICON = {
   type: 'material-community',
@@ -59,12 +63,11 @@ class Item extends Component {
   }
 
   _insertPersonalSchedule(item) {
+    console.log('inserted');
     const { data: { me }, insertMutation } = this.props;
     this._mutate(insertMutation, {
       user_id: me.id,
       schedule_id: item.id,
-      conference_id: item.activity.conference.id,
-      activity_id: item.activity.id,
     });
   }
 
@@ -76,6 +79,7 @@ class Item extends Component {
   }
 
   _onCheck(item) {
+    console.log(item);
     this.setState({ item: { ...item, existed: !item.existed } }, () => {
       this.state.item.existed
         ? this._insertPersonalSchedule(this.state.item)
@@ -103,14 +107,13 @@ class Item extends Component {
         </TouchableView>
         <View style={styles.timeWrapper}>
           <Text bold>{transformServerDate.toLocalTime(item.start)}</Text>
-          <Text bold style={{ textAlign: 'center' }}>
-            -
-          </Text>
-          <Text bold>{transformServerDate.toLocalTime(item.end)}</Text>
         </View>
         <View style={styles.infoWrapper}>
           <Text style={styles.primaryText}>{item.activity.title}</Text>
           <Text style={styles.secondaryText}>{item.room.name}</Text>
+          <Text style={styles.secondaryText}>
+            Finish: {transformServerDate.toLocalTime(item.end)}
+          </Text>
         </View>
       </View>
     );

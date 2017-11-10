@@ -38,7 +38,6 @@ class MyAgendaItem extends Component {
 
   render() {
     const { activities, date } = this.props;
-
     const momentDate = moment(new Date(date));
     const day = momentDate.format('D');
     const stringDay = momentDate.format('ddd');

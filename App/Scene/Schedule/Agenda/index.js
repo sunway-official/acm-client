@@ -15,6 +15,7 @@ import transformExistedSchedule from '~/Transformer/schedules/existedSchedule';
 import queryAgenda from '~/Graphql/query/getAgenda.graphql';
 import queryMyAgenda from '~/Graphql/query/getMyAgenda.graphql';
 import styles from './styles';
+import { timeComparison } from '../../../Transformer/schedules/dateComparison';
 
 const TABS_CONFIG = {
   tabBarComponent: TabBarTop,
@@ -73,6 +74,8 @@ class Agenda extends Component {
       agenda: { data: { getAllSchedules } },
       myAgenda: { data: { getAllPersonalSchedules } },
     } = this.props;
+    console.log('agenda: ', getAllSchedules);
+    console.log('my agenda: ', getAllPersonalSchedules);
     const filteredSchedules = transformExistedSchedule(
       getAllSchedules,
       getAllPersonalSchedules,
