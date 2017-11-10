@@ -10,7 +10,7 @@ import Setting from '~/Scene/Setting';
 import { Agenda, MyAgenda } from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
 import ChangePassword from '~/Scene/Profile/ChangePassword';
-import { ConferenceLocation } from '~/Scene/Conference';
+import { ConferenceLocation, ConferenceList } from '~/Scene/Conference';
 
 export const ROUTES = {
   splash: {
@@ -143,6 +143,15 @@ export const ROUTES = {
     screen: ConferenceLocation,
     icon: {
       name: 'google-maps',
+      type: 'material-community',
+    },
+  },
+  conferenceList: {
+    name: 'Switch Conference',
+    path: '/conference/list',
+    screen: ConferenceList,
+    icon: {
+      name: 'apps',
       type: 'material-community',
     },
   },
