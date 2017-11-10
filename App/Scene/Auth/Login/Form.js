@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image, View, KeyboardAvoidingView } from 'react-native';
-import {
-  Icon,
-  FormLabel,
-  FormInput,
-  FormValidationMessage,
-} from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import { withFormik } from 'formik';
 import yup from 'yup';
 
 import { Text, TouchableView, AnimatableView } from '~/Component';
 import { Images, Colors } from '~/Theme';
+import AppFormInput from '~/Component/AppFormInput';
 import styles from '../styles';
 import { PASSWORD_REGEX } from '~/Lib/constants';
 
@@ -50,40 +46,26 @@ const LoginForm = ({
     <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
       {_renderHeaderImage()}
       <View style={styles.formContainer}>
-        <FormLabel>Email</FormLabel>
-        <FormInput
+        <AppFormInput
           name="email"
+          label="Email"
           value={values.email}
-          onChangeText={text => {
-            setFieldValue('email', text);
-            setFieldTouched('email', true);
-          }}
-          onBlur={() => {
-            setFieldTouched('password', false);
-          }}
+          error={errors.email}
+          touched={touched.email}
+          setValue={setFieldValue}
+          toggleTouched={setFieldTouched}
         />
-        {touched.email &&
-          errors.email && (
-            <FormValidationMessage>{errors.email}</FormValidationMessage>
-          )}
 
-        <FormLabel>Password</FormLabel>
-        <FormInput
+        <AppFormInput
           name="password"
-          secureTextEntry
+          label="Password"
           value={values.password}
-          onChangeText={text => {
-            setFieldValue('password', text);
-            setFieldTouched('password', true);
-          }}
-          onBlur={() => {
-            setFieldTouched('password', false);
-          }}
+          error={errors.password}
+          touched={touched.password}
+          setValue={setFieldValue}
+          toggleTouched={setFieldTouched}
+          secureTextEntry
         />
-        {touched.password &&
-          errors.password && (
-            <FormValidationMessage>{errors.password}</FormValidationMessage>
-          )}
       </View>
       <View style={styles.buttonContainer}>
         {isSubmitting ? (
@@ -149,7 +131,7 @@ LoginForm.defaultProps = {
 
 export default withFormik({
   displayName: 'LoginFormContainer',
-  mapPropsToValues: props => ({
+  mapPropsToValues: () => ({
     email: '',
     password: '',
   }),
