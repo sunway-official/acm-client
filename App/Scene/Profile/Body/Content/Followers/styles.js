@@ -5,6 +5,9 @@ const { baseMargin, smallMargin } = Metrics;
 const { white, grey, red } = Colors;
 
 export default StyleSheet.create({
+  container: {
+    marginBottom: baseMargin,
+  },
   followerContainer: {
     flexDirection: 'row',
     alignItems: 'center',

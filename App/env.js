@@ -2,8 +2,10 @@ import { transformServerEndPoint } from '~/Transformer';
 import { Constants } from 'expo';
 import { Platform } from 'react-native';
 import env from '../env';
+
 /**
  * Export local env
+ *
  */
 
 // Check if App is using remote debugging
@@ -14,7 +16,9 @@ export const IS_IOS = Platform.OS === 'ios';
 
 /**
  * Export global env
+ *
  */
+
 // Export all default enviroment
 Object.keys(env).map(key => {
   // console.log(key);
