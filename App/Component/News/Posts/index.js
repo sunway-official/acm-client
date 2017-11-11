@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { ImagePicker } from 'expo';
 
 import styles from './styles';
-import { Colors } from '~/Theme';
-import {
-  UserAvatar,
-  TouchableView,
-  Text,
-  Modal,
-  AutoExpandingTextInput,
-} from '~/Component';
+import { Modal, AutoExpandingTextInput } from '~/Component';
+
+import PostsHeader from './Header';
+import PostContent from './Content';
+import PostActions from './Actions';
 
 const ImagePickerConfig = {
   allowsEditing: true,
@@ -76,28 +71,14 @@ class Posts extends Component {
   _renderHeader() {
     const { text, images } = this.state;
     let isDisabled = text === '' && images.length === 0;
+    console.log(isDisabled);
 
     return (
-      <View style={styles.header}>
-        <TouchableView onPress={this._handleCancel}>
-          <Text bold style={{ color: Colors.primary }}>
-            Cancel
-          </Text>
-        </TouchableView>
-        <Text bold medium>
-          Update Status
-        </Text>
-        <TouchableView onPress={this._handlePost} disabled={isDisabled}>
-          <Text
-            bold
-            style={
-              isDisabled ? { color: Colors.grey } : { color: Colors.primary }
-            }
-          >
-            Post
-          </Text>
-        </TouchableView>
-      </View>
+      <PostsHeader
+        onPressCancel={this._handleCancel}
+        onPressPost={this._handlePost}
+        isDisabled={isDisabled}
+      />
     );
   }
 
@@ -105,13 +86,7 @@ class Posts extends Component {
     let { images } = this.state;
 
     return (
-      <View style={styles.content}>
-        <View style={styles.contentUserInformation}>
-          <UserAvatar small avatar={avatar} />
-          <Text bold style={styles.contentUsername}>
-            {username}
-          </Text>
-        </View>
+      <PostContent avatar={avatar} images={images}>
         <AutoExpandingTextInput
           value={this.state.text}
           placeholder={"What's on your mind?"}
@@ -119,40 +94,16 @@ class Posts extends Component {
           enablesReturnKeyAutomatically={true}
           returnKeyType="done"
         />
-        <View style={styles.imagesContainer}>
-          {images &&
-            images.map((image, index) => (
-              <Image
-                key={index}
-                source={{ uri: image.uri }}
-                style={styles.imageUploaded}
-              />
-            ))}
-        </View>
-      </View>
+      </PostContent>
     );
   }
 
   _renderActions() {
     return (
-      <View style={styles.action}>
-        <TouchableView
-          rippleColor={Colors.primary}
-          borderless={true}
-          onPress={this._handlePickImage}
-        >
-          <Icon name="md-photos" type="ionicon" />
-          <Text>Photo</Text>
-        </TouchableView>
-        <TouchableView
-          rippleColor={Colors.primary}
-          borderless={true}
-          onPress={this._handleCaptureImage}
-        >
-          <Icon name="camera" type="material-community" />
-          <Text>Camera</Text>
-        </TouchableView>
-      </View>
+      <PostActions
+        onPressUploadImage={this._handlePickImage}
+        onPressCaptureImage={this._handleCaptureImage}
+      />
     );
   }
 
