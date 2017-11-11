@@ -63,7 +63,6 @@ class Item extends Component {
   }
 
   _insertPersonalSchedule(item) {
-    console.log('inserted');
     const { data: { me }, insertMutation } = this.props;
     this._mutate(insertMutation, {
       user_id: me.id,
@@ -79,7 +78,6 @@ class Item extends Component {
   }
 
   _onCheck(item) {
-    console.log(item);
     this.setState({ item: { ...item, existed: !item.existed } }, () => {
       this.state.item.existed
         ? this._insertPersonalSchedule(this.state.item)
@@ -105,12 +103,13 @@ class Item extends Component {
             )}
           </View>
         </TouchableView>
+
         <View style={styles.timeWrapper}>
           <Text bold>{transformServerDate.toLocalTime(item.start)}</Text>
         </View>
         <View style={styles.infoWrapper}>
-          <Text style={styles.primaryText}>{item.activity.title}</Text>
-          <Text style={styles.secondaryText}>{item.room.name}</Text>
+          <Text style={styles.primaryText}>{item.activity_title}</Text>
+          <Text style={styles.secondaryText}>{item.room_name}</Text>
           <Text style={styles.secondaryText}>
             Finish: {transformServerDate.toLocalTime(item.end)}
           </Text>

@@ -74,15 +74,16 @@ class Agenda extends Component {
       agenda: { data: { getAllSchedules } },
       myAgenda: { data: { getAllPersonalSchedules } },
     } = this.props;
-    console.log('agenda: ', getAllSchedules);
-    console.log('my agenda: ', getAllPersonalSchedules);
+    console.log('getAllSchedules: ', getAllSchedules);
+    console.log('getAllPersonalSchedules: ', getAllPersonalSchedules);
     const filteredSchedules = transformExistedSchedule(
       getAllSchedules,
       getAllPersonalSchedules,
-      'existed',
     );
     const schedules = transformer(filteredSchedules, 'start');
     let tabs = {};
+
+    console.log('schedules: ', schedules);
 
     schedules.map((schedule, index) => {
       const key = 'Day ' + (index + 1);
@@ -110,7 +111,7 @@ class Agenda extends Component {
   }
 
   render() {
-    const { agenda: { data: { loading } } } = this.props;
+    const { agenda: { data: { loading, getAllSchedules } } } = this.props;
     const isFilterOpen = this.props.modal.isOpen;
     const Tabs = loading ? this._renderLoading() : this._renderTabs();
     return (

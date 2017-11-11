@@ -3,25 +3,9 @@
     id
     start
     end
-    room {
-      id
-      name
-    }
-    activity {
-      id
-      title
-      description
-      status
-      conference {
-        id
-      }
-      activityTopics {
-        id
-        topic {
-          description
-          name
-        }
-      }
-    }
+    activity_title
+    activity_status
+    activity_description
+    room_name
   }
 }
