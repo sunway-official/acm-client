@@ -30,7 +30,7 @@ const PostsContent = ({ children, avatar, username, images }) => (
 PostsContent.propTypes = {
   avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   username: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   images: PropTypes.array,
 };
 

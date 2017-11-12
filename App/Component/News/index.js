@@ -4,7 +4,6 @@ import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
 import moment from 'moment';
 
-import { Images } from '~/Theme';
 import { Text } from '~/Component';
 import styles from './styles';
 
@@ -15,8 +14,6 @@ import NewsPhotoView from './PhotoView.js';
 
 import MUTATION_INSERT_NEWS_LIKE from '~/Graphql/mutation/insertNewsLike.graphql';
 import MUTATION_DELETE_NEWS_LIKE from '~/Graphql/mutation/deleteNewsLike.graphql';
-
-const defaultAvatar = Images.avatar['male08'];
 
 const formatCreatedAt = createdAt =>
   moment(createdAt).calendar(null, {
@@ -71,7 +68,7 @@ class News extends Component {
 
   _renderNewsHeader(item, createdAt) {
     let username = `${item.user.firstname} ${item.user.lastname}`;
-    let avatar = item.user.avatar === null ? defaultAvatar : item.user.avatar;
+    let avatar = item.user.avatar === null ? 25 : item.user.avatar;
 
     return (
       <NewsHeader avatar={avatar} username={username} createdAt={createdAt} />
@@ -109,7 +106,7 @@ class News extends Component {
   }
 
   _renderCommentBox(item, createdAt, userId, onRefresh) {
-    let avatar = item.user.avatar === null ? defaultAvatar : item.user.avatar;
+    let avatar = item.user.avatar === null ? 25 : item.user.avatar;
 
     return (
       <Comments

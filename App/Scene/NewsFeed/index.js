@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 import { FlatList } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
-import { S3 } from '~/Provider';
 import styles from './styles';
 import { Colors } from '~/Theme';
 import { News, LoadingIndicator } from '~/Component';
-import NewsFeedPosting from './NewsFeedPosting';
+import NewsFeedFakePosting from './NewsFeedFakePosting';
 
 import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
-import MUTATION_INSERT_NEWS from '~/Graphql/mutation/insertNews.graphql';
-import MUTATION_INSERT_NEWS_PHOTO from '~/Graphql/mutation/insertNewsPhoto.graphql';
 
 // const isDuplicateNews = (newNews, existingNews) => {
 //   if (existingNews !== undefined) {
@@ -33,8 +30,6 @@ class NewsFeedScene extends Component {
     refetch: PropTypes.func,
     fetchMore: PropTypes.func,
     home: PropTypes.func,
-    insertNews: PropTypes.func,
-    insertNewsPhoto: PropTypes.func,
     setTitle: PropTypes.func,
     toggleHeader: PropTypes.func,
     toggleFooter: PropTypes.func,
@@ -57,7 +52,6 @@ class NewsFeedScene extends Component {
 
     this._onRefresh = this._onRefresh.bind(this);
     this._onEndReached = this._onEndReached.bind(this);
-    this._handlePost = this._handlePost.bind(this);
   }
 
   _onRefresh() {
@@ -83,46 +77,12 @@ class NewsFeedScene extends Component {
     });
   }
 
-  _handlePostNews(content) {
-    return this.props.insertNews({
-      userId: this.props.me.id,
-      conferenceId: 1,
-      contentNews: content,
-    });
-  }
-
-  async _handlePostPhoto(photo, newsId) {
-    const { uri, base64 } = photo;
-    const { Key } = await S3.putAsync({ uri, base64 });
-    console.log('key ', Key);
-
-    // TODO: fill name for news photo
-    await this.props.insertNewsPhoto({
-      news_id: newsId,
-      name: 'this is only image for test',
-      url: Key,
-    });
-  }
-
-  async _handlePost(contentNews, newsPhotos) {
-    const newNews = await this._handlePostNews(contentNews);
-
-    if (newsPhotos) {
-      await newsPhotos.map(photo =>
-        this._handlePostPhoto(photo, newNews.data.insertNews.id),
-      );
-    }
-
-    await this._onRefresh();
-  }
-
-  _renderNewsFeedPosting(me) {
+  _renderNewsFeedFakePosting(me) {
     return (
-      <NewsFeedPosting
+      <NewsFeedFakePosting
         avatar={me.avatar}
         userId={me.id}
         username={`${me.firstname} ${me.lastname}`}
-        handlePost={this._handlePost}
       />
     );
   }
@@ -143,7 +103,7 @@ class NewsFeedScene extends Component {
         keyExtractor={(item, index) => index}
         onRefresh={this._onRefresh}
         onEndReachedThreshold={0.8}
-        onEndReached={this._onEndReached(allNews)}
+        onEndReached={() => this._onEndReached(allNews)}
       />
     );
   }
@@ -161,7 +121,7 @@ class NewsFeedScene extends Component {
 
     return (
       <View style={styles.container}>
-        {this._renderNewsFeedPosting(me)}
+        {this._renderNewsFeedFakePosting(me)}
         {this._renderNewsFeedList(allNews, networkStatus, me)}
       </View>
     );
@@ -188,47 +148,4 @@ const AllNewsQuery = graphql(gql(QUERY_ALL_NEWS), {
   },
 });
 
-const NewsFeedPostingMutation = graphql(gql(MUTATION_INSERT_NEWS), {
-  props: ({ mutate }) => ({
-    insertNews: ({ userId, conferenceId, contentNews }) =>
-      mutate({
-        variables: { userId, conferenceId, contentNews },
-        // update: (store, { data: { insertNews } }) => {
-        //   const data = store.readQuery({
-        //     query: gql(QUERY_ALL_NEWS),
-        //     variables: {
-        //       id: insertNews.id,
-        //     },
-        //   });
-
-        //   if (isDuplicateNews(insertNews, data.getAllNews)) {
-        //     return data;
-        //   }
-
-        //   store.writeQuery({
-        //     query: gql(QUERY_ALL_NEWS),
-        //     variables: {
-        //       id: insertNews.id,
-        //     },
-        //     data,
-        //   });
-        // },
-      }),
-  }),
-});
-
-const NewsFeedPostingPhotoMutation = graphql(gql(MUTATION_INSERT_NEWS_PHOTO), {
-  props: ({ mutate }) => ({
-    insertNewsPhoto: ({ news_id, name, url }) =>
-      mutate({
-        variables: { news_id, name, url },
-      }),
-  }),
-});
-
-export default compose(
-  AllNewsQuery,
-  MeQuery,
-  NewsFeedPostingMutation,
-  NewsFeedPostingPhotoMutation,
-)(NewsFeedScene);
+export default compose(AllNewsQuery, MeQuery)(NewsFeedScene);
