@@ -55,6 +55,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
+    initial: true,
   },
   myAgenda: {
     name: 'My Agenda',
@@ -144,7 +145,6 @@ export const ROUTES = {
       name: 'apps',
       type: 'material-community',
     },
-    initial: true,
   },
   setting: {
     name: 'Setting',
