@@ -5,6 +5,11 @@ import { Text, TouchableView } from '~/Component';
 import styles from './styles';
 import { randomBackground } from './fixtures';
 import { transformText } from '~/Transformer';
+import { withApollo, gql } from 'react-apollo';
+import SWITCH_CURRENT_CONFERENCE from '~/Graphql/mutation/switchtCurrentConference.graphql';
+import GET_CURRENT_CONFERENCE from '~/Graphql/query/getCurrentConference.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
+import { Colors } from '~/Theme';
 
 class ConferenceItem extends PureComponent {
   constructor(props) {
@@ -13,10 +18,31 @@ class ConferenceItem extends PureComponent {
     this.state = {
       shortenDescription: true,
     };
+    this.switchConference = this.switchConference.bind(this);
   }
 
   componentWillMount() {
     this.uri = randomBackground();
+  }
+
+  async switchConference() {
+    const { client, id } = this.props;
+
+    await client.mutate({
+      mutation: gql(SWITCH_CURRENT_CONFERENCE),
+      variables: {
+        conference_id: id,
+      },
+    });
+    // Refetch query me & current conference to update current conference
+    await Promise.all([
+      client.query({
+        query: gql(QUERY_ME),
+      }),
+      client.query({
+        query: gql(GET_CURRENT_CONFERENCE),
+      }),
+    ]);
   }
 
   render() {
@@ -29,7 +55,11 @@ class ConferenceItem extends PureComponent {
         }}
         resizeMode={'cover'}
       >
-        <TouchableView style={styles.container} rippleColor={'white'}>
+        <TouchableView
+          style={styles.container}
+          rippleColor={Colors.white}
+          onPress={this.switchConference}
+        >
           <TouchableView
             style={styles.infoContainer}
             onPress={() =>
@@ -55,6 +85,7 @@ class ConferenceItem extends PureComponent {
 ConferenceItem.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
+  client: PropTypes.any,
 };
 
-export default ConferenceItem;
+export default withApollo(ConferenceItem);

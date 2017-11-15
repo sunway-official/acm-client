@@ -58,28 +58,24 @@ class LoginScene extends Component {
         ['refreshToken', refreshToken],
       ]);
       await this.props.client.resetStore();
-
       // Refetch QUERY_ME for checking current conference
-      const { data: { me: { currentConference } } } = await client.query({
-        query: gql(QUERY_ME),
-      });
-      if (currentConference === null) {
-        this.props.navigateToInitialRoute();
-      } else {
-        this.props.navigateToConferencesList();
-      }
+      await client.query({ query: gql(QUERY_ME) });
+      // Navigate to initial route if there is no problems
+      this.props.navigateToInitialRoute();
     } catch ({ graphQLErrors }) {
       const error = graphQLErrors[0];
-      if (error.message === 'wrong-email-or-password') {
+      if (error.message.includes('wrong-email-or-password')) {
         this.setState({
           error: 'Wrong email or password.',
           loading: false,
         });
-      } else if (error.message === 'user-not-exists') {
+      } else if (error.message.includes('user-not-exists')) {
         this.setState({
           error: 'User is not exists',
           loading: false,
         });
+      } else if (error.message.includes('no-current-conference')) {
+        this.props.navigateToConferencesList();
       }
     }
   }

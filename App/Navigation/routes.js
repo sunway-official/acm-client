@@ -47,15 +47,6 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  setting: {
-    name: 'Setting',
-    path: '/setting',
-    screen: Setting,
-    icon: {
-      name: 'settings',
-      type: 'material-community',
-    },
-  },
   newsFeed: {
     name: 'News Feed',
     path: '/news-feed',
@@ -64,7 +55,6 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    initial: true,
   },
   myAgenda: {
     name: 'My Agenda',
@@ -147,11 +137,21 @@ export const ROUTES = {
     },
   },
   conferenceList: {
-    name: 'Switch Conference',
+    name: 'Conferences',
     path: '/conference/list',
     screen: ConferenceList,
     icon: {
       name: 'apps',
+      type: 'material-community',
+    },
+    initial: true,
+  },
+  setting: {
+    name: 'Setting',
+    path: '/setting',
+    screen: Setting,
+    icon: {
+      name: 'settings',
       type: 'material-community',
     },
   },
