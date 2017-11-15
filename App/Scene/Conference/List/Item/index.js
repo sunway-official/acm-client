@@ -29,7 +29,7 @@ class ConferenceItem extends PureComponent {
   }
 
   async switchConference() {
-    const { client, id, navigateToInitialRoute } = this.props;
+    const { client, id, navigateToInitialScene } = this.props;
 
     await client.mutate({
       mutation: gql(SWITCH_CURRENT_CONFERENCE),
@@ -47,7 +47,7 @@ class ConferenceItem extends PureComponent {
     });
     // ]);
 
-    navigateToInitialRoute();
+    navigateToInitialScene();
   }
 
   render() {
@@ -91,11 +91,11 @@ ConferenceItem.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   client: PropTypes.any,
-  navigateToInitialRoute: PropTypes.func,
+  navigateToInitialScene: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
-  navigateToInitialRoute: () =>
+  navigateToInitialScene: () =>
     dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
 });
 

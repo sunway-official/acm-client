@@ -15,7 +15,7 @@ class Root extends Component {
     back: PropTypes.func,
     login: PropTypes.func,
     setUser: PropTypes.func,
-    navigateToInitialRoute: PropTypes.func,
+    navigateToInitialScene: PropTypes.func,
     navigateToConferencesList: PropTypes.func,
     client: PropTypes.object,
     data: PropTypes.shape({
@@ -34,7 +34,7 @@ class Root extends Component {
       if (currentConference === null) {
         this.props.navigateToConferencesList();
       } else {
-        this.props.navigateToInitialRoute();
+        this.props.navigateToInitialScene();
       }
     } catch (error) {
       this.props.login();
@@ -59,7 +59,7 @@ const mapDispatchToProps = dispatch => {
   return {
     back: () => dispatch(NavigationActions.back()),
     login: () => dispatch(NavigationActions.reset({ routeName: 'login' })),
-    navigateToInitialRoute: () =>
+    navigateToInitialScene: () =>
       dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
     navigateToConferencesList: () =>
       dispatch(NavigationActions.reset({ routeName: 'conferenceList' })),
