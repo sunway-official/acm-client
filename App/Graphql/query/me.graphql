@@ -1,6 +1,9 @@
 query {
   me {
     id
+    currentConference {
+      id
+    }
     firstname
     lastname
     dob

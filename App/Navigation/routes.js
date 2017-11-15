@@ -10,7 +10,7 @@ import Setting from '~/Scene/Setting';
 import { Agenda, MyAgenda } from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
 import ChangePassword from '~/Scene/Profile/ChangePassword';
-import { ConferenceLocation } from '~/Scene/Conference';
+import { ConferenceLocation, ConferenceList } from '~/Scene/Conference';
 
 export const ROUTES = {
   splash: {
@@ -47,15 +47,6 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  setting: {
-    name: 'Setting',
-    path: '/setting',
-    screen: Setting,
-    icon: {
-      name: 'settings',
-      type: 'material-community',
-    },
-  },
   newsFeed: {
     name: 'News Feed',
     path: '/news-feed',
@@ -64,7 +55,6 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    initial: true,
   },
   myAgenda: {
     name: 'My Agenda',
@@ -143,6 +133,25 @@ export const ROUTES = {
     screen: ConferenceLocation,
     icon: {
       name: 'google-maps',
+      type: 'material-community',
+    },
+  },
+  conferenceList: {
+    name: 'Conferences',
+    path: '/conference/list',
+    screen: ConferenceList,
+    icon: {
+      name: 'apps',
+      type: 'material-community',
+    },
+    initial: true,
+  },
+  setting: {
+    name: 'Setting',
+    path: '/setting',
+    screen: Setting,
+    icon: {
+      name: 'settings',
       type: 'material-community',
     },
   },

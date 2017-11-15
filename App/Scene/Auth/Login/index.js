@@ -7,12 +7,14 @@ import LoginForm from '../Login/Form';
 import { getInitialRoute } from '~/Navigation/resolver';
 import { compose, gql, graphql, withApollo } from 'react-apollo';
 import mutation from '~/Graphql/mutation/login.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
 
 class LoginScene extends Component {
   static propTypes = {
     navigateToForgotPassword: PropTypes.func,
     mutate: PropTypes.func,
     navigateToInitialRoute: PropTypes.func,
+    navigateToConferencesList: PropTypes.func,
     client: PropTypes.any,
   };
 
@@ -55,20 +57,25 @@ class LoginScene extends Component {
         ['token', token],
         ['refreshToken', refreshToken],
       ]);
-      this.props.client.resetStore();
+      await this.props.client.resetStore();
+      // Refetch QUERY_ME for checking current conference
+      await client.query({ query: gql(QUERY_ME) });
+      // Navigate to initial route if there is no problems
       this.props.navigateToInitialRoute();
     } catch ({ graphQLErrors }) {
       const error = graphQLErrors[0];
-      if (error.message === 'wrong-email-or-password') {
+      if (error.message.includes('wrong-email-or-password')) {
         this.setState({
           error: 'Wrong email or password.',
           loading: false,
         });
-      } else if (error.message === 'user-not-exists') {
+      } else if (error.message.includes('user-not-exists')) {
         this.setState({
           error: 'User is not exists',
           loading: false,
         });
+      } else if (error.message.includes('no-current-conference')) {
+        this.props.navigateToConferencesList();
       }
     }
   }
@@ -95,6 +102,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(NavigationActions.navigate({ routeName: 'forgot' })),
   navigateToInitialRoute: () =>
     dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
+  navigateToConferencesList: () =>
+    dispatch(NavigationActions.reset({ routeName: 'conferenceList' })),
 });
 
 export default compose(
