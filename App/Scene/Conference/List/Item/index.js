@@ -5,11 +5,14 @@ import { Text, TouchableView } from '~/Component';
 import styles from './styles';
 import { randomBackground } from './fixtures';
 import { transformText } from '~/Transformer';
-import { withApollo, gql } from 'react-apollo';
+import { withApollo, gql, compose } from 'react-apollo';
+import { getInitialRoute } from '~/Navigation/resolver';
+import { NavigationActions } from '~/Redux/Navigation';
+import { Colors } from '~/Theme';
+import { connect } from 'react-redux';
 import SWITCH_CURRENT_CONFERENCE from '~/Graphql/mutation/switchtCurrentConference.graphql';
 import GET_CURRENT_CONFERENCE from '~/Graphql/query/getCurrentConference.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
-import { Colors } from '~/Theme';
 
 class ConferenceItem extends PureComponent {
   constructor(props) {
@@ -26,7 +29,7 @@ class ConferenceItem extends PureComponent {
   }
 
   async switchConference() {
-    const { client, id } = this.props;
+    const { client, id, navigateToInitialScene } = this.props;
 
     await client.mutate({
       mutation: gql(SWITCH_CURRENT_CONFERENCE),
@@ -35,14 +38,16 @@ class ConferenceItem extends PureComponent {
       },
     });
     // Refetch query me & current conference to update current conference
-    await Promise.all([
-      client.query({
-        query: gql(QUERY_ME),
-      }),
-      client.query({
-        query: gql(GET_CURRENT_CONFERENCE),
-      }),
-    ]);
+    // await Promise.all([
+    await client.query({
+      query: gql(QUERY_ME),
+    });
+    await client.query({
+      query: gql(GET_CURRENT_CONFERENCE),
+    });
+    // ]);
+
+    navigateToInitialScene();
   }
 
   render() {
@@ -86,6 +91,14 @@ ConferenceItem.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   client: PropTypes.any,
+  navigateToInitialScene: PropTypes.func,
 };
 
-export default withApollo(ConferenceItem);
+const mapDispatchToProps = dispatch => ({
+  navigateToInitialScene: () =>
+    dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
+});
+
+export default compose(withApollo, connect(undefined, mapDispatchToProps))(
+  ConferenceItem,
+);
