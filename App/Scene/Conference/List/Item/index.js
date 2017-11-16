@@ -70,7 +70,8 @@ class ConferenceItem extends PureComponent {
             onPress={() =>
               this.setState(prevState => ({
                 shortenDescription: !prevState.shortenDescription,
-              }))}
+              }))
+            }
           >
             <Text style={[styles.text, styles.titleText]} bold>
               {title}

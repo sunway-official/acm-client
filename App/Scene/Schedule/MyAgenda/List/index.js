@@ -68,7 +68,8 @@ class MyAgendaList extends Component {
         renderItem={({ item }) => <Item {...item} />}
         keyExtractor={(item, index) => index}
         onViewableItemsChanged={({ ...info }) =>
-          onViewableItemsChangedHandler({ ...info, data, setHeader })}
+          onViewableItemsChangedHandler({ ...info, data, setHeader })
+        }
       />
     );
   }

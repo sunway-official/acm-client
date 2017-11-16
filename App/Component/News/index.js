@@ -106,10 +106,9 @@ class News extends Component {
                   source={{ uri: imageUrl[2] }}
                   style={styles.smallImage}
                 />
-                <Text
-                  medium
-                  style={styles.moreImages}
-                >{`+ ${imageUrl.length}`}</Text>
+                <Text medium style={styles.moreImages}>
+                  {`+ ${imageUrl.length}`}
+                </Text>
               </TouchableView>
             ) : (
               <Image source={{ uri: imageUrl[2] }} style={styles.smallImage} />
