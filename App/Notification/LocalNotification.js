@@ -28,7 +28,7 @@ class LocalNotification extends Component {
       observableQuery.subscribe({
         next: ({ data: { getAllPersonalSchedules } }) => {
           setMyAgendaScheduleAsync(
-            myAgendaTransformer(getAllPersonalSchedules, 'start', 'schedule'),
+            myAgendaTransformer(getAllPersonalSchedules, 'start'),
           );
         },
         error: () => {

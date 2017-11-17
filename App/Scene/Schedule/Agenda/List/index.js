@@ -11,7 +11,6 @@ const _renderItem = ({ item }) => {
 /* eslint-enable react/prop-types */
 
 const ListView = ({ detail }) => {
-  console.log('detail: ', detail);
   return (
     <View style={styles.container}>
       <View style={styles.verticalLine} />

@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { graphql, gql, compose } from 'react-apollo';
-import { Text, TouchableView, LoadingIndicator } from '~/Component';
+import { Text, TouchableView } from '~/Component';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import { Colors, Metrics } from '~/Theme';
 import { transformServerDate } from '~/Transformer';
-import mutation from '~/Graphql/mutation/deletePersonalSchedule.graphql';
-import query from '~/Graphql/query/getMyAgenda.graphql';
+import DELETE_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/deletePersonalSchedule.graphql';
+import INSERT_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/insertPersonalSchedule.graphql';
 
 class ItemDetail extends Component {
   static propTypes = {
     detail: PropTypes.object,
-    data: PropTypes.shape({
-      loading: PropTypes.bool,
-      refetch: PropTypes.func,
-    }),
-    mutate: PropTypes.func,
+    insertPersonalScheduleMutation: PropTypes.func,
+    deletePersonalScheduleMutation: PropTypes.func,
   };
 
   constructor(props) {
@@ -25,53 +22,52 @@ class ItemDetail extends Component {
 
     this.state = {
       track: true,
-      id: null,
     };
     this._setTrackingState = this._setTrackingState.bind(this);
     this._renderDetail = this._renderDetail.bind(this);
   }
 
-  async componentWillUnmount() {
-    const { props: { data: { refetch }, mutate }, state: { track, id } } = this;
-    if (track === false) {
+  _setTrackingState(detail) {
+    const {
+      insertPersonalScheduleMutation,
+      deletePersonalScheduleMutation,
+    } = this.props;
+    this.setState({ track: !this.state.track }, async () => {
+      const { state: { track } } = this;
       try {
-        await mutate({
-          variables: {
-            id: id,
-          },
-        });
-        await refetch();
+        if (track === false) {
+          this.temporaryDetail = detail;
+          await deletePersonalScheduleMutation({
+            variables: {
+              id: detail.id,
+            },
+          });
+        } else {
+          await insertPersonalScheduleMutation({
+            variables: {
+              schedule_id: this.temporaryDetail.schedule_id,
+            },
+          });
+        }
       } catch (error) {
         console.log(error);
       }
-    }
-  }
-
-  _setTrackingState(id) {
-    this.setState({ track: !this.state.track, id: id });
-  }
-
-  _renderLoading() {
-    return () => (
-      <View style={styles.loadingContainer}>
-        <LoadingIndicator />
-      </View>
-    );
+    });
   }
 
   _renderDetail() {
     const { detail } = this.props;
-    const isBefore = detail.activity.isBefore;
+    const isBefore = detail.isBefore;
     return (
       <View>
         <View style={[styles.itemWrapper, { opacity: isBefore ? 0.5 : 1 }]}>
           <View style={styles.itemInfo}>
             <Text style={[styles.itemText]} bold>
-              {detail.activity.title}
+              {detail.activity_title}
             </Text>
             <Text style={[styles.itemText]}>
-              {transformServerDate.toLocalTime(detail.schedule.start)} -{' '}
-              {transformServerDate.toLocalTime(detail.schedule.end)}
+              {transformServerDate.toLocalTime(detail.start)} -{' '}
+              {transformServerDate.toLocalTime(detail.end)}
             </Text>
           </View>
           <TouchableView
@@ -79,7 +75,7 @@ class ItemDetail extends Component {
             rippleColor={Colors.white}
             borderless
             onPress={() => {
-              isBefore ? null : this._setTrackingState(detail.id);
+              isBefore ? null : this._setTrackingState(detail);
             }}
           >
             <Icon
@@ -101,11 +97,15 @@ class ItemDetail extends Component {
   }
 
   render() {
-    const { data: { loading } } = this.props;
-    const detail = loading ? this._renderLoading() : this._renderDetail();
-
-    return <View>{detail}</View>;
+    return <View>{this._renderDetail()}</View>;
   }
 }
 
-export default compose(graphql(gql(mutation)), graphql(gql(query)))(ItemDetail);
+export default compose(
+  graphql(gql(DELETE_PERSONAL_SCHEDULE_MUTATION), {
+    name: 'deletePersonalScheduleMutation',
+  }),
+  graphql(gql(INSERT_PERSONAL_SCHEDULE_MUTATION), {
+    name: 'insertPersonalScheduleMutation',
+  }),
+)(ItemDetail);

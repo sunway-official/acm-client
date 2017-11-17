@@ -64,10 +64,4 @@ export default StyleSheet.create({
     marginLeft: 'auto',
     marginRight: Metrics.baseMargin,
   },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.white,
-  },
 });

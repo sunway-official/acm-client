@@ -6,14 +6,9 @@ import { Colors } from '~/Theme';
 import { TouchableView, Text } from '~/Component';
 import { transformServerDate } from '~/Transformer';
 import { gql, graphql, compose } from 'react-apollo';
-import insertMutation from '~/Graphql/mutation/insertPersonalSchedule.graphql';
-import deleteMutation from '~/Graphql/mutation/deletePersonalSchedule.graphql';
-import query from '~/Graphql/query/me.graphql';
+import INSERT_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/insertPersonalSchedule.graphql';
+import DELETE_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/deletePersonalSchedule.graphql';
 import styles from './styles';
-import {
-  dateComparison,
-  timeComparison,
-} from '../../../../Transformer/schedules/dateComparison';
 
 const DEFAULT_ITEM_ICON = {
   type: 'material-community',
@@ -32,78 +27,71 @@ const ACTIVE_ITEM_ICON = {
 class Item extends Component {
   static propTypes = {
     item: PropTypes.object,
-    insertMutation: PropTypes.func,
-    deleteMutation: PropTypes.func,
-    data: PropTypes.shape({
-      loading: PropTypes.bool,
-      me: PropTypes.object,
-    }),
+    insertPersonalScheduleMutation: PropTypes.func,
+    deletePersonalScheduleMutation: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      item: props.item,
+      item: {
+        ...props.item,
+        track: props.item.personalSchedule !== null,
+      },
     };
 
-    this._insertPersonalSchedule = this._insertPersonalSchedule.bind(this);
-    this._deletePersonalSchedule = this._deletePersonalSchedule.bind(this);
     this._onCheck = this._onCheck.bind(this);
   }
 
-  _mutate(mutate, data) {
-    try {
-      mutate({
-        variables: data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  _insertPersonalSchedule(item) {
-    const { data: { me }, insertMutation } = this.props;
-    this._mutate(insertMutation, {
-      user_id: me.id,
-      schedule_id: item.id,
-    });
-  }
-
-  _deletePersonalSchedule(item) {
-    const { deleteMutation } = this.props;
-    this._mutate(deleteMutation, {
-      id: item.personalScheduleId,
-    });
-  }
-
   _onCheck(item) {
-    this.setState({ item: { ...item, existed: !item.existed } }, () => {
-      this.state.item.existed
-        ? this._insertPersonalSchedule(this.state.item)
-        : this._deletePersonalSchedule(this.state.item);
+    const {
+      insertPersonalScheduleMutation,
+      deletePersonalScheduleMutation,
+    } = this.props;
+    this.setState({ item: { ...item, track: !item.track } }, async () => {
+      try {
+        if (this.state.item.track) {
+          const result = await insertPersonalScheduleMutation({
+            variables: {
+              schedule_id: item.id,
+            },
+          });
+          this.temporaryPersonalSchedule = result.data.insertPersonalSchedule;
+        } else {
+          await deletePersonalScheduleMutation({
+            variables: {
+              id:
+                item.personalSchedule == null
+                  ? this.temporaryPersonalSchedule.id
+                  : item.personalSchedule.id,
+            },
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     });
   }
 
   render() {
     const { item } = this.state;
     return (
-      <View style={styles.item}>
+      <View style={[styles.item, item.isBefore ? { opacity: 0.5 } : null]}>
         <TouchableView
           style={styles.iconWrapper}
           rippleColor={Colors.primary}
           borderless
-          onPress={() => this._onCheck(item)}
+          onPress={() => (item.isBefore ? null : this._onCheck(item))}
         >
           <View style={styles.icon}>
-            {item.existed ? (
+            {item.track ? (
               <Icon {...ACTIVE_ITEM_ICON} />
             ) : (
               <Icon {...DEFAULT_ITEM_ICON} />
             )}
           </View>
         </TouchableView>
-
         <View style={styles.timeWrapper}>
           <Text bold>{transformServerDate.toLocalTime(item.start)}</Text>
         </View>
@@ -120,7 +108,10 @@ class Item extends Component {
 }
 
 export default compose(
-  graphql(gql(query)),
-  graphql(gql(insertMutation), { name: 'insertMutation' }),
-  graphql(gql(deleteMutation), { name: 'deleteMutation' }),
+  graphql(gql(INSERT_PERSONAL_SCHEDULE_MUTATION), {
+    name: 'insertPersonalScheduleMutation',
+  }),
+  graphql(gql(DELETE_PERSONAL_SCHEDULE_MUTATION), {
+    name: 'deletePersonalScheduleMutation',
+  }),
 )(Item);

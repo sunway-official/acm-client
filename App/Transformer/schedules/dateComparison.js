@@ -8,25 +8,22 @@ export const dateComparison = date => {
   if (normalDate(date) < normalDate()) {
     return -1;
   }
-
   if (normalDate(date) === normalDate()) {
     return 0;
   }
-
   return 1;
 };
 
 export const timeComparison = activities => {
   const current_time = new Date().getTime();
   activities.map(detail => {
-    const endTime = new Date(detail.schedule.end).getTime();
+    const endTime = new Date(detail.end).getTime();
     if (endTime < current_time) {
-      detail.activity.isBefore = true;
+      detail.isBefore = true;
     } else {
-      detail.activity.isBefore = false;
+      detail.isBefore = false;
     }
   });
-
   return activities;
 };
 

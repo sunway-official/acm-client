@@ -10,7 +10,7 @@ import { Icon } from 'react-native-elements';
 import {
   dateComparison,
   timeComparison,
-} from '../../../../Transformer/schedules/dateComparison';
+} from '~/Transformer/schedules/dateComparison';
 
 const DEFAULT_ITEM_ICON = {
   type: 'material-community',
