@@ -1,6 +1,6 @@
 {
   "name": "acm-client",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "repository": {
@@ -38,7 +38,7 @@
     "moment": "^2.18.1",
     "prettier-eslint-cli": "^4.4.0",
     "prop-types": "^15.5.10",
-    "react": "16.0.0-alpha.12",
+    "react": "^16.0.0",
     "react-apollo": "^1.4.15",
     "react-native": "github:expo/react-native#sdk-21.0.2",
     "react-native-animatable": "^1.2.4",
@@ -70,7 +70,7 @@
     "lint-staged": "^4.0.4",
     "npm-run-all": "^4.1.1",
     "overwrite": "^1.0.3",
-    "prettier": "^1.7.4",
+    "prettier": "^1.8.2",
     "prettier-eslint": "^6.4.3",
     "react-native-debugger-open": "^0.3.12",
     "react-native-scripts": "1.2.1",

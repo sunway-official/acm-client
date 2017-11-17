@@ -3,17 +3,10 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, password } from '~/Lib/validate';
 import { View, KeyboardAvoidingView } from 'react-native';
-import { LoadingIndicator } from '~/Component';
 import styles from './styles';
 import { Colors } from '~/Theme';
 import { Text, FormInput } from '~/Component';
 import TouchableView from '~/Component/TouchableView';
-
-const _renderLoadingButton = () => (
-  <View style={[styles.loadingContainer, , styles.loadingText]}>
-    <LoadingIndicator />
-  </View>
-);
 
 const _renderHint = () => (
   <View style={styles.hintContainer}>
@@ -71,22 +64,18 @@ const _renderError = error => (
 );
 
 const _renderButton = args => {
-  const { handleSubmit, onPasswordChanged, loading } = args;
+  const { handleSubmit, onPasswordChanged } = args;
   return (
     <View style={styles.buttonContainer}>
-      {loading ? (
-        _renderLoadingButton()
-      ) : (
-        <TouchableView
-          onPress={handleSubmit(onPasswordChanged)}
-          rippleColor={Colors.primary}
-          style={styles.actionButton}
-        >
-          <Text bold style={styles.actionText}>
-            Update
-          </Text>
-        </TouchableView>
-      )}
+      <TouchableView
+        onPress={handleSubmit(onPasswordChanged)}
+        rippleColor={Colors.primary}
+        style={styles.actionButton}
+      >
+        <Text bold style={styles.actionText}>
+          Update
+        </Text>
+      </TouchableView>
     </View>
   );
 };
@@ -94,7 +83,6 @@ const _renderButton = args => {
 const ChangePasswordForm = ({
   onPasswordChanged,
   handleSubmit,
-  loading,
   changePasswordError,
 }) => {
   return (
@@ -102,7 +90,7 @@ const ChangePasswordForm = ({
       {_renderHint()}
       {_renderForm()}
       {_renderError(changePasswordError)}
-      {_renderButton({ handleSubmit, onPasswordChanged, loading })}
+      {_renderButton({ handleSubmit, onPasswordChanged })}
     </KeyboardAvoidingView>
   );
 };
@@ -120,7 +108,6 @@ ChangePasswordForm.propTypes = {
   invalid: PropTypes.bool.isRequired,
   error: PropTypes.string,
   changePasswordError: PropTypes.string,
-  loading: PropTypes.bool,
 };
 
 ChangePasswordForm = reduxForm({

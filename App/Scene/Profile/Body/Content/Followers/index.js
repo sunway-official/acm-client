@@ -56,7 +56,7 @@ class Follower extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         {this.state.followers.map((follower, index) =>
           this._renderFollower(follower, index),
         )}

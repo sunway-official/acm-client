@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { gql, graphql, compose } from 'react-apollo';
 import { View, ScrollView, KeyboardAvoidingView, Keyboard } from 'react-native';
-import mutation from '~/Graphql/mutation/updateMe.graphql';
-import query from '~/Graphql/query/me.graphql';
+import UPDATE_ME from '~/Graphql/mutation/updateMe.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
 import { LoadingIndicator } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
 import { transformServerDate } from '~/Transformer';
@@ -33,12 +33,6 @@ class ProfileEditing extends Component {
 
     this._onUpdate = this._onUpdate.bind(this);
     this._getMe = this._getMe.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({
-      loading: false,
-    });
   }
 
   componentWillUnmount() {
@@ -94,11 +88,6 @@ class ProfileEditing extends Component {
     const { data: { me, loading } } = this.props;
     return (
       <View>
-        {this.state.loading ? (
-          <View style={styles.mutationLoading}>
-            <LoadingIndicator />
-          </View>
-        ) : null}
         <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={85}>
           <ScrollView style={styles.container}>
             <Form
@@ -109,6 +98,11 @@ class ProfileEditing extends Component {
             />
           </ScrollView>
         </KeyboardAvoidingView>
+        {this.state.loading ? (
+          <View style={styles.mutationLoading}>
+            <LoadingIndicator />
+          </View>
+        ) : null}
       </View>
     );
   }
@@ -124,9 +118,17 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Scene = compose(
-  graphql(gql(mutation)),
-  graphql(gql(query)),
+  graphql(gql(UPDATE_ME)),
+  graphql(gql(QUERY_ME)),
   connect(undefined, mapDispatchToProps),
 )(ProfileEditing);
+
+Scene.header = {
+  leftIcon: 'back',
+};
+
+Scene.drawer = {
+  disableGestures: true,
+};
 
 export default Scene;

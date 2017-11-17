@@ -1,10 +1,7 @@
-import { DATE_FORMAT } from '~/env';
-import moment from 'moment';
-
 export const DEFAULT_ME = {
   firstname: 'Nguyen Van',
-  lastname: 'A',
-  dob: moment().format(DATE_FORMAT),
+  lastname: 'Teo',
+  dob: null,
   gender: { name: 'Male', value: 'male' },
   interested_in: 'Listen to music and go to travel',
   bio:
@@ -17,9 +14,15 @@ export const DEFAULT_ME = {
   linkedin_id: 'linkedin.com',
 };
 
+/**
+ * Deprecated
+ */
 export const DEFAULT_USER_AVATAR =
   'https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png';
 
+/**
+ * Deprecated
+ */
 export const ACHIEVEMENTS = [
   {
     title: 'Title 1',
@@ -59,6 +62,9 @@ export const ACHIEVEMENTS = [
   },
 ];
 
+/**
+ * Deprecated
+ */
 export const NEWS = [
   {
     username: 'Dung Le',
@@ -186,9 +192,9 @@ export const FOLLOWING = [
 
 export default {
   DEFAULT_ME,
-  DEFAULT_USER_AVATAR,
-  NEWS,
-  ACHIEVEMENTS,
+  // DEFAULT_USER_AVATAR,
+  // NEWS,
+  // ACHIEVEMENTS,
   FOLLOWERS,
   FOLLOWING,
 };

@@ -16,15 +16,6 @@ const TYPES = {
 };
 
 class RobotoText extends PureComponent {
-  static propTypes = {
-    [TYPES.BOLD]: PropTypes.bool,
-    [TYPES.LIGHT]: PropTypes.bool,
-    [TYPES.MEDIUM]: PropTypes.bool,
-    [TYPES.THIN]: PropTypes.bool,
-    [TYPES.BLACK]: PropTypes.bool,
-    [TYPES.ITALIC]: PropTypes.bool,
-    style: PropTypes.any,
-  };
   render() {
     /* eslint-disable react/prop-types */
     const { italic, style } = this.props;
@@ -67,5 +58,14 @@ class RobotoText extends PureComponent {
     );
   }
 }
+
+RobotoText.propTypes = {
+  style: PropTypes.any,
+};
+
+// Loop throght TYPES to define its proptypes
+Object.keys(TYPES).map(key => {
+  RobotoText.propTypes[TYPES[key]] = PropTypes.bool;
+});
 
 export default RobotoText;

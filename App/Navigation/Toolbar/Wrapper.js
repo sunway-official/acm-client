@@ -136,7 +136,8 @@ class HeaderWrapper extends Component {
         <View
           style={{ ...this._floatToolbarStyles(), top: 0 }}
           onLayout={event =>
-            this.setState({ header: event.nativeEvent.layout })}
+            this.setState({ header: event.nativeEvent.layout })
+          }
         >
           <Header
             {...header}
@@ -159,7 +160,8 @@ class HeaderWrapper extends Component {
         <View
           style={{ ...this._floatToolbarStyles(), bottom: 0 }}
           onLayout={event =>
-            this.setState({ footer: event.nativeEvent.layout })}
+            this.setState({ footer: event.nativeEvent.layout })
+          }
         >
           <Footer
             {...footer}

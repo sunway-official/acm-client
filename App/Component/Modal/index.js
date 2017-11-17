@@ -5,6 +5,7 @@ import {
   DeviceEventEmitter,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {
@@ -184,9 +185,8 @@ class CustomModal extends Component {
       { opacity: 0 },
       this.props.backdropTransitionOutTiming,
     );
-    this.contentRef
-      [this.animationOut](this.props.animationOutTiming)
-      .then(() => {
+    this.contentRef[this.animationOut](this.props.animationOutTiming).then(
+      () => {
         this.transitionLock = false;
         if (this.props.isVisible) {
           this._open();
@@ -194,7 +194,8 @@ class CustomModal extends Component {
           this.setState({ isVisible: false });
           this.props.onModalHide();
         }
-      });
+      },
+    );
   };
 
   render() {
@@ -261,7 +262,7 @@ class CustomModal extends Component {
 
         {avoidKeyboard && (
           <KeyboardAvoidingView
-            behavior={'padding'}
+            behavior={Platform.OS === 'ios' ? 'padding' : null}
             pointerEvents={'box-none'}
             style={computedStyle.concat([{ margin: 0 }])}
           >

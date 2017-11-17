@@ -1,0 +1,5 @@
+mutation switchCurrentConference($conference_id: ID!) {
+  switchCurrentConference(conference_id: $conference_id) {
+    id
+  }
+}

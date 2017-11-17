@@ -18,7 +18,7 @@ import {
 
 import { KEY, setModalState } from '~/Redux/Modal';
 import INSERT_NEWS_MUTATION from '~/Graphql/mutation/insertNews.graphql';
-import ME_QUERY from '~/Graphql/query/me.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
 
 const defaultAvatar = Images.avatar['male08'];
 
@@ -111,7 +111,7 @@ const NewsFeedPostingMutation = graphql(gql(INSERT_NEWS_MUTATION), {
   }),
 });
 
-const MeQuery = graphql(gql(ME_QUERY), {
+const MeQuery = graphql(gql(QUERY_ME), {
   props: ({ data: { loading, me } }) => ({
     loading,
     me,

@@ -10,6 +10,7 @@ import Setting from '~/Scene/Setting';
 import { Agenda, MyAgenda } from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
 import ChangePassword from '~/Scene/Profile/ChangePassword';
+import { ConferenceLocation, ConferenceList } from '~/Scene/Conference';
 
 export const ROUTES = {
   splash: {
@@ -46,15 +47,6 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  setting: {
-    name: 'Setting',
-    path: '/setting',
-    screen: Setting,
-    icon: {
-      name: 'settings',
-      type: 'material-community',
-    },
-  },
   newsFeed: {
     name: 'News Feed',
     path: '/news-feed',
@@ -63,6 +55,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
+    initial: true,
   },
   myAgenda: {
     name: 'My Agenda',
@@ -136,11 +129,39 @@ export const ROUTES = {
       name: 'notifications',
     },
   },
+  conferenceLocation: {
+    name: 'Location',
+    path: '/conference/location',
+    screen: ConferenceLocation,
+    icon: {
+      name: 'google-maps',
+      type: 'material-community',
+    },
+  },
+  conferenceList: {
+    name: 'Conferences',
+    path: '/conference/list',
+    screen: ConferenceList,
+    icon: {
+      name: 'apps',
+      type: 'material-community',
+    },
+  },
+  setting: {
+    name: 'Setting',
+    path: '/setting',
+    screen: Setting,
+    icon: {
+      name: 'settings',
+      type: 'material-community',
+    },
+  },
 };
 
 export const config = {
   navigationOptions: {
     header: null,
+    gesturesEnabled: false,
   },
   cardStyle: {
     shadowOpacity: 0,
