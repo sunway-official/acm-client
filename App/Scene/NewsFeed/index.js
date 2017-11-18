@@ -83,6 +83,7 @@ class NewsFeedScene extends Component {
         avatar={me.avatar}
         userId={me.id}
         username={`${me.firstname} ${me.lastname}`}
+        onRefresh={this._onRefresh}
       />
     );
   }

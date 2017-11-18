@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { gql, graphql, compose } from 'react-apollo';
-import { View } from 'react-native';
+import { View, Keyboard } from 'react-native';
 import { ImagePicker } from 'expo';
 import { AutoExpandingTextInput } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
@@ -24,8 +24,11 @@ const ImagePickerConfig = {
 class NewsFeedPosting extends Component {
   static propTypes = {
     navigate: PropTypes.func,
+    back: PropTypes.func,
     insertNews: PropTypes.func,
     insertNewsPhoto: PropTypes.func,
+    avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    username: PropTypes.string,
   };
 
   static header = {
@@ -60,8 +63,8 @@ class NewsFeedPosting extends Component {
 
   _handlePostNews(content) {
     return this.props.insertNews({
-      // userId: this.props.me.id,
-      conferenceId: 1,
+      userId: 1, // TODO: remove it
+      conferenceId: 1, // TODO: remove it
       contentNews: content,
     });
   }
@@ -87,11 +90,11 @@ class NewsFeedPosting extends Component {
         this._handlePostPhoto(photo, newNews.data.insertNews.id),
       );
     }
-
-    await this._onRefresh();
   }
 
   async _handlePost() {
+    Keyboard.dismiss();
+
     const { text, images } = this.state;
     await this._handlePostMutation(text, images);
     this._handleCancel();
@@ -161,8 +164,10 @@ class NewsFeedPosting extends Component {
   }
 
   render() {
-    const username = 'Tester';
-    const avatar = 25;
+    // TODO: pass props through navigation
+    // const { avatar, username } = this.props;
+    const avatar = 22;
+    const username = 'Khanh Ly Bao';
 
     return (
       <View
@@ -184,6 +189,7 @@ const NewsFeedFakePostingMutation = graphql(gql(MUTATION_INSERT_NEWS), {
     insertNews: ({ userId, conferenceId, contentNews }) =>
       mutate({
         variables: { userId, conferenceId, contentNews },
+        // TODO: REMOVE IT
         // update: (store, { data: { insertNews } }) => {
         //   const data = store.readQuery({
         //     query: gql(QUERY_ALL_NEWS),
@@ -227,7 +233,12 @@ const mapDispatchToProps = dispatch => ({
         routeName,
       }),
     ),
+  back: () => NavigationActions.back(),
 });
+
+// const mapStateToProps = (state, props) => ({
+//   ...props.navigation.state.params,
+// });
 
 export default compose(
   NewsFeedFakePostingMutation,

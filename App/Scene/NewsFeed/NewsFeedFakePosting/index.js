@@ -6,30 +6,34 @@ import styles from './styles';
 import { Icon } from 'react-native-elements';
 import { Colors } from '~/Theme';
 
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Keyboard } from 'react-native';
 import { UserAvatar, TouchableView, Text } from '~/Component';
 
 import { NavigationActions } from '~/Redux/Navigation';
 
 class NewsFeedFakePosting extends Component {
   static propTypes = {
-    modal: PropTypes.object,
+    // modal: PropTypes.object,
     avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     userId: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     navigate: PropTypes.func,
+    onRefresh: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
 
+    // this._renderPostFake = this._renderPostFake.bind();
     this._handleNavigateToNewsFeedPosting = this._handleNavigateToNewsFeedPosting.bind(
       this,
     );
   }
 
   _handleNavigateToNewsFeedPosting() {
+    // TODO: how to pass props
     this.props.navigate('newsFeedPosting');
+    // this.props.onRefresh();
   }
 
   _renderPostFake(avatar) {
@@ -54,7 +58,6 @@ class NewsFeedFakePosting extends Component {
 
   render() {
     const { avatar } = this.props;
-    console.log(typeof avatar, avatar);
     return <View>{this._renderPostFake(avatar)}</View>;
   }
 }
