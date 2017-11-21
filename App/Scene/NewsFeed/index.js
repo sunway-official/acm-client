@@ -47,7 +47,7 @@ const PAGE_SIZE = 10;
 class NewsFeedScene extends Component {
   static propTypes = {
     allNews: PropTypes.array,
-    me: PropTypes.object.isRequired,
+    me: PropTypes.object,
     networkStatus: PropTypes.number,
     refetch: PropTypes.func,
     fetchMore: PropTypes.func,

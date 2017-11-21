@@ -19,7 +19,6 @@ import MUTATION_INSERT_NEWS_PHOTO from '~/Graphql/mutation/insertNewsPhoto.graph
 
 const GENDER_MALE = 'male';
 const GENDER_FEMALE = 'female';
-const GENDER_UNKNOWN = 'unknown';
 
 const defaultAvatar = (avatar, gender) => {
   let defaultAvatar = Images.avatar['male02'];
