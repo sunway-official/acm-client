@@ -4,7 +4,7 @@ import { FlatList } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
 import styles from './styles';
-import { Colors } from '~/Theme';
+import { Colors, Images } from '~/Theme';
 import { News, LoadingIndicator } from '~/Component';
 import NewsFeedFakePosting from './NewsFeedFakePosting';
 
@@ -20,6 +20,7 @@ import QUERY_ME from '~/Graphql/query/me.graphql';
 //   }
 // };
 
+const defaultAvatar = Images.male02;
 const PAGE_SIZE = 10;
 
 class NewsFeedScene extends Component {
@@ -78,9 +79,10 @@ class NewsFeedScene extends Component {
   }
 
   _renderNewsFeedFakePosting(me) {
+    let avatar = me.avatar === null ? defaultAvatar : me.avatar;
     return (
       <NewsFeedFakePosting
-        avatar={me.avatar}
+        avatar={avatar}
         userId={me.id}
         username={`${me.firstname} ${me.lastname}`}
         onRefresh={this._onRefresh}

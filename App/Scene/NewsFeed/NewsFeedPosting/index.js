@@ -7,14 +7,17 @@ import { ImagePicker } from 'expo';
 import { AutoExpandingTextInput } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
 import { S3 } from '~/Provider';
+import { Images } from '~/Theme';
 
 import PostsHeader from './Header';
 import PostContent from './Content';
 import PostActions from './Actions';
 
+import QUERY_ME from '~/Graphql/query/me.graphql';
 import MUTATION_INSERT_NEWS from '~/Graphql/mutation/insertNews.graphql';
 import MUTATION_INSERT_NEWS_PHOTO from '~/Graphql/mutation/insertNewsPhoto.graphql';
 
+const defaultAvatar = Images.male02;
 const ImagePickerConfig = {
   allowsEditing: true,
   aspect: [4, 3],
@@ -29,6 +32,7 @@ class NewsFeedPosting extends Component {
     insertNewsPhoto: PropTypes.func,
     avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     username: PropTypes.string,
+    me: PropTypes.object,
   };
 
   static header = {
@@ -101,6 +105,8 @@ class NewsFeedPosting extends Component {
   }
 
   _handleCancel() {
+    Keyboard.dismiss();
+
     this.setState({ text: '', images: [] });
     this.props.navigate('newsFeed');
   }
@@ -164,10 +170,9 @@ class NewsFeedPosting extends Component {
   }
 
   render() {
-    // TODO: pass props through navigation
-    // const { avatar, username } = this.props;
-    const avatar = 22;
-    const username = 'Khanh Ly Bao';
+    const { me } = this.props;
+    const avatar = me.avatar === null ? defaultAvatar : me.avatar;
+    const username = `${me.firstname} ${me.lastname}`;
 
     return (
       <View
@@ -183,6 +188,13 @@ class NewsFeedPosting extends Component {
     );
   }
 }
+
+const MeQuery = graphql(gql(QUERY_ME), {
+  props: ({ data: { loading, me } }) => ({
+    loading,
+    me,
+  }),
+});
 
 const NewsFeedFakePostingMutation = graphql(gql(MUTATION_INSERT_NEWS), {
   props: ({ mutate }) => ({
@@ -236,11 +248,8 @@ const mapDispatchToProps = dispatch => ({
   back: () => NavigationActions.back(),
 });
 
-// const mapStateToProps = (state, props) => ({
-//   ...props.navigation.state.params,
-// });
-
 export default compose(
+  MeQuery,
   NewsFeedFakePostingMutation,
   NewsFeedFakePostingPhotoMutation,
   connect(undefined, mapDispatchToProps),

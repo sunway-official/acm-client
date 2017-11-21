@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Colors, Metrics } from '~/Theme';
 
-const { white, lightGrey } = Colors;
+const { white } = Colors;
 
 export default StyleSheet.create({
   container: {
@@ -12,7 +12,7 @@ export default StyleSheet.create({
   header: {
     flex: 0.5,
     flexDirection: 'row',
-    backgroundColor: lightGrey,
+    backgroundColor: white,
     borderBottomWidth: 0.5,
     alignItems: 'center',
     justifyContent: 'space-between',
