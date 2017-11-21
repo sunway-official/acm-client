@@ -20,7 +20,28 @@ import QUERY_ME from '~/Graphql/query/me.graphql';
 //   }
 // };
 
-const defaultAvatar = Images.male02;
+const GENDER_MALE = 'male';
+const GENDER_FEMALE = 'female';
+const GENDER_UNKNOWN = 'unknown';
+
+const defaultAvatar = (avatar, gender) => {
+  let defaultAvatar = Images.avatar['male02'];
+  if (avatar) {
+    avatar = { uri: S3_GET_PREFIX + avatar };
+  } else {
+    switch (gender) {
+      case GENDER_MALE:
+        defaultAvatar = Images.avatar['male08'];
+        break;
+      case GENDER_FEMALE:
+        defaultAvatar = Images.avatar['female01'];
+        break;
+    }
+    avatar = defaultAvatar;
+  }
+  return avatar;
+};
+
 const PAGE_SIZE = 10;
 
 class NewsFeedScene extends Component {
@@ -79,7 +100,7 @@ class NewsFeedScene extends Component {
   }
 
   _renderNewsFeedFakePosting(me) {
-    let avatar = me.avatar === null ? defaultAvatar : me.avatar;
+    let avatar = defaultAvatar(me.avatar, me.gender);
     return (
       <NewsFeedFakePosting
         avatar={avatar}
@@ -112,8 +133,6 @@ class NewsFeedScene extends Component {
   }
 
   render() {
-    const { allNews, networkStatus, me } = this.props;
-
     if (networkStatus === 1) {
       return (
         <View style={styles.loadingContainer}>
@@ -121,6 +140,8 @@ class NewsFeedScene extends Component {
         </View>
       );
     }
+
+    const { allNews, networkStatus, me } = this.props;
 
     return (
       <View style={styles.container}>

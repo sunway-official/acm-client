@@ -17,7 +17,28 @@ import QUERY_ME from '~/Graphql/query/me.graphql';
 import MUTATION_INSERT_NEWS from '~/Graphql/mutation/insertNews.graphql';
 import MUTATION_INSERT_NEWS_PHOTO from '~/Graphql/mutation/insertNewsPhoto.graphql';
 
-const defaultAvatar = Images.male02;
+const GENDER_MALE = 'male';
+const GENDER_FEMALE = 'female';
+const GENDER_UNKNOWN = 'unknown';
+
+const defaultAvatar = (avatar, gender) => {
+  let defaultAvatar = Images.avatar['male02'];
+  if (avatar) {
+    avatar = { uri: S3_GET_PREFIX + avatar };
+  } else {
+    switch (gender) {
+      case GENDER_MALE:
+        defaultAvatar = Images.avatar['male08'];
+        break;
+      case GENDER_FEMALE:
+        defaultAvatar = Images.avatar['female01'];
+        break;
+    }
+    avatar = defaultAvatar;
+  }
+  return avatar;
+};
+
 const ImagePickerConfig = {
   allowsEditing: true,
   aspect: [4, 3],
@@ -171,7 +192,7 @@ class NewsFeedPosting extends Component {
 
   render() {
     const { me } = this.props;
-    const avatar = me.avatar === null ? defaultAvatar : me.avatar;
+    const avatar = defaultAvatar(me.avatar, me.gender);
     const username = `${me.firstname} ${me.lastname}`;
 
     return (
