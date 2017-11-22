@@ -35,19 +35,37 @@ class ItemDetail extends Component {
     this.setState({ track: !this.state.track }, async () => {
       const { state: { track } } = this;
       try {
+        /*
+         * After delete an activity, list of schedules in My Agenda also remove
+         * this element although it is still displaying in My Agenda until user
+         * navigate to another scene (componentWillUnmount), so it cannot
+         * provide schedule_id to insert again => error => the activity must be
+         * stored in temporaryDetail variable to reuse.
+         */
         if (track === false) {
-          this.temporaryDetail = detail;
+          this.temporaryDetail = { ...detail };
           await deletePersonalScheduleMutation({
             variables: {
-              id: detail.id,
+              id:
+                this.newTemporaryDetail === undefined
+                  ? detail.id
+                  : this.newTemporaryDetail.id,
             },
           });
         } else {
-          await insertPersonalScheduleMutation({
+          const {
+            data: { insertPersonalSchedule },
+          } = await insertPersonalScheduleMutation({
             variables: {
               schedule_id: this.temporaryDetail.schedule_id,
             },
           });
+          /**
+           * Detail is null after delete, so we must copy
+           * insertPersonalSchedule object to newTemporaryDetail to use for the
+           * next deleting.
+           */
+          this.newTemporaryDetail = { ...insertPersonalSchedule };
         }
       } catch (error) {
         console.log(error);
