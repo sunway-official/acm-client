@@ -1,6 +1,6 @@
 # ACM-client
 
-Client Project for ACM build with React-native, Redux & Apollo.
+Client Project for ACM build with Expo, React-native, Redux & Apollo.
 
 ## Releases
 
@@ -8,9 +8,20 @@ Client Project for ACM build with React-native, Redux & Apollo.
 
 ## Instruction
 
-- Clone the project: `git clone https://github.com/sunway-team/acm-client.git`
-- Install dependencies `npm install`.
-- Start packager `npm start`.
+- Clone the project: 
+```
+git clone https://github.com/sunway-official/acm-client
+```
+
+- Install dependencies 
+```
+npm install
+```
+
+- Start packager 
+```
+npm start
+```
 
 ## Documents
 
@@ -33,5 +44,5 @@ Client Project for ACM build with React-native, Redux & Apollo.
 
 ## More information
 
-- CEM-server: https://github.com/sunway-team/cem-server
-- CEM-admin: https://github.com/sunway-team/cem-admin
+- ACM-server: https://github.com/sunway-official/acm-server
+- ACM-admin: https://github.com/sunway-official/acm-admin
