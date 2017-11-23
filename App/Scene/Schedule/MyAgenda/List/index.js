@@ -100,7 +100,7 @@ class MyAgendaList extends Component {
     const { schedules, setHeader, goToAgenda, data: { loading } } = this.props;
     return (
       <View style={styles.container}>
-        {schedules.length === 0 ? null : <View style={styles.verticalLine} />}
+        {schedules.length === 0 || <View style={styles.verticalLine} />}
         {schedules.length === 0 ? (
           this._renderEmptyList(goToAgenda)
         ) : (

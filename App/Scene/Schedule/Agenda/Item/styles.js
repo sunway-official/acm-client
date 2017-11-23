@@ -32,4 +32,7 @@ export default StyleSheet.create({
   secondaryText: {
     color: Colors.grey,
   },
+  blurItem: {
+    opacity: 0.5,
+  },
 });

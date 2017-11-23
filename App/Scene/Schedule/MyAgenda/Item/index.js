@@ -48,14 +48,14 @@ class MyAgendaItem extends Component {
         <View
           style={[
             styles.contentContainer,
-            comparison === -1 ? { opacity: 0.5 } : {},
+            comparison === -1 ? styles.blurItem : null,
           ]}
         >
           <View style={styles.contentDate}>
             <Text
               style={[
                 styles.textDay,
-                comparison === 0 ? styles.todayDayInner : {},
+                comparison === 0 ? styles.todayDayInner : null,
               ]}
             >
               {day}
@@ -63,7 +63,7 @@ class MyAgendaItem extends Component {
             <Text
               style={[
                 styles.textMonth,
-                comparison === 0 ? styles.todayDayInner : {},
+                comparison === 0 ? styles.todayDayInner : null,
               ]}
             >
               {stringDay}

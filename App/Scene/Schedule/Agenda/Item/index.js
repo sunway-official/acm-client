@@ -85,7 +85,7 @@ class Item extends Component {
   render() {
     const { item } = this.state;
     return (
-      <View style={[styles.item, item.isBefore ? { opacity: 0.5 } : null]}>
+      <View style={[styles.item, item.isBefore ? styles.blurItem : null]}>
         <TouchableView
           style={styles.iconWrapper}
           rippleColor={Colors.primary}

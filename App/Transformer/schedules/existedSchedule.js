@@ -1,8 +1,6 @@
 import { List } from 'immutable';
 
 export default (agenda, myAgenda) => {
-  // const KEY = key;
-
   const AGENDA = List(agenda);
   const MY_AGENDA = List(myAgenda);
 
