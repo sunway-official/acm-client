@@ -1,15 +1,5 @@
-mutation(
-  $user_id: ID!
-  $schedule_id: ID!
-  $conference_id: ID!
-  $activity_id: ID!
-) {
-  insertPersonalSchedule(
-    user_id: $user_id
-    schedule_id: $schedule_id
-    conference_id: $conference_id
-    activity_id: $activity_id
-  ) {
+mutation($schedule_id: ID!) {
+  insertPersonalSchedule(schedule_id: $schedule_id) {
     id
   }
 }

@@ -64,4 +64,7 @@ export default StyleSheet.create({
     marginLeft: 'auto',
     marginRight: Metrics.baseMargin,
   },
+  blurItem: {
+    opacity: 0.5,
+  },
 });

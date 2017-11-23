@@ -23,11 +23,11 @@ const setLocalNotificationSchedule = async item => {
   // Set up notification
   const localNotification = {
     ...NOTIFICATION_CONFIG,
-    title: item.activity.title,
-    body: item.schedule.room.name || '',
+    title: item.activity_title,
+    body: item.room_name || '',
   };
   const schedulingOptions = {
-    time: new Date(transformServerDate.toLocal(item.schedule.start)).getTime(),
+    time: new Date(transformServerDate.toLocal(item.start)).getTime(),
   };
   let notificationId = DEFAULT_NOTIFICATION_ID;
   // Register if item is NOT in the past

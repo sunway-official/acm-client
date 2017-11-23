@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Colors } from '~/Theme';
 import { LoadingIndicator } from '~/Component';
-import { navigate } from '~/Redux/Navigation/action';
+import { reset } from '~/Redux/Navigation/action';
 import { graphql, gql } from 'react-apollo';
 import query from '~/Graphql/query/getMyAgenda.graphql';
 import transformer from '~/Transformer/schedules/myAgenda';
@@ -19,15 +19,18 @@ class MyAgenda extends Component {
     );
   }
 
+  async componentWillMount() {
+    const { data: { refetch } } = this.props;
+    await refetch();
+  }
+
   render() {
     const { data: { loading, getAllPersonalSchedules } } = this.props;
     return loading ? (
       this._renderLoading()
     ) : (
       <View style={styles.container}>
-        <List
-          data={transformer(getAllPersonalSchedules, 'start', 'schedule')}
-        />
+        <List schedules={transformer(getAllPersonalSchedules, 'start')} />
       </View>
     );
   }
@@ -37,6 +40,7 @@ MyAgenda.propTypes = {
   data: PropTypes.shape({
     loading: PropTypes.bool,
     getAllPersonalSchedules: PropTypes.array,
+    refetch: PropTypes.func,
   }),
 };
 
@@ -49,7 +53,7 @@ MyAgenda.header = {
         name: 'calendar-range',
         type: 'material-community',
       },
-      onPress: dispatch => dispatch(navigate({ routeName: 'agenda' })),
+      onPress: dispatch => dispatch(reset({ routeName: 'agenda' })),
     },
   ],
 };
