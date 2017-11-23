@@ -17,8 +17,8 @@ class LocalNotification extends Component {
     if (permission.status === 'granted') {
       const { client } = this.props;
       /**
-      * Handle my agenda schedule
-      */
+       * Handle my agenda schedule
+       */
       // Create new observable query for my agenda
       const observableQuery = await client.watchQuery({
         query: gql(myAgendaQuery),
@@ -28,7 +28,7 @@ class LocalNotification extends Component {
       observableQuery.subscribe({
         next: ({ data: { getAllPersonalSchedules } }) => {
           setMyAgendaScheduleAsync(
-            myAgendaTransformer(getAllPersonalSchedules, 'start', 'schedule'),
+            myAgendaTransformer(getAllPersonalSchedules, 'start'),
           );
         },
         error: () => {
@@ -36,13 +36,13 @@ class LocalNotification extends Component {
            * Required by OservableQuery.subscribe
            * but just a dummy function
            * Other component will handle this
-          */
+           */
         },
       });
 
       /**
-      * TO DO: Handle other local notifications
-      */
+       * TO DO: Handle other local notifications
+       */
     }
   }
 

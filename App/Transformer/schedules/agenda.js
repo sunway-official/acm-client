@@ -1,5 +1,5 @@
 import { List } from 'immutable';
-import moment from 'moment';
+import { toLocal } from '~/Transformer/transformServerDate';
 
 export default (data, key) => {
   // Initiate
@@ -14,7 +14,7 @@ export default (data, key) => {
   DATA = DATA.groupBy(item => {
     // Parse start date to DDMMYYY to compare
     // Feel free to change the format if you want to change groupBy rule
-    let date = moment(new Date(item[KEY])).format('DDMMYYYY');
+    let date = toLocal(item[KEY], 'DDMMYYYY');
     return date;
   });
 

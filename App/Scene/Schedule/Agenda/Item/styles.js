@@ -17,8 +17,9 @@ export default StyleSheet.create({
     borderRadius: 13,
   },
   timeWrapper: {
-    width: 56,
+    width: 65,
     justifyContent: 'center',
+    alignItems: 'center',
     marginHorizontal: Metrics.doubleBaseMargin,
   },
   infoWrapper: {
@@ -30,5 +31,8 @@ export default StyleSheet.create({
   },
   secondaryText: {
     color: Colors.grey,
+  },
+  blurItem: {
+    opacity: 0.5,
   },
 });

@@ -26,4 +26,10 @@ export default StyleSheet.create({
   goToText: {
     color: Colors.white,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.white,
+  },
 });

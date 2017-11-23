@@ -1,20 +1,19 @@
 import { List } from 'immutable';
-import moment from 'moment';
+import { toLocal } from '~/Transformer/transformServerDate';
 
-export default (data, key, schedule_key) => {
+export default (data, key) => {
   // Initiate
   let DATA = List(data);
 
   let result = List();
 
-  const SCHEDULE_KEY = schedule_key; //schedule
   const KEY = key;
 
   // Group by item that has the same day
   DATA = DATA.groupBy(item => {
     // Parse start date to DDMMYYY to compare
     // Feel free to change the format if you want to change groupBy rule
-    let date = moment(new Date(item[SCHEDULE_KEY][KEY])).format('DDMMYYYY');
+    let date = toLocal(item[KEY], 'DDMMYYYY');
     return date;
   });
 
@@ -22,8 +21,8 @@ export default (data, key, schedule_key) => {
   DATA.forEach(item => {
     // Sort activities by date
     const activities = item.sort((a, b) => {
-      const timeA = new Date(a[SCHEDULE_KEY][KEY]).getTime();
-      const timeB = new Date(b[SCHEDULE_KEY][KEY]).getTime();
+      const timeA = new Date(a[KEY]).getTime();
+      const timeB = new Date(b[KEY]).getTime();
       // Increasement sort
       if (timeA > timeB) return 1;
       if (timeA < timeB) return -1;
@@ -31,7 +30,7 @@ export default (data, key, schedule_key) => {
     });
     // Return new conference date object with its activities
     result = result.push({
-      date: activities.first()[SCHEDULE_KEY][KEY],
+      date: activities.first()[KEY],
       activities,
     });
   });

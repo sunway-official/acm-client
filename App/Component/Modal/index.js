@@ -185,9 +185,8 @@ class CustomModal extends Component {
       { opacity: 0 },
       this.props.backdropTransitionOutTiming,
     );
-    this.contentRef
-      [this.animationOut](this.props.animationOutTiming)
-      .then(() => {
+    this.contentRef[this.animationOut](this.props.animationOutTiming).then(
+      () => {
         this.transitionLock = false;
         if (this.props.isVisible) {
           this._open();
@@ -195,7 +194,8 @@ class CustomModal extends Component {
           this.setState({ isVisible: false });
           this.props.onModalHide();
         }
-      });
+      },
+    );
   };
 
   render() {
