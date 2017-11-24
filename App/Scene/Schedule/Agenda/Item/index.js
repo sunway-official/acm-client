@@ -58,11 +58,7 @@ class Item extends Component {
             },
           });
           /*
-           * If activities aren't existed in My Agenda, personalSchedule is also
-           * empty in Agenda. So if any activity is added into My Agenda,
-           * personalSchedule is not still updated yet => cannot remove those
-           * activities from My Agenda.
-           * 
+           * If activities aren't existed in My Agenda, personalSchedule is also empty in Agenda. So if any activity is added into My Agenda, personalSchedule is not still updated yet => cannot remove those activities from My Agenda.
            * this.temporaryPersonalSchedule is used for this class.
            */
           this.temporaryPersonalSchedule = result.data.insertPersonalSchedule;

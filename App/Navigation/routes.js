@@ -8,7 +8,7 @@ import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
 import ProfileEditing from '~/Scene/Profile/ProfileEditing';
 import Setting from '~/Scene/Setting';
-import { Agenda, MyAgenda } from '~/Scene/Schedule';
+import { Agenda, MyAgenda, ActivityDetail } from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
 import ChangePassword from '~/Scene/Profile/ChangePassword';
 import { ConferenceLocation, ConferenceList } from '~/Scene/Conference';
@@ -56,7 +56,6 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    initial: true,
   },
   newsFeedPosting: {
     name: 'New Post',
@@ -89,6 +88,11 @@ export const ROUTES = {
       type: 'material-community',
     },
     // initial: true,
+  },
+  activityDetail: {
+    name: 'Activity Detail',
+    path: '/activity-detail',
+    screen: ActivityDetail,
   },
   people: {
     name: 'People',

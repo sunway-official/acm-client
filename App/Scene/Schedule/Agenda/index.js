@@ -7,7 +7,7 @@ import { reset } from '~/Redux/Navigation/action';
 import { connect } from 'react-redux';
 import { KEY, setModalState } from '~/Redux/Modal';
 import { Colors, Metrics } from '~/Theme';
-import { FilterModal, LoadingIndicator } from '~/Component';
+import { FilterModal, LoadingIndicator, Text } from '~/Component';
 import Detail from './List';
 import transformer from '~/Transformer/schedules/agenda';
 import { transformServerDate } from '~/Transformer';
@@ -65,11 +65,9 @@ class Agenda extends Component {
     />
   );
 
-  _renderTabs() {
-    const { agenda: { getAllSchedules } } = this.props;
+  _renderTabs(getAllSchedules) {
     const schedules = transformer(getAllSchedules, 'start');
     let tabs = {};
-
     schedules.map(schedule => {
       const { activities, date } = schedule;
       const tabName = transformServerDate.toLocal(date);
@@ -109,10 +107,26 @@ class Agenda extends Component {
     );
   }
 
+  _renderEmpty() {
+    return () => (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.emptyText}>No schedules</Text>
+      </View>
+    );
+  }
+
   render() {
-    const { agenda: { loading } } = this.props;
+    const { agenda: { loading, getAllSchedules } } = this.props;
     const isFilterOpen = this.props.modal.isOpen;
-    const Tabs = loading ? this._renderLoading() : this._renderTabs();
+    let Tabs;
+    if (loading) {
+      Tabs = this._renderLoading();
+    } else {
+      Tabs =
+        getAllSchedules.length === 0
+          ? this._renderEmpty()
+          : this._renderTabs(getAllSchedules);
+    }
     return (
       <View style={styles.container}>
         {this._renderFilter(isFilterOpen)}

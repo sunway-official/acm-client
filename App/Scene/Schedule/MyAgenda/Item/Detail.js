@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { graphql, gql, compose } from 'react-apollo';
+import { connect } from 'react-redux';
 import { Text, TouchableView, LoadingIndicator } from '~/Component';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import { Colors, Metrics } from '~/Theme';
 import { transformServerDate } from '~/Transformer';
+import { NavigationActions } from '~/Redux/Navigation';
 import DELETE_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/deletePersonalSchedule.graphql';
 import INSERT_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/insertPersonalSchedule.graphql';
 
@@ -17,6 +19,7 @@ class ItemDetail extends Component {
     detail: PropTypes.object,
     insertPersonalScheduleMutation: PropTypes.func,
     deletePersonalScheduleMutation: PropTypes.func,
+    navigate: PropTypes.func,
   };
 
   constructor(props) {
@@ -44,11 +47,7 @@ class ItemDetail extends Component {
       const { state: { track } } = this;
       try {
         /*
-         * After delete an activity, list of schedules in My Agenda also remove
-         * this element although it is still displaying in My Agenda until user
-         * navigate to another scene (componentWillUnmount), so it cannot
-         * provide schedule_id to insert again => error => the activity must be
-         * stored in temporaryDetail variable to reuse.
+         * After delete an activity, list of schedules in My Agenda also remove this element although it is still displaying in My Agenda until user navigate to another scene (componentWillUnmount), so it cannot provide schedule_id to insert again => error => the activity must be stored in temporaryDetail variable to reuse.
          */
         this._toggleLoading(true);
         if (track === false) {
@@ -70,9 +69,7 @@ class ItemDetail extends Component {
             },
           });
           /**
-           * Detail is null after delete, so we must copy
-           * insertPersonalSchedule object to newTemporaryDetail to use for the
-           * next deleting.
+           * Detail is null after delete, so we must copy insertPersonalSchedule object to newTemporaryDetail to use for the next deleting.
            */
           this.newTemporaryDetail = { ...insertPersonalSchedule };
         }
@@ -85,19 +82,27 @@ class ItemDetail extends Component {
   }
 
   _renderDetail() {
-    const { props: { detail }, state: { loading } } = this;
+    const { props: { detail, navigate }, state: { loading } } = this;
     const isBefore = detail.isBefore;
     return (
       <View>
-        <View style={[styles.itemWrapper, isBefore ? styles.blurItem : null]}>
+        <View
+          style={[
+            styles.itemWrapper,
+            isBefore && styles.blurItem,
+            !this.state.track && styles.blurItem,
+          ]}
+        >
           <View style={styles.itemInfo}>
-            <Text style={[styles.itemText]} bold>
-              {detail.activity_title}
-            </Text>
-            <Text style={[styles.itemText]}>
-              {transformServerDate.toLocalTime(detail.start)} -{' '}
-              {transformServerDate.toLocalTime(detail.end)}
-            </Text>
+            <TouchableView onPress={() => navigate('activityDetail', detail)}>
+              <Text style={[styles.itemText]} bold>
+                {detail.activity_title}
+              </Text>
+              <Text style={[styles.itemText]}>
+                {transformServerDate.toLocalTime(detail.start)} -{' '}
+                {transformServerDate.toLocalTime(detail.end)}
+              </Text>
+            </TouchableView>
           </View>
           {loading ? (
             <View style={styles.itemAction}>
@@ -106,10 +111,14 @@ class ItemDetail extends Component {
           ) : (
             <TouchableView
               style={styles.itemAction}
-              rippleColor={Colors.white}
+              rippleColor={Colors.primary}
               borderless
               onPress={() => {
-                isBefore ? null : this._setTrackingState(detail);
+                isBefore
+                  ? null
+                  : setTimeout(() => {
+                      this._setTrackingState(detail);
+                    }, TRACKING_ANIMATION_DELAY);
               }}
             >
               <Icon
@@ -120,15 +129,6 @@ class ItemDetail extends Component {
             </TouchableView>
           )}
         </View>
-        {this.state.track || (
-          <TouchableView
-            rippleColor={Colors.white}
-            style={styles.blurWrapper}
-            onPress={() =>
-              setTimeout(this._setTrackingState, TRACKING_ANIMATION_DELAY)
-            }
-          />
-        )}
       </View>
     );
   }
@@ -138,6 +138,18 @@ class ItemDetail extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  navigate: (routeName, detail) =>
+    dispatch(
+      NavigationActions.navigate({
+        routeName,
+        params: {
+          detail: detail,
+        },
+      }),
+    ),
+});
+
 export default compose(
   graphql(gql(DELETE_PERSONAL_SCHEDULE_MUTATION), {
     name: 'deletePersonalScheduleMutation',
@@ -145,4 +157,5 @@ export default compose(
   graphql(gql(INSERT_PERSONAL_SCHEDULE_MUTATION), {
     name: 'insertPersonalScheduleMutation',
   }),
+  connect(undefined, mapDispatchToProps),
 )(ItemDetail);
