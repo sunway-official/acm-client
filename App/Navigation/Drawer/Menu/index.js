@@ -43,6 +43,7 @@ class Menu extends Component {
   static propTypes = {
     closeDrawer: PropTypes.func,
     navigate: PropTypes.func,
+    reset: PropTypes.func,
     routes: PropTypes.object,
     navigation: PropTypes.object,
     data: PropTypes.shape({
@@ -195,8 +196,7 @@ class Menu extends Component {
     const logoutFn = async () => {
       this.props.closeDrawer();
       await AsyncStorage.multiRemove(['token', 'refreshToken']);
-      await this.props.client.resetStore();
-      this.props.navigate('login');
+      this.props.reset('login');
     };
     return (
       <MenuItem
@@ -254,6 +254,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   closeDrawer: () => dispatch(setDrawerState(false)),
   navigate: routeName => dispatch(NavigationActions.navigate({ routeName })),
+  reset: routeName => dispatch(NavigationActions.reset({ routeName })),
 });
 
 export default compose(

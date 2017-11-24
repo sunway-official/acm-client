@@ -225,6 +225,10 @@ ProfileScene.footer = {
   activeColor: Colors.red,
 };
 
+ProfileScene.drawer = {
+  primary: true,
+};
+
 const mapStateToProps = state => ({
   header: state['toolbar'].header,
 });

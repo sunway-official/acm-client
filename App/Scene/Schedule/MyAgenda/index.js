@@ -63,6 +63,10 @@ MyAgenda.footer = {
   activeColor: Colors.primary,
 };
 
+MyAgenda.drawer = {
+  primary: true,
+};
+
 export default graphql(gql(query), {
   options: {
     notifyOnNetworkStatusChange: true,
