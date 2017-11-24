@@ -59,7 +59,7 @@ class LoginScene extends Component {
       ]);
       await this.props.client.resetStore();
       // Refetch QUERY_ME for checking current conference
-      await client.query({ query: gql(QUERY_ME) });
+      await this.props.client.query({ query: gql(QUERY_ME) });
       // Navigate to initial route if there is no problems
       this.props.navigateToInitialScene();
     } catch ({ graphQLErrors }) {
