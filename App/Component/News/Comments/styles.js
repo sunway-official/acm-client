@@ -18,8 +18,14 @@ export default StyleSheet.create({
     borderColor: '#bdc3c7',
     marginLeft: doubleBaseMargin,
     height: 40,
+    alignItems: 'center',
   },
-  textInputStyle: { flex: 1, paddingHorizontal: doubleBaseMargin },
+  textInputStyle: {
+    flex: 1,
+    paddingHorizontal: doubleBaseMargin,
+    paddingVertical: baseMargin,
+    fontSize: 14,
+  },
   commentSubmitButton: {
     justifyContent: 'center',
     paddingHorizontal: doubleBaseMargin,

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import { Text, UserAvatar } from '~/Component';
-import { Colors, Metrics, Images } from '~/Theme';
+import { Images } from '~/Theme';
 import styles from './styles';
 
 const defaultAvatar = Images.avatar['male08'];
@@ -25,12 +25,10 @@ class Comment extends Component {
   }
 
   _onPressLove() {
-    this.setState({ loveComment: !this.state.loveComment });
+    this.setState(prevState => ({ loveComment: !prevState.loveComment }));
   }
 
   _renderComments(comment, createdAt) {
-    // let secondaryText = moment(comment.updated_at).fromNow();
-
     return (
       <View style={styles.commentContainer}>
         <UserAvatar
@@ -47,6 +45,8 @@ class Comment extends Component {
             <Text style={styles.textColor}>{createdAt}</Text>
           </View>
           <Text>{comment.content}</Text>
+          {/*
+          // TODO: waiting for mutation
           <View style={styles.rightFooterOfComment}>
             <View style={styles.interactionContainer}>
               <TouchableOpacity>
@@ -72,7 +72,7 @@ class Comment extends Component {
               />
               <Text>{'2'}</Text>
             </View>
-          </View>
+                </View>*/}
         </View>
       </View>
     );

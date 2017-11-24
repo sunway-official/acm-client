@@ -1,21 +1,50 @@
 import { StyleSheet } from 'react-native';
 import { Colors, Metrics } from '~/Theme';
 
-const { white, grey } = Colors;
+const { white } = Colors;
 
 export default StyleSheet.create({
   container: {
-    padding: Metrics.baseMargin,
-    marginBottom: Metrics.baseMargin,
+    flex: 1,
     backgroundColor: white,
+    margin: 0,
+  },
+  header: {
+    flex: 0.4,
     flexDirection: 'row',
+    backgroundColor: white,
+    borderBottomWidth: 0.5,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: Metrics.doubleBaseMargin,
+    paddingHorizontal: Metrics.doubleBaseMargin,
+  },
+  content: {
+    flex: 8,
+    flexDirection: 'column',
+    paddingVertical: Metrics.doubleBaseMargin,
+    paddingHorizontal: Metrics.doubleBaseMargin,
+  },
+  contentUserInformation: {
+    flexDirection: 'row',
+  },
+  contentUsername: {
+    marginLeft: Metrics.baseMargin,
+  },
+  action: {
+    flex: 1.5,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
-  statusBoxView: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingVertical: Metrics.baseMargin,
-    marginHorizontal: Metrics.baseMargin,
+  imagesContainer: {
+    paddingTop: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
-  placeholderStyle: { color: grey },
+  imageUploaded: {
+    width: 120,
+    height: 120,
+    marginLeft: 4,
+  },
 });

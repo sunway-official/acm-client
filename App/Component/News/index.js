@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { compose, gql, graphql } from 'react-apollo';
+import { View } from 'react-native';
 import moment from 'moment';
 
-import { Colors, Metrics, Images } from '~/Theme';
-import { Text, UserAvatar, TouchableView } from '~/Component';
-import Comments from './Comments';
+import { Text } from '~/Component';
 import styles from './styles';
 
-const defaultAvatar = Images.avatar['male08'];
+import Comments from './Comments';
+import NewsHeader from './Header.js';
+import NewsInteractionBar from './InteractionBar.js';
+import NewsPhotoView from './PhotoView.js';
+
+import MUTATION_INSERT_NEWS_LIKE from '~/Graphql/mutation/insertNewsLike.graphql';
+import MUTATION_DELETE_NEWS_LIKE from '~/Graphql/mutation/deleteNewsLike.graphql';
 
 const formatCreatedAt = createdAt =>
   moment(createdAt).calendar(null, {
@@ -21,101 +25,59 @@ const formatCreatedAt = createdAt =>
     sameElse: 'DD/MM/YYYY',
   });
 
+const isTheSame = (firstParams, secondParams) => firstParams === secondParams;
+
 class News extends Component {
   static propTypes = {
     item: PropTypes.object,
     newsContainerStyle: PropTypes.object,
+    userId: PropTypes.string,
+    newsLikeById: PropTypes.object,
+    insertNewsLike: PropTypes.func,
+    deleteNewsLike: PropTypes.func,
+    onRefresh: PropTypes.func,
+    avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   };
 
   constructor(props) {
     super(props);
+
     this.state = {
       showCommentBox: false,
+      numberOfLove: 0,
       isLove: false,
+      isDisabledLove: false,
+      numberOfComments: 0,
     };
+
     this._onPressComment = this._onPressComment.bind(this);
     this._onPressLove = this._onPressLove.bind(this);
   }
 
-  _renderIcon(name, type, color) {
-    return (
-      <Icon
-        name={name}
-        type={type}
-        color={color}
-        marginRight={Metrics.smallMargin}
-      />
+  componentDidMount() {
+    const { userId, item } = this.props;
+    let isLove = item.newsLikes.some(newsLike =>
+      isTheSame(newsLike.user.id, userId),
     );
+
+    this.setState({
+      isLove: isLove,
+      numberOfLove: item.newsLikes.length,
+      numberOfComments: item.newsComments.length,
+    });
   }
 
   _renderNewsHeader(item, createdAt) {
+    let username = `${item.user.firstname} ${item.user.lastname}`;
+    let avatar = this.props.avatar;
+
     return (
-      <View style={styles.postHeader}>
-        <View style={styles.rightPostHeader}>
-          <UserAvatar
-            small
-            avatar={
-              item.user.avatar === null ? defaultAvatar : item.user.avatar
-            }
-            containerStyle={styles.avatar}
-          />
-          <View>
-            <Text style={styles.username}>
-              {`${item.user.firstname} ${item.user.lastname}`}
-            </Text>
-            <Text style={styles.secondaryText}>{createdAt}</Text>
-          </View>
-        </View>
-        <TouchableOpacity>
-          <Icon name="chevron-down" type="material-community" />
-        </TouchableOpacity>
-      </View>
+      <NewsHeader avatar={avatar} username={username} createdAt={createdAt} />
     );
   }
 
   _renderPhotoView(imageUrl) {
-    if (imageUrl.length === 1)
-      return (
-        <Image source={{ uri: imageUrl[0] }} style={styles.coverSingleImage} />
-      );
-    if (imageUrl.length === 2)
-      return (
-        <View style={styles.photoViewTwoImage}>
-          <Image
-            source={{ uri: imageUrl[0] }}
-            style={styles.firstMediumImage}
-          />
-          <Image
-            source={{ uri: imageUrl[1] }}
-            style={styles.secondMediumImage}
-          />
-        </View>
-      );
-    else
-      return (
-        <View style={styles.photoViewContainer}>
-          <View style={{ flex: 2 }}>
-            <Image source={{ uri: imageUrl[0] }} style={styles.coverImage} />
-          </View>
-
-          <View style={styles.photoViewSubContainer}>
-            <Image source={{ uri: imageUrl[1] }} style={styles.smallImage} />
-            {imageUrl.length > 2 ? (
-              <TouchableView>
-                <Image
-                  source={{ uri: imageUrl[2] }}
-                  style={styles.smallImage}
-                />
-                <Text medium style={styles.moreImages}>
-                  {`+ ${imageUrl.length}`}
-                </Text>
-              </TouchableView>
-            ) : (
-              <Image source={{ uri: imageUrl[2] }} style={styles.smallImage} />
-            )}
-          </View>
-        </View>
-      );
+    return <NewsPhotoView imageUrl={imageUrl} />;
   }
 
   _renderStatus(item) {
@@ -123,50 +85,93 @@ class News extends Component {
 
     return (
       <View>
-        <Text>{item.content}</Text>
+        {item.content ? <Text>{item.content}</Text> : undefined}
         {this._renderPhotoView(url)}
       </View>
     );
   }
 
-  _renderInteraction(onPressHandler, icon, text) {
+  _renderInteractionBar() {
+    let { isLove, numberOfLove, isDisabledLove } = this.state;
+    let numberOfComments = this.props.item.newsComments.length;
+
     return (
-      <TouchableOpacity onPress={onPressHandler} style={styles.interaction}>
-        {icon}
-        <Text style={styles.secondaryText}>{text}</Text>
-      </TouchableOpacity>
+      <NewsInteractionBar
+        isLove={isLove}
+        numberOfLove={numberOfLove}
+        isDisabledLove={isDisabledLove}
+        numberOfComments={numberOfComments}
+        onPressLove={this._onPressLove}
+        onPressComment={this._onPressComment}
+      />
     );
   }
 
-  _renderInteractionBar(item) {
+  _renderCommentBox(item, createdAt, userId, onRefresh) {
+    let avatar = this.props.avatar;
+
     return (
-      <View style={styles.interactionBarContainer}>
-        {this._renderInteraction(
-          this._onPressLove,
-          this.state.isLove
-            ? this._renderIcon('ios-heart', 'ionicon', Colors.red)
-            : this._renderIcon('ios-heart-outline', 'ionicon'),
-          item.newsLikes.length,
-        )}
-        {this._renderInteraction(
-          this._onPressComment,
-          this._renderIcon('comment', 'evilicon'),
-          item.newsComments.length,
-        )}
-      </View>
+      <Comments
+        comments={item.newsComments}
+        userAvatar={avatar}
+        createdAt={createdAt}
+        newsId={item.id}
+        userId={userId}
+        onRefresh={onRefresh}
+      />
     );
   }
 
   _onPressComment() {
-    this.setState({ showCommentBox: !this.state.showCommentBox });
+    this.setState(prevState => ({
+      showCommentBox: !prevState.showCommentBox,
+    }));
   }
 
-  _onPressLove() {
-    this.setState({ isLove: !this.state.isLove });
+  async _insertNewsLike(newsId, userId) {
+    this.setState(prevState => ({
+      isDisabledLove: !prevState.isDisabledLove,
+      isLove: !prevState.isLove,
+      numberOfLove: prevState.numberOfLove + 1,
+    }));
+
+    await this.props.insertNewsLike({
+      news_id: newsId,
+      user_id: userId,
+    });
+  }
+
+  async _deleteNewsLike(newsLikes, userId) {
+    this.setState(prevState => ({
+      isDisabledLove: !prevState.isDisabledLove,
+      isLove: !prevState.isLove,
+      numberOfLove: prevState.numberOfLove - 1,
+    }));
+
+    await this.props.deleteNewsLike({
+      newsLike_id: newsLikes.map(
+        newsLike =>
+          isTheSame(newsLike.user.id, userId) ? newsLike.id : undefined,
+      ),
+    });
+  }
+
+  async _onPressLove() {
+    const { item, userId, onRefresh } = this.props;
+    const { isLove } = this.state;
+
+    if (isLove === false) {
+      await this._insertNewsLike(item.id, userId);
+      await onRefresh();
+    } else {
+      await this._deleteNewsLike(item.newsLikes, userId);
+      await onRefresh();
+    }
+    this.setState(prevState => ({ isDisabledLove: !prevState.isDisabledLove }));
   }
 
   render() {
-    const { item, newsContainerStyle } = this.props;
+    const { item, newsContainerStyle, userId, onRefresh } = this.props;
     let createdAt = formatCreatedAt(item.updated_at);
 
     return (
@@ -174,15 +179,9 @@ class News extends Component {
         {this._renderNewsHeader(item, createdAt)}
         <View>
           {this._renderStatus(item)}
-          {this._renderInteractionBar(item)}
+          {this._renderInteractionBar()}
           {this.state.showCommentBox ? (
-            <Comments
-              comments={item.newsComments}
-              userAvatar={
-                item.user.avatar === null ? defaultAvatar : item.user.avatar
-              }
-              createdAt={createdAt}
-            />
+            this._renderCommentBox(item, createdAt, userId, onRefresh)
           ) : (
             <View />
           )}
@@ -192,4 +191,24 @@ class News extends Component {
   }
 }
 
-export default News;
+const InsertNewsLikeWithMutation = graphql(gql(MUTATION_INSERT_NEWS_LIKE), {
+  props: ({ mutate }) => ({
+    insertNewsLike: ({ news_id, user_id }) =>
+      mutate({
+        variables: { news_id, user_id },
+      }),
+  }),
+});
+
+const DeleteNewsLikeWithMutation = graphql(gql(MUTATION_DELETE_NEWS_LIKE), {
+  props: ({ mutate }) => ({
+    deleteNewsLike: ({ newsLike_id }) =>
+      mutate({
+        variables: { newsLike_id },
+      }),
+  }),
+});
+
+export default compose(InsertNewsLikeWithMutation, DeleteNewsLikeWithMutation)(
+  News,
+);

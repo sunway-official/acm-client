@@ -18,7 +18,13 @@ class AutoExpandingTextInput extends Component {
         onContentSizeChange={event => {
           this.setState({ height: event.nativeEvent.contentSize.height });
         }}
-        style={[{ height: Math.min(200, Math.max(35, this.state.height)) }]}
+        style={[
+          {
+            height: Math.min(200, Math.max(35, this.state.height)),
+            fontSize: 16,
+            marginTop: 10,
+          },
+        ]}
       />
     );
   }

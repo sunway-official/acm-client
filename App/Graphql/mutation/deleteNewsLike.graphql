@@ -1,0 +1,5 @@
+mutation($newsLike_id: ID!){
+  deleteNewsLike(id: $newsLike_id) {
+    id
+  }
+}
