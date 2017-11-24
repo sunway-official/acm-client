@@ -14,10 +14,10 @@
     },
     "primaryColor": "#FF5722",
     "loading": {
-      "icon": "./App/Asset/icon.png",
+      "icon": "./App/Asset/logo.png",
       "backgroundColor": "#FF5722",
       "hideExponentText": true,
-      "exponentIconColor": "white"
+      "exponentIconColor": "#FF5722"
     }
   }
 }
