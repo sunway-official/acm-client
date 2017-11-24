@@ -72,6 +72,10 @@ NewsFeedScene.footer = {
   activeColor: Colors.primary,
 };
 
+NewsFeedScene.drawer = {
+  primary: true,
+};
+
 const NewsFeedSceneWithData = graphql(gql(NEWS_FEED_QUERY), {
   props: ({
     data: { loading, getAllNews, refetch, networkStatus, error },

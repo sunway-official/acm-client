@@ -21,7 +21,6 @@ class LoginScene extends Component {
   static header = {
     disable: true,
     theme: 'light',
-    float: true,
     statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
   };
 

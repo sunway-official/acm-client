@@ -67,4 +67,8 @@ ConferenceLocationWrapper.header = {
   statusBarBackgroundColor: Colors.primary,
 };
 
+ConferenceLocationWrapper.footer = {
+  disable: true,
+};
+
 export default ConferenceLocationWrapper;
