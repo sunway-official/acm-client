@@ -31,12 +31,12 @@ const NewsPhotoView = ({ imageUrl }) => {
         <NewsRenderPhotoImage
           imageUrl={imageUrl}
           position={0}
-          style={styles.firstMediumImage}
+          styles={styles.firstMediumImage}
         />
         <NewsRenderPhotoImage
           imageUrl={imageUrl}
           position={1}
-          style={styles.secondMediumImage}
+          styles={styles.secondMediumImage}
         />
       </View>
     );
@@ -47,21 +47,21 @@ const NewsPhotoView = ({ imageUrl }) => {
           <NewsRenderPhotoImage
             imageUrl={imageUrl}
             position={0}
-            style={styles.coverImage}
+            styles={styles.coverImage}
           />
         </View>
         <View style={styles.photoViewSubContainer}>
           <NewsRenderPhotoImage
             imageUrl={imageUrl}
             position={1}
-            style={styles.smallImage}
+            styles={styles.smallImage}
           />
           {imageUrl.length > 2 ? (
             <TouchableView>
               <NewsRenderPhotoImage
                 imageUrl={imageUrl}
                 position={2}
-                style={styles.smallImage}
+                styles={styles.smallImage}
               />
               <Text medium style={styles.moreImages}>{`+ ${imageUrl.length -
                 2}`}</Text>
@@ -70,7 +70,7 @@ const NewsPhotoView = ({ imageUrl }) => {
             <NewsRenderPhotoImage
               imageUrl={imageUrl}
               position={1}
-              style={styles.smallImage}
+              styles={styles.smallImage}
             />
           )}
         </View>
