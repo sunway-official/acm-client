@@ -10,7 +10,7 @@ export default StyleSheet.create({
     margin: 0,
   },
   header: {
-    flex: 0.5,
+    flex: 0.4,
     flexDirection: 'row',
     backgroundColor: white,
     borderBottomWidth: 0.5,

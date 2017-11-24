@@ -57,7 +57,7 @@ class NewsFeedPosting extends Component {
 
   static header = {
     disable: true,
-    theme: 'light',
+    theme: 'dark',
     float: true,
     statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
   };
@@ -128,10 +128,7 @@ class NewsFeedPosting extends Component {
     Keyboard.dismiss();
 
     this.setState({ text: '', images: [] });
-    this.props.back({
-      routeName: 'newsFeed',
-      params: { isPosted: true },
-    });
+    this.props.back('newsFeed');
   }
 
   _pushImagesToArray(result) {
@@ -268,11 +265,10 @@ const mapDispatchToProps = dispatch => ({
         routeName,
       }),
     ),
-  back: (routeName, params) =>
+  back: routeName =>
     dispatch(
       NavigationActions.back({
         routeName,
-        params,
       }),
     ),
 });

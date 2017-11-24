@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Image } from 'react-native';
+import { View, Image, KeyboardAvoidingView } from 'react-native';
 import { Text, UserAvatar } from '~/Component';
 
 import styles from './styles';
 
 const PostsContent = ({ children, avatar, username, images }) => (
-  <View style={styles.content}>
+  <KeyboardAvoidingView behavior={'padding'} style={styles.content}>
     <View style={styles.contentUserInformation}>
       <UserAvatar small avatar={avatar} />
       <Text bold style={styles.contentUsername}>
@@ -24,7 +24,7 @@ const PostsContent = ({ children, avatar, username, images }) => (
           />
         ))}
     </View>
-  </View>
+  </KeyboardAvoidingView>
 );
 
 PostsContent.propTypes = {

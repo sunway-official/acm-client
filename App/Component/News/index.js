@@ -36,6 +36,7 @@ class News extends Component {
     insertNewsLike: PropTypes.func,
     deleteNewsLike: PropTypes.func,
     onRefresh: PropTypes.func,
+    avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   };
 
   constructor(props) {
@@ -68,7 +69,7 @@ class News extends Component {
 
   _renderNewsHeader(item, createdAt) {
     let username = `${item.user.firstname} ${item.user.lastname}`;
-    let avatar = item.user.avatar === null ? 25 : item.user.avatar;
+    let avatar = this.props.avatar;
 
     return (
       <NewsHeader avatar={avatar} username={username} createdAt={createdAt} />
@@ -91,7 +92,8 @@ class News extends Component {
   }
 
   _renderInteractionBar() {
-    let { isLove, numberOfLove, isDisabledLove, numberOfComments } = this.state;
+    let { isLove, numberOfLove, isDisabledLove } = this.state;
+    let numberOfComments = this.props.item.newsComments.length;
 
     return (
       <NewsInteractionBar
@@ -106,7 +108,7 @@ class News extends Component {
   }
 
   _renderCommentBox(item, createdAt, userId, onRefresh) {
-    let avatar = item.user.avatar === null ? 25 : item.user.avatar;
+    let avatar = this.props.avatar;
 
     return (
       <Comments

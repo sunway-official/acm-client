@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Keyboard } from 'react-native';
 import { Text, TouchableView } from '~/Component';
 
 import styles from './styles';
@@ -13,9 +13,11 @@ const PostsHeader = ({ onPressCancel, onPressPost, isDisabled }) => (
         Cancel
       </Text>
     </TouchableView>
-    <Text bold medium>
-      Update Status
-    </Text>
+    <TouchableView onPress={() => Keyboard.dismiss()}>
+      <Text bold medium>
+        Update Status
+      </Text>
+    </TouchableView>
     <TouchableView
       onPress={onPressPost}
       disabled={isDisabled}

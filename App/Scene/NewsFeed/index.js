@@ -131,6 +131,7 @@ class NewsFeedScene extends Component {
   }
 
   _renderNewsFeedList(allNews, networkStatus, me) {
+    let avatar = defaultAvatar(me.avatar, me.gender);
     return (
       <FlatList
         data={allNews}
@@ -141,6 +142,7 @@ class NewsFeedScene extends Component {
             key={index}
             userId={me.id}
             onRefresh={this._onRefresh}
+            avatar={avatar}
           />
         )}
         keyExtractor={(item, index) => index}
