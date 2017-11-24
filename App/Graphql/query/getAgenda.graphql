@@ -4,7 +4,6 @@
     start
     end
     activity_title
-    activity_status
     activity_description
     room_name
     personalSchedule {

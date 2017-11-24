@@ -5,7 +5,6 @@
     end
     schedule_id
     activity_title
-    activity_status
     activity_description
     room_name
   }
