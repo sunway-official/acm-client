@@ -128,7 +128,10 @@ class NewsFeedPosting extends Component {
     Keyboard.dismiss();
 
     this.setState({ text: '', images: [] });
-    this.props.navigate('newsFeed');
+    this.props.back({
+      routeName: 'newsFeed',
+      params: { isPosted: true },
+    });
   }
 
   _pushImagesToArray(result) {
@@ -265,7 +268,13 @@ const mapDispatchToProps = dispatch => ({
         routeName,
       }),
     ),
-  back: () => NavigationActions.back(),
+  back: (routeName, params) =>
+    dispatch(
+      NavigationActions.back({
+        routeName,
+        params,
+      }),
+    ),
 });
 
 export default compose(

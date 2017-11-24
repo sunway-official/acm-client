@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
@@ -22,7 +23,6 @@ import QUERY_ME from '~/Graphql/query/me.graphql';
 
 const GENDER_MALE = 'male';
 const GENDER_FEMALE = 'female';
-const GENDER_UNKNOWN = 'unknown';
 
 const defaultAvatar = (avatar, gender) => {
   let defaultAvatar = Images.avatar['male02'];
@@ -55,6 +55,7 @@ class NewsFeedScene extends Component {
     setTitle: PropTypes.func,
     toggleHeader: PropTypes.func,
     toggleFooter: PropTypes.func,
+    isPosted: PropTypes.number,
   };
 
   static header = {
@@ -72,8 +73,27 @@ class NewsFeedScene extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isRefresh: false,
+    };
+
     this._onRefresh = this._onRefresh.bind(this);
     this._onEndReached = this._onEndReached.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // ? when navigation to NewsFeedPosting
+    if (nextProps.isPosted === 1) {
+      this.setState({ isRefresh: true });
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    // ? when navigation back
+    if (nextProps.isPosted === 0 && nextState.isRefresh === true) {
+      this._onRefresh();
+      this.setState({ isRefresh: false });
+    }
   }
 
   _onRefresh() {
@@ -106,7 +126,6 @@ class NewsFeedScene extends Component {
         avatar={avatar}
         userId={me.id}
         username={`${me.firstname} ${me.lastname}`}
-        onRefresh={this._onRefresh}
       />
     );
   }
@@ -172,4 +191,12 @@ const AllNewsQuery = graphql(gql(QUERY_ALL_NEWS), {
   },
 });
 
-export default compose(AllNewsQuery, MeQuery)(NewsFeedScene);
+function mapStateToProps(state) {
+  return {
+    isPosted: state.navigation.index,
+  };
+}
+
+export default compose(AllNewsQuery, MeQuery, connect(mapStateToProps))(
+  NewsFeedScene,
+);

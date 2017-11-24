@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import styles from './styles';
 import { Icon } from 'react-native-elements';
-import { Colors } from '~/Theme';
 
 import { View, TouchableOpacity } from 'react-native';
 import { UserAvatar, TouchableView, Text } from '~/Component';
