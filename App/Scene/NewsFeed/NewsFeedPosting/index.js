@@ -192,7 +192,8 @@ class NewsFeedPosting extends Component {
 
   render() {
     const { me } = this.props;
-    const avatar = defaultAvatar(me.avatar, me.gender);
+    let avatar =
+      me.avatar !== null ? me.avatar : defaultAvatar(me.avatar, me.gender);
     const username = `${me.firstname} ${me.lastname}`;
 
     return (

@@ -121,7 +121,8 @@ class NewsFeedScene extends Component {
   }
 
   _renderNewsFeedFakePosting(me) {
-    let avatar = defaultAvatar(me.avatar, me.gender);
+    let avatar =
+      me.avatar !== null ? me.avatar : defaultAvatar(me.avatar, me.gender);
     return (
       <NewsFeedFakePosting
         avatar={avatar}
@@ -132,7 +133,8 @@ class NewsFeedScene extends Component {
   }
 
   _renderNewsFeedList(allNews, networkStatus, me) {
-    let avatar = defaultAvatar(me.avatar, me.gender);
+    let avatar =
+      me.avatar !== null ? me.avatar : defaultAvatar(me.avatar, me.gender);
     return (
       <FlatList
         data={allNews}

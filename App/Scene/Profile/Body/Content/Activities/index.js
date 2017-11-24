@@ -67,7 +67,10 @@ class Activities extends Component {
 
   _renderDataList() {
     const { allNews, networkStatus, user } = this.props;
-    let avatar = defaultAvatar(user.avatar, user.gender);
+    let avatar =
+      user.avatar !== null
+        ? user.avatar
+        : defaultAvatar(user.avatar, user.gender);
 
     return (
       <FlatList
