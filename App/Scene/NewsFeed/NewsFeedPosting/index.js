@@ -7,6 +7,7 @@ import { ImagePicker } from 'expo';
 import { AutoExpandingTextInput } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
 import { S3 } from '~/Provider';
+import { S3_GET_PREFIX } from '~/env';
 import { Images } from '~/Theme';
 
 import PostsHeader from './Header';

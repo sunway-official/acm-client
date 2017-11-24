@@ -8,6 +8,7 @@ import styles from './styles';
 import { Colors, Images } from '~/Theme';
 import { News, LoadingIndicator } from '~/Component';
 import NewsFeedFakePosting from './NewsFeedFakePosting';
+import { S3_GET_PREFIX } from '~/env';
 
 import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';

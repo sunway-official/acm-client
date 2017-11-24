@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList, Image } from 'react-native';
 import { News, LoadingIndicator, Text } from '~/Component';
+import { S3_GET_PREFIX } from '~/env';
 
 import { gql, graphql } from 'react-apollo';
 import QUERY_ACTIVITIES from '~/Graphql/query/getNewsByUserID.graphql';
