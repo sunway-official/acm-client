@@ -37,11 +37,13 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.white,
   },
+  conferenceImageWrapper: {
+    marginLeft: 'auto',
+  },
   conferenceImage: {
     width: Metrics.images.medium,
     height: Metrics.images.medium,
     borderRadius: Metrics.images.medium / 2,
-    marginLeft: 'auto',
   },
   line: {
     flexDirection: 'row',
@@ -67,6 +69,7 @@ export default StyleSheet.create({
   menuItem: {
     paddingHorizontal: Metrics.doubleBaseMargin,
     height: Metrics.icons.large,
+    marginBottom: Metrics.baseMargin,
     flexDirection: 'row',
   },
   menuItemActive: {

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
 import { graphql, gql } from 'react-apollo';
 import { LoadingIndicator } from '~/Component';
-import { Colors } from '~/Theme';
 import GET_ALL_CONFERENCES from '~/Graphql/query/getAllConferences.graphql';
 import Item from './Item';
 import styles from './styles';
@@ -39,11 +38,12 @@ const ConferenceListWrapper = graphql(gql(GET_ALL_CONFERENCES), {})(
 
 ConferenceListWrapper.drawer = {
   secondary: true,
+  disableGestures: true,
 };
 
 ConferenceListWrapper.header = {
-  theme: 'dark',
-  statusBarBackgroundColor: Colors.primary,
+  disable: true,
+  theme: 'light',
 };
 
 ConferenceListWrapper.footer = {
