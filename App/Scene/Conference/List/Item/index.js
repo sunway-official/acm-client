@@ -80,12 +80,8 @@ class ConferenceItem extends PureComponent {
             style={styles.actionWrapper}
             onPress={this.navigateToConferenceDetail}
           >
-            <Icon
-              name="info"
-              color={Colors.white}
-              size={Metrics.icons.medium}
-            />
-            <Text style={[styles.text, styles.actionText]}>Info</Text>
+            <Icon name="info" color={Colors.white} size={Metrics.icons.small} />
+            <Text style={[styles.text, styles.actionText]}>Detail</Text>
           </TouchableOpacity>
           {currentConferenceId === id || (
             <TouchableOpacity
@@ -95,7 +91,7 @@ class ConferenceItem extends PureComponent {
               {this.state.switching ? (
                 <LoadingIndicator
                   color={Colors.white}
-                  size={Metrics.icons.medium}
+                  size={Metrics.icons.small}
                 />
               ) : (
                 <View>
@@ -103,7 +99,7 @@ class ConferenceItem extends PureComponent {
                     name="open-in-new"
                     type="material-community"
                     color={Colors.white}
-                    size={Metrics.icons.medium}
+                    size={Metrics.icons.small}
                   />
                   <Text style={[styles.text, styles.actionText]}>Switch</Text>
                 </View>
