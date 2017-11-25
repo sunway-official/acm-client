@@ -1,57 +1,71 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Image } from 'react-native';
-import { Text, TouchableView } from '~/Component';
-import styles from './styles';
+import { Image, View, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { Text, LoadingIndicator } from '~/Component';
 import { randomBackground } from './fixtures';
 import { transformText } from '~/Transformer';
-import { withApollo, gql, compose } from 'react-apollo';
+import { gql, compose, graphql } from 'react-apollo';
 import { getInitialRoute } from '~/Navigation/resolver';
 import { NavigationActions } from '~/Redux/Navigation';
-import { Colors } from '~/Theme';
-import { connect } from 'react-redux';
+import { Colors, Metrics } from '~/Theme';
 import SWITCH_CURRENT_CONFERENCE from '~/Graphql/mutation/switchtCurrentConference.graphql';
 import GET_CURRENT_CONFERENCE from '~/Graphql/query/getCurrentConference.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
+import styles from './styles';
 
 class ConferenceItem extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      shortenDescription: true,
+      switching: false,
     };
+
     this.switchConference = this.switchConference.bind(this);
+    this.navigateToConferenceDetail = this.navigateToConferenceDetail.bind(
+      this,
+    );
   }
 
   componentWillMount() {
     this.uri = randomBackground();
   }
 
-  async switchConference() {
-    const { client, id, navigateToInitialScene } = this.props;
+  navigateToConferenceDetail() {
+    /**
+     * TO DO:
+     * Navigate to conference detail action
+     */
+    alert('TO DO:\n' + '\tNavigate to Conference Detail');
+  }
 
-    await client.mutate({
+  async switchConference() {
+    const { switchConference, id, navigateToInitialScene } = this.props;
+    this.setState({ switching: true });
+    await switchConference({
       mutation: gql(SWITCH_CURRENT_CONFERENCE),
       variables: {
         conference_id: id,
       },
+      refetchQueries: [
+        {
+          query: gql(QUERY_ME),
+        },
+        {
+          query: gql(GET_CURRENT_CONFERENCE),
+        },
+      ],
     });
     // Refetch query me & current conference to update current conference
-    // await Promise.all([
-    await client.query({
-      query: gql(QUERY_ME),
-    });
-    await client.query({
-      query: gql(GET_CURRENT_CONFERENCE),
-    });
-    // ]);
-
+    this.setState({ switching: false });
     navigateToInitialScene();
   }
 
   render() {
-    const { title, description } = this.props;
+    const { title, description, data, id } = this.props;
+    const currentConferenceId = data.me.currentConference.id;
     return (
       <Image
         style={styles.background}
@@ -60,29 +74,53 @@ class ConferenceItem extends PureComponent {
         }}
         resizeMode={'cover'}
       >
-        <TouchableView
-          style={styles.container}
-          rippleColor={Colors.white}
-          onPress={this.switchConference}
-        >
-          <TouchableView
-            style={styles.infoContainer}
-            onPress={() =>
-              this.setState(prevState => ({
-                shortenDescription: !prevState.shortenDescription,
-              }))
-            }
+        <View style={styles.backdropContainer} />
+        <View style={styles.actionsContainer}>
+          <TouchableOpacity
+            style={styles.actionWrapper}
+            onPress={this.navigateToConferenceDetail}
           >
+            <Icon
+              name="info"
+              color={Colors.white}
+              size={Metrics.icons.medium}
+            />
+            <Text style={[styles.text, styles.actionText]}>Info</Text>
+          </TouchableOpacity>
+          {currentConferenceId === id || (
+            <TouchableOpacity
+              style={styles.actionWrapper}
+              onPress={this.switchConference}
+            >
+              {this.state.switching ? (
+                <LoadingIndicator
+                  color={Colors.white}
+                  size={Metrics.icons.medium}
+                />
+              ) : (
+                <View>
+                  <Icon
+                    name="open-in-new"
+                    type="material-community"
+                    color={Colors.white}
+                    size={Metrics.icons.medium}
+                  />
+                  <Text style={[styles.text, styles.actionText]}>Switch</Text>
+                </View>
+              )}
+            </TouchableOpacity>
+          )}
+        </View>
+        <View style={styles.container}>
+          <View style={styles.infoContainer}>
             <Text style={[styles.text, styles.titleText]} bold>
               {title}
             </Text>
             <Text style={[styles.text, styles.descriptionText]}>
-              {this.state.shortenDescription
-                ? transformText.reduceByWords(description)
-                : description}
+              {transformText.reduceByWords(description)}
             </Text>
-          </TouchableView>
-        </TouchableView>
+          </View>
+        </View>
       </Image>
     );
   }
@@ -91,8 +129,12 @@ class ConferenceItem extends PureComponent {
 ConferenceItem.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
-  client: PropTypes.any,
+  id: PropTypes.string,
+  data: PropTypes.shape({
+    me: PropTypes.object,
+  }),
   navigateToInitialScene: PropTypes.func,
+  switchConference: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -100,6 +142,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
 });
 
-export default compose(withApollo, connect(undefined, mapDispatchToProps))(
-  ConferenceItem,
-);
+export default compose(
+  graphql(gql(QUERY_ME)),
+  graphql(gql(SWITCH_CURRENT_CONFERENCE), {
+    name: 'switchConference',
+  }),
+  connect(undefined, mapDispatchToProps),
+)(ConferenceItem);

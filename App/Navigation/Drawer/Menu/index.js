@@ -259,10 +259,6 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  graphql(gql(QUERY_ME), {
-    error: () => {
-      console.log('error');
-    },
-  }),
+  graphql(gql(QUERY_ME)),
   withApollo,
 )(Menu);

@@ -42,8 +42,8 @@ ConferenceListWrapper.drawer = {
 };
 
 ConferenceListWrapper.header = {
-  theme: 'dark',
-  statusBarBackgroundColor: Colors.primary,
+  disable: true,
+  theme: 'light',
 };
 
 ConferenceListWrapper.footer = {
