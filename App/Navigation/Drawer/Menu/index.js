@@ -103,7 +103,12 @@ class Menu extends Component {
           defaultSource={Images.default['img200']}
           style={styles.profileImage}
         />
-        <Image source={Images.default.img50} style={styles.conferenceImage} />
+        <TouchableOpacity
+          style={styles.conferenceImageWrapper}
+          onPress={() => this._onMenuItemPress('conferenceList')}
+        >
+          <Image source={Images.default.img50} style={styles.conferenceImage} />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -214,7 +219,7 @@ class Menu extends Component {
     if (!data.error && data.me) {
       me = data.me;
     }
-    const { firstname, lastname, email } = me;
+    const { firstname, lastname, position, organization } = me;
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -231,7 +236,9 @@ class Menu extends Component {
                 </Text>
               </View>
               <View style={styles.line}>
-                <Text style={[styles.text]}>{email}</Text>
+                <Text style={[styles.text]}>
+                  {position} at {organization}
+                </Text>
               </View>
             </View>
           </Image>

@@ -10,7 +10,7 @@ import { Metrics } from '~/Theme';
 import styles from './styles';
 import { IS_DEBUGGING } from '~/env';
 
-const drawerOffset = 0.8;
+const drawerOffset = 0.75;
 const BACKDROP_ANIMATION_NAME = 'fadeIn';
 const ANIMATION_DELAY = 300;
 const SIDE_MENU_ANIMATION_FRICTION = 9;
