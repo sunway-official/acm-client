@@ -5,9 +5,10 @@ import { gql, graphql, compose } from 'react-apollo';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { reset } from '~/Redux/Navigation/action';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { KEY, setModalState } from '~/Redux/Modal';
 import { Colors, Metrics } from '~/Theme';
-import { FilterModal, LoadingIndicator } from '~/Component';
+import { FilterModal, LoadingIndicator, EmptyCollection } from '~/Component';
 import Detail from './List';
 import transformer from '~/Transformer/schedules/agenda';
 import { transformServerDate } from '~/Transformer';
@@ -16,7 +17,6 @@ import {
   timeComparison,
   dateComparison,
 } from '~/Transformer/schedules/dateComparison';
-import moment from 'moment';
 import { DATE_FORMAT } from '~/env';
 import styles from './styles';
 
@@ -65,11 +65,9 @@ class Agenda extends Component {
     />
   );
 
-  _renderTabs() {
-    const { agenda: { getAllSchedules } } = this.props;
+  _renderTabs(getAllSchedules) {
     const schedules = transformer(getAllSchedules, 'start');
     let tabs = {};
-
     schedules.map(schedule => {
       const { activities, date } = schedule;
       const tabName = transformServerDate.toLocal(date);
@@ -109,10 +107,26 @@ class Agenda extends Component {
     );
   }
 
+  _renderEmptySchedules() {
+    return () => (
+      <View style={styles.container}>
+        <EmptyCollection />
+      </View>
+    );
+  }
+
   render() {
-    const { agenda: { loading } } = this.props;
+    const { agenda: { loading, getAllSchedules } } = this.props;
     const isFilterOpen = this.props.modal.isOpen;
-    const Tabs = loading ? this._renderLoading() : this._renderTabs();
+    let Tabs;
+    if (loading) {
+      Tabs = this._renderLoading();
+    } else {
+      Tabs =
+        getAllSchedules.length === 0
+          ? this._renderEmptySchedules()
+          : this._renderTabs(getAllSchedules);
+    }
     return (
       <View style={styles.container}>
         {this._renderFilter(isFilterOpen)}

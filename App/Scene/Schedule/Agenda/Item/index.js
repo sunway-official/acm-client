@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Colors } from '~/Theme';
 import { TouchableView, Text } from '~/Component';
 import { transformServerDate } from '~/Transformer';
+import { NavigationActions } from '~/Redux/Navigation';
 import { gql, graphql, compose } from 'react-apollo';
 import INSERT_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/insertPersonalSchedule.graphql';
 import DELETE_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/deletePersonalSchedule.graphql';
@@ -29,6 +31,7 @@ class Item extends Component {
     item: PropTypes.object,
     insertPersonalScheduleMutation: PropTypes.func,
     deletePersonalScheduleMutation: PropTypes.func,
+    navigate: PropTypes.func,
   };
 
   constructor(props) {
@@ -58,11 +61,7 @@ class Item extends Component {
             },
           });
           /*
-           * If activities aren't existed in My Agenda, personalSchedule is also
-           * empty in Agenda. So if any activity is added into My Agenda,
-           * personalSchedule is not still updated yet => cannot remove those
-           * activities from My Agenda.
-           * 
+           * If activities aren't existed in My Agenda, personalSchedule is also empty in Agenda. So if any activity is added into My Agenda, personalSchedule is not still updated yet => cannot remove those activities from My Agenda.
            * this.temporaryPersonalSchedule is used for this class.
            */
           this.temporaryPersonalSchedule = result.data.insertPersonalSchedule;
@@ -84,6 +83,7 @@ class Item extends Component {
 
   render() {
     const { item } = this.state;
+    const { navigate } = this.props;
     return (
       <View style={[styles.item, item.isBefore ? styles.blurItem : null]}>
         <TouchableView
@@ -100,20 +100,37 @@ class Item extends Component {
             )}
           </View>
         </TouchableView>
-        <View style={styles.timeWrapper}>
-          <Text bold>{transformServerDate.toLocalTime(item.start)}</Text>
-        </View>
-        <View style={styles.infoWrapper}>
-          <Text style={styles.primaryText}>{item.activity_title}</Text>
-          <Text style={styles.secondaryText}>{item.room_name}</Text>
-          <Text style={styles.secondaryText}>
-            Finish: {transformServerDate.toLocalTime(item.end)}
-          </Text>
-        </View>
+        <TouchableView
+          style={styles.infoContainer}
+          onPress={() => navigate('activityDetail', item)}
+        >
+          <View style={styles.timeWrapper}>
+            <Text bold>{transformServerDate.toLocalTime(item.start)}</Text>
+          </View>
+          <View style={styles.infoWrapper}>
+            <Text style={styles.primaryText}>{item.activity_title}</Text>
+            <Text style={styles.secondaryText}>Room: {item.room_name}</Text>
+            <Text style={styles.secondaryText}>
+              Finish: {transformServerDate.toLocalTime(item.end)}
+            </Text>
+          </View>
+        </TouchableView>
       </View>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  navigate: (routeName, detail) =>
+    dispatch(
+      NavigationActions.navigate({
+        routeName,
+        params: {
+          detail: detail,
+        },
+      }),
+    ),
+});
 
 export default compose(
   graphql(gql(INSERT_PERSONAL_SCHEDULE_MUTATION), {
@@ -122,4 +139,5 @@ export default compose(
   graphql(gql(DELETE_PERSONAL_SCHEDULE_MUTATION), {
     name: 'deletePersonalScheduleMutation',
   }),
+  connect(undefined, mapDispatchToProps),
 )(Item);

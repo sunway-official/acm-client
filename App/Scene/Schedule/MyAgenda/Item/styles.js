@@ -8,12 +8,6 @@ export default StyleSheet.create({
     paddingRight: Metrics.doubleBaseMargin,
     alignItems: 'center',
   },
-  blurWrapper: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(255,255,255,0.5)',
-  },
   headerWrapper: {
     marginLeft: Metrics.doubleBaseMargin,
   },
@@ -63,6 +57,9 @@ export default StyleSheet.create({
   itemAction: {
     marginLeft: 'auto',
     marginRight: Metrics.baseMargin,
+  },
+  secondaryText: {
+    color: Colors.grey,
   },
   blurItem: {
     opacity: 0.5,
