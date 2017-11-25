@@ -32,5 +32,6 @@ export default StyleSheet.create({
   },
   sendCommentBtn: {
     color: '#bdc3c7',
+    padding: baseMargin,
   },
 });

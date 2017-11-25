@@ -54,6 +54,19 @@ class News extends Component {
     this._onPressLove = this._onPressLove.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { numberOfComments, numberOfLove, isLove } = this.state;
+    const { newsComments, newsLikes } = nextProps.item;
+
+    if (newsComments.length != numberOfComments && isLove) {
+      this.setState({ numberOfComments: newsComments.length });
+    }
+
+    if (newsLikes.length != numberOfLove) {
+      this.setState({ numberOfLove: newsLikes.length });
+    }
+  }
+
   componentDidMount() {
     const { userId, item } = this.props;
     let isLove = item.newsLikes.some(newsLike =>
@@ -92,8 +105,7 @@ class News extends Component {
   }
 
   _renderInteractionBar() {
-    let { isLove, numberOfLove, isDisabledLove } = this.state;
-    let numberOfComments = this.props.item.newsComments.length;
+    let { isLove, numberOfLove, isDisabledLove, numberOfComments } = this.state;
 
     return (
       <NewsInteractionBar

@@ -8,7 +8,11 @@ import { Colors } from '~/Theme';
 
 const PostsHeader = ({ onPressCancel, onPressPost, isDisabled }) => (
   <View style={styles.header}>
-    <TouchableView onPress={onPressCancel} borderless={true}>
+    <TouchableView
+      onPress={onPressCancel}
+      borderless={true}
+      style={{ padding: 8 }}
+    >
       <Text bold style={{ color: Colors.primary }}>
         Cancel
       </Text>
@@ -22,6 +26,7 @@ const PostsHeader = ({ onPressCancel, onPressPost, isDisabled }) => (
       onPress={onPressPost}
       disabled={isDisabled}
       borderless={true}
+      style={{ padding: 8 }}
     >
       <Text
         bold

@@ -21,14 +21,10 @@ class NewsFeedFakePosting extends Component {
 
   constructor(props) {
     super(props);
-
-    // this._renderPostFake = this._renderPostFake.bind();
-    this._handleNavigateToNewsFeedPosting = this._handleNavigateToNewsFeedPosting.bind(
-      this,
-    );
+    this._handleNavigateToPosting = this._handleNavigateToPosting.bind(this);
   }
 
-  _handleNavigateToNewsFeedPosting() {
+  _handleNavigateToPosting() {
     this.props.navigate('newsFeedPosting');
   }
 
@@ -38,13 +34,13 @@ class NewsFeedFakePosting extends Component {
         <UserAvatar small avatar={avatar} />
         <TouchableView
           style={styles.statusBoxView}
-          onPress={this._handleNavigateToNewsFeedPosting}
+          onPress={this._handleNavigateToPosting}
         >
           <Text style={[styles.placeholderStyle]}>
             {"What's on your mind?"}
           </Text>
         </TouchableView>
-        <TouchableOpacity onPress={this._handleNavigateToNewsFeedPosting}>
+        <TouchableOpacity onPress={this._handleNavigateToPosting}>
           <Icon name="camera" type="material-community" />
         </TouchableOpacity>
       </View>

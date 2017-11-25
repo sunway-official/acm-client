@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { Text, UserAvatar } from '~/Component';
 import Comment from './Comment';
@@ -31,22 +31,22 @@ class Comments extends Component {
   }
 
   send() {
+    Keyboard.dismiss();
     const { newsId, userId, onRefresh } = this.props;
     const { text } = this.state;
 
-    if (text !== '') {
+    const textTrim = text.trim();
+
+    if (textTrim !== '') {
       this.props
         .insertNewsComment({
           news_id: newsId,
           user_id: userId,
-          content_comment: text,
+          content_comment: textTrim,
         })
         .then(onRefresh);
 
       this.setState({ text: '' });
-    } else {
-      // TODO: show alert
-      console.log('input empty');
     }
   }
 
@@ -65,7 +65,7 @@ class Comments extends Component {
             underlineColorAndroid="rgba(0,0,0,0)"
             onChangeText={text => this.setState({ text })}
             enablesReturnKeyAutomatically={true}
-            returnKeyType="done"
+            returnKeyType="next"
             style={styles.textInputStyle}
           />
           <TouchableOpacity
