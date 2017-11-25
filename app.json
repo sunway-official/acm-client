@@ -1,11 +1,14 @@
 {
   "expo": {
     "name": "ACM",
+    "description":
+      "ACM Client built for attendees who will attend to specific academic conference.",
     "slug": "acm",
     "privacy": "public",
     "orientation": "portrait",
     "sdkVersion": "21.0.0",
     "version": "0.3.0",
+    "icon": "./App/Images/logo/logo-orange-white.png",
     "ios": {
       "bundleIdentifier": "com.sunway.acmclient"
     },
@@ -14,10 +17,13 @@
     },
     "primaryColor": "#FF5722",
     "loading": {
-      "icon": "./App/Asset/logo.png",
+      "icon": "./App/Images/logo/logo-transparent-orange.png",
       "backgroundColor": "#FF5722",
       "hideExponentText": true,
-      "exponentIconColor": "#FF5722"
+      "exponentIconColor": "white"
+    },
+    "splash": {
+      "image": "./App/Images/splash.png"
     }
   }
 }
