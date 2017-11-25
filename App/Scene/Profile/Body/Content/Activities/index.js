@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, FlatList, Image } from 'react-native';
-import { News, LoadingIndicator, Text } from '~/Component';
+import { View, FlatList } from 'react-native';
+import { News, LoadingIndicator, EmptyCollection } from '~/Component';
 import { S3_GET_PREFIX } from '~/env';
-
 import { gql, graphql } from 'react-apollo';
 import QUERY_ACTIVITIES from '~/Graphql/query/getNewsByUserID.graphql';
-
-import styles from './styles';
 import { Images } from '~/Theme';
+import styles from './styles';
 
 const GENDER_MALE = 'male';
 const GENDER_FEMALE = 'female';
@@ -44,23 +42,8 @@ class Activities extends Component {
 
   _renderLoading() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <View style={styles.loadingContainer}>
         <LoadingIndicator />
-      </View>
-    );
-  }
-
-  _renderEmptyList() {
-    return (
-      <View style={styles.container}>
-        <Image style={styles.notFoundIcon} source={Images.notFoundIcon} />
-
-        <View style={styles.subText}>
-          <Text bold italic style={styles.headerSubText}>
-            {`"Ups"!`}
-          </Text>
-          <Text style={styles.descriptionText}>Your collection is empty.</Text>
-        </View>
       </View>
     );
   }
@@ -93,13 +76,11 @@ class Activities extends Component {
 
   render() {
     const { allNews, networkStatus } = this.props;
-
     if (networkStatus === 1) return <View>{this._renderLoading()}</View>;
-
     return allNews.length > 0 ? (
       <View>{this._renderDataList()}</View>
     ) : (
-      <View>{this._renderEmptyList()}</View>
+      <EmptyCollection customStyles={styles.emptyContainer} />
     );
   }
 }

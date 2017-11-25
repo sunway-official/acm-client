@@ -5,9 +5,10 @@ import { gql, graphql, compose } from 'react-apollo';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { reset } from '~/Redux/Navigation/action';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { KEY, setModalState } from '~/Redux/Modal';
 import { Colors, Metrics } from '~/Theme';
-import { FilterModal, LoadingIndicator, Text } from '~/Component';
+import { FilterModal, LoadingIndicator, EmptyCollection } from '~/Component';
 import Detail from './List';
 import transformer from '~/Transformer/schedules/agenda';
 import { transformServerDate } from '~/Transformer';
@@ -16,7 +17,6 @@ import {
   timeComparison,
   dateComparison,
 } from '~/Transformer/schedules/dateComparison';
-import moment from 'moment';
 import { DATE_FORMAT } from '~/env';
 import styles from './styles';
 
@@ -107,10 +107,10 @@ class Agenda extends Component {
     );
   }
 
-  _renderEmpty() {
+  _renderEmptySchedules() {
     return () => (
-      <View style={styles.loadingContainer}>
-        <Text style={styles.emptyText}>No schedules</Text>
+      <View style={styles.container}>
+        <EmptyCollection />
       </View>
     );
   }
@@ -124,7 +124,7 @@ class Agenda extends Component {
     } else {
       Tabs =
         getAllSchedules.length === 0
-          ? this._renderEmpty()
+          ? this._renderEmptySchedules()
           : this._renderTabs(getAllSchedules);
     }
     return (

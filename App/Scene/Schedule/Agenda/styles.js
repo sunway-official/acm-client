@@ -11,9 +11,6 @@ const Schedule = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.white,
   },
-  emptyText: {
-    color: Colors.grey,
-  },
 });
 
 export default Schedule;

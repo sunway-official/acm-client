@@ -95,10 +95,9 @@ class ItemDetail extends Component {
         >
           <View style={styles.itemInfo}>
             <TouchableView onPress={() => navigate('activityDetail', detail)}>
-              <Text style={[styles.itemText]} bold>
-                {detail.activity_title}
-              </Text>
-              <Text style={[styles.itemText]}>
+              <Text>{detail.activity_title}</Text>
+              <Text style={styles.secondaryText}>Room: {detail.room_name}</Text>
+              <Text style={styles.secondaryText}>
                 {transformServerDate.toLocalTime(detail.start)} -{' '}
                 {transformServerDate.toLocalTime(detail.end)}
               </Text>

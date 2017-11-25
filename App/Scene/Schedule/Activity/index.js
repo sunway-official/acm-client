@@ -7,7 +7,8 @@ import { Icon } from 'react-native-elements';
 import styles from './styles';
 import { Colors, Metrics } from '~/Theme';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
-import { transformServerDate } from '~/Transformer';
+import { addHeaderOptions } from '~/Redux/Toolbar/action';
+import { transformServerDate, transformText } from '~/Transformer';
 
 const DEFAULT_ACTIVITY_DETAIL = {
   title: '',
@@ -22,6 +23,7 @@ const ROUTE_NAME = 'activityDetail';
 class ActivityDetailScene extends Component {
   static propTypes = {
     detail: PropTypes.object,
+    setHeader: PropTypes.func,
   };
 
   _convertDateTime(date) {
@@ -30,6 +32,15 @@ class ActivityDetailScene extends Component {
       ' - ' +
       transformServerDate.toLocalTime(date)
     );
+  }
+
+  componentDidMount() {
+    const { setHeader, detail } = this.props;
+    setTimeout(() => {
+      setHeader({
+        title: transformText.reduceByWords(detail.activity_title, 6),
+      });
+    });
   }
 
   render() {
@@ -63,10 +74,10 @@ class ActivityDetailScene extends Component {
             </View>
             <View>
               <View>
-                <Text> Start: {this._convertDateTime(detail.start)} </Text>
+                <Text>Start: {this._convertDateTime(detail.start)} </Text>
               </View>
               <View>
-                <Text> End: {this._convertDateTime(detail.end)} </Text>
+                <Text>End: {this._convertDateTime(detail.end)} </Text>
               </View>
             </View>
           </View>
@@ -98,10 +109,16 @@ const mapStateToProps = state => {
     detail: data,
   };
 };
-const Scene = connect(mapStateToProps, undefined)(ActivityDetailScene);
+
+const mapDispatchToProps = dispatch => ({
+  setHeader: options => dispatch(addHeaderOptions(options)),
+});
+
+const Scene = connect(mapStateToProps, mapDispatchToProps)(ActivityDetailScene);
 
 Scene.header = {
   leftIcon: 'back',
+  theme: 'dark',
 };
 
 Scene.drawer = {

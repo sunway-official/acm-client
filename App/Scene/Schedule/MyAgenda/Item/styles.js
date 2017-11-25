@@ -58,6 +58,9 @@ export default StyleSheet.create({
     marginLeft: 'auto',
     marginRight: Metrics.baseMargin,
   },
+  secondaryText: {
+    color: Colors.grey,
+  },
   blurItem: {
     opacity: 0.5,
   },

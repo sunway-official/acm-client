@@ -87,7 +87,7 @@ export const ROUTES = {
       name: 'calendar-range',
       type: 'material-community',
     },
-    // initial: true,
+    initial: true,
   },
   activityDetail: {
     name: 'Activity Detail',
