@@ -63,6 +63,10 @@ class NewsFeedScene extends Component {
     activeColor: Colors.primary,
   };
 
+  static drawer = {
+    primary: true,
+  };
+
   constructor(props) {
     super(props);
 
