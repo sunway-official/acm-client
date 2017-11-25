@@ -13,15 +13,6 @@ import { S3_GET_PREFIX } from '~/env';
 import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
 
-// const isDuplicateNews = (newNews, existingNews) => {
-//   if (existingNews !== undefined) {
-//     return (
-//       newNews.id !== null &&
-//       existingNews.some(oldNews => newNews.id === oldNews.id)
-//     );
-//   }
-// };
-
 const GENDER_MALE = 'male';
 const GENDER_FEMALE = 'female';
 
@@ -57,6 +48,7 @@ class NewsFeedScene extends Component {
     toggleHeader: PropTypes.func,
     toggleFooter: PropTypes.func,
     isPosted: PropTypes.number,
+    loading: PropTypes.bool,
   };
 
   static header = {
@@ -156,16 +148,17 @@ class NewsFeedScene extends Component {
     );
   }
 
-  render() {
-    if (networkStatus === 1) {
-      return (
-        <View style={styles.loadingContainer}>
-          <LoadingIndicator />
-        </View>
-      );
-    }
+  _renderLoading() {
+    return () => (
+      <View style={styles.loadingContainer}>
+        <LoadingIndicator />
+      </View>
+    );
+  }
 
-    const { allNews, networkStatus, me } = this.props;
+  render() {
+    const { allNews, networkStatus, me, loading } = this.props;
+    loading ? _renderLoading() : null;
 
     return (
       <View style={styles.container}>
@@ -184,11 +177,14 @@ const MeQuery = graphql(gql(QUERY_ME), {
 });
 
 const AllNewsQuery = graphql(gql(QUERY_ALL_NEWS), {
-  props: ({ data: { getAllNews, refetch, networkStatus, fetchMore } }) => ({
+  props: ({
+    data: { getAllNews, refetch, networkStatus, fetchMore, loading },
+  }) => ({
     allNews: getAllNews,
     refetch,
     networkStatus,
     fetchMore,
+    loading,
   }),
   options: {
     notifyOnNetworkStatusChange: true,

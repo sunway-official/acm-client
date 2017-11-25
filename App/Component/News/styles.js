@@ -34,16 +34,17 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+    paddingTop: baseMargin,
   },
   interaction: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: baseMargin,
   },
   photoViewContainer: {
     flexDirection: 'row',
-    marginVertical: baseMargin,
   },
   photoViewSubContainer: {
     flex: 1,

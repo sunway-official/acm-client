@@ -67,10 +67,6 @@ class NewsFeedPosting extends Component {
     disable: true,
   };
 
-  static drawer = {
-    // disableGestures: true,
-  };
-
   constructor(props) {
     super(props);
 
@@ -86,18 +82,23 @@ class NewsFeedPosting extends Component {
     this._handleCaptureImage = this._handleCaptureImage.bind(this);
   }
 
+  componentWillUnmount() {
+    Keyboard.dismiss();
+    this.setState({ text: '', images: [] });
+  }
+
   _handlePostNews(content) {
+    let contentTrim = content.trim();
     return this.props.insertNews({
       userId: 1, // TODO: remove it
       conferenceId: 1, // TODO: remove it
-      contentNews: content,
+      contentNews: contentTrim,
     });
   }
 
   async _handlePostPhoto(photo, newsId) {
     const { uri, base64 } = photo;
     const { Key } = await S3.putAsync({ uri, base64 });
-    console.log('key ', Key);
 
     // TODO: fill name for news photo
     await this.props.insertNewsPhoto({
@@ -118,17 +119,12 @@ class NewsFeedPosting extends Component {
   }
 
   async _handlePost() {
-    Keyboard.dismiss();
-
     const { text, images } = this.state;
     await this._handlePostMutation(text, images);
     this._handleCancel();
   }
 
   _handleCancel() {
-    Keyboard.dismiss();
-
-    this.setState({ text: '', images: [] });
     this.props.back('newsFeed');
   }
 
@@ -175,7 +171,7 @@ class NewsFeedPosting extends Component {
           placeholder={"What's on your mind?"}
           onChangeText={text => this.setState({ text })}
           enablesReturnKeyAutomatically={true}
-          returnKeyType="done"
+          returnKeyType="next"
         />
       </PostContent>
     );
