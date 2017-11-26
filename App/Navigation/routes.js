@@ -160,7 +160,6 @@ export const ROUTES = {
       name: 'apps',
       type: 'material-community',
     },
-    initial: true,
   },
   setting: {
     name: 'Setting',

@@ -10,6 +10,7 @@ import { gql, compose, graphql } from 'react-apollo';
 import { getInitialRoute } from '~/Navigation/resolver';
 import { NavigationActions } from '~/Redux/Navigation';
 import { Colors, Metrics } from '~/Theme';
+import { IS_IOS } from '~/env';
 import SWITCH_CURRENT_CONFERENCE from '~/Graphql/mutation/switchtCurrentConference.graphql';
 import GET_CURRENT_CONFERENCE from '~/Graphql/query/getCurrentConference.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
@@ -103,7 +104,7 @@ class ConferenceItem extends PureComponent {
               {this.state.switching ? (
                 <LoadingIndicator
                   color={Colors.white}
-                  size={Metrics.icons.small}
+                  size={IS_IOS ? 'small' : Metrics.icons.small}
                 />
               ) : (
                 <View>
