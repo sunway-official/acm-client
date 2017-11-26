@@ -77,6 +77,16 @@ class ConferenceItem extends PureComponent {
         resizeMode={'cover'}
       >
         <View style={styles.backdropContainer} />
+        <View style={styles.container}>
+          <View style={styles.infoContainer}>
+            <Text style={[styles.text, styles.titleText]} bold>
+              {title}
+            </Text>
+            <Text style={[styles.text, styles.descriptionText]}>
+              {transformText.reduceByWords(description)}
+            </Text>
+          </View>
+        </View>
         <View style={styles.actionsContainer}>
           <TouchableOpacity
             style={styles.actionWrapper}
@@ -108,16 +118,6 @@ class ConferenceItem extends PureComponent {
               )}
             </TouchableOpacity>
           )}
-        </View>
-        <View style={styles.container}>
-          <View style={styles.infoContainer}>
-            <Text style={[styles.text, styles.titleText]} bold>
-              {title}
-            </Text>
-            <Text style={[styles.text, styles.descriptionText]}>
-              {transformText.reduceByWords(description)}
-            </Text>
-          </View>
         </View>
       </Image>
     );

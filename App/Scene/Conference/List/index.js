@@ -30,7 +30,6 @@ class ConferenceList extends PureComponent {
     // Disable header if there is no current conference
     const { queryMe, setHeader } = this.props;
     if (queryMe && queryMe.me) {
-      console.log(queryMe.me);
       const currentConferenceId = queryMe.me.currentConference;
       let disable;
       if (currentConferenceId === NO_CONFERENCE_VALUE) {
@@ -45,7 +44,6 @@ class ConferenceList extends PureComponent {
 
   render() {
     const { getAllConferences, loading } = this.props.queryConferences;
-    console.log(this.props.queryConferences);
     const conferences = getAllConferences;
     return (
       <View
