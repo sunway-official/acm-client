@@ -65,7 +65,9 @@ class ConferenceItem extends PureComponent {
 
   render() {
     const { title, description, data, id } = this.props;
-    const currentConferenceId = data.me.currentConference.id;
+    const currentConferenceId = data.me.currentConference
+      ? data.me.currentConference.id
+      : NaN;
     return (
       <Image
         style={styles.background}
