@@ -15,12 +15,16 @@ const SplashScene = () => (
 
 SplashScene.header = {
   disable: true,
-  theme: 'light',
-  statusBarBackgroundColor: Colors.primary,
+  theme: 'dark',
+  statusBarBackgroundColor: Colors.transparent,
 };
 
 SplashScene.footer = {
   disable: true,
+};
+
+SplashScene.drawer = {
+  disableGestures: true,
 };
 
 export default SplashScene;
