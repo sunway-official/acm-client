@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "ACM",
+    "name": "ACM Client",
     "description":
-      "ACM Client built for attendees who will attend to specific academic conference.",
-    "slug": "acm",
+      "ACM Client is a cross-platforms application that can be run on both Android and iOS. This application will provide a single solution for the conferences that happen in DTU. It will help people to easily share their activities, track their schedule, take quick notes, send real time messages as well as many other features.",
+    "slug": "acm-client",
     "privacy": "public",
     "orientation": "portrait",
     "sdkVersion": "21.0.0",
     "version": "0.3.0",
-    "icon": "./App/Images/logo/logo-orange-white.png",
+    "icon": "./App/Images/logo/white-orange.png",
     "ios": {
       "bundleIdentifier": "com.sunway.acmclient"
     },
@@ -17,7 +17,7 @@
     },
     "primaryColor": "#FF5722",
     "loading": {
-      "icon": "./App/Images/logo/logo-transparent-orange.png",
+      "icon": "./App/Images/logo/orange.png",
       "backgroundColor": "#FF5722",
       "hideExponentText": true,
       "exponentIconColor": "white"
