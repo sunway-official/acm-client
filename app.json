@@ -23,8 +23,8 @@
       "exponentIconColor": "white"
     },
     "splash": {
-      "image": "./App/Images/logo/white.png",
-      "backgroundColor": "#FF5722"
+      "image": "./App/Images/splash.png",
+      "resizeMode": "cover"
     }
   }
 }
