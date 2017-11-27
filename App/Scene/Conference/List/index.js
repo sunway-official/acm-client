@@ -31,13 +31,15 @@ class ConferenceList extends PureComponent {
     const { queryMe, setHeader } = this.props;
     if (queryMe && queryMe.me) {
       const currentConferenceId = queryMe.me.currentConference;
-      let disable;
+      let disable, theme;
       if (currentConferenceId === NO_CONFERENCE_VALUE) {
+        theme = 'light';
         disable = true;
       } else {
+        theme = 'dark';
         disable = false;
       }
-      setHeader({ disable });
+      setHeader({ disable, theme });
       this.setState({ disableHeader: disable });
     }
   }
