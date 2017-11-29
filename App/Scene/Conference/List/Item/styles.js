@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '~/Theme';
-import { Metrics, Fonts } from '~/Theme/index';
+import { Colors, Metrics, Fonts } from '~/Theme';
 
 const sceneHeight =
   Metrics.screenHeight - Metrics.toolBarHeight - Metrics.statusBarHeight;
@@ -45,5 +44,6 @@ export default StyleSheet.create({
   },
   actionText: {
     fontSize: Fonts.size.small,
+    backgroundColor: Colors.transparent,
   },
 });

@@ -31,8 +31,10 @@ const images = {
 
   materialBackground: require('~/Images/material/background.jpg'),
   splash: require('~/Images/splash.png'),
-  logo: require('~/Asset/logo.png'),
-
+  logo: {
+    orange: require('~/Images/logo/orange.png'),
+    white: require('~/Images/logo/white.png'),
+  },
   login: require('~/Images/LargeIcons/login.png'),
   forgotPassword: require('~/Images/LargeIcons/forgot_password.png'),
 

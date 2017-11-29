@@ -10,6 +10,7 @@ import { gql, compose, graphql } from 'react-apollo';
 import { getInitialRoute } from '~/Navigation/resolver';
 import { NavigationActions } from '~/Redux/Navigation';
 import { Colors, Metrics } from '~/Theme';
+import { IS_IOS } from '~/env';
 import SWITCH_CURRENT_CONFERENCE from '~/Graphql/mutation/switchtCurrentConference.graphql';
 import GET_CURRENT_CONFERENCE from '~/Graphql/query/getCurrentConference.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
@@ -65,7 +66,9 @@ class ConferenceItem extends PureComponent {
 
   render() {
     const { title, description, data, id } = this.props;
-    const currentConferenceId = data.me.currentConference.id;
+    const currentConferenceId = data.me.currentConference
+      ? data.me.currentConference.id
+      : NaN;
     return (
       <Image
         style={styles.background}
@@ -75,6 +78,16 @@ class ConferenceItem extends PureComponent {
         resizeMode={'cover'}
       >
         <View style={styles.backdropContainer} />
+        <View style={styles.container}>
+          <View style={styles.infoContainer}>
+            <Text style={[styles.text, styles.titleText]} bold>
+              {title}
+            </Text>
+            <Text style={[styles.text, styles.descriptionText]}>
+              {transformText.reduceByWords(description)}
+            </Text>
+          </View>
+        </View>
         <View style={styles.actionsContainer}>
           <TouchableOpacity
             style={styles.actionWrapper}
@@ -91,7 +104,7 @@ class ConferenceItem extends PureComponent {
               {this.state.switching ? (
                 <LoadingIndicator
                   color={Colors.white}
-                  size={Metrics.icons.small}
+                  size={IS_IOS ? 'small' : Metrics.icons.small}
                 />
               ) : (
                 <View>
@@ -106,16 +119,6 @@ class ConferenceItem extends PureComponent {
               )}
             </TouchableOpacity>
           )}
-        </View>
-        <View style={styles.container}>
-          <View style={styles.infoContainer}>
-            <Text style={[styles.text, styles.titleText]} bold>
-              {title}
-            </Text>
-            <Text style={[styles.text, styles.descriptionText]}>
-              {transformText.reduceByWords(description)}
-            </Text>
-          </View>
         </View>
       </Image>
     );

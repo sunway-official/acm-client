@@ -56,6 +56,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
+    initial: true,
   },
   newsFeedPosting: {
     name: 'New Post',
