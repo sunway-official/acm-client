@@ -1,36 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Keyboard } from 'react-native';
-import { Text, TouchableView } from '~/Component';
+import { View, TouchableOpacity } from 'react-native';
+import { Text } from '~/Component';
 
 import styles from './styles';
 import { Colors } from '~/Theme';
 
 const PostsHeader = ({ onPressCancel, onPressPost, isDisabled }) => (
   <View style={styles.header}>
-    <TouchableView
-      onPress={onPressCancel}
-      borderless={true}
-      style={{ padding: 8 }}
-    >
-      <Text bold style={{ color: Colors.primary }}>
+    <TouchableOpacity onPress={onPressCancel} style={{ padding: 8 }}>
+      <Text bold style={[styles.headerText, { color: Colors.primary }]}>
         Cancel
       </Text>
-    </TouchableView>
-    <View>{/* TODO Header title*/}</View>
-    <TouchableView
-      onPress={onPressPost}
-      disabled={isDisabled}
-      borderless={true}
+    </TouchableOpacity>
+    <View>{/* TODO: Header title*/}</View>
+    <TouchableOpacity
+      onPress={() => isDisabled || onPressPost()}
       style={{ padding: 8 }}
     >
       <Text
         bold
-        style={isDisabled ? { color: Colors.grey } : { color: Colors.primary }}
+        style={[
+          styles.headerText,
+          isDisabled ? { color: Colors.grey } : { color: Colors.primary },
+        ]}
       >
         Post
       </Text>
-    </TouchableView>
+    </TouchableOpacity>
   </View>
 );
 

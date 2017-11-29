@@ -218,6 +218,7 @@ const QueryLikes = graphql(gql(QUERY_ALL_LIKES), {
       variables: {
         news_id: props.navigation.state.params.id,
       },
+      fetchPolicy: 'network-only',
     };
   },
 });
@@ -236,6 +237,7 @@ const QueryComments = graphql(gql(QUERY_ALL_COMMENTS), {
       variables: {
         news_id: props.navigation.state.params.id,
       },
+      fetchPolicy: 'network-only',
     };
   },
 });

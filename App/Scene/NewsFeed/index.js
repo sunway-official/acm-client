@@ -5,34 +5,12 @@ import { FlatList } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
 import styles from './styles';
-import { Colors, Images } from '~/Theme';
+import { Colors } from '~/Theme';
 import { News, LoadingIndicator } from '~/Component';
 import NewsFeedFakePosting from './NewsFeedFakePosting';
-import { S3_GET_PREFIX } from '~/env';
 
 import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
-
-const GENDER_MALE = 'male';
-const GENDER_FEMALE = 'female';
-
-const defaultAvatar = (avatar, gender) => {
-  let defaultAvatar = Images.avatar['male02'];
-  if (avatar) {
-    avatar = { uri: S3_GET_PREFIX + avatar };
-  } else {
-    switch (gender) {
-      case GENDER_MALE:
-        defaultAvatar = Images.avatar['male08'];
-        break;
-      case GENDER_FEMALE:
-        defaultAvatar = Images.avatar['female01'];
-        break;
-    }
-    avatar = defaultAvatar;
-  }
-  return avatar;
-};
 
 const PAGE_SIZE = 10;
 
@@ -128,8 +106,6 @@ class NewsFeedScene extends Component {
   }
 
   _renderNewsFeedList(allNews, networkStatus, me) {
-    let avatar =
-      me.avatar !== null ? me.avatar : defaultAvatar(me.avatar, me.gender);
     return (
       <FlatList
         data={allNews}
@@ -140,7 +116,7 @@ class NewsFeedScene extends Component {
             key={index}
             userId={me.id}
             onRefresh={this._onRefresh}
-            avatar={avatar}
+            avatar={me.avatar}
           />
         )}
         keyExtractor={(item, index) => index}

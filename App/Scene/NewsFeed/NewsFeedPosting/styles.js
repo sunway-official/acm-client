@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Colors, Metrics, Fonts } from '~/Theme';
+import { IS_IOS } from '~/env';
 
 const { white, grey } = Colors;
 
@@ -20,6 +21,9 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: Metrics.doubleBaseMargin,
     paddingHorizontal: Metrics.doubleBaseMargin,
+  },
+  headerText: {
+    fontSize: Fonts.size.regular,
   },
   content: {
     flex: 1,
