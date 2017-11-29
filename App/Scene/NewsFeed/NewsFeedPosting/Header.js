@@ -17,11 +17,7 @@ const PostsHeader = ({ onPressCancel, onPressPost, isDisabled }) => (
         Cancel
       </Text>
     </TouchableView>
-    <TouchableView onPress={() => Keyboard.dismiss()}>
-      <Text bold medium>
-        Update Status
-      </Text>
-    </TouchableView>
+    <View>{/* TODO Header title*/}</View>
     <TouchableView
       onPress={onPressPost}
       disabled={isDisabled}

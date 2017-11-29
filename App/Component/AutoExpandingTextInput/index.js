@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { TextInput } from 'react-native';
 
 class AutoExpandingTextInput extends Component {
+  static propTypes = {
+    maxHeight: PropTypes.number,
+    style: TextInput.propTypes.style,
+  };
+
+  static defaultProps = {
+    maxHeight: 200,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,10 +29,12 @@ class AutoExpandingTextInput extends Component {
           this.setState({ height: event.nativeEvent.contentSize.height });
         }}
         style={[
+          this.props.style,
           {
-            height: Math.min(200, Math.max(35, this.state.height)),
-            fontSize: 16,
-            marginTop: 10,
+            height: Math.min(
+              this.props.maxHeight,
+              Math.max(35, this.state.height),
+            ),
           },
         ]}
       />

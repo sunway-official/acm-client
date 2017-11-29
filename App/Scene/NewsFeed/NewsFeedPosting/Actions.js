@@ -5,25 +5,55 @@ import { Icon } from 'react-native-elements';
 import { Text, TouchableView } from '~/Component';
 
 import styles from './styles';
-import { Colors } from '~/Theme';
+import { Colors, Metrics } from '~/Theme';
 
-const PostsActions = ({ onPressUploadImage, onPressCaptureImage }) => (
-  <View style={styles.action}>
+const PostsActions = ({
+  onPressAlbum,
+  onPressUploadImage,
+  onPressCaptureImage,
+}) => (
+  <View style={styles.actions}>
     <TouchableView
+      style={styles.actionItem}
+      rippleColor={Colors.primary}
+      borderless={true}
+      onPress={onPressAlbum}
+    >
+      <Icon
+        color={Colors.grey}
+        name="md-photos"
+        type="ionicon"
+        size={Metrics.icons.small}
+      />
+      <Text style={styles.actionText}>Album</Text>
+    </TouchableView>
+    <TouchableView
+      style={styles.actionItem}
       rippleColor={Colors.primary}
       borderless={true}
       onPress={onPressUploadImage}
     >
-      <Icon name="md-photos" type="ionicon" />
-      <Text>Photo</Text>
+      <Icon
+        color={Colors.grey}
+        name="md-photos"
+        type="ionicon"
+        size={Metrics.icons.small}
+      />
+      <Text style={styles.actionText}>Photo</Text>
     </TouchableView>
     <TouchableView
+      style={styles.actionItem}
       rippleColor={Colors.primary}
       borderless={true}
       onPress={onPressCaptureImage}
     >
-      <Icon name="camera" type="material-community" />
-      <Text>Camera</Text>
+      <Icon
+        color={Colors.grey}
+        name="camera"
+        type="material-community"
+        size={Metrics.icons.small}
+      />
+      <Text style={styles.actionText}>Camera</Text>
     </TouchableView>
   </View>
 );
@@ -31,6 +61,7 @@ const PostsActions = ({ onPressUploadImage, onPressCaptureImage }) => (
 PostsActions.propTypes = {
   onPressUploadImage: PropTypes.func,
   onPressCaptureImage: PropTypes.func,
+  onPressAlbum: PropTypes.func,
 };
 
 export default PostsActions;
