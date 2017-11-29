@@ -1,23 +1,27 @@
 import { StyleSheet } from 'react-native';
-import { Metrics } from '~/Theme';
+import { Metrics, Colors } from '~/Theme';
 
-const { baseMargin, doubleBaseMargin, doubleSection } = Metrics;
+const { baseMargin, doubleBaseMargin, smallMargin } = Metrics;
 
 export default StyleSheet.create({
   commentInputBoxContainer: {
-    flex: 1,
+    flexShrink: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: baseMargin,
+    justifyContent: 'center',
+    height: 40,
+    paddingHorizontal: baseMargin,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(0,0,0,0.075)',
   },
   commentInputBox: {
     flex: 1,
     flexDirection: 'row',
     borderWidth: 1,
-    borderRadius: doubleSection,
-    borderColor: '#bdc3c7',
-    marginLeft: doubleBaseMargin,
-    height: 40,
+    borderRadius: Metrics.baseMargin,
+    borderColor: Colors.grey,
+    marginLeft: baseMargin,
+    marginBottom: smallMargin,
     alignItems: 'center',
   },
   textInputStyle: {
@@ -31,7 +35,7 @@ export default StyleSheet.create({
     paddingHorizontal: doubleBaseMargin,
   },
   sendCommentBtn: {
-    color: '#bdc3c7',
+    color: Colors.grey,
     padding: baseMargin,
   },
 });

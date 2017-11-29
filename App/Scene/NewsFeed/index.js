@@ -117,8 +117,7 @@ class NewsFeedScene extends Component {
   }
 
   _renderNewsFeedFakePosting(me) {
-    let avatar =
-      me.avatar !== null ? me.avatar : defaultAvatar(me.avatar, me.gender);
+    let avatar = me.avatar;
     return (
       <NewsFeedFakePosting
         avatar={avatar}
@@ -153,7 +152,7 @@ class NewsFeedScene extends Component {
   }
 
   _renderLoading() {
-    return () => (
+    return (
       <View style={styles.loadingContainer}>
         <LoadingIndicator />
       </View>
@@ -162,9 +161,10 @@ class NewsFeedScene extends Component {
 
   render() {
     const { allNews, networkStatus, me, loading } = this.props;
-    loading ? _renderLoading() : null;
 
-    return (
+    return loading ? (
+      this._renderLoading()
+    ) : (
       <View style={styles.container}>
         {this._renderNewsFeedFakePosting(me)}
         {this._renderNewsFeedList(allNews, networkStatus, me)}

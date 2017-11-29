@@ -2,7 +2,8 @@ import Home from '~/Scene/Home';
 import Login from '~/Scene/Auth/Login';
 import ForgotPassword from '~/Scene/Auth/ForgotPassword/';
 import NewsFeed from '~/Scene/NewsFeed';
-import NewsFeedPosting from '~/Scene/NewsFeed/NewsFeedPosting/';
+import NewsFeedPosting from '~/Scene/NewsFeed/NewsFeedPosting';
+import NewsDetail from '~/Scene/NewsFeed/NewsDetail';
 import Notification from '~/Scene/Notification';
 import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
@@ -62,6 +63,15 @@ export const ROUTES = {
     name: 'New Post',
     path: '/news-feed/post',
     screen: NewsFeedPosting,
+    icon: {
+      name: 'newspaper',
+      type: 'material-community',
+    },
+  },
+  newsDetail: {
+    name: 'New Detail',
+    path: '/news-feed/detail',
+    screen: NewsDetail,
     icon: {
       name: 'newspaper',
       type: 'material-community',

@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { Text, UserAvatar } from '~/Component';
-import Comment from './Comment';
+import { Colors, Metrics } from '~/Theme';
+
 import styles from './styles';
 
-import { Colors } from '~/Theme';
-
 import MUTATION_INSERT_NEWS_COMMENT from '~/Graphql/mutation/insertNewsComment.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
+
+const FORM_HEIGHT = 40;
 
 class Comments extends Component {
   static propTypes = {
@@ -16,7 +18,7 @@ class Comments extends Component {
     userAvatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     createdAt: PropTypes.string,
     newsId: PropTypes.string,
-    userId: PropTypes.string,
+    queryMe: PropTypes.object,
     insertNewsComment: PropTypes.func,
     onRefresh: PropTypes.func,
   };
@@ -25,14 +27,14 @@ class Comments extends Component {
     super(props);
     this.state = {
       text: '',
+      height: 0,
     };
-    this._renderCommentInputBox = this._renderCommentInputBox.bind(this);
     this.send = this.send.bind(this);
   }
 
   send() {
     Keyboard.dismiss();
-    const { newsId, userId, onRefresh } = this.props;
+    const { newsId, onRefresh } = this.props;
     const { text } = this.state;
 
     const textTrim = text.trim();
@@ -41,32 +43,51 @@ class Comments extends Component {
       this.props
         .insertNewsComment({
           news_id: newsId,
-          user_id: userId,
-          content_comment: textTrim,
+          content: textTrim,
         })
-        .then(onRefresh);
-
-      this.setState({ text: '' });
+        .then(() => {
+          console.log('finshing. start refetch');
+          onRefresh();
+        });
     }
+    this.setState({ text: '' });
   }
 
-  _renderCommentInputBox(userAvatar) {
+  render() {
     let isDisabled = this.state.text === '';
-
+    const { queryMe } = this.props;
     return (
-      <View style={styles.commentInputBoxContainer}>
-        <UserAvatar avatar={userAvatar} />
+      <View
+        style={[
+          styles.commentInputBoxContainer,
+          {
+            height:
+              Math.max(FORM_HEIGHT, this.state.height) +
+              Metrics.doubleBaseMargin +
+              2, // 2: Border width value
+          },
+        ]}
+      >
+        <UserAvatar avatar={queryMe.loading ? null : queryMe.me.avatar} />
         <View style={styles.commentInputBox}>
           <TextInput
             value={this.state.text}
             placeholder="Type a comment ..."
-            placeholderTextColor="#bdc3c7"
+            placeholderTextColor={Colors.grey}
             multiline={true}
             underlineColorAndroid="rgba(0,0,0,0)"
             onChangeText={text => this.setState({ text })}
+            onContentSizeChange={event => {
+              this.setState({ height: event.nativeEvent.contentSize.height });
+            }}
             enablesReturnKeyAutomatically={true}
             returnKeyType="next"
-            style={styles.textInputStyle}
+            style={[
+              styles.textInputStyle,
+              {
+                height: Math.max(FORM_HEIGHT, this.state.height),
+              },
+            ]}
           />
           <TouchableOpacity
             style={styles.commentSubmitButton}
@@ -74,6 +95,7 @@ class Comments extends Component {
             disabled={isDisabled}
           >
             <Text
+              bold
               style={[
                 styles.sendCommentBtn,
                 isDisabled ? {} : { color: Colors.primary },
@@ -86,31 +108,22 @@ class Comments extends Component {
       </View>
     );
   }
-
-  render() {
-    const { comments, userAvatar, createdAt } = this.props;
-
-    return (
-      <View>
-        {comments.map((comment, index) => (
-          <Comment comment={comment} key={index} createdAt={createdAt} />
-        ))}
-        {this._renderCommentInputBox(userAvatar)}
-      </View>
-    );
-  }
 }
+
+const QueryMe = graphql(gql(QUERY_ME), {
+  props: ({ data }) => ({ queryMe: data }),
+});
 
 const InsertNewsCommentWithMutation = graphql(
   gql(MUTATION_INSERT_NEWS_COMMENT),
   {
     props: ({ mutate }) => ({
-      insertNewsComment: ({ news_id, user_id, content_comment }) =>
+      insertNewsComment: ({ news_id, content }) =>
         mutate({
-          variables: { news_id, user_id, content_comment },
+          variables: { news_id, content },
         }),
     }),
   },
 );
 
-export default compose(InsertNewsCommentWithMutation)(Comments);
+export default compose(InsertNewsCommentWithMutation, QueryMe)(Comments);

@@ -4,10 +4,7 @@ import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import { Text, UserAvatar } from '~/Component';
-import { Images } from '~/Theme';
 import styles from './styles';
-
-const defaultAvatar = Images.avatar['male08'];
 
 class Comment extends Component {
   static propTypes = {
@@ -31,11 +28,7 @@ class Comment extends Component {
   _renderComments(comment, createdAt) {
     return (
       <View style={styles.commentContainer}>
-        <UserAvatar
-          avatar={
-            comment.user.avatar === null ? defaultAvatar : comment.user.avatar
-          }
-        />
+        <UserAvatar avatar={comment.user.avatar} />
         <View style={styles.rightOfComment}>
           <View flexDirection="row">
             <Text bold>

@@ -1,0 +1,14 @@
+query getAllNewsComments($news_id: ID!) {
+  getNewsCommentByNewsID(news_id: $news_id) {
+    id
+    user {
+      firstname
+      lastname
+      avatar
+      gender
+    }
+    content
+    created_at
+    updated_at
+  }
+}
