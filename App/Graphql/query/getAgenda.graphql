@@ -3,6 +3,7 @@
     id
     start
     end
+    activity_id
     activity_title
     activity_description
     room_name

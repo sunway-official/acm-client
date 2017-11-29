@@ -3,7 +3,6 @@ import { FlatList, View, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { graphql, gql, compose } from 'react-apollo';
 import { Text, LoadingIndicator, EmptyCollection } from '~/Component';
-import { Colors } from '~/Theme';
 import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import { connect } from 'react-redux';
 import { navigate } from '~/Redux/Navigation/action';
