@@ -169,6 +169,7 @@ const AllNewsQuery = graphql(gql(QUERY_ALL_NEWS), {
   options: {
     notifyOnNetworkStatusChange: true,
     variables: { pageNumber: 0, pageSize: PAGE_SIZE },
+    fetchPolicy: 'network-only',
   },
 });
 

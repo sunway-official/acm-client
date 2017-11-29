@@ -69,6 +69,7 @@ const ActivitiesWithQuery = graphql(gql(QUERY_ACTIVITIES), {
   options: ownProps => ({
     variables: { user_id: ownProps.user.id },
     notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'network-only',
   }),
   props: ({ data: { getNewsByUserID, refetch, networkStatus } }) => ({
     allNews: getNewsByUserID,

@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { Colors, Metrics, Fonts } from '~/Theme';
-import { IS_IOS } from '~/env';
 
 const { white, grey } = Colors;
 
