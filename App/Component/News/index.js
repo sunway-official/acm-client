@@ -2,28 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import { NavigationActions } from '~/Redux/Navigation';
 import { Text } from '~/Component';
-import styles from './styles';
-
-import NewsHeader from './Header.js';
-import NewsInteractionBar from './InteractionBar.js';
-import NewsPhotoView from './PhotoView.js';
+import { transformDate } from '~/Transformer';
+import NewsHeader from './Header';
+import NewsInteractionBar from './InteractionBar';
+import NewsPhotoView from './PhotoView';
 
 import MUTATION_INSERT_NEWS_LIKE from '~/Graphql/mutation/insertNewsLike.graphql';
 import MUTATION_DELETE_NEWS_LIKE from '~/Graphql/mutation/deleteNewsLike.graphql';
 
-const formatCreatedAt = createdAt =>
-  moment(createdAt).calendar(null, {
-    sameDay: '[Today]',
-    nextDay: '[Tomorrow]',
-    nextWeek: 'dddd',
-    lastDay: '[Yesterday]',
-    lastWeek: 'dddd',
-    sameElse: 'DD/MM/YYYY',
-  });
+import styles from './styles';
 
 class News extends Component {
   static propTypes = {
@@ -146,7 +136,7 @@ class News extends Component {
 
   render() {
     const { item, newsContainerStyle } = this.props;
-    let createdAt = formatCreatedAt(item.updated_at);
+    let createdAt = transformDate.formatTimestamp(item.updated_at);
 
     return (
       <View style={[styles.container, newsContainerStyle]}>

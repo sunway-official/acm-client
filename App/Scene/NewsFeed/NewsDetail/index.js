@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { View, ScrollView, KeyboardAvoidingView } from 'react-native';
-import { Text } from '~/Component';
+import { compose, gql, graphql } from 'react-apollo';
+import { Text, LoadingIndicator } from '~/Component';
 import NewsHeader from '~/Component/News/Header';
 import NewsInteractionBar from '~/Component/News/InteractionBar';
 import NewsPhotoView from '~/Component/News/PhotoView';
@@ -11,7 +11,7 @@ import Comments from './Comments';
 import CommentForm from './Comments/Form';
 import { Colors } from '~/Theme';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
-import { compose, gql, graphql } from 'react-apollo';
+import { transformDate } from '~/Transformer';
 import QUERY_ALL_COMMENTS from '~/Graphql/query/getAllNewsComments.graphql';
 import QUERY_ALL_LIKES from '~/Graphql/query/getAllNewsLikes.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
@@ -25,16 +25,6 @@ const DEFAULT_NEWS_DETAIL = {
   user: {},
   newsPhotos: [],
 };
-
-const formatCreatedAt = createdAt =>
-  moment(createdAt).calendar(null, {
-    sameDay: '[Today]',
-    nextDay: '[Tomorrow]',
-    nextWeek: 'dddd',
-    lastDay: '[Yesterday]',
-    lastWeek: 'dddd',
-    sameElse: 'DD/MM/YYYY',
-  });
 
 class NewsDetailScene extends Component {
   static propTypes = {
@@ -161,9 +151,11 @@ class NewsDetailScene extends Component {
     );
   }
 
-  _renderCommentBox(item, comments, createdAt) {
-    return (
-      <Comments comments={comments} createdAt={createdAt} newsId={item.id} />
+  _renderCommentBox(detail, loading, comments, createdAt) {
+    return loading ? (
+      <LoadingIndicator />
+    ) : (
+      <Comments comments={comments} createdAt={createdAt} newsId={detail.id} />
     );
   }
 
@@ -173,7 +165,7 @@ class NewsDetailScene extends Component {
 
   render() {
     const { detail, comments = [], queryComments } = this.props;
-    const createdAt = formatCreatedAt(detail.updated_at);
+    const createdAt = transformDate.formatTimestamp(detail.updated_at);
 
     return (
       <KeyboardAvoidingView
@@ -185,7 +177,12 @@ class NewsDetailScene extends Component {
           {this._renderNewsHeader(detail, createdAt)}
           {this._renderStatus(detail)}
           {this._renderInteractionBar()}
-          {this._renderCommentBox(detail, comments, createdAt)}
+          {this._renderCommentBox(
+            detail,
+            queryComments.loading,
+            comments,
+            createdAt,
+          )}
         </ScrollView>
         {this._renderCommentForm(detail, queryComments.refetch)}
       </KeyboardAvoidingView>
