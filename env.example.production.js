@@ -1,6 +1,6 @@
 export default {
   SERVER_ENDPOINT: 'https://acm-server-187014.appspot.com/graphql',
-  SERVER_SUBSCRIPTION_ENDPOINT: 'ws://35.200.131.177:65080/subscriptions',
+  SERVER_SUBSCRIPTION_ENDPOINT: 'ws://35.200.147.201:65080/subscriptions',
   DATE_FORMAT: 'DD/MM/YYYY',
 
   S3_ACCESS_KEY: '',
