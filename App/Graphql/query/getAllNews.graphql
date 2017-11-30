@@ -1,10 +1,11 @@
-query($pageNumber: Int, $pageSize: Int){
+query($pageNumber: Int, $pageSize: Int) {
   getAllNews(pageNumber: $pageNumber, pageSize: $pageSize) {
     id
     user {
       id
       firstname
       lastname
+      gender
       avatar
     }
     content
@@ -12,24 +13,9 @@ query($pageNumber: Int, $pageSize: Int){
       id
       url
     }
-    newsLikes {
-      id
-      user {
-        id
-      }
-      created_at
-      updated_at
-    }
-    newsComments {
-      user {
-        firstname
-        lastname
-        avatar
-      }
-      content
-      created_at
-      updated_at
-    }
+    commentsCount
+    likesCount
+    isLiked
     created_at
     updated_at
   }

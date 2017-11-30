@@ -3,11 +3,14 @@ import { Metrics } from '~/Theme';
 
 export default StyleSheet.create({
   container: {
-    marginHorizontal: Metrics.baseMargin,
     paddingTop: Metrics.baseMargin,
+    marginBottom: Metrics.navBarHeight - Metrics.baseMargin,
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
+  },
+  listContentContainer: {
+    paddingHorizontal: Metrics.baseMargin,
   },
 });

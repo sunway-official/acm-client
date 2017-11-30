@@ -6,10 +6,15 @@ import { Text, UserAvatar } from '~/Component';
 
 import styles from './styles';
 
-const NewsHeader = ({ avatar, username, createdAt }) => (
+const NewsHeader = ({ avatar, gender, username, createdAt }) => (
   <View style={styles.postHeader}>
     <View style={styles.rightPostHeader}>
-      <UserAvatar small avatar={avatar} containerStyle={styles.avatar} />
+      <UserAvatar
+        small
+        avatar={avatar}
+        gender={gender}
+        containerStyle={styles.avatar}
+      />
       <View>
         <Text style={styles.username}>{username}</Text>
         <Text style={styles.secondaryText}>{createdAt}</Text>
@@ -23,6 +28,7 @@ const NewsHeader = ({ avatar, username, createdAt }) => (
 
 NewsHeader.propTypes = {
   avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  gender: PropTypes.string,
   username: PropTypes.string,
   createdAt: PropTypes.string,
 };

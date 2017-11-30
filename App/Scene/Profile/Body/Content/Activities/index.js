@@ -2,33 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
 import { News, LoadingIndicator, EmptyCollection } from '~/Component';
-import { S3_GET_PREFIX } from '~/env';
 import { gql, graphql } from 'react-apollo';
 import QUERY_ACTIVITIES from '~/Graphql/query/getNewsByUserID.graphql';
-import { Images } from '~/Theme';
 import styles from './styles';
 
-const GENDER_MALE = 'male';
-const GENDER_FEMALE = 'female';
-
-const defaultAvatar = (avatar, gender) => {
-  let defaultAvatar = Images.avatar['male02'];
-  if (avatar) {
-    avatar = { uri: S3_GET_PREFIX + avatar };
-  } else {
-    switch (gender) {
-      case GENDER_MALE:
-        defaultAvatar = Images.avatar['male08'];
-        break;
-      case GENDER_FEMALE:
-        defaultAvatar = Images.avatar['female01'];
-        break;
-    }
-    avatar = defaultAvatar;
-  }
-  return avatar;
-};
-
+const NETWORK_STATUS_LOADING = 1;
+const NETWORK_STATUS_REFETCHING = 4;
 class Activities extends Component {
   constructor(props) {
     super(props);
@@ -50,10 +29,6 @@ class Activities extends Component {
 
   _renderDataList() {
     const { allNews, networkStatus, user } = this.props;
-    let avatar =
-      user.avatar !== null
-        ? user.avatar
-        : defaultAvatar(user.avatar, user.gender);
 
     return (
       <FlatList
@@ -64,19 +39,21 @@ class Activities extends Component {
             key={index}
             userId={user.id}
             onRefresh={this.onRefresh}
-            avatar={avatar}
+            avatar={user.avatar}
           />
         )}
         keyExtractor={(item, index) => index}
         onRefresh={this.onRefresh}
-        refreshing={networkStatus === 4}
+        refreshing={networkStatus === NETWORK_STATUS_REFETCHING}
       />
     );
   }
 
   render() {
     const { allNews, networkStatus } = this.props;
-    if (networkStatus === 1) return <View>{this._renderLoading()}</View>;
+    if (networkStatus === NETWORK_STATUS_LOADING) {
+      return <View>{this._renderLoading()}</View>;
+    }
     return allNews.length > 0 ? (
       <View>{this._renderDataList()}</View>
     ) : (
@@ -96,6 +73,7 @@ const ActivitiesWithQuery = graphql(gql(QUERY_ACTIVITIES), {
   options: ownProps => ({
     variables: { user_id: ownProps.user.id },
     notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'network-only',
   }),
   props: ({ data: { getNewsByUserID, refetch, networkStatus } }) => ({
     allNews: getNewsByUserID,

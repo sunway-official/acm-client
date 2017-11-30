@@ -1,0 +1,14 @@
+query getAllNewsLikes($news_id: ID!) {
+  getNewsLikesByNewsID(news_id: $news_id) {
+    id
+    user {
+      firstname
+      lastname
+      avatar
+      gender
+    }
+    user_id
+    created_at
+    updated_at
+  }
+}

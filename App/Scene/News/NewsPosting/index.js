@@ -2,50 +2,29 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { gql, graphql, compose } from 'react-apollo';
-import { View, Keyboard } from 'react-native';
+import { Keyboard, KeyboardAvoidingView } from 'react-native';
 import { ImagePicker } from 'expo';
 import { AutoExpandingTextInput } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
 import { S3 } from '~/Provider';
-import { S3_GET_PREFIX } from '~/env';
-import { Images } from '~/Theme';
 
 import PostsHeader from './Header';
 import PostContent from './Content';
 import PostActions from './Actions';
 
 import QUERY_ME from '~/Graphql/query/me.graphql';
+import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
 import MUTATION_INSERT_NEWS from '~/Graphql/mutation/insertNews.graphql';
 import MUTATION_INSERT_NEWS_PHOTO from '~/Graphql/mutation/insertNewsPhoto.graphql';
+import styles from './styles';
 
-const GENDER_MALE = 'male';
-const GENDER_FEMALE = 'female';
-
-const defaultAvatar = (avatar, gender) => {
-  let defaultAvatar = Images.avatar['male02'];
-  if (avatar) {
-    avatar = { uri: S3_GET_PREFIX + avatar };
-  } else {
-    switch (gender) {
-      case GENDER_MALE:
-        defaultAvatar = Images.avatar['male08'];
-        break;
-      case GENDER_FEMALE:
-        defaultAvatar = Images.avatar['female01'];
-        break;
-    }
-    avatar = defaultAvatar;
-  }
-  return avatar;
-};
-
-const ImagePickerConfig = {
+const IMAGE_PICKER_CONFIG = {
   allowsEditing: true,
   aspect: [4, 3],
   base64: true,
 };
 
-class NewsFeedPosting extends Component {
+class NewsPosting extends Component {
   static propTypes = {
     navigate: PropTypes.func,
     back: PropTypes.func,
@@ -58,9 +37,6 @@ class NewsFeedPosting extends Component {
 
   static header = {
     disable: true,
-    theme: 'dark',
-    float: true,
-    statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
   };
 
   static footer = {
@@ -90,9 +66,7 @@ class NewsFeedPosting extends Component {
   _handlePostNews(content) {
     let contentTrim = content.trim();
     return this.props.insertNews({
-      userId: 1, // TODO: remove it
-      conferenceId: 1, // TODO: remove it
-      contentNews: contentTrim,
+      content: contentTrim,
     });
   }
 
@@ -135,14 +109,14 @@ class NewsFeedPosting extends Component {
   }
 
   async _handlePickImage() {
-    let result = await ImagePicker.launchImageLibraryAsync(ImagePickerConfig);
+    let result = await ImagePicker.launchImageLibraryAsync(IMAGE_PICKER_CONFIG);
     if (!result.cancelled) {
       await this._pushImagesToArray(result);
     }
   }
 
   async _handleCaptureImage() {
-    let result = await ImagePicker.launchCameraAsync(ImagePickerConfig);
+    let result = await ImagePicker.launchCameraAsync(IMAGE_PICKER_CONFIG);
     if (!result.cancelled) {
       await this._pushImagesToArray(result);
     }
@@ -161,17 +135,24 @@ class NewsFeedPosting extends Component {
     );
   }
 
-  _renderContents(username, avatar) {
+  _renderContents({ avatar, gender, firstname, lastname }) {
     let { text, images } = this.state;
 
+    const username = `${firstname} ${lastname}`;
     return (
-      <PostContent username={username} avatar={avatar} images={images}>
+      <PostContent
+        username={username}
+        avatar={avatar}
+        gender={gender}
+        images={images}
+      >
         <AutoExpandingTextInput
           value={text}
           placeholder={"What's on your mind?"}
           onChangeText={text => this.setState({ text })}
           enablesReturnKeyAutomatically={true}
-          returnKeyType="next"
+          returnKeyType="done"
+          style={styles.textInput}
         />
       </PostContent>
     );
@@ -188,21 +169,13 @@ class NewsFeedPosting extends Component {
 
   render() {
     const { me } = this.props;
-    let avatar =
-      me.avatar !== null ? me.avatar : defaultAvatar(me.avatar, me.gender);
-    const username = `${me.firstname} ${me.lastname}`;
 
     return (
-      <View
-        style={{
-          flex: 1,
-          marginTop: 22,
-        }}
-      >
+      <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
         {this._renderHeader()}
-        {this._renderContents(username, avatar)}
+        {this._renderContents(me)}
         {this._renderActions()}
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -214,47 +187,28 @@ const MeQuery = graphql(gql(QUERY_ME), {
   }),
 });
 
-const NewsFeedFakePostingMutation = graphql(gql(MUTATION_INSERT_NEWS), {
+const NewsPostingMutation = graphql(gql(MUTATION_INSERT_NEWS), {
   props: ({ mutate }) => ({
-    insertNews: ({ userId, conferenceId, contentNews }) =>
+    insertNews: ({ content }) =>
       mutate({
-        variables: { userId, conferenceId, contentNews },
-        // TODO: REMOVE IT
-        // update: (store, { data: { insertNews } }) => {
-        //   const data = store.readQuery({
-        //     query: gql(QUERY_ALL_NEWS),
-        //     variables: {
-        //       id: insertNews.id,
-        //     },
-        //   });
-
-        //   if (isDuplicateNews(insertNews, data.getAllNews)) {
-        //     return data;
-        //   }
-
-        //   store.writeQuery({
-        //     query: gql(QUERY_ALL_NEWS),
-        //     variables: {
-        //       id: insertNews.id,
-        //     },
-        //     data,
-        //   });
-        // },
+        variables: { content },
       }),
   }),
 });
 
-const NewsFeedFakePostingPhotoMutation = graphql(
-  gql(MUTATION_INSERT_NEWS_PHOTO),
-  {
-    props: ({ mutate }) => ({
-      insertNewsPhoto: ({ news_id, name, url }) =>
-        mutate({
-          variables: { news_id, name, url },
-        }),
-    }),
-  },
-);
+const NewsPostingPhotoMutation = graphql(gql(MUTATION_INSERT_NEWS_PHOTO), {
+  props: ({ mutate }) => ({
+    insertNewsPhoto: ({ news_id, name, url }) =>
+      mutate({
+        variables: { news_id, name, url },
+        refetchQueries: [
+          {
+            query: gql(QUERY_ALL_NEWS),
+          },
+        ],
+      }),
+  }),
+});
 
 const mapDispatchToProps = dispatch => ({
   navigate: routeName =>
@@ -273,7 +227,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   MeQuery,
-  NewsFeedFakePostingMutation,
-  NewsFeedFakePostingPhotoMutation,
+  NewsPostingMutation,
+  NewsPostingPhotoMutation,
   connect(undefined, mapDispatchToProps),
-)(NewsFeedPosting);
+)(NewsPosting);

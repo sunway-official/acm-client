@@ -16,11 +16,11 @@ const NewsRenderIcon = ({ name, type, color }) => (
   />
 );
 
-const NewsInteraction = ({ onPressHandler, icon, text, isDisabledLove }) => (
+const NewsInteraction = ({ onPressHandler, icon, text, isDisabledLike }) => (
   <TouchableOpacity
     onPress={onPressHandler}
     style={styles.interaction}
-    disabled={isDisabledLove}
+    disabled={isDisabledLike}
   >
     {icon}
     <Text style={styles.secondaryText}>{text}</Text>
@@ -28,18 +28,18 @@ const NewsInteraction = ({ onPressHandler, icon, text, isDisabledLove }) => (
 );
 
 const NewsInteractionBar = ({
-  isLove,
-  numberOfLove,
-  isDisabledLove,
+  isLiked,
+  numberOfLikes,
+  isDisabledLike,
   numberOfComments,
-  onPressLove,
+  onPressLike,
   onPressComment,
 }) => (
   <View style={styles.interactionBarContainer}>
     <NewsInteraction
-      onPressHandler={onPressLove}
+      onPressHandler={onPressLike}
       icon={
-        isLove ? (
+        isLiked ? (
           <NewsRenderIcon
             name={'ios-heart'}
             type={'ionicon'}
@@ -49,14 +49,14 @@ const NewsInteractionBar = ({
           <NewsRenderIcon name={'ios-heart-outline'} type={'ionicon'} />
         )
       }
-      text={numberOfLove}
-      isDisabledLove={isDisabledLove}
+      text={numberOfLikes}
+      isDisabledLike={isDisabledLike}
     />
     <NewsInteraction
       onPressHandler={onPressComment}
       icon={<NewsRenderIcon name={'comment'} type={'evilicon'} />}
       text={numberOfComments}
-      isDisabledLove={isDisabledLove}
+      isDisabledLike={isDisabledLike}
     />
   </View>
 );
@@ -69,17 +69,17 @@ NewsRenderIcon.propTypes = {
 
 NewsInteraction.propTypes = {
   onPressHandler: PropTypes.func,
-  isDisabledLove: PropTypes.bool,
+  isDisabledLike: PropTypes.bool,
   icon: PropTypes.object,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 NewsInteractionBar.propTypes = {
-  isLove: PropTypes.bool,
-  isDisabledLove: PropTypes.bool,
-  numberOfLove: PropTypes.number,
+  isLiked: PropTypes.bool,
+  isDisabledLike: PropTypes.bool,
+  numberOfLikes: PropTypes.number,
   numberOfComments: PropTypes.number,
-  onPressLove: PropTypes.func,
+  onPressLike: PropTypes.func,
   onPressComment: PropTypes.func,
 };
 
