@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { graphql, gql, compose } from 'react-apollo';
-import { Text, TouchableView, LoadingIndicator } from '~/Component';
-import { Colors } from '~/Theme';
+import { Text, LoadingIndicator, EmptyCollection } from '~/Component';
 import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import { connect } from 'react-redux';
 import { navigate } from '~/Redux/Navigation/action';
@@ -61,16 +60,12 @@ class MyAgendaList extends Component {
   _renderEmptyList(goToAgenda) {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={styles.warningText}>You have no schedules</Text>
-        <TouchableView
-          onPress={goToAgenda}
-          style={styles.gotoBtn}
-          rippleColor={Colors.white}
-        >
+        <EmptyCollection customStyles={styles.emptyCollection} />
+        <TouchableOpacity onPress={goToAgenda} style={styles.gotoBtn}>
           <Text bold style={styles.goToText}>
             Go to Agenda
           </Text>
-        </TouchableView>
+        </TouchableOpacity>
       </View>
     );
   }

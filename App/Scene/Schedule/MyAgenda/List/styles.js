@@ -17,19 +17,20 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  warningText: { color: Colors.grey },
   gotoBtn: {
-    padding: Metrics.baseMargin,
-    marginTop: Metrics.baseMargin,
-    backgroundColor: Colors.primary,
+    padding: Metrics.doubleBaseMargin,
   },
   goToText: {
-    color: Colors.white,
+    color: Colors.primary,
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.white,
+  },
+  emptyCollection: {
+    paddingVertical: 0,
+    flex: 0,
   },
 });

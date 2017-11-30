@@ -5,7 +5,6 @@ import { gql, graphql, compose } from 'react-apollo';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { reset } from '~/Redux/Navigation/action';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { KEY, setModalState } from '~/Redux/Modal';
 import { Colors, Metrics } from '~/Theme';
 import { FilterModal, LoadingIndicator, EmptyCollection } from '~/Component';
@@ -14,10 +13,10 @@ import transformer from '~/Transformer/schedules/agenda';
 import { transformServerDate } from '~/Transformer';
 import AGENDA_QUERY from '~/Graphql/query/getAgenda.graphql';
 import {
-  timeComparison,
-  dateComparison,
+  formatDateToNumber,
+  compareWithCurrentTime,
+  compareWithCurrentDate,
 } from '~/Transformer/schedules/dateComparison';
-import { DATE_FORMAT } from '~/env';
 import styles from './styles';
 
 const TABS_CONFIG = {
@@ -65,13 +64,78 @@ class Agenda extends Component {
     />
   );
 
+  /**
+   * Check current date is in between the first date of schedule and the last date of schedule or not
+   */
+  _checkExistedCurrentDateInPeriodTimeOfConference(schedules) {
+    // 2 case:
+    // current date is before the first date of schedule (in the past)
+    // current date is after the last date of schedule (in the future)
+    if (
+      compareWithCurrentDate(schedules[0].date) === 1 ||
+      compareWithCurrentDate(schedules[schedules.length - 1].date) === -1
+    ) {
+      // not existed
+      return false;
+    }
+    // existed
+    return true;
+  }
+
+  /**
+   * Get negative numbers, including 0
+   * Special case: value is 0
+   */
+  _filterNegativeNumbers(arr) {
+    let result = [];
+    arr.map(item => {
+      if (item.value <= 0) {
+        result.push(item);
+      }
+    });
+    return result;
+  }
+
+  /**
+   * Get initial date if current date is in a period time (from the first date to the last date of the conference)
+   */
+  _getInitialDateInPeriodTimeOfConference(schedules) {
+    const arr = schedules.map((schedule, index) => {
+      const value = formatDateToNumber() - formatDateToNumber(schedule.date);
+      return { index, value };
+    });
+
+    const negativeNumbers = this._filterNegativeNumbers(arr);
+    return negativeNumbers[0];
+  }
+
   _renderTabs(getAllSchedules) {
     const schedules = transformer(getAllSchedules, 'start');
-    let tabs = {};
+    let tabs = {},
+      initialDate = '';
+
+    // Handle and set initial date for Tabs
+    const firstDate = schedules[0].date,
+      lastDate = schedules[schedules.length - 1].date;
+    if (!this._checkExistedCurrentDateInPeriodTimeOfConference(schedules)) {
+      // if current date is before the first date
+      if (compareWithCurrentDate(firstDate) === 1) {
+        initialDate = transformServerDate.toLocal(firstDate);
+      }
+      // if current date is after the first date
+      if (compareWithCurrentDate(lastDate) === -1) {
+        initialDate = transformServerDate.toLocal(lastDate);
+      }
+    } else {
+      const { index } = this._getInitialDateInPeriodTimeOfConference(schedules);
+      initialDate = transformServerDate.toLocal(schedules[index].date);
+    }
+
     schedules.map(schedule => {
       const { activities, date } = schedule;
       const tabName = transformServerDate.toLocal(date);
-      const comparison = dateComparison(schedule.date);
+      const comparison = compareWithCurrentDate(date);
+
       if (comparison === -1) {
         activities.map(activity => {
           activity.isBefore = true;
@@ -83,7 +147,9 @@ class Agenda extends Component {
           screen: () => (
             <Detail
               detail={
-                comparison === 0 ? timeComparison(activities) : activities
+                comparison === 0
+                  ? compareWithCurrentTime(activities)
+                  : activities
               }
             />
           ),
@@ -95,7 +161,7 @@ class Agenda extends Component {
     });
     return TabNavigator(tabs, {
       ...TABS_CONFIG,
-      initialRouteName: moment().format(DATE_FORMAT),
+      initialRouteName: initialDate,
     });
   }
 

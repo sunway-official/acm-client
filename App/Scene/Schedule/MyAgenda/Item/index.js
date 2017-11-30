@@ -8,8 +8,8 @@ import styles from './styles';
 import { Colors } from '~/Theme';
 import { Icon } from 'react-native-elements';
 import {
-  dateComparison,
-  timeComparison,
+  compareWithCurrentDate,
+  compareWithCurrentTime,
 } from '~/Transformer/schedules/dateComparison';
 
 const DEFAULT_ITEM_ICON = {
@@ -41,7 +41,7 @@ class MyAgendaItem extends Component {
     const momentDate = moment(new Date(date));
     const day = momentDate.format('D');
     const stringDay = momentDate.format('ddd');
-    const comparison = dateComparison(date);
+    const comparison = compareWithCurrentDate(date);
 
     return (
       <View style={styles.container}>
@@ -81,7 +81,7 @@ class MyAgendaItem extends Component {
           </View>
           <View style={styles.contentWrapper}>
             <FlatList
-              data={timeComparison(activities)}
+              data={compareWithCurrentTime(activities)}
               keyExtractor={(item, index) => index}
               renderItem={this._renderItem}
             />

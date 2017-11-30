@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Text } from '~/Component';
+import { gql, graphql } from 'react-apollo';
+import { Text, TouchableView, LoadingIndicator } from '~/Component';
 import { Icon } from 'react-native-elements';
-import styles from './styles';
 import { Colors, Metrics } from '~/Theme';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import { transformServerDate, transformText } from '~/Transformer';
+import AGENDA_QUERY from '~/Graphql/query/getAgenda.graphql';
+import styles from './styles';
 
 const DEFAULT_ACTIVITY_DETAIL = {
   title: '',
@@ -17,14 +19,38 @@ const DEFAULT_ACTIVITY_DETAIL = {
   room: '',
   description: '',
 };
-
 const ROUTE_NAME = 'activityDetail';
+const CHAR_LENGTH = 30;
+const DEFAULT_ICON_NAME = 'info-outline';
 
 class ActivityDetailScene extends Component {
   static propTypes = {
     detail: PropTypes.object,
     setHeader: PropTypes.func,
+    data: PropTypes.shape({
+      loading: PropTypes.bool,
+      getAllSchedules: PropTypes.array,
+    }),
   };
+
+  constructor(props) {
+    super(props);
+    this._renderDetail = this._renderDetail.bind(this);
+    this._renderRelatedSchedules = this._renderRelatedSchedules.bind(this);
+    this._getRelatedSchedules = this._getRelatedSchedules.bind(this);
+  }
+
+  componentDidMount() {
+    const { setHeader, detail } = this.props;
+    setTimeout(() => {
+      setHeader({
+        title: transformText.reduceByCharacters(
+          detail.activity_title,
+          CHAR_LENGTH,
+        ),
+      });
+    });
+  }
 
   _convertDateTime(date) {
     return (
@@ -34,19 +60,28 @@ class ActivityDetailScene extends Component {
     );
   }
 
-  componentDidMount() {
-    const { setHeader, detail } = this.props;
-    setTimeout(() => {
-      setHeader({
-        title: transformText.reduceByWords(detail.activity_title, 6),
-      });
-    });
+  _renderIcon({
+    name = DEFAULT_ICON_NAME,
+    type,
+    size = Metrics.doubleBaseMargin,
+    color = Colors.grey,
+    iconStyle,
+  }) {
+    return (
+      <Icon
+        name={name}
+        type={type}
+        size={size}
+        color={color}
+        iconStyle={iconStyle}
+      />
+    );
   }
 
-  render() {
+  _renderDetail() {
     const { detail } = this.props;
     return (
-      <ScrollView>
+      <View>
         <View style={styles.container}>
           <View style={styles.info}>
             <Text bold style={styles.title}>
@@ -55,30 +90,17 @@ class ActivityDetailScene extends Component {
           </View>
           <View style={styles.info}>
             <View style={styles.icon}>
-              <Icon
-                name="location"
-                type="entypo"
-                size={Metrics.doubleBaseMargin}
-                color={Colors.grey}
-              />
+              {this._renderIcon({ name: 'location', type: 'entypo' })}
             </View>
             <Text>Room: {detail.room_name}</Text>
           </View>
           <View style={styles.info}>
             <View style={styles.icon}>
-              <Icon
-                name="access-time"
-                size={Metrics.doubleBaseMargin}
-                color={Colors.grey}
-              />
+              {this._renderIcon({ name: 'access-time' })}
             </View>
             <View>
-              <View>
-                <Text>Start: {this._convertDateTime(detail.start)} </Text>
-              </View>
-              <View>
-                <Text>End: {this._convertDateTime(detail.end)} </Text>
-              </View>
+              <Text>Start: {this._convertDateTime(detail.start)}</Text>
+              <Text>End: {this._convertDateTime(detail.end)}</Text>
             </View>
           </View>
         </View>
@@ -86,10 +108,96 @@ class ActivityDetailScene extends Component {
           <Text bold style={styles.title}>
             Description
           </Text>
-          <Text style={{ lineHeight: Metrics.section }}>
-            {detail.activity_description}
-          </Text>
+          {detail.activity_description === '' ? (
+            <View style={styles.noContent}>
+              <Text>No description</Text>
+            </View>
+          ) : (
+            <Text style={{ lineHeight: Metrics.section }}>
+              {detail.activity_description}
+            </Text>
+          )}
         </View>
+      </View>
+    );
+  }
+
+  _getRelatedSchedules() {
+    const { data: { getAllSchedules }, detail } = this.props;
+    let arr = [];
+    getAllSchedules.map(item => {
+      if (detail.activity_id === item.activity_id && detail.id !== item.id) {
+        arr.push(item);
+      }
+    });
+    return arr;
+  }
+
+  _renderScheduleBlock(schedule) {
+    return (
+      <View key={schedule.id} style={styles.scheduleBlock}>
+        <View style={styles.timeline}>
+          <View style={styles.verticalLine} />
+          {this._renderIcon({
+            name: 'circle-thin',
+            type: 'font-awesome',
+            size: 12,
+            iconStyle: styles.circleIconTop,
+          })}
+          {this._renderIcon({
+            name: 'circle-thin',
+            type: 'font-awesome',
+            size: 12,
+            iconStyle: styles.circleIconBottom,
+          })}
+        </View>
+        <View style={styles.time}>
+          <Text>{transformServerDate.toLocalTime(schedule.start)}</Text>
+          <Text>{transformServerDate.toLocalTime(schedule.end)}</Text>
+        </View>
+        <View style={styles.scheduleInfo}>
+          <Text>{transformServerDate.toLocal(schedule.start)}</Text>
+          <Text style={styles.secondaryText}>Room: {schedule.room_name}</Text>
+        </View>
+        <TouchableView style={styles.trackingIcon}>
+          {this._renderIcon({
+            name: 'remove-red-eye',
+            color: Colors.black,
+            size: 22,
+          })}
+        </TouchableView>
+      </View>
+    );
+  }
+
+  _renderRelatedSchedules() {
+    const { data: { loading } } = this.props;
+    const schedules = this._getRelatedSchedules();
+    return (
+      <View style={styles.relatedSchedulesContainer}>
+        <Text bold style={styles.title}>
+          Related schedules
+        </Text>
+        {loading ? (
+          <LoadingIndicator />
+        ) : schedules.length === 0 ? (
+          <View style={styles.noContent}>
+            <Text>No related schedules</Text>
+          </View>
+        ) : (
+          schedules.map(schedule => {
+            return this._renderScheduleBlock(schedule);
+          })
+        )}
+      </View>
+    );
+  }
+
+  render() {
+    return (
+      <ScrollView>
+        {this._renderDetail()}
+        {this._renderRelatedSchedules()}
       </ScrollView>
     );
   }
@@ -125,4 +233,4 @@ Scene.drawer = {
   disableGestures: true,
 };
 
-export default Scene;
+export default graphql(gql(AGENDA_QUERY))(Scene);
