@@ -120,7 +120,12 @@ class NewsDetailScene extends Component {
     let avatar = item.user.avatar;
 
     return (
-      <NewsHeader avatar={avatar} username={username} createdAt={createdAt} />
+      <NewsHeader
+        avatar={avatar}
+        gender={item.user.gender}
+        username={username}
+        createdAt={createdAt}
+      />
     );
   }
 

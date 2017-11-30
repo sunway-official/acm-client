@@ -45,10 +45,7 @@ class Comments extends Component {
           news_id: newsId,
           content: textTrim,
         })
-        .then(() => {
-          console.log('finshing. start refetch');
-          onRefresh();
-        });
+        .then(onRefresh);
     }
     this.setState({ text: '' });
   }
@@ -68,7 +65,10 @@ class Comments extends Component {
           },
         ]}
       >
-        <UserAvatar avatar={queryMe.loading ? null : queryMe.me.avatar} />
+        <UserAvatar
+          avatar={queryMe.loading ? null : queryMe.me.avatar}
+          gender={queryMe.loading ? 'unknown' : queryMe.me.gender}
+        />
         <View style={styles.commentInputBox}>
           <TextInput
             value={this.state.text}

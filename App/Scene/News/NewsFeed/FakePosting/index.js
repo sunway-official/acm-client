@@ -50,7 +50,6 @@ class NewsFeedFakePosting extends Component {
 
   render() {
     const { avatar, gender } = this.props;
-    console.log(this.props);
     return <View>{this._renderPostFake(avatar, gender)}</View>;
   }
 }

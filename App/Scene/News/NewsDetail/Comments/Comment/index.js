@@ -17,7 +17,10 @@ class Comment extends PureComponent {
     return (
       <View>
         <View style={styles.commentContainer}>
-          <UserAvatar avatar={comment.user.avatar} />
+          <UserAvatar
+            avatar={comment.user.avatar}
+            gender={comment.user.gender}
+          />
           <View style={styles.rightOfComment}>
             <View flexDirection="row">
               <Text bold>
