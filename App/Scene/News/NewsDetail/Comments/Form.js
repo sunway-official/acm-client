@@ -11,6 +11,7 @@ import MUTATION_INSERT_NEWS_COMMENT from '~/Graphql/mutation/insertNewsComment.g
 import QUERY_ME from '~/Graphql/query/me.graphql';
 
 const FORM_HEIGHT = 40;
+const DEFAULT_INPUT_PADDING = 10;
 
 class Comments extends Component {
   static propTypes = {
@@ -86,6 +87,14 @@ class Comments extends Component {
               styles.textInputStyle,
               {
                 height: Math.max(FORM_HEIGHT, this.state.height),
+                paddingTop: Math.max(
+                  DEFAULT_INPUT_PADDING,
+                  Metrics.smallMargin,
+                ),
+                paddingBottom: Math.max(
+                  DEFAULT_INPUT_PADDING,
+                  Metrics.smallMargin,
+                ),
               },
             ]}
           />

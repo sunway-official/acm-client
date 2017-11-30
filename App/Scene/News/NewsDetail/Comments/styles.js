@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors } from '~/Theme';
+import { Metrics, Colors, Fonts } from '~/Theme';
 
-const { baseMargin, doubleBaseMargin, smallMargin } = Metrics;
+const { baseMargin, doubleBaseMargin } = Metrics;
 
 const INPUT_HEIGHT = 40;
 
@@ -23,18 +23,16 @@ export default StyleSheet.create({
   commentInputBox: {
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
     borderRadius: INPUT_HEIGHT / 2,
     borderColor: Colors.grey,
     marginLeft: baseMargin,
-    marginBottom: smallMargin,
-    alignItems: 'center',
   },
   textInputStyle: {
     flex: 1,
     paddingHorizontal: doubleBaseMargin,
-    paddingVertical: baseMargin,
-    fontSize: 14,
+    fontSize: Fonts.size.medium,
   },
   commentSubmitButton: {
     justifyContent: 'center',
