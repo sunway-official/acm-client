@@ -7,8 +7,6 @@ import { ImagePicker } from 'expo';
 import { AutoExpandingTextInput } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
 import { S3 } from '~/Provider';
-import { S3_GET_PREFIX } from '~/env';
-import { Images } from '~/Theme';
 
 import PostsHeader from './Header';
 import PostContent from './Content';
@@ -19,27 +17,6 @@ import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
 import MUTATION_INSERT_NEWS from '~/Graphql/mutation/insertNews.graphql';
 import MUTATION_INSERT_NEWS_PHOTO from '~/Graphql/mutation/insertNewsPhoto.graphql';
 import styles from './styles';
-
-const GENDER_MALE = 'male';
-const GENDER_FEMALE = 'female';
-
-const defaultAvatar = (avatar, gender) => {
-  let defaultAvatar = Images.avatar['male02'];
-  if (avatar) {
-    avatar = { uri: S3_GET_PREFIX + avatar };
-  } else {
-    switch (gender) {
-      case GENDER_MALE:
-        defaultAvatar = Images.avatar['male08'];
-        break;
-      case GENDER_FEMALE:
-        defaultAvatar = Images.avatar['female01'];
-        break;
-    }
-    avatar = defaultAvatar;
-  }
-  return avatar;
-};
 
 const IMAGE_PICKER_CONFIG = {
   allowsEditing: true,
@@ -158,11 +135,17 @@ class NewsPosting extends Component {
     );
   }
 
-  _renderContents(username, avatar) {
+  _renderContents({ avatar, gender, firstname, lastname }) {
     let { text, images } = this.state;
 
+    const username = `${firstname} ${lastname}`;
     return (
-      <PostContent username={username} avatar={avatar} images={images}>
+      <PostContent
+        username={username}
+        avatar={avatar}
+        gender={gender}
+        images={images}
+      >
         <AutoExpandingTextInput
           value={text}
           placeholder={"What's on your mind?"}
@@ -186,14 +169,11 @@ class NewsPosting extends Component {
 
   render() {
     const { me } = this.props;
-    let avatar =
-      me.avatar !== null ? me.avatar : defaultAvatar(me.avatar, me.gender);
-    const username = `${me.firstname} ${me.lastname}`;
 
     return (
       <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
         {this._renderHeader()}
-        {this._renderContents(username, avatar)}
+        {this._renderContents(me)}
         {this._renderActions()}
       </KeyboardAvoidingView>
     );
