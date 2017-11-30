@@ -16,13 +16,13 @@ class Comment extends PureComponent {
     const { comment, createdAt } = this.props;
     return (
       <View>
-        <View style={styles.commentContainer}>
+        <View style={styles.container}>
           <UserAvatar
             avatar={comment.user.avatar}
             gender={comment.user.gender}
           />
-          <View style={styles.rightOfComment}>
-            <View flexDirection="row">
+          <View style={styles.commentContainer}>
+            <View style={styles.infoContainer}>
               <Text bold>
                 {`${comment.user.firstname} ${comment.user.lastname}`}
               </Text>

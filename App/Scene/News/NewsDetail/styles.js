@@ -8,8 +8,10 @@ export default StyleSheet.create({
     backgroundColor: Colors.white,
   },
   scrollView: {
-    padding: Metrics.baseMargin,
     flex: 1,
+  },
+  scrollViewContentContainer: {
+    padding: Metrics.baseMargin,
   },
   newsContentContainer: {
     paddingVertical: Metrics.baseMargin,

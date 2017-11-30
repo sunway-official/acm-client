@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, ScrollView, KeyboardAvoidingView } from 'react-native';
+import {
+  View,
+  ScrollView,
+  KeyboardAvoidingView,
+  RefreshControl,
+} from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { Text, LoadingIndicator } from '~/Component';
 import NewsHeader from '~/Component/News/Header';
@@ -49,8 +54,11 @@ class NewsDetailScene extends Component {
       isDisabledLike: false,
       numberOfComments: 0,
       numberOfLikes: 0,
+      refreshing: false,
     };
     this._renderInteractionBar = this._renderInteractionBar.bind(this);
+    this._renderRefeshControl = this._renderRefeshControl.bind(this);
+    this._renderCommentBox = this._renderCommentBox.bind(this);
     this.onPressLike = this.onPressLike.bind(this);
     this.onPressComment = this.onPressComment.bind(this);
   }
@@ -59,9 +67,11 @@ class NewsDetailScene extends Component {
     // Always update comments and likes count
     if (comments || likes) {
       if (comments) {
+        console.log(comments);
         this.setState({ numberOfComments: comments.length });
       }
       if (likes) {
+        console.log(likes);
         this.setState({ numberOfLikes: likes.length });
         const like = likes.filter(
           like => like.user_id === this.props.queryMe.me.id,
@@ -171,7 +181,9 @@ class NewsDetailScene extends Component {
   }
 
   _renderCommentBox(detail, loading, comments, createdAt) {
-    return loading ? (
+    return loading &&
+      comments.length === 0 &&
+      this.state.refreshing === false ? (
       <LoadingIndicator />
     ) : (
       <Comments comments={comments} createdAt={createdAt} newsId={detail.id} />
@@ -180,6 +192,23 @@ class NewsDetailScene extends Component {
 
   _renderCommentForm(detail, refetch) {
     return <CommentForm newsId={detail.id} onRefresh={refetch} />;
+  }
+
+  _renderRefeshControl() {
+    const onRefresh = async () => {
+      this.setState({ refreshing: true });
+      await Promise.all([
+        this.props.queryComments.refetch(),
+        this.props.queryLikes.refetch(),
+      ]);
+      this.setState({ refreshing: false });
+    };
+    return (
+      <RefreshControl
+        refreshing={this.state.refreshing}
+        onRefresh={onRefresh}
+      />
+    );
   }
 
   render() {
@@ -192,16 +221,21 @@ class NewsDetailScene extends Component {
         behavior={'padding'}
         keyboardVerticalOffset={85}
       >
-        <ScrollView style={styles.scrollView}>
-          {this._renderNewsHeader(detail, createdAt)}
-          {this._renderNewsContent(detail)}
-          {this._renderInteractionBar()}
-          {this._renderCommentBox(
-            detail,
-            queryComments.loading,
-            comments,
-            createdAt,
-          )}
+        <ScrollView
+          style={styles.scrollView}
+          refreshControl={this._renderRefeshControl()}
+        >
+          <View style={styles.scrollViewContentContainer}>
+            {this._renderNewsHeader(detail, createdAt)}
+            {this._renderNewsContent(detail)}
+            {this._renderInteractionBar()}
+            {this._renderCommentBox(
+              detail,
+              queryComments.loading,
+              comments,
+              createdAt,
+            )}
+          </View>
         </ScrollView>
         {this._renderCommentForm(detail, queryComments.refetch)}
       </KeyboardAvoidingView>
