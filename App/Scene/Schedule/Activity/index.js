@@ -9,7 +9,6 @@ import { Colors, Metrics } from '~/Theme';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import { transformServerDate, transformText } from '~/Transformer';
-import transformer from '~/Transformer/schedules/agenda';
 import AGENDA_QUERY from '~/Graphql/query/getAgenda.graphql';
 import styles from './styles';
 

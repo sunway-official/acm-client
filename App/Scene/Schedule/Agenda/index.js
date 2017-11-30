@@ -5,7 +5,6 @@ import { gql, graphql, compose } from 'react-apollo';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import { reset } from '~/Redux/Navigation/action';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { KEY, setModalState } from '~/Redux/Modal';
 import { Colors, Metrics } from '~/Theme';
 import { FilterModal, LoadingIndicator, EmptyCollection } from '~/Component';
@@ -18,7 +17,6 @@ import {
   compareWithCurrentTime,
   compareWithCurrentDate,
 } from '~/Transformer/schedules/dateComparison';
-import { DATE_FORMAT } from '~/env';
 import styles from './styles';
 
 const TABS_CONFIG = {
