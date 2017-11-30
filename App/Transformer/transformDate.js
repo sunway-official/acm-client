@@ -3,7 +3,7 @@ import { DATE_FORMAT } from '~/env';
 
 const formatTimestamp = createdAt => {
   const date = new Date(createdAt);
-  return moment(date.getTime() - date.getTimezoneOffset() * 60 * 1000)
+  return moment(date)
     .local()
     .calendar(null, {
       sameDay: '[Today]',
