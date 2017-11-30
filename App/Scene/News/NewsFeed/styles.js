@@ -4,6 +4,7 @@ import { Metrics } from '~/Theme';
 export default StyleSheet.create({
   container: {
     paddingTop: Metrics.baseMargin,
+    marginBottom: Metrics.navBarHeight - Metrics.baseMargin,
   },
   loadingContainer: {
     flex: 1,

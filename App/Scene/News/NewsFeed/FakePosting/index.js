@@ -13,6 +13,7 @@ import { NavigationActions } from '~/Redux/Navigation';
 class NewsFeedFakePosting extends Component {
   static propTypes = {
     avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    gender: PropTypes.string,
     userId: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     navigate: PropTypes.func,
@@ -28,10 +29,10 @@ class NewsFeedFakePosting extends Component {
     this.props.navigate('newsPosting');
   }
 
-  _renderPostFake(avatar) {
+  _renderPostFake(avatar, gender) {
     return (
       <View style={styles.container}>
-        <UserAvatar small avatar={avatar} />
+        <UserAvatar small avatar={avatar} gender={gender} />
         <TouchableView
           style={styles.statusBoxView}
           onPress={this._handleNavigateToPosting}
@@ -48,8 +49,9 @@ class NewsFeedFakePosting extends Component {
   }
 
   render() {
-    const { avatar } = this.props;
-    return <View>{this._renderPostFake(avatar)}</View>;
+    const { avatar, gender } = this.props;
+    console.log(this.props);
+    return <View>{this._renderPostFake(avatar, gender)}</View>;
   }
 }
 

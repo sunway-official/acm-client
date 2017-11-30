@@ -15,6 +15,7 @@ import MUTATION_DELETE_NEWS_LIKE from '~/Graphql/mutation/deleteNewsLike.graphql
 
 import styles from './styles';
 
+const NEWS_CONTENT_THRESHOLD = 60;
 class News extends Component {
   static propTypes = {
     item: PropTypes.object,
@@ -65,7 +66,12 @@ class News extends Component {
     let avatar = item.user.avatar;
 
     return (
-      <NewsHeader avatar={avatar} username={username} createdAt={createdAt} />
+      <NewsHeader
+        avatar={avatar}
+        gender={item.user.gender}
+        username={username}
+        createdAt={createdAt}
+      />
     );
   }
 
@@ -73,12 +79,23 @@ class News extends Component {
     return <NewsPhotoView imageUrl={imageUrl} />;
   }
 
-  _renderStatus(item) {
+  _renderNewsContent(item) {
     const url = item.newsPhotos.map(newsPhoto => newsPhoto.url);
 
     return (
-      <View>
-        {item.content ? <Text>{item.content}</Text> : undefined}
+      <View style={styles.newsContentContainer}>
+        {item.content ? (
+          <Text
+            style={[
+              styles.newsContentText,
+              item.content.length < NEWS_CONTENT_THRESHOLD
+                ? styles.newshightLightContentText
+                : {},
+            ]}
+          >
+            {item.content}
+          </Text>
+        ) : null}
         {this._renderPhotoView(url)}
       </View>
     );
@@ -142,7 +159,7 @@ class News extends Component {
       <View style={[styles.container, newsContainerStyle]}>
         {this._renderNewsHeader(item, createdAt)}
         <View>
-          {this._renderStatus(item)}
+          {this._renderNewsContent(item)}
           {this._renderInteractionBar()}
         </View>
       </View>

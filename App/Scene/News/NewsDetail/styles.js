@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics } from '~/Theme';
+import { Colors, Metrics, Fonts } from '~/Theme';
 
 export default StyleSheet.create({
   container: {
@@ -10,5 +10,14 @@ export default StyleSheet.create({
   scrollView: {
     padding: Metrics.baseMargin,
     flex: 1,
+  },
+  newsContentContainer: {
+    paddingVertical: Metrics.baseMargin,
+  },
+  newsContentText: {
+    fontSize: Fonts.size.medium,
+  },
+  newshightLightContentText: {
+    fontSize: Fonts.size.h5,
   },
 });

@@ -24,8 +24,10 @@ const ROUTE_NAME = 'newsDetail';
 const DEFAULT_NEWS_DETAIL = {
   user: {},
   newsPhotos: [],
+  content: '',
 };
 
+const NEWS_CONTENT_THRESHOLD = 60;
 class NewsDetailScene extends Component {
   static propTypes = {
     detail: PropTypes.object,
@@ -122,11 +124,23 @@ class NewsDetailScene extends Component {
     );
   }
 
-  _renderStatus(item) {
+  _renderNewsContent(item) {
     const url = item.newsPhotos.map(newsPhoto => newsPhoto.url);
+
     return (
-      <View>
-        {item.content ? <Text>{item.content}</Text> : undefined}
+      <View style={styles.newsContentContainer}>
+        {item.content ? (
+          <Text
+            style={[
+              styles.newsContentText,
+              item.content.length < NEWS_CONTENT_THRESHOLD
+                ? styles.newshightLightContentText
+                : {},
+            ]}
+          >
+            {item.content}
+          </Text>
+        ) : null}
         {this._renderPhotoView(url)}
       </View>
     );
@@ -175,7 +189,7 @@ class NewsDetailScene extends Component {
       >
         <ScrollView style={styles.scrollView}>
           {this._renderNewsHeader(detail, createdAt)}
-          {this._renderStatus(detail)}
+          {this._renderNewsContent(detail)}
           {this._renderInteractionBar()}
           {this._renderCommentBox(
             detail,
@@ -260,18 +274,23 @@ const DeleteNewsLikeMutation = graphql(gql(DELETE_NEWS_LIKE_MUTATION), {
   }),
 });
 
+let newsDetailCache = DEFAULT_NEWS_DETAIL;
 const mapStateToProps = state => {
   // Get route index
   const index = state[NAVIGATION_KEY].index;
   const routeName = state[NAVIGATION_KEY].routes[index].routeName;
   let data =
     routeName !== ROUTE_NAME
-      ? { ...DEFAULT_NEWS_DETAIL }
+      ? undefined
       : {
           ...state[NAVIGATION_KEY].routes[index].params,
         };
+  // Cache Detail Scene to prevent render undefined scene in transition phase
+  if (data !== undefined) {
+    newsDetailCache = data;
+  }
   return {
-    detail: data,
+    detail: data || newsDetailCache,
   };
 };
 

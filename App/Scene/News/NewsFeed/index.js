@@ -90,18 +90,18 @@ class NewsFeedScene extends Component {
     });
   }
 
-  FakePosting(me) {
-    let avatar = me.avatar;
+  FakePosting({ avatar, gender, id, firstname, lastname }) {
     return (
       <FakePosting
         avatar={avatar}
-        userId={me.id}
-        username={`${me.firstname} ${me.lastname}`}
+        gender={gender}
+        userId={id}
+        username={`${firstname} ${lastname}`}
       />
     );
   }
 
-  _renderNewsFeedList(allNews, networkStatus, me) {
+  _renderNewsFeedList(allNews, networkStatus, user) {
     return (
       <FlatList
         data={allNews}
@@ -111,9 +111,10 @@ class NewsFeedScene extends Component {
           <News
             item={item}
             key={index}
-            userId={me.id}
+            userId={user.id}
             onRefresh={this._onRefresh}
-            avatar={me.avatar}
+            avatar={user.avatar}
+            gender={user.gender}
           />
         )}
         keyExtractor={(item, index) => index}

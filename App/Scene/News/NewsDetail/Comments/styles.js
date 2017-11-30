@@ -6,6 +6,10 @@ const { baseMargin, doubleBaseMargin, smallMargin } = Metrics;
 const INPUT_HEIGHT = 40;
 
 export default StyleSheet.create({
+  commentsContainer: {
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(0,0,0,0.045)',
+  },
   commentInputBoxContainer: {
     flexShrink: 1,
     flexDirection: 'row',
