@@ -1,5 +1,5 @@
-mutation($userId: ID!, $conferenceId: ID!, $contentNews: String!){
-  insertNews(user_id: $userId, conference_id: $conferenceId, content: $contentNews){
+mutation($content: String!) {
+  insertNews(content: $content) {
     id
   }
 }

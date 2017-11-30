@@ -5,37 +5,16 @@ import { FlatList } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
 import styles from './styles';
-import { Colors, Images } from '~/Theme';
-import { News, LoadingIndicator } from '~/Component';
-import NewsFeedFakePosting from './NewsFeedFakePosting';
-import { S3_GET_PREFIX } from '~/env';
+import { Colors } from '~/Theme';
+import { News, LoadingIndicator, EmptyCollection } from '~/Component';
+import FakePosting from './FakePosting';
 
 import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
 
-const GENDER_MALE = 'male';
-const GENDER_FEMALE = 'female';
-
-const defaultAvatar = (avatar, gender) => {
-  let defaultAvatar = Images.avatar['male02'];
-  if (avatar) {
-    avatar = { uri: S3_GET_PREFIX + avatar };
-  } else {
-    switch (gender) {
-      case GENDER_MALE:
-        defaultAvatar = Images.avatar['male08'];
-        break;
-      case GENDER_FEMALE:
-        defaultAvatar = Images.avatar['female01'];
-        break;
-    }
-    avatar = defaultAvatar;
-  }
-  return avatar;
-};
-
 const PAGE_SIZE = 10;
-
+const NETWORK_STATUS_LOADING = 1;
+const NETWORK_STATUS_REFETCHING = 4;
 class NewsFeedScene extends Component {
   static propTypes = {
     allNews: PropTypes.array,
@@ -43,10 +22,6 @@ class NewsFeedScene extends Component {
     networkStatus: PropTypes.number,
     refetch: PropTypes.func,
     fetchMore: PropTypes.func,
-    home: PropTypes.func,
-    setTitle: PropTypes.func,
-    toggleHeader: PropTypes.func,
-    toggleFooter: PropTypes.func,
     isPosted: PropTypes.number,
     loading: PropTypes.bool,
   };
@@ -79,7 +54,7 @@ class NewsFeedScene extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // ? when navigation to NewsFeedPosting
+    // ? when navigation to NewsPosting
     if (nextProps.isPosted === 1) {
       this.setState({ isRefresh: true });
     }
@@ -116,32 +91,31 @@ class NewsFeedScene extends Component {
     });
   }
 
-  _renderNewsFeedFakePosting(me) {
-    let avatar =
-      me.avatar !== null ? me.avatar : defaultAvatar(me.avatar, me.gender);
+  FakePosting({ avatar, gender, id, firstname, lastname }) {
     return (
-      <NewsFeedFakePosting
+      <FakePosting
         avatar={avatar}
-        userId={me.id}
-        username={`${me.firstname} ${me.lastname}`}
+        gender={gender}
+        userId={id}
+        username={`${firstname} ${lastname}`}
       />
     );
   }
 
-  _renderNewsFeedList(allNews, networkStatus, me) {
-    let avatar =
-      me.avatar !== null ? me.avatar : defaultAvatar(me.avatar, me.gender);
+  _renderNewsFeedList(allNews, networkStatus, user) {
     return (
       <FlatList
         data={allNews}
-        refreshing={networkStatus === 4}
+        contentContainerStyle={styles.listContentContainer}
+        refreshing={networkStatus === NETWORK_STATUS_REFETCHING}
         renderItem={({ item, index }) => (
           <News
             item={item}
             key={index}
-            userId={me.id}
+            userId={user.id}
             onRefresh={this._onRefresh}
-            avatar={avatar}
+            avatar={user.avatar}
+            gender={user.gender}
           />
         )}
         keyExtractor={(item, index) => index}
@@ -153,7 +127,7 @@ class NewsFeedScene extends Component {
   }
 
   _renderLoading() {
-    return () => (
+    return (
       <View style={styles.loadingContainer}>
         <LoadingIndicator />
       </View>
@@ -161,26 +135,29 @@ class NewsFeedScene extends Component {
   }
 
   render() {
-    const { allNews, networkStatus, me, loading } = this.props;
-    loading ? _renderLoading() : null;
-
-    return (
+    const { allNews, networkStatus, me } = this.props;
+    if (networkStatus === NETWORK_STATUS_LOADING) {
+      return this._renderLoading();
+    }
+    return allNews.length === 0 ? (
+      <EmptyCollection />
+    ) : (
       <View style={styles.container}>
-        {this._renderNewsFeedFakePosting(me)}
+        {this.FakePosting(me)}
         {this._renderNewsFeedList(allNews, networkStatus, me)}
       </View>
     );
   }
 }
 
-const MeQuery = graphql(gql(QUERY_ME), {
+const QueryMe = graphql(gql(QUERY_ME), {
   props: ({ data: { loading, me } }) => ({
     loading,
     me,
   }),
 });
 
-const AllNewsQuery = graphql(gql(QUERY_ALL_NEWS), {
+const QueryAllNews = graphql(gql(QUERY_ALL_NEWS), {
   props: ({
     data: { getAllNews, refetch, networkStatus, fetchMore, loading },
   }) => ({
@@ -193,6 +170,7 @@ const AllNewsQuery = graphql(gql(QUERY_ALL_NEWS), {
   options: {
     notifyOnNetworkStatusChange: true,
     variables: { pageNumber: 0, pageSize: PAGE_SIZE },
+    fetchPolicy: 'network-only',
   },
 });
 
@@ -202,6 +180,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default compose(AllNewsQuery, MeQuery, connect(mapStateToProps))(
+export default compose(QueryAllNews, QueryMe, connect(mapStateToProps))(
   NewsFeedScene,
 );

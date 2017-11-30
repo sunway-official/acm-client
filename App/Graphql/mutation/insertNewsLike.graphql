@@ -1,5 +1,5 @@
-mutation($news_id: ID!, $user_id: ID!){
-  insertNewsLike(news_id: $news_id, user_id: $user_id){
+mutation($news_id: ID!) {
+  insertNewsLike(news_id: $news_id) {
     id
   }
 }

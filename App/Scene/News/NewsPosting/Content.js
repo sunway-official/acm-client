@@ -5,10 +5,10 @@ import { Text, UserAvatar } from '~/Component';
 
 import styles from './styles';
 
-const PostsContent = ({ children, avatar, username, images }) => (
+const PostsContent = ({ children, avatar, username, gender, images }) => (
   <View style={styles.content}>
     <View style={styles.contentUserInformation}>
-      <UserAvatar small avatar={avatar} />
+      <UserAvatar small avatar={avatar} gender={gender} />
       <Text bold style={styles.contentUsername}>
         {username}
       </Text>
@@ -29,6 +29,7 @@ const PostsContent = ({ children, avatar, username, images }) => (
 
 PostsContent.propTypes = {
   avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  gender: PropTypes.string,
   username: PropTypes.string,
   children: PropTypes.node,
   images: PropTypes.array,

@@ -8,7 +8,17 @@ export default StyleSheet.create({
   container: {
     backgroundColor: white,
     padding: baseMargin,
+    paddingBottom: 0,
     marginBottom: baseMargin,
+  },
+  newsContentContainer: {
+    paddingVertical: baseMargin,
+  },
+  newsContentText: {
+    fontSize: Fonts.size.medium,
+  },
+  newshightLightContentText: {
+    fontSize: Fonts.size.h5,
   },
   postHeader: {
     flexDirection: 'row',
@@ -33,15 +43,17 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingTop: baseMargin,
+    justifyContent: 'space-between',
+    marginTop: baseMargin,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(0,0,0,0.045)',
   },
   interaction: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: baseMargin,
+    padding: smallMargin,
   },
   photoViewContainer: {
     flexDirection: 'row',

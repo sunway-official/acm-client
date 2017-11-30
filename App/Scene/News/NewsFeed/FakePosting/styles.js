@@ -5,6 +5,7 @@ const { white, grey } = Colors;
 
 export default StyleSheet.create({
   container: {
+    marginHorizontal: Metrics.baseMargin,
     padding: Metrics.baseMargin,
     marginBottom: Metrics.baseMargin,
     backgroundColor: white,

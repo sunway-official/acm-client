@@ -1,10 +1,11 @@
-query getNewsByUserID($user_id: ID!){
+query getNewsByUserID($user_id: ID!) {
   getNewsByUserID(user_id: $user_id) {
     id
-    user{
+    user {
       id
       firstname
       lastname
+      gender
       avatar
     }
     content
@@ -12,24 +13,9 @@ query getNewsByUserID($user_id: ID!){
       id
       url
     }
-    newsLikes {
-      id
-      created_at
-      updated_at
-      user {
-        id
-      }
-    }
-    newsComments {
-      user {
-        firstname
-        lastname
-        avatar
-      }
-      content
-      created_at
-      updated_at
-    }
+    commentsCount
+    likesCount
+    isLiked
     created_at
     updated_at
   }
