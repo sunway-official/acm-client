@@ -1,20 +1,23 @@
 import moment from 'moment';
 
-const normalDate = date => {
+export const formatDateToNumber = date => {
   return Number(moment(date).format('YYYYMMDD'));
 };
 
-export const dateComparison = date => {
-  if (normalDate(date) < normalDate()) {
+export const compareWithCurrentDate = date => {
+  // schedule's date < current date
+  if (formatDateToNumber(date) < formatDateToNumber()) {
     return -1;
   }
-  if (normalDate(date) === normalDate()) {
+  // schedule's date = current date
+  if (formatDateToNumber(date) === formatDateToNumber()) {
     return 0;
   }
+  // schedule's date > current date
   return 1;
 };
 
-export const timeComparison = activities => {
+export const compareWithCurrentTime = activities => {
   const current_time = new Date().getTime();
   activities.map(detail => {
     const endTime = new Date(detail.end).getTime();
@@ -28,6 +31,7 @@ export const timeComparison = activities => {
 };
 
 export default {
-  dateComparison,
-  timeComparison,
+  formatDateToNumber,
+  compareWithCurrentDate,
+  compareWithCurrentTime,
 };
