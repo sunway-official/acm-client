@@ -140,7 +140,13 @@ class NewsFeedScene extends Component {
       return this._renderLoading();
     }
     return allNews.length === 0 ? (
-      <EmptyCollection />
+      <View style={styles.emptyContainer}>
+        {this.FakePosting(me)}
+        <EmptyCollection
+          emptyText={'No news. Be the first one.'}
+          customStyles={styles.emptyCollection}
+        />
+      </View>
     ) : (
       <View style={styles.container}>
         {this.FakePosting(me)}
