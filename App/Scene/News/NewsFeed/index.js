@@ -135,7 +135,7 @@ class NewsFeedScene extends Component {
   }
 
   render() {
-    const { allNews, networkStatus, me, loading } = this.props;
+    const { allNews, networkStatus, me } = this.props;
     if (networkStatus === NETWORK_STATUS_LOADING) {
       return this._renderLoading();
     }
