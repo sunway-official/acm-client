@@ -3,13 +3,15 @@ import { Metrics, Colors } from '~/Theme';
 
 const { baseMargin, doubleBaseMargin, smallMargin } = Metrics;
 
+const INPUT_HEIGHT = 40;
+
 export default StyleSheet.create({
   commentInputBoxContainer: {
     flexShrink: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 40,
+    height: INPUT_HEIGHT,
     paddingHorizontal: baseMargin,
     borderTopWidth: 1,
     borderTopColor: 'rgba(0,0,0,0.075)',
@@ -18,7 +20,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     borderWidth: 1,
-    borderRadius: Metrics.baseMargin,
+    borderRadius: INPUT_HEIGHT / 2,
     borderColor: Colors.grey,
     marginLeft: baseMargin,
     marginBottom: smallMargin,
@@ -32,7 +34,7 @@ export default StyleSheet.create({
   },
   commentSubmitButton: {
     justifyContent: 'center',
-    paddingHorizontal: doubleBaseMargin,
+    paddingHorizontal: baseMargin,
   },
   sendCommentBtn: {
     color: Colors.grey,

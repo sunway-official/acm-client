@@ -6,17 +6,24 @@ import { Text } from '~/Component';
 import styles from './styles';
 import { Colors } from '~/Theme';
 
+const DEFAULT_TOUCHABLE_OPACITY = 0.2;
+
 const PostsHeader = ({ onPressCancel, onPressPost, isDisabled }) => (
   <View style={styles.header}>
-    <TouchableOpacity onPress={onPressCancel} style={{ padding: 8 }}>
+    <TouchableOpacity
+      activeOpacity={DEFAULT_TOUCHABLE_OPACITY}
+      onPress={onPressCancel}
+      style={styles.headerGroup}
+    >
       <Text bold style={[styles.headerText, { color: Colors.primary }]}>
         Cancel
       </Text>
     </TouchableOpacity>
     <View>{/* TODO: Header title*/}</View>
     <TouchableOpacity
+      activeOpacity={isDisabled ? 1 : DEFAULT_TOUCHABLE_OPACITY}
       onPress={() => isDisabled || onPressPost()}
-      style={{ padding: 8 }}
+      style={styles.headerGroup}
     >
       <Text
         bold

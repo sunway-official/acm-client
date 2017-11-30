@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { gql, graphql, compose } from 'react-apollo';
-import { View, Keyboard, KeyboardAvoidingView } from 'react-native';
+import { Keyboard, KeyboardAvoidingView } from 'react-native';
 import { ImagePicker } from 'expo';
 import { AutoExpandingTextInput } from '~/Component';
 import { NavigationActions } from '~/Redux/Navigation';
@@ -47,7 +47,7 @@ const IMAGE_PICKER_CONFIG = {
   base64: true,
 };
 
-class NewsFeedPosting extends Component {
+class NewsPosting extends Component {
   static propTypes = {
     navigate: PropTypes.func,
     back: PropTypes.func,
@@ -250,4 +250,4 @@ export default compose(
   NewsPostingMutation,
   NewsPostingPhotoMutation,
   connect(undefined, mapDispatchToProps),
-)(NewsFeedPosting);
+)(NewsPosting);

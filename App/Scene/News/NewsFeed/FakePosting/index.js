@@ -25,7 +25,7 @@ class NewsFeedFakePosting extends Component {
   }
 
   _handleNavigateToPosting() {
-    this.props.navigate('newsFeedPosting');
+    this.props.navigate('newsPosting');
   }
 
   _renderPostFake(avatar) {

@@ -21,6 +21,9 @@ export default StyleSheet.create({
     paddingVertical: Metrics.doubleBaseMargin,
     paddingHorizontal: Metrics.doubleBaseMargin,
   },
+  headerGroup: {
+    padding: Metrics.baseMargin,
+  },
   headerText: {
     fontSize: Fonts.size.regular,
   },
