@@ -6,14 +6,15 @@ import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
 import styles from './styles';
 import { Colors } from '~/Theme';
-import { News, LoadingIndicator } from '~/Component';
+import { News, LoadingIndicator, EmptyCollection } from '~/Component';
 import FakePosting from './FakePosting';
 
 import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
 
 const PAGE_SIZE = 10;
-
+const NETWORK_STATUS_LOADING = 1;
+const NETWORK_STATUS_REFETCHING = 4;
 class NewsFeedScene extends Component {
   static propTypes = {
     allNews: PropTypes.array,
@@ -106,7 +107,7 @@ class NewsFeedScene extends Component {
       <FlatList
         data={allNews}
         contentContainerStyle={styles.listContentContainer}
-        refreshing={networkStatus === 4}
+        refreshing={networkStatus === NETWORK_STATUS_REFETCHING}
         renderItem={({ item, index }) => (
           <News
             item={item}
@@ -135,9 +136,11 @@ class NewsFeedScene extends Component {
 
   render() {
     const { allNews, networkStatus, me, loading } = this.props;
-
-    return loading ? (
-      this._renderLoading()
+    if (networkStatus === NETWORK_STATUS_LOADING) {
+      return this._renderLoading();
+    }
+    return allNews.length === 0 ? (
+      <EmptyCollection />
     ) : (
       <View style={styles.container}>
         {this.FakePosting(me)}

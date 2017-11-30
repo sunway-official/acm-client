@@ -67,11 +67,9 @@ class NewsDetailScene extends Component {
     // Always update comments and likes count
     if (comments || likes) {
       if (comments) {
-        console.log(comments);
         this.setState({ numberOfComments: comments.length });
       }
       if (likes) {
-        console.log(likes);
         this.setState({ numberOfLikes: likes.length });
         const like = likes.filter(
           like => like.user_id === this.props.queryMe.me.id,

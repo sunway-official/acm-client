@@ -6,6 +6,8 @@ import { gql, graphql } from 'react-apollo';
 import QUERY_ACTIVITIES from '~/Graphql/query/getNewsByUserID.graphql';
 import styles from './styles';
 
+const NETWORK_STATUS_LOADING = 1;
+const NETWORK_STATUS_REFETCHING = 4;
 class Activities extends Component {
   constructor(props) {
     super(props);
@@ -42,14 +44,16 @@ class Activities extends Component {
         )}
         keyExtractor={(item, index) => index}
         onRefresh={this.onRefresh}
-        refreshing={networkStatus === 4}
+        refreshing={networkStatus === NETWORK_STATUS_REFETCHING}
       />
     );
   }
 
   render() {
     const { allNews, networkStatus } = this.props;
-    if (networkStatus === 1) return <View>{this._renderLoading()}</View>;
+    if (networkStatus === NETWORK_STATUS_LOADING) {
+      return <View>{this._renderLoading()}</View>;
+    }
     return allNews.length > 0 ? (
       <View>{this._renderDataList()}</View>
     ) : (
