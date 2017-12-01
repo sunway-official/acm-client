@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { View, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { compose, graphql, gql, withApollo } from 'react-apollo';
 import { AnimatableView, Text } from '~/Component';
-import { IS_DEBUGGING } from '~/env';
-import { NavigationActions } from '~/Redux/Navigation';
+import { connect } from 'react-redux';
 import { KEY as ROUTES_KEY } from '~/Redux/Routes';
-import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
+import { KEY as NAVIGATION_KEY, NavigationActions } from '~/Redux/Navigation';
 import { setDrawerState } from '~/Redux/Drawer';
 import { Images, Metrics, Colors } from '~/Theme';
-import QUERY_ME from '~/Graphql/query/me.graphql';
-import { S3_GET_PREFIX } from '~/env';
-import styles from './styles';
+import { IS_DEBUGGING, S3_GET_PREFIX } from '~/env';
 import MenuItem from './Item';
+import QUERY_ME from '~/Graphql/query/me.graphql';
+import styles from './styles';
 
 const USER_FIRSTNAME = 'Sunway';
 const USER_LASTNAME = 'Team';
@@ -42,7 +40,6 @@ const DEFAULT_USER = {
 class Menu extends Component {
   static propTypes = {
     closeDrawer: PropTypes.func,
-    navigate: PropTypes.func,
     reset: PropTypes.func,
     routes: PropTypes.object,
     navigation: PropTypes.object,
@@ -75,7 +72,7 @@ class Menu extends Component {
     const { routes, index } = this.props.navigation;
     const { routeName } = routes[index];
     if (routeName !== key) {
-      this.props.navigate(key);
+      this.props.reset(key);
     }
     this.props.closeDrawer();
   }
@@ -260,7 +257,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   closeDrawer: () => dispatch(setDrawerState(false)),
-  navigate: routeName => dispatch(NavigationActions.navigate({ routeName })),
   reset: routeName => dispatch(NavigationActions.reset({ routeName })),
 });
 
