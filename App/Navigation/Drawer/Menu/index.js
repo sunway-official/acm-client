@@ -85,7 +85,7 @@ class Menu extends Component {
           style={styles.conferenceImageWrapper}
           onPress={() => this._onMenuItemPress('conferenceList')}
         >
-          <Image source={Images.default.img50} style={styles.conferenceImage} />
+          <Image source={Images.logo.drawer} style={styles.conferenceImage} />
         </TouchableOpacity>
       </View>
     );

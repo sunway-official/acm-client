@@ -5,13 +5,24 @@ import { Text, UserAvatar } from '~/Component';
 
 import styles from './styles';
 
-const PostsContent = ({ children, avatar, username, gender, images }) => (
+const PostsContent = ({
+  children,
+  avatar,
+  username,
+  gender,
+  images,
+  position,
+  organization,
+}) => (
   <View style={styles.content}>
     <View style={styles.contentUserInformation}>
       <UserAvatar small avatar={avatar} gender={gender} />
-      <Text bold style={styles.contentUsername}>
-        {username}
-      </Text>
+      <View style={styles.contentUsername}>
+        <Text bold>{username}</Text>
+        <Text>
+          {position} at {organization}
+        </Text>
+      </View>
     </View>
     {children}
     <View style={styles.imagesContainer}>
@@ -33,6 +44,8 @@ PostsContent.propTypes = {
   username: PropTypes.string,
   children: PropTypes.node,
   images: PropTypes.array,
+  position: PropTypes.string,
+  organization: PropTypes.string,
 };
 
 export default PostsContent;
