@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
-import styles from './styles';
 import { Colors } from '~/Theme';
 import { News, LoadingIndicator, EmptyCollection } from '~/Component';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import FakePosting from './FakePosting';
-
 import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
+import styles from './styles';
 
 const PAGE_SIZE = 10;
 const NETWORK_STATUS_LOADING = 1;
 const NETWORK_STATUS_REFETCHING = 4;
+
 class NewsFeedScene extends Component {
   static propTypes = {
     allNews: PropTypes.array,
@@ -26,22 +26,6 @@ class NewsFeedScene extends Component {
     sceneIndex: PropTypes.number,
     navigationIndex: PropTypes.number,
     loading: PropTypes.bool,
-  };
-
-  static header = {
-    leftIcon: 'drawer',
-    theme: 'dark',
-    backgroundColor: Colors.primary,
-    statusBarBackgroundColor: Colors.primary,
-  };
-
-  static footer = {
-    show: true,
-    activeColor: Colors.primary,
-  };
-
-  static drawer = {
-    primary: true,
   };
 
   constructor(props) {
@@ -173,6 +157,22 @@ class NewsFeedScene extends Component {
     );
   }
 }
+
+NewsFeedScene.header = {
+  leftIcon: 'drawer',
+  theme: 'dark',
+  backgroundColor: Colors.primary,
+  statusBarBackgroundColor: Colors.primary,
+};
+
+NewsFeedScene.footer = {
+  show: true,
+  activeColor: Colors.primary,
+};
+
+NewsFeedScene.drawer = {
+  primary: true,
+};
 
 const QueryMe = graphql(gql(QUERY_ME), {
   props: ({ data: { loading, me } }) => ({
