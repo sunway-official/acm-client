@@ -227,6 +227,7 @@ const Scene = connect(mapStateToProps, mapDispatchToProps)(ActivityDetailScene);
 Scene.header = {
   leftIcon: 'back',
   theme: 'dark',
+  statusBarBackgroundColor: Colors.primary,
 };
 
 Scene.drawer = {

@@ -10,6 +10,13 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  emptyContainer: {
+    flex: 1,
+    paddingTop: Metrics.baseMargin,
+  },
+  emptyCollection: {
+    marginHorizontal: Metrics.baseMargin,
+  },
   listContentContainer: {
     paddingHorizontal: Metrics.baseMargin,
   },
