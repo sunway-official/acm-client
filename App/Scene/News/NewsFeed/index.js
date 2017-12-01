@@ -75,6 +75,17 @@ class NewsFeedScene extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    // Prevent update when lastNavigationIndex or sceneIndex has changed
+    if (nextState.lastNavigationIndex !== this.state.lastNavigationIndex) {
+      return false;
+    }
+    if (nextProps.sceneIndex !== this.props.sceneIndex) {
+      return false;
+    }
+    return true;
+  }
+
   _onRefresh() {
     this.props.refetch();
   }
