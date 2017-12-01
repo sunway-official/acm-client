@@ -43,8 +43,7 @@ const UserAvatar = ({ avatar, gender, ...others }) => {
 
 UserAvatar.propTypes = {
   avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  gender: PropTypes.oneOf([GENDER_MALE, GENDER_FEMALE, GENDER_UNKNOWN])
-    .isRequired,
+  gender: PropTypes.oneOf([GENDER_MALE, GENDER_FEMALE, GENDER_UNKNOWN]),
   containerStyle: View.propTypes.style,
   overlayContainerStyle: View.propTypes.style,
 };
