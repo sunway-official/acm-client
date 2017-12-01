@@ -27,9 +27,8 @@ const setLocalNotificationSchedule = async item => {
     body: item.room_name || '',
   };
 
-  const date = new Date(item.start);
   const schedulingOptions = {
-    time: date.getTime() - date.getTimezoneOffset() * 60 * 1000,
+    time: new Date(item.start),
   };
   let notificationId = DEFAULT_NOTIFICATION_ID;
   // Register if item is NOT in the past
