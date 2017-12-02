@@ -24,6 +24,7 @@
     },
     "splash": {
       "image": "./App/Images/splash.png",
+      "backgroundColor": "#FF5722",
       "resizeMode": "cover"
     }
   }
