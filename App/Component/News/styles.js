@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Metrics, Colors, Fonts } from '~/Theme';
 
-const { baseMargin, doubleBaseMargin, smallMargin } = Metrics;
+const { baseMargin, doubleBaseMargin, smallMargin, photoView } = Metrics;
 const { white, grey } = Colors;
 
 export default StyleSheet.create({
@@ -56,14 +56,11 @@ export default StyleSheet.create({
     padding: smallMargin,
   },
 
-  // PhotoView
-  // ! one image
   singleCoverImage: {
     resizeMode: 'cover',
-    minHeight: 200,
+    minHeight: photoView.minLargeImageHeight,
     marginVertical: baseMargin,
   },
-  // ! second images
   secondImageContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -71,10 +68,9 @@ export default StyleSheet.create({
   secondImageView: {
     flex: 2,
     resizeMode: 'cover',
-    minHeight: 200,
-    margin: 2,
+    minHeight: photoView.minLargeImageHeight,
+    margin: photoView.margin,
   },
-  // ! third images
   thirdImageContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -84,34 +80,34 @@ export default StyleSheet.create({
   },
   thirdCoverImage: {
     resizeMode: 'cover',
-    minHeight: 202,
-    margin: 2,
+    minHeight: photoView.minLargeImageHeight + photoView.margin,
+    margin: photoView.margin,
   },
   thirdImageSubContainer: {
     flex: 1,
     flexDirection: 'column',
-    maxHeight: 200,
-    margin: 2,
+    maxHeight: photoView.minLargeImageHeight,
+    margin: photoView.margin,
   },
-  smallImageTop: {
+  thirdSmallImageTop: {
     resizeMode: 'cover',
-    minHeight: 100,
+    minHeight: photoView.minSmallImageHeight,
   },
-  smallImageBottom: {
+  thirdSmallImageBottom: {
     resizeMode: 'cover',
-    minHeight: 100,
-    marginTop: 2,
+    minHeight: photoView.minSmallImageHeight,
+    marginTop: photoView.margin,
   },
-  backdropView: {
+  thirdBackdropView: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
-    minHeight: 80,
+    minHeight: photoView.minSmallImageHeight,
     alignContent: 'center',
     justifyContent: 'center',
   },
-  textAboveBackdropView: {
-    color: 'white',
+  thirdTextAboveBackdropView: {
+    color: white,
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: photoView.fontSize,
   },
 });

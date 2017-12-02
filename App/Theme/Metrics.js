@@ -42,6 +42,13 @@ const metrics = {
   buttonCornerRadius: 2,
   buttonHeight: 36,
   buttonPaddingHorizontal: 16,
+
+  photoView: {
+    minLargeImageHeight: 200,
+    minSmallImageHeight: 100,
+    margin: 2,
+    fontSize: 20,
+  },
 };
 
 export default metrics;

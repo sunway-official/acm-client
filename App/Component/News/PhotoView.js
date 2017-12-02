@@ -61,18 +61,18 @@ const NewsPhotoView = ({ imageUrl }) => {
           <NewsRenderPhotoImage
             imageUrl={imageUrl}
             position={1}
-            style={styles.smallImageTop}
+            style={styles.thirdSmallImageTop}
           />
           <TouchableView>
             <NewsRenderPhotoImage
               imageUrl={imageUrl}
               position={2}
-              style={styles.smallImageBottom}
+              style={styles.thirdSmallImageBottom}
             >
-              <View style={styles.backdropView}>
+              <View style={styles.thirdBackdropView}>
                 <Text
                   medium
-                  style={styles.textAboveBackdropView}
+                  style={styles.thirdTextAboveBackdropView}
                 >{`+${imageUrl.length - 2}`}</Text>
               </View>
             </NewsRenderPhotoImage>
