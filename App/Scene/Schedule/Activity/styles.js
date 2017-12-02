@@ -31,7 +31,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   noContent: {
-    padding: doubleBaseMargin,
+    paddingVertical: doubleBaseMargin,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -84,4 +84,5 @@ export default StyleSheet.create({
     paddingHorizontal: baseMargin,
     justifyContent: 'center',
   },
+  emptyIcon: { width: 100, height: 105 },
 });

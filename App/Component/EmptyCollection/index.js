@@ -11,16 +11,29 @@ const _checkText = text => {
   return text === undefined || text === null || text === '';
 };
 
-const EmptyCollection = ({ customStyles, emptyText }) => {
+const EmptyCollection = props => {
   return (
-    <View style={[styles.container, customStyles]}>
-      <Image style={styles.notFoundIcon} source={Images.notFoundIcon} />
+    <View style={[styles.container, props.customStyles]}>
+      <Image
+        style={[styles.notFoundIcon, props.iconStyles]}
+        source={Images.notFoundIcon}
+      />
       <View style={styles.subText}>
-        <Text bold italic style={[styles.headerSubText, styles.text]}>
+        <Text
+          bold
+          italic
+          style={[styles.headerSubText, styles.text, props.headerSubTextStyle]}
+        >
           {`Oops!`}
         </Text>
-        <Text style={[styles.descriptionText, styles.text]}>
-          {_checkText(emptyText) ? EMPTY_TEXT_DEFAULT : emptyText}
+        <Text
+          style={[
+            styles.descriptionText,
+            styles.text,
+            props.descriptionTextStyle,
+          ]}
+        >
+          {_checkText(props.emptyText) ? EMPTY_TEXT_DEFAULT : props.emptyText}
         </Text>
       </View>
     </View>
@@ -29,6 +42,9 @@ const EmptyCollection = ({ customStyles, emptyText }) => {
 
 EmptyCollection.propTypes = {
   customStyles: View.propTypes.style,
+  iconStyles: View.propTypes.style,
+  headerSubTextStyle: View.propTypes.style,
+  descriptionTextStyle: View.propTypes.style,
   emptyText: PropTypes.string,
 };
 

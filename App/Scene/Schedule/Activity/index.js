@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import { View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { compose, gql, graphql } from 'react-apollo';
-import { Text, TouchableView, LoadingIndicator } from '~/Component';
+import {
+  Text,
+  TouchableView,
+  LoadingIndicator,
+  EmptyCollection,
+} from '~/Component';
 import { Icon } from 'react-native-elements';
 import { Colors, Metrics } from '~/Theme';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
@@ -174,7 +179,10 @@ class ActivityDetailScene extends Component {
           </View>
         ) : (
           <TouchableView
-            style={styles.trackingIcon}
+            style={[
+              styles.trackingIcon,
+              detail.isBefore && { display: 'none' },
+            ]}
             borderless={true}
             rippleColor={Colors.primary}
             onPress={() => {
@@ -297,9 +305,11 @@ class ActivityDetailScene extends Component {
         {loading ? (
           <LoadingIndicator />
         ) : schedules.length === 0 ? (
-          <View style={styles.noContent}>
-            <Text>No related schedules</Text>
-          </View>
+          <EmptyCollection
+            customStyles={styles.noContent}
+            iconStyles={styles.emptyIcon}
+            emptyText="No related activities"
+          />
         ) : (
           schedules.map(schedule => {
             return this._renderScheduleBlock(schedule);
