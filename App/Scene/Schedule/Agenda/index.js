@@ -26,15 +26,20 @@ const TABS_CONFIG = {
   animationEnabled: true,
   tabBarOptions: {
     scrollEnabled: true,
+    activeTintColor: Colors.primary,
+    inactiveTintColor: Colors.black,
     indicatorStyle: {
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.primary,
+      height: 2,
     },
     style: {
-      backgroundColor: Colors.primary,
+      backgroundColor: Colors.white,
+      elevation: 0,
+      borderBottomWidth: 1,
+      borderBottomColor: 'rgba(0,0,0,0.075)',
     },
     labelStyle: {
       margin: Metrics.smallMargin,
-      color: Colors.white,
     },
     upperCaseLabel: false,
   },

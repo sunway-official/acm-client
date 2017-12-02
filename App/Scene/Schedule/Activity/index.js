@@ -101,13 +101,6 @@ class ActivityDetailScene extends Component {
     );
   }
 
-  _trimText(text) {
-    if (typeof text == 'string') {
-      return text && text.trim();
-    }
-    return '';
-  }
-
   _toggleLoading(loading) {
     this.setState({ loading });
   }
@@ -208,7 +201,7 @@ class ActivityDetailScene extends Component {
         <Text bold style={styles.title}>
           Description
         </Text>
-        {this._trimText(description) == '' ? (
+        {transformText.trimText(description) == '' ? (
           <View style={styles.noContent}>
             <Text>No description</Text>
           </View>
@@ -308,7 +301,7 @@ class ActivityDetailScene extends Component {
           <EmptyCollection
             customStyles={styles.noContent}
             iconStyles={styles.emptyIcon}
-            emptyText="No related activities"
+            emptyText="No related schedules"
           />
         ) : (
           schedules.map(schedule => {
