@@ -120,7 +120,7 @@ class NewsDetailScene extends Component {
   }
 
   _renderPhotoView(imageUrl) {
-    return <NewsPhotoView imageUrl={imageUrl} />;
+    return <NewsPhotoView imageUrl={imageUrl} full />;
   }
 
   _renderNewsHeader(item, createdAt) {

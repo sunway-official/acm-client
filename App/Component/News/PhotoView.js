@@ -6,91 +6,144 @@ import { S3_GET_PREFIX } from '~/env';
 
 import styles from './styles';
 
-class NewsRenderPhotoImage extends PureComponent {
-  static propTypes = {
-    children: PropTypes.any,
-    style: View.propTypes.style,
-  };
+const TYPES = {
+  COMPACT: 'compact',
+  FULL: 'full',
+};
 
+const NewsRenderPhotoImage = ({ imageUrl, style, children }) => (
+  <Image source={{ uri: S3_GET_PREFIX + imageUrl }} style={style}>
+    {children}
+  </Image>
+);
+
+const SingleImageView = ({ imageUrl }) => (
+  <NewsRenderPhotoImage
+    imageUrl={imageUrl[0]}
+    style={styles.singleCoverImage}
+  />
+);
+
+const SecondImageView = ({ imageUrl }) => (
+  <View style={styles.secondImageContainer}>
+    <NewsRenderPhotoImage
+      imageUrl={imageUrl[0]}
+      style={styles.secondImageView}
+    />
+    <NewsRenderPhotoImage
+      imageUrl={imageUrl[1]}
+      style={styles.secondImageView}
+    />
+  </View>
+);
+
+const ThirdImageViewCompact = ({ imageUrl, onPressMore }) => (
+  <View style={styles.thirdImageContainer}>
+    <View style={styles.thirdImageCoverContainer}>
+      <NewsRenderPhotoImage
+        imageUrl={imageUrl[0]}
+        style={styles.thirdCoverImage}
+      />
+    </View>
+    <View style={styles.thirdImageSubContainer}>
+      <NewsRenderPhotoImage
+        imageUrl={imageUrl[1]}
+        style={styles.thirdSmallImageTop}
+      />
+      <TouchableView onPress={onPressMore}>
+        <NewsRenderPhotoImage
+          imageUrl={imageUrl[2]}
+          style={styles.thirdSmallImageBottom}
+        >
+          <View style={styles.thirdBackdropView}>
+            <Text
+              medium
+              style={styles.thirdTextAboveBackdropView}
+            >{`+${imageUrl.length - 2}`}</Text>
+          </View>
+        </NewsRenderPhotoImage>
+      </TouchableView>
+    </View>
+  </View>
+);
+
+const PhotoViewFull = ({ imageUrl }) => {
+  const photoViewList = [];
+
+  imageUrl.map((url, index) => {
+    photoViewList.push(
+      <NewsRenderPhotoImage
+        key={index}
+        imageUrl={url}
+        style={styles.singleCoverImage}
+      />,
+    );
+  });
+
+  return <View>{photoViewList}</View>;
+};
+
+class NewsPhotoView extends PureComponent {
   render() {
-    const { imageUrl, position, style, children } = this.props;
-    return (
-      <Image source={{ uri: S3_GET_PREFIX + imageUrl[position] }} style={style}>
-        {children}
-      </Image>
+    const { imageUrl, onPressMore } = this.props;
+
+    let renderType = '';
+
+    for (let key in TYPES) {
+      const type = TYPES[key];
+      if (this.props[type] === true) {
+        renderType += type;
+      }
+    }
+
+    return renderType === TYPES.COMPACT ? (
+      imageUrl.length === 1 ? (
+        <SingleImageView imageUrl={imageUrl} />
+      ) : imageUrl.length === 2 ? (
+        <SecondImageView imageUrl={imageUrl} />
+      ) : imageUrl.length > 2 ? (
+        <ThirdImageViewCompact imageUrl={imageUrl} onPressMore={onPressMore} />
+      ) : (
+        <View />
+      )
+    ) : (
+      <PhotoViewFull imageUrl={imageUrl} />
     );
   }
 }
 
-const NewsPhotoView = ({ imageUrl }) => {
-  if (imageUrl.length === 1)
-    return (
-      <NewsRenderPhotoImage
-        imageUrl={imageUrl}
-        position={0}
-        style={styles.singleCoverImage}
-      />
-    );
-
-  if (imageUrl.length === 2)
-    return (
-      <View style={styles.secondImageContainer}>
-        <NewsRenderPhotoImage
-          imageUrl={imageUrl}
-          position={0}
-          style={styles.secondImageView}
-        />
-        <NewsRenderPhotoImage
-          imageUrl={imageUrl}
-          position={1}
-          style={styles.secondImageView}
-        />
-      </View>
-    );
-  if (imageUrl.length > 2)
-    return (
-      <View style={styles.thirdImageContainer}>
-        <View style={styles.thirdImageCoverContainer}>
-          <NewsRenderPhotoImage
-            imageUrl={imageUrl}
-            position={0}
-            style={styles.thirdCoverImage}
-          />
-        </View>
-        <View style={styles.thirdImageSubContainer}>
-          <NewsRenderPhotoImage
-            imageUrl={imageUrl}
-            position={1}
-            style={styles.thirdSmallImageTop}
-          />
-          <TouchableView>
-            <NewsRenderPhotoImage
-              imageUrl={imageUrl}
-              position={2}
-              style={styles.thirdSmallImageBottom}
-            >
-              <View style={styles.thirdBackdropView}>
-                <Text
-                  medium
-                  style={styles.thirdTextAboveBackdropView}
-                >{`+${imageUrl.length - 2}`}</Text>
-              </View>
-            </NewsRenderPhotoImage>
-          </TouchableView>
-        </View>
-      </View>
-    );
-  return <View />;
+NewsRenderPhotoImage.propTypes = {
+  imageUrl: PropTypes.string,
+  style: Image.propTypes.style,
+  children: PropTypes.any,
 };
 
-NewsRenderPhotoImage.propTypes = {
+SingleImageView.propTypes = {
   imageUrl: PropTypes.array,
-  position: PropTypes.number,
-  style: Image.propTypes.style,
+};
+
+SecondImageView.propTypes = {
+  imageUrl: PropTypes.array,
+};
+
+ThirdImageViewCompact.propTypes = {
+  imageUrl: PropTypes.array,
+  onPressMore: PropTypes.func,
+};
+
+PhotoViewFull.propTypes = {
+  imageUrl: PropTypes.array,
+  onPressMore: PropTypes.func,
 };
 
 NewsPhotoView.propTypes = {
   imageUrl: PropTypes.array,
+  onPressMore: PropTypes.func,
 };
+
+// Loop throght TYPES to define its proptypes
+Object.keys(TYPES).map(key => {
+  NewsPhotoView.propTypes[TYPES[key]] = PropTypes.bool;
+});
 
 export default NewsPhotoView;
