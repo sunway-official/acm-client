@@ -43,11 +43,19 @@ const metrics = {
   buttonHeight: 36,
   buttonPaddingHorizontal: 16,
 
+  // ? PhotoView thumbnail
   photoView: {
     minLargeImageHeight: 200,
     minSmallImageHeight: 100,
     margin: 2,
     fontSize: 20,
+  },
+
+  // ? Header Drawer menu icon
+  logoDrawer: {
+    width: 50,
+    height: 50,
+    size: 30,
   },
 };
 
