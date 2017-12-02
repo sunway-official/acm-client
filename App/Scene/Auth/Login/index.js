@@ -7,19 +7,20 @@ import LoginForm from '../Login/Form';
 import { getInitialRoute } from '~/Navigation/resolver';
 import { compose, gql, graphql, withApollo } from 'react-apollo';
 import mutation from '~/Graphql/mutation/login.graphql';
+import QUERY_ME from '~/Graphql/query/me.graphql';
 
 class LoginScene extends Component {
   static propTypes = {
     navigateToForgotPassword: PropTypes.func,
     mutate: PropTypes.func,
-    navigateToInitialRoute: PropTypes.func,
+    navigateToInitialScene: PropTypes.func,
+    navigateToConferencesList: PropTypes.func,
     client: PropTypes.any,
   };
 
   static header = {
     disable: true,
     theme: 'light',
-    float: true,
     statusBarBackgroundColor: 'rgba(0,0,0,0.3)',
   };
 
@@ -49,14 +50,19 @@ class LoginScene extends Component {
         ['token', token],
         ['refreshToken', refreshToken],
       ]);
-      this.props.client.resetStore();
-      this.props.navigateToInitialRoute();
+      await this.props.client.resetStore();
+      // Refetch QUERY_ME for checking current conference
+      await this.props.client.query({ query: gql(QUERY_ME) });
+      // Navigate to initial route if there is no problems
+      this.props.navigateToInitialScene();
     } catch ({ graphQLErrors }) {
       const error = graphQLErrors[0];
-      if (error.message === 'wrong-email-or-password') {
+      if (error.message.includes('wrong-email-or-password')) {
         setFieldError('email', 'Wrong email or password!');
-      } else if (error.message === 'user-not-exists') {
+      } else if (error.message.includes('user-not-exists')) {
         setFieldError('email', 'User is not exist!');
+      } else if (error.message.includes('no-current-conference')) {
+        this.props.navigateToConferencesList();
       } else {
         setFieldError('email', 'Opps, somethings bad happened!');
       }
@@ -78,8 +84,10 @@ class LoginScene extends Component {
 const mapDispatchToProps = dispatch => ({
   navigateToForgotPassword: () =>
     dispatch(NavigationActions.navigate({ routeName: 'forgot' })),
-  navigateToInitialRoute: () =>
+  navigateToInitialScene: () =>
     dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
+  navigateToConferencesList: () =>
+    dispatch(NavigationActions.reset({ routeName: 'conferenceList' })),
 });
 
 export default compose(

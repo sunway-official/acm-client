@@ -1,0 +1,22 @@
+query getNewsByUserID($user_id: ID!) {
+  getNewsByUserID(user_id: $user_id) {
+    id
+    user {
+      id
+      firstname
+      lastname
+      gender
+      avatar
+    }
+    content
+    newsPhotos {
+      id
+      url
+    }
+    commentsCount
+    likesCount
+    isLiked
+    created_at
+    updated_at
+  }
+}

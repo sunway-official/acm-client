@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { gql, graphql, compose } from 'react-apollo';
 import { TabNavigator, TabBarTop } from 'react-navigation';
-import { navigate } from '~/Redux/Navigation/action';
+import { reset } from '~/Redux/Navigation/action';
 import { connect } from 'react-redux';
 import { KEY, setModalState } from '~/Redux/Modal';
 import { Colors, Metrics } from '~/Theme';
-import { FilterModal, LoadingIndicator } from '~/Component';
+import { FilterModal, LoadingIndicator, EmptyCollection } from '~/Component';
 import Detail from './List';
 import transformer from '~/Transformer/schedules/agenda';
 import { transformServerDate } from '~/Transformer';
-import transformExistedSchedule from '~/Transformer/schedules/existedSchedule';
-import queryAgenda from '~/Graphql/query/getAgenda.graphql';
-import queryMyAgenda from '~/Graphql/query/getMyAgenda.graphql';
+import AGENDA_QUERY from '~/Graphql/query/getAgenda.graphql';
+import {
+  formatDateToNumber,
+  compareWithCurrentTime,
+  compareWithCurrentDate,
+} from '~/Transformer/schedules/dateComparison';
 import styles from './styles';
 
 const TABS_CONFIG = {
@@ -43,20 +46,14 @@ class Agenda extends Component {
     hideFilterModal: PropTypes.func,
     modal: PropTypes.object,
     agenda: PropTypes.shape({
-      data: PropTypes.shape({
-        getAllSchedules: PropTypes.array,
-        loading: PropTypes.bool,
-      }),
-    }),
-    myAgenda: PropTypes.shape({
-      data: PropTypes.shape({
-        refetch: PropTypes.func,
-      }),
+      getAllSchedules: PropTypes.array,
+      loading: PropTypes.bool,
+      refetch: PropTypes.func,
     }),
   };
 
-  componentWillUnmount() {
-    this.props.myAgenda.data.refetch();
+  componentWillMount() {
+    this.props.agenda.refetch();
   }
 
   _renderFilter = isOpen => (
@@ -67,34 +64,105 @@ class Agenda extends Component {
     />
   );
 
-  _renderTabs() {
-    const {
-      agenda: { data: { getAllSchedules } },
-      myAgenda: { data: { getAllPersonalSchedules } },
-    } = this.props;
-    const filteredSchedules = transformExistedSchedule(
-      getAllSchedules,
-      getAllPersonalSchedules,
-      'existed',
-    );
-    const schedules = transformer(filteredSchedules, 'start');
-    let tabs = {};
+  /**
+   * Check current date is in between the first date of schedule and the last date of schedule or not
+   */
+  _checkExistedCurrentDateInPeriodTimeOfConference(schedules) {
+    // 2 case:
+    // current date is before the first date of schedule (in the past)
+    // current date is after the last date of schedule (in the future)
+    if (
+      compareWithCurrentDate(schedules[0].date) === 1 ||
+      compareWithCurrentDate(schedules[schedules.length - 1].date) === -1
+    ) {
+      // not existed
+      return false;
+    }
+    // existed
+    return true;
+  }
 
-    schedules.map((schedule, index) => {
-      const key = 'Day ' + (index + 1);
+  /**
+   * Get negative numbers, including 0
+   * Special case: value is 0
+   */
+  _filterNegativeNumbers(arr) {
+    let result = [];
+    arr.map(item => {
+      if (item.value <= 0) {
+        result.push(item);
+      }
+    });
+    return result;
+  }
+
+  /**
+   * Get initial date if current date is in a period time (from the first date to the last date of the conference)
+   */
+  _getInitialDateInPeriodTimeOfConference(schedules) {
+    const arr = schedules.map((schedule, index) => {
+      const value = formatDateToNumber() - formatDateToNumber(schedule.date);
+      return { index, value };
+    });
+
+    const negativeNumbers = this._filterNegativeNumbers(arr);
+    return negativeNumbers[0];
+  }
+
+  _renderTabs(getAllSchedules) {
+    const schedules = transformer(getAllSchedules, 'start');
+    let tabs = {},
+      initialDate = '';
+
+    // Handle and set initial date for Tabs
+    const firstDate = schedules[0].date,
+      lastDate = schedules[schedules.length - 1].date;
+    if (!this._checkExistedCurrentDateInPeriodTimeOfConference(schedules)) {
+      // if current date is before the first date
+      if (compareWithCurrentDate(firstDate) === 1) {
+        initialDate = transformServerDate.toLocal(firstDate);
+      }
+      // if current date is after the first date
+      if (compareWithCurrentDate(lastDate) === -1) {
+        initialDate = transformServerDate.toLocal(lastDate);
+      }
+    } else {
+      const { index } = this._getInitialDateInPeriodTimeOfConference(schedules);
+      initialDate = transformServerDate.toLocal(schedules[index].date);
+    }
+
+    schedules.map(schedule => {
       const { activities, date } = schedule;
+      const tabName = transformServerDate.toLocal(date);
+      const comparison = compareWithCurrentDate(date);
+
+      if (comparison === -1) {
+        activities.map(activity => {
+          activity.isBefore = true;
+        });
+      }
       tabs = {
         ...tabs,
-        [key]: {
-          screen: () => <Detail detail={activities} />,
+        [tabName]: {
+          screen: () => (
+            <Detail
+              detail={
+                comparison === 0
+                  ? compareWithCurrentTime(activities)
+                  : activities
+              }
+            />
+          ),
           navigationOptions: {
             tabBarLabel: transformServerDate.toLocal(date),
           },
         },
       };
     });
-
-    return TabNavigator(tabs, TABS_CONFIG);
+    return TabNavigator(tabs, {
+      ...TABS_CONFIG,
+      initialRouteName: initialDate,
+    });
   }
 
   _renderLoading() {
@@ -105,10 +173,26 @@ class Agenda extends Component {
     );
   }
 
+  _renderEmptySchedules() {
+    return () => (
+      <View style={styles.container}>
+        <EmptyCollection />
+      </View>
+    );
+  }
+
   render() {
-    const { agenda: { data: { loading } } } = this.props;
+    const { agenda: { loading, getAllSchedules } } = this.props;
     const isFilterOpen = this.props.modal.isOpen;
-    const Tabs = loading ? this._renderLoading() : this._renderTabs();
+    let Tabs;
+    if (loading) {
+      Tabs = this._renderLoading();
+    } else {
+      Tabs =
+        getAllSchedules.length === 0
+          ? this._renderEmptySchedules()
+          : this._renderTabs(getAllSchedules);
+    }
     return (
       <View style={styles.container}>
         {this._renderFilter(isFilterOpen)}
@@ -127,7 +211,7 @@ Agenda.header = {
         name: 'calendar-today',
         type: 'material-community',
       },
-      onPress: dispatch => dispatch(navigate({ routeName: 'myAgenda' })),
+      onPress: dispatch => dispatch(reset({ routeName: 'myAgenda' })),
     },
     {
       icon: {
@@ -155,15 +239,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default compose(
-  graphql(gql(queryAgenda), {
-    props: ({ data, loading }) => ({
-      agenda: { data, loading },
-    }),
-  }),
-  graphql(gql(queryMyAgenda), {
-    props: ({ data, loading }) => ({
-      myAgenda: { data, loading },
-    }),
+  graphql(gql(AGENDA_QUERY), {
+    name: 'agenda',
+    options: {
+      notifyOnNetworkStatusChange: true,
+    },
   }),
   connect(mapStateToProps, mapDispatchToProps),
 )(Agenda);

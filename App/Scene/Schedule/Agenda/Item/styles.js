@@ -16,19 +16,27 @@ export default StyleSheet.create({
     backgroundColor: Colors.white,
     borderRadius: 13,
   },
+  infoContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
   timeWrapper: {
-    width: 56,
+    width: 90,
     justifyContent: 'center',
-    marginHorizontal: Metrics.doubleBaseMargin,
+    paddingRight: Metrics.doubleBaseMargin,
+    paddingLeft: Metrics.baseMargin,
   },
   infoWrapper: {
-    marginHorizontal: Metrics.doubleBaseMargin,
     flex: 1,
+    paddingRight: Metrics.baseMargin,
   },
   primaryText: {
     color: Colors.black,
   },
   secondaryText: {
     color: Colors.grey,
+  },
+  blurItem: {
+    opacity: 0.5,
   },
 });

@@ -1,0 +1,30 @@
+query getConferenceByIDQuery($id: ID!) {
+  getConferenceByID(id: $id) {
+    id
+    title
+    description
+    start_date
+    end_date
+    organizerDetail {
+      id
+      name
+      email
+      website
+      phone
+    }
+    coOrganizerDetails {
+      id
+      name
+      email
+      website
+      phone
+      conference {
+        id
+      }
+    }
+    address {
+      lat
+      long
+    }
+  }
+}

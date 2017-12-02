@@ -4,12 +4,13 @@ import { View, FlatList } from 'react-native';
 import { Text } from '~/Component';
 import moment from 'moment';
 import ItemDetail from './Detail';
-import { DATE_FORMAT } from '~/env';
 import styles from './styles';
 import { Colors } from '~/Theme';
 import { Icon } from 'react-native-elements';
-
-const TODAY = moment().format(DATE_FORMAT);
+import {
+  compareWithCurrentDate,
+  compareWithCurrentTime,
+} from '~/Transformer/schedules/dateComparison';
 
 const DEFAULT_ITEM_ICON = {
   type: 'material-community',
@@ -37,33 +38,33 @@ class MyAgendaItem extends Component {
 
   render() {
     const { activities, date } = this.props;
-
     const momentDate = moment(new Date(date));
     const day = momentDate.format('D');
     const stringDay = momentDate.format('ddd');
-    const currentDate = momentDate.format(DATE_FORMAT);
+    const comparison = compareWithCurrentDate(date);
 
-    const isToday = TODAY == currentDate;
-    const isBefore = TODAY > currentDate;
     return (
       <View style={styles.container}>
-        <View style={styles.headerWrapper}>
-          {/*
-            <Text style={styles.headerTextDay} bold>
-              4th
-            </Text>
-            <Text style={styles.headerTextDay}>April</Text>
-          */}
-        </View>
         <View
-          style={[styles.contentContainer, isBefore ? { opacity: 0.5 } : {}]}
+          style={[
+            styles.contentContainer,
+            comparison === -1 ? styles.blurItem : null,
+          ]}
         >
           <View style={styles.contentDate}>
-            <Text style={[styles.textDay, isToday ? styles.todayDayInner : {}]}>
+            <Text
+              style={[
+                styles.textDay,
+                comparison === 0 ? styles.todayDayInner : null,
+              ]}
+            >
               {day}
             </Text>
             <Text
-              style={[styles.textMonth, isToday ? styles.todayDayInner : {}]}
+              style={[
+                styles.textMonth,
+                comparison === 0 ? styles.todayDayInner : null,
+              ]}
             >
               {stringDay}
             </Text>
@@ -71,7 +72,7 @@ class MyAgendaItem extends Component {
 
           <View style={styles.lineWrapper}>
             <View style={styles.circleBackground}>
-              {isToday ? (
+              {comparison === 0 ? (
                 <Icon {...ACTIVE_ITEM_ICON} />
               ) : (
                 <Icon {...DEFAULT_ITEM_ICON} />
@@ -80,7 +81,7 @@ class MyAgendaItem extends Component {
           </View>
           <View style={styles.contentWrapper}>
             <FlatList
-              data={activities}
+              data={compareWithCurrentTime(activities)}
               keyExtractor={(item, index) => index}
               renderItem={this._renderItem}
             />

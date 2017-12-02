@@ -3,25 +3,12 @@
     id
     start
     end
-    room {
+    activity_id
+    activity_title
+    activity_description
+    room_name
+    personalSchedule {
       id
-      name
-    }
-    activity {
-      id
-      title
-      description
-      status
-      conference {
-        id
-      }
-      activityTopics {
-        id
-        topic {
-          description
-          name
-        }
-      }
     }
   }
 }

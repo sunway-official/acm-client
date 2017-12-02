@@ -6,8 +6,8 @@ export default url => {
   result = result.substring(0, result.indexOf(':'));
 
   /**
-   * Add 
-   * prefix "http://" 
+   * Add
+   * prefix "http://"
    * port 8080
    * postfix "graphql"
    */

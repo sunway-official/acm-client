@@ -1,0 +1,5 @@
+mutation($news_id: ID!, $name: String!, $url: String!){
+  insertNewsPhoto(news_id: $news_id, name: $name, url: $url){
+    id
+  }
+}

@@ -1,0 +1,5 @@
+mutation($news_id: ID!) {
+  insertNewsLike(news_id: $news_id) {
+    id
+  }
+}

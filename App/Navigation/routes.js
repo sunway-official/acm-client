@@ -1,15 +1,16 @@
 import Home from '~/Scene/Home';
 import Login from '~/Scene/Auth/Login';
 import ForgotPassword from '~/Scene/Auth/ForgotPassword/';
-import NewsFeed from '~/Scene/NewsFeed';
+import { NewsFeed, NewsPosting, NewsDetail } from '~/Scene/News';
 import Notification from '~/Scene/Notification';
 import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
 import ProfileEditing from '~/Scene/Profile/ProfileEditing';
 import Setting from '~/Scene/Setting';
-import { Agenda, MyAgenda } from '~/Scene/Schedule';
+import { Agenda, MyAgenda, ActivityDetail } from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
 import ChangePassword from '~/Scene/Profile/ChangePassword';
+import { ConferenceLocation, ConferenceList } from '~/Scene/Conference';
 
 export const ROUTES = {
   splash: {
@@ -46,19 +47,29 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  setting: {
-    name: 'Setting',
-    path: '/setting',
-    screen: Setting,
-    icon: {
-      name: 'settings',
-      type: 'material-community',
-    },
-  },
   newsFeed: {
     name: 'News Feed',
     path: '/news-feed',
     screen: NewsFeed,
+    icon: {
+      name: 'newspaper',
+      type: 'material-community',
+    },
+    initial: true,
+  },
+  newsPosting: {
+    name: 'New Post',
+    path: '/news-feed/post',
+    screen: NewsPosting,
+    icon: {
+      name: 'newspaper',
+      type: 'material-community',
+    },
+  },
+  newsDetail: {
+    name: 'New Detail',
+    path: '/news-feed/detail',
+    screen: NewsDetail,
     icon: {
       name: 'newspaper',
       type: 'material-community',
@@ -86,6 +97,11 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
+  activityDetail: {
+    name: 'Activity Detail',
+    path: '/activity-detail',
+    screen: ActivityDetail,
+  },
   people: {
     name: 'People',
     path: '/people',
@@ -105,7 +121,6 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
   },
   profileEditing: {
     name: 'Edit Profile',
@@ -134,6 +149,33 @@ export const ROUTES = {
     },
     activeIcon: {
       name: 'notifications',
+    },
+  },
+  conferenceLocation: {
+    name: 'Location',
+    path: '/conference/location',
+    screen: ConferenceLocation,
+    icon: {
+      name: 'google-maps',
+      type: 'material-community',
+    },
+  },
+  conferenceList: {
+    name: 'Conferences',
+    path: '/conference/list',
+    screen: ConferenceList,
+    icon: {
+      name: 'apps',
+      type: 'material-community',
+    },
+  },
+  setting: {
+    name: 'Setting',
+    path: '/setting',
+    screen: Setting,
+    icon: {
+      name: 'settings',
+      type: 'material-community',
     },
   },
 };

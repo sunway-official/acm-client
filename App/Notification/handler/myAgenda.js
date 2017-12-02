@@ -1,6 +1,6 @@
 import { Notifications } from 'expo';
 import { AsyncStorage } from 'react-native';
-import { transformServerDate } from '~/Transformer';
+
 /**
  * Async & Await handler for My Agenda Local Notification
  * Author: Tri Pham
@@ -23,11 +23,12 @@ const setLocalNotificationSchedule = async item => {
   // Set up notification
   const localNotification = {
     ...NOTIFICATION_CONFIG,
-    title: item.activity.title,
-    body: item.schedule.room.name || '',
+    title: item.activity_title,
+    body: item.room_name || '',
   };
+
   const schedulingOptions = {
-    time: new Date(transformServerDate.toLocal(item.schedule.start)).getTime(),
+    time: new Date(item.start),
   };
   let notificationId = DEFAULT_NOTIFICATION_ID;
   // Register if item is NOT in the past

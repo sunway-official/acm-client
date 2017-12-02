@@ -1,0 +1,8 @@
+query($id: ID!){
+  getNewsLikeByID(id: $id) {
+    id
+    user{
+      id
+    }
+  }
+}

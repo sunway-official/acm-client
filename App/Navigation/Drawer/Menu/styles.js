@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ColorPropType } from 'react-native';
 import { Metrics, Fonts, Colors } from '~/Theme';
 
 const statusBarMargin = Metrics.doubleBaseMargin * -1;
@@ -30,18 +30,22 @@ export default StyleSheet.create({
     paddingBottom: Metrics.baseMargin,
     flexDirection: 'row',
   },
-  profileImage: {
-    width: Metrics.images.large,
-    height: Metrics.images.large,
-    borderRadius: Metrics.images.large / 2,
+  avatarImage: {
     borderWidth: 1,
     borderColor: Colors.white,
   },
-  conferenceImage: {
-    width: Metrics.images.medium,
-    height: Metrics.images.medium,
-    borderRadius: Metrics.images.medium / 2,
+  conferenceImageWrapper: {
+    justifyContent: 'center',
     marginLeft: 'auto',
+    backgroundColor: Colors.primary,
+    width: Metrics.logoDrawer.width,
+    height: Metrics.logoDrawer.height,
+    borderRadius: Metrics.logoDrawer.width / 2,
+  },
+  conferenceImage: {
+    width: Metrics.logoDrawer.size,
+    marginLeft: 10,
+    resizeMode: 'contain',
   },
   line: {
     flexDirection: 'row',
@@ -67,6 +71,7 @@ export default StyleSheet.create({
   menuItem: {
     paddingHorizontal: Metrics.doubleBaseMargin,
     height: Metrics.icons.large,
+    marginBottom: Metrics.baseMargin,
     flexDirection: 'row',
   },
   menuItemActive: {

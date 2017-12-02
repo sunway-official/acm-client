@@ -31,10 +31,14 @@ const images = {
 
   materialBackground: require('~/Images/material/background.jpg'),
   splash: require('~/Images/splash.png'),
-  logo: require('~/Asset/icon.png'),
-
+  logo: {
+    orange: require('~/Images/logo/orange-transparent-500.png'),
+    white: require('~/Images/logo/white-transparent-500.png'),
+  },
   login: require('~/Images/LargeIcons/login.png'),
   forgotPassword: require('~/Images/LargeIcons/forgot_password.png'),
+
+  notFoundIcon: require('~/Images/not-found-icon.png'),
 };
 
 export default images;

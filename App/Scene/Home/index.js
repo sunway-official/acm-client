@@ -65,9 +65,6 @@ class HomeScene extends Component {
     );
   }
 }
-HomeScene.drawer = {
-  primary: true,
-};
 
 HomeScene.header = {
   leftIcon: 'drawer',
