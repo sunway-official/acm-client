@@ -30,10 +30,7 @@ export default StyleSheet.create({
     paddingBottom: Metrics.baseMargin,
     flexDirection: 'row',
   },
-  profileImage: {
-    width: Metrics.images.large,
-    height: Metrics.images.large,
-    borderRadius: Metrics.images.large / 2,
+  avatarImage: {
     borderWidth: 1,
     borderColor: Colors.white,
   },

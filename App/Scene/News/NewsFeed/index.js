@@ -4,17 +4,18 @@ import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
-import styles from './styles';
 import { Colors } from '~/Theme';
 import { News, LoadingIndicator, EmptyCollection } from '~/Component';
+import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import FakePosting from './FakePosting';
-
 import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
+import styles from './styles';
 
 const PAGE_SIZE = 10;
 const NETWORK_STATUS_LOADING = 1;
 const NETWORK_STATUS_REFETCHING = 4;
+
 class NewsFeedScene extends Component {
   static propTypes = {
     allNews: PropTypes.array,
@@ -22,50 +23,51 @@ class NewsFeedScene extends Component {
     networkStatus: PropTypes.number,
     refetch: PropTypes.func,
     fetchMore: PropTypes.func,
-    isPosted: PropTypes.number,
+    sceneIndex: PropTypes.number,
+    navigationIndex: PropTypes.number,
     loading: PropTypes.bool,
-  };
-
-  static header = {
-    leftIcon: 'drawer',
-    theme: 'dark',
-    backgroundColor: Colors.primary,
-    statusBarBackgroundColor: Colors.primary,
-  };
-
-  static footer = {
-    show: true,
-    activeColor: Colors.primary,
-  };
-
-  static drawer = {
-    primary: true,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      isRefresh: false,
+      lastNavigationIndex: 0,
     };
 
     this._onRefresh = this._onRefresh.bind(this);
     this._onEndReached = this._onEndReached.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // ? when navigation to NewsPosting
-    if (nextProps.isPosted === 1) {
-      this.setState({ isRefresh: true });
+  componentWillReceiveProps({ navigationIndex }) {
+    // Set lastNavigationIndex value when navigate to any scene
+    const { sceneIndex } = this.props;
+    if (navigationIndex !== sceneIndex) {
+      this.setState({ lastNavigationIndex: navigationIndex });
     }
   }
 
   componentWillUpdate(nextProps, nextState) {
-    // ? when navigation back
-    if (nextProps.isPosted === 0 && nextState.isRefresh === true) {
-      this._onRefresh();
-      this.setState({ isRefresh: false });
+    // Check when navigation back by comparing lastNavigationIndex
+    const { sceneIndex } = this.props;
+    if (
+      nextProps.navigationIndex === sceneIndex &&
+      nextState.lastNavigationIndex !== sceneIndex
+    ) {
+      this.props.refetch();
+      this.setState({ lastNavigationIndex: nextProps.navigationIndex });
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // Prevent update when lastNavigationIndex or sceneIndex has changed
+    if (nextState.lastNavigationIndex !== this.state.lastNavigationIndex) {
+      return false;
+    }
+    if (nextProps.sceneIndex !== this.props.sceneIndex) {
+      return false;
+    }
+    return true;
   }
 
   _onRefresh() {
@@ -156,6 +158,22 @@ class NewsFeedScene extends Component {
   }
 }
 
+NewsFeedScene.header = {
+  leftIcon: 'drawer',
+  theme: 'dark',
+  backgroundColor: Colors.primary,
+  statusBarBackgroundColor: Colors.primary,
+};
+
+NewsFeedScene.footer = {
+  show: true,
+  activeColor: Colors.primary,
+};
+
+NewsFeedScene.drawer = {
+  primary: true,
+};
+
 const QueryMe = graphql(gql(QUERY_ME), {
   props: ({ data: { loading, me } }) => ({
     loading,
@@ -180,11 +198,19 @@ const QueryAllNews = graphql(gql(QUERY_ALL_NEWS), {
   },
 });
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
+  // Find newsfeed scene index in navigation stack
+  let sceneIndex = 0;
+  state[NAVIGATION_KEY].routes.map(({ routeName }, index) => {
+    if (routeName === 'newsFeed') {
+      sceneIndex = index;
+    }
+  });
   return {
-    isPosted: state.navigation.index,
+    sceneIndex,
+    navigationIndex: state[NAVIGATION_KEY].index,
   };
-}
+};
 
 export default compose(QueryAllNews, QueryMe, connect(mapStateToProps))(
   NewsFeedScene,

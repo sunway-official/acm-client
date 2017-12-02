@@ -135,7 +135,14 @@ class NewsPosting extends Component {
     );
   }
 
-  _renderContents({ avatar, gender, firstname, lastname }) {
+  _renderContents({
+    avatar,
+    gender,
+    firstname,
+    lastname,
+    position,
+    organization,
+  }) {
     let { text, images } = this.state;
 
     const username = `${firstname} ${lastname}`;
@@ -145,6 +152,8 @@ class NewsPosting extends Component {
         avatar={avatar}
         gender={gender}
         images={images}
+        position={position}
+        organization={organization}
       >
         <AutoExpandingTextInput
           value={text}

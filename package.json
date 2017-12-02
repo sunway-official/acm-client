@@ -38,7 +38,7 @@
     "moment": "^2.18.1",
     "prettier-eslint-cli": "^4.4.0",
     "prop-types": "^15.5.10",
-    "react": "^16.0.0",
+    "react": "16.0.0",
     "react-apollo": "^1.4.15",
     "react-native": "github:expo/react-native#sdk-21.0.2",
     "react-native-animatable": "^1.2.4",

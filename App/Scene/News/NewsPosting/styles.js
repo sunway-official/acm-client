@@ -38,7 +38,9 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   contentUsername: {
-    marginLeft: Metrics.baseMargin,
+    flexDirection: 'column',
+    marginLeft: 14,
+    justifyContent: 'flex-start',
   },
   actions: {
     flexShrink: 1,

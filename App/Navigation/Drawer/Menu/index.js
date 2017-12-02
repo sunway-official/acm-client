@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { View, Image, TouchableOpacity, AsyncStorage } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { compose, graphql, gql, withApollo } from 'react-apollo';
-import { AnimatableView, Text } from '~/Component';
-import { IS_DEBUGGING } from '~/env';
-import { NavigationActions } from '~/Redux/Navigation';
+import { AnimatableView, Text, UserAvatar } from '~/Component';
+import { connect } from 'react-redux';
 import { KEY as ROUTES_KEY } from '~/Redux/Routes';
-import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
+import { KEY as NAVIGATION_KEY, NavigationActions } from '~/Redux/Navigation';
 import { setDrawerState } from '~/Redux/Drawer';
 import { Images, Metrics, Colors } from '~/Theme';
-import QUERY_ME from '~/Graphql/query/me.graphql';
-import { S3_GET_PREFIX } from '~/env';
-import styles from './styles';
+import { IS_DEBUGGING } from '~/env';
 import MenuItem from './Item';
+import QUERY_ME from '~/Graphql/query/me.graphql';
+import styles from './styles';
 
 const USER_FIRSTNAME = 'Sunway';
 const USER_LASTNAME = 'Team';
@@ -23,12 +21,6 @@ const MENU_ITEMS_ANIMATION = 'fadeInUp';
 const DROPDOWN_ICON_ANIMATION = 'rotate';
 const ANIMATION_DELAY = 300;
 const ACTIVE_TOUCHABLE_OPACITY = 0.4;
-
-/* eslint-disable no-unused-vars */
-const GENDER_MALE = 'male';
-const GENDER_FEMALE = 'female';
-const GENDER_UNKNOWN = 'unknown';
-/* eslint-enable no-unused-vars */
 
 const DEFAULT_USER = {
   data: {
@@ -42,7 +34,6 @@ const DEFAULT_USER = {
 class Menu extends Component {
   static propTypes = {
     closeDrawer: PropTypes.func,
-    navigate: PropTypes.func,
     reset: PropTypes.func,
     routes: PropTypes.object,
     navigation: PropTypes.object,
@@ -75,39 +66,26 @@ class Menu extends Component {
     const { routes, index } = this.props.navigation;
     const { routeName } = routes[index];
     if (routeName !== key) {
-      this.props.navigate(key);
+      this.props.reset(key);
     }
     this.props.closeDrawer();
   }
 
   _renderHeaderImage(user) {
     let { avatar, gender } = user;
-    let defaultAvatar = Images.avatar['male02'];
-    if (avatar) {
-      avatar = { uri: S3_GET_PREFIX + avatar };
-    } else {
-      switch (gender) {
-        case GENDER_MALE:
-          defaultAvatar = Images.avatar['male08'];
-          break;
-        case GENDER_FEMALE:
-          defaultAvatar = Images.avatar['female01'];
-          break;
-      }
-      avatar = defaultAvatar;
-    }
     return (
       <View style={styles.headerImage}>
-        <Image
-          source={avatar}
-          defaultSource={Images.default['img200']}
-          style={styles.profileImage}
+        <UserAvatar
+          large
+          avatar={avatar}
+          gender={gender}
+          avatarStyle={styles.avatarImage}
         />
         <TouchableOpacity
           style={styles.conferenceImageWrapper}
           onPress={() => this._onMenuItemPress('conferenceList')}
         >
-          <Image source={Images.default.img50} style={styles.conferenceImage} />
+          <Image source={Images.logo.drawer} style={styles.conferenceImage} />
         </TouchableOpacity>
       </View>
     );
@@ -260,7 +238,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   closeDrawer: () => dispatch(setDrawerState(false)),
-  navigate: routeName => dispatch(NavigationActions.navigate({ routeName })),
   reset: routeName => dispatch(NavigationActions.reset({ routeName })),
 });
 

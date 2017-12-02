@@ -34,6 +34,7 @@ const images = {
   logo: {
     orange: require('~/Images/logo/orange.png'),
     white: require('~/Images/logo/white.png'),
+    drawer: require('~/Images/logo/drawer-white-orange.png'),
   },
   login: require('~/Images/LargeIcons/login.png'),
   forgotPassword: require('~/Images/LargeIcons/forgot_password.png'),
