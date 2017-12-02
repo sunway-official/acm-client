@@ -55,54 +55,63 @@ export default StyleSheet.create({
     justifyContent: 'center',
     padding: smallMargin,
   },
-  photoViewContainer: {
+
+  // PhotoView
+  // ! one image
+  singleCoverImage: {
+    resizeMode: 'cover',
+    minHeight: 200,
+    marginVertical: baseMargin,
+  },
+  // ! second images
+  secondImageContainer: {
+    flex: 1,
     flexDirection: 'row',
   },
-  photoViewSubContainer: {
+  secondImageView: {
+    flex: 2,
+    resizeMode: 'cover',
+    minHeight: 200,
+    margin: 2,
+  },
+  // ! third images
+  thirdImageContainer: {
     flex: 1,
-    marginHorizontal: baseMargin,
+    flexDirection: 'row',
+  },
+  thirdImageCoverContainer: {
+    flex: 2,
+  },
+  thirdCoverImage: {
+    resizeMode: 'cover',
+    minHeight: 202,
+    margin: 2,
+  },
+  thirdImageSubContainer: {
+    flex: 1,
+    flexDirection: 'column',
     maxHeight: 200,
+    margin: 2,
   },
-  coverSingleImage: {
+  smallImageTop: {
     resizeMode: 'cover',
-    minHeight: 200,
-    marginVertical: baseMargin,
+    minHeight: 100,
   },
-  photoViewTwoImage: {
+  smallImageBottom: {
+    resizeMode: 'cover',
+    minHeight: 100,
+    marginTop: 2,
+  },
+  backdropView: {
     flex: 1,
-    flexDirection: 'row',
-    marginVertical: baseMargin,
-  },
-  firstMediumImage: {
-    flex: 2,
-    resizeMode: 'cover',
-    minHeight: 200,
-    marginRight: smallMargin,
-  },
-  secondMediumImage: {
-    flex: 2,
-    resizeMode: 'cover',
-    minHeight: 200,
-    marginLeft: smallMargin,
-  },
-  coverImage: {
-    resizeMode: 'cover',
-    minHeight: 200,
-  },
-  smallImage: {
-    resizeMode: 'cover',
-    minHeight: 92,
-    marginBottom: baseMargin,
-  },
-  moreImages: {
-    position: 'absolute',
-    color: Colors.white,
-    textAlign: 'center',
-    textAlignVertical: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
+    minHeight: 80,
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  textAboveBackdropView: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 20,
   },
 });

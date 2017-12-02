@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, Image } from 'react-native';
 import { Text, TouchableView } from '~/Component';
@@ -6,14 +6,21 @@ import { S3_GET_PREFIX } from '~/env';
 
 import styles from './styles';
 
-const NewsRenderPhotoImage = ({ imageUrl, position, styles }) => {
-  return (
-    <Image
-      source={{ uri: S3_GET_PREFIX + imageUrl[position] }}
-      style={styles}
-    />
-  );
-};
+class NewsRenderPhotoImage extends PureComponent {
+  static propTypes = {
+    children: PropTypes.any,
+    style: View.propTypes.style,
+  };
+
+  render() {
+    const { imageUrl, position, style, children } = this.props;
+    return (
+      <Image source={{ uri: S3_GET_PREFIX + imageUrl[position] }} style={style}>
+        {children}
+      </Image>
+    );
+  }
+}
 
 const NewsPhotoView = ({ imageUrl }) => {
   if (imageUrl.length === 1)
@@ -21,58 +28,55 @@ const NewsPhotoView = ({ imageUrl }) => {
       <NewsRenderPhotoImage
         imageUrl={imageUrl}
         position={0}
-        styles={styles.coverSingleImage}
+        style={styles.singleCoverImage}
       />
     );
 
   if (imageUrl.length === 2)
     return (
-      <View style={styles.photoViewTwoImage}>
+      <View style={styles.secondImageContainer}>
         <NewsRenderPhotoImage
           imageUrl={imageUrl}
           position={0}
-          styles={styles.firstMediumImage}
+          style={styles.secondImageView}
         />
         <NewsRenderPhotoImage
           imageUrl={imageUrl}
           position={1}
-          styles={styles.secondMediumImage}
+          style={styles.secondImageView}
         />
       </View>
     );
   if (imageUrl.length > 2)
     return (
-      <View style={styles.photoViewContainer}>
-        <View style={{ flex: 2 }}>
+      <View style={styles.thirdImageContainer}>
+        <View style={styles.thirdImageCoverContainer}>
           <NewsRenderPhotoImage
             imageUrl={imageUrl}
             position={0}
-            styles={styles.coverImage}
+            style={styles.thirdCoverImage}
           />
         </View>
-        <View style={styles.photoViewSubContainer}>
+        <View style={styles.thirdImageSubContainer}>
           <NewsRenderPhotoImage
             imageUrl={imageUrl}
             position={1}
-            styles={styles.smallImage}
+            style={styles.smallImageTop}
           />
-          {imageUrl.length > 2 ? (
-            <TouchableView>
-              <NewsRenderPhotoImage
-                imageUrl={imageUrl}
-                position={2}
-                styles={styles.smallImage}
-              />
-              <Text medium style={styles.moreImages}>{`+ ${imageUrl.length -
-                2}`}</Text>
-            </TouchableView>
-          ) : (
+          <TouchableView>
             <NewsRenderPhotoImage
               imageUrl={imageUrl}
-              position={1}
-              styles={styles.smallImage}
-            />
-          )}
+              position={2}
+              style={styles.smallImageBottom}
+            >
+              <View style={styles.backdropView}>
+                <Text
+                  medium
+                  style={styles.textAboveBackdropView}
+                >{`+${imageUrl.length - 2}`}</Text>
+              </View>
+            </NewsRenderPhotoImage>
+          </TouchableView>
         </View>
       </View>
     );
@@ -82,7 +86,7 @@ const NewsPhotoView = ({ imageUrl }) => {
 NewsRenderPhotoImage.propTypes = {
   imageUrl: PropTypes.array,
   position: PropTypes.number,
-  styles: PropTypes.number,
+  style: Image.propTypes.style,
 };
 
 NewsPhotoView.propTypes = {
