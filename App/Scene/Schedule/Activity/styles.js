@@ -14,7 +14,6 @@ export default StyleSheet.create({
   },
   info: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
     paddingBottom: baseMargin,
   },
   descriptionContainer: {
@@ -23,6 +22,8 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: size.regular,
+    flex: 1,
+    flexWrap: 'wrap',
   },
   icon: {
     marginRight: doubleBaseMargin,
@@ -45,13 +46,11 @@ export default StyleSheet.create({
     paddingHorizontal: baseMargin,
     paddingVertical: baseMargin,
     marginVertical: 2,
-    // backgroundColor: 'yellow',
   },
   timeline: {
     position: 'relative',
     justifyContent: 'space-between',
     paddingVertical: smallMargin,
-    // backgroundColor: 'red',
   },
   verticalLine: {
     position: 'absolute',
@@ -73,19 +72,16 @@ export default StyleSheet.create({
     width: 80,
     paddingLeft: baseMargin,
     justifyContent: 'space-between',
-    // backgroundColor: 'green',
   },
   scheduleInfo: {
     flex: 1,
     justifyContent: 'center',
     paddingLeft: smallMargin,
     paddingRight: baseMargin,
-    // backgroundColor: 'blue',
   },
   secondaryText: { color: grey },
   trackingIcon: {
     paddingHorizontal: baseMargin,
     justifyContent: 'center',
-    // backgroundColor: 'orange',
   },
 });

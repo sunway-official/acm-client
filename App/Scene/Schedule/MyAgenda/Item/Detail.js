@@ -94,7 +94,14 @@ class ItemDetail extends Component {
           ]}
         >
           <View style={styles.itemInfo}>
-            <TouchableView onPress={() => navigate('activityDetail', detail)}>
+            <TouchableView
+              onPress={() =>
+                navigate('activityDetail', {
+                  ...detail,
+                  track: this.state.track,
+                })
+              }
+            >
               <Text>{detail.activity_title}</Text>
               <Text style={styles.secondaryText}>Room: {detail.room_name}</Text>
               <Text style={styles.secondaryText}>

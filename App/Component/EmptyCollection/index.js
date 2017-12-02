@@ -17,7 +17,7 @@ const EmptyCollection = ({ customStyles, emptyText }) => {
       <Image style={styles.notFoundIcon} source={Images.notFoundIcon} />
       <View style={styles.subText}>
         <Text bold italic style={[styles.headerSubText, styles.text]}>
-          {`"Oops"!`}
+          {`Oops!`}
         </Text>
         <Text style={[styles.descriptionText, styles.text]}>
           {_checkText(emptyText) ? EMPTY_TEXT_DEFAULT : emptyText}

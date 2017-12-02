@@ -176,7 +176,7 @@ class Agenda extends Component {
   _renderEmptySchedules() {
     return () => (
       <View style={styles.container}>
-        <EmptyCollection />
+        <EmptyCollection emptyText="There is no schedules" />
       </View>
     );
   }

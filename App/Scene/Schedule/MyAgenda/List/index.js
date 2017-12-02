@@ -60,7 +60,10 @@ class MyAgendaList extends Component {
   _renderEmptyList(goToAgenda) {
     return (
       <View style={styles.emptyContainer}>
-        <EmptyCollection customStyles={styles.emptyCollection} />
+        <EmptyCollection
+          customStyles={styles.emptyCollection}
+          emptyText="You have no schedules"
+        />
         <TouchableOpacity onPress={goToAgenda} style={styles.gotoBtn}>
           <Text bold style={styles.goToText}>
             Go to Agenda
