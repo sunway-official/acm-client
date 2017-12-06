@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
+import { connect } from 'react-redux';
 import { Colors } from '~/Theme';
 import { LoadingIndicator } from '~/Component';
 import { reset } from '~/Redux/Navigation/action';
-import { graphql, gql } from 'react-apollo';
+import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
+import { graphql, gql, compose } from 'react-apollo';
 import query from '~/Graphql/query/getMyAgenda.graphql';
 import transformer from '~/Transformer/schedules/myAgenda';
 import List from './List';
@@ -19,9 +21,46 @@ class MyAgenda extends Component {
     );
   }
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      lastNavigationIndex: 0,
+    };
+  }
+
   async componentWillMount() {
     const { data: { refetch } } = this.props;
     await refetch();
+  }
+
+  componentWillReceiveProps({ navigationIndex }) {
+    if (navigationIndex !== this.props.sceneIndex) {
+      this.setState({
+        lastNavigationIndex: navigationIndex,
+      });
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.lastNavigationIndex !== this.state.lastNavigationIndex) {
+      return false;
+    }
+    if (nextProps.sceneIndex !== this.props.sceneIndex) {
+      return false;
+    }
+    return true;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    const { sceneIndex, data: { refetch } } = this.props;
+    if (
+      nextState.lastNavigationIndex !== sceneIndex &&
+      nextProps.navigationIndex === sceneIndex
+    ) {
+      refetch();
+      this.setState({ lastNavigationIndex: nextProps.navigationIndex });
+    }
   }
 
   render() {
@@ -42,6 +81,8 @@ MyAgenda.propTypes = {
     getAllPersonalSchedules: PropTypes.array,
     refetch: PropTypes.func,
   }),
+  sceneIndex: PropTypes.number,
+  navigationIndex: PropTypes.number,
 };
 
 MyAgenda.header = {
@@ -67,8 +108,24 @@ MyAgenda.drawer = {
   primary: true,
 };
 
-export default graphql(gql(query), {
-  options: {
-    notifyOnNetworkStatusChange: true,
-  },
-})(MyAgenda);
+const mapStateToProps = state => {
+  let sceneIndex = 0;
+  state[NAVIGATION_KEY].routes.map(({ routeName }, index) => {
+    if (routeName === 'agenda') {
+      sceneIndex = index;
+    }
+  });
+  return {
+    sceneIndex,
+    navigationIndex: state[NAVIGATION_KEY].index,
+  };
+};
+
+export default compose(
+  graphql(gql(query), {
+    options: {
+      notifyOnNetworkStatusChange: true,
+    },
+  }),
+  connect(mapStateToProps, undefined),
+)(MyAgenda);
