@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '../../../Theme';
+import { Metrics, Colors, Fonts } from '~/Theme';
 
-const { smallMargin, baseMargin, doubleBaseMargin } = Metrics;
+const { baseMargin, doubleBaseMargin } = Metrics;
 const { white, grey } = Colors;
 const { size } = Fonts;
 
@@ -43,31 +43,14 @@ export default StyleSheet.create({
   },
   scheduleBlock: {
     flexDirection: 'row',
-    paddingHorizontal: baseMargin,
     paddingVertical: baseMargin,
     marginVertical: 2,
   },
-  timeline: {
-    position: 'relative',
-    justifyContent: 'space-between',
-    paddingVertical: smallMargin,
+  date: {
+    width: 60,
+    alignItems: 'center',
   },
-  verticalLine: {
-    position: 'absolute',
-    top: 9,
-    left: '49%',
-    height: '80%',
-    borderLeftWidth: 1,
-    borderLeftColor: grey,
-  },
-  circleIconTop: {
-    backgroundColor: white,
-    marginBottom: baseMargin,
-  },
-  circleIconBottom: {
-    backgroundColor: white,
-    marginTop: baseMargin,
-  },
+  dateNum: { fontSize: size.h6 },
   time: {
     width: 80,
     paddingLeft: baseMargin,
@@ -75,8 +58,7 @@ export default StyleSheet.create({
   },
   scheduleInfo: {
     flex: 1,
-    justifyContent: 'center',
-    paddingLeft: smallMargin,
+    paddingLeft: baseMargin,
     paddingRight: baseMargin,
   },
   secondaryText: { color: grey },

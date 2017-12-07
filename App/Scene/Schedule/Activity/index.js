@@ -115,7 +115,7 @@ class ActivityDetailScene extends Component {
       const changedDetail = { ...detail, track: track };
       try {
         this._toggleLoading(true);
-        // if user want to track this activity and add it into their schedules
+        // track this activity and add it into MyAgenda
         if ((!detail.track && track) || (changedDetail.track && track)) {
           const idToInsert =
             this.deletedActivity !== undefined
@@ -133,7 +133,7 @@ class ActivityDetailScene extends Component {
             changedDetail.personalSchedule.id = insertPersonalSchedule.id;
           }
         } else {
-          // if user don't want to track this activity and remove it from their schedules
+          // untrack this activity and remove it from MyAgenda
           const idToDelete =
             this.insertedActivity !== undefined
               ? this.insertedActivity.id
@@ -253,36 +253,30 @@ class ActivityDetailScene extends Component {
   _renderScheduleBlock(schedule) {
     return (
       <View key={schedule.id} style={styles.scheduleBlock}>
-        <View style={styles.timeline}>
-          <View style={styles.verticalLine} />
-          {this._renderIcon({
-            name: 'circle-thin',
-            type: 'font-awesome',
-            size: 12,
-            iconStyle: styles.circleIconTop,
-          })}
-          {this._renderIcon({
-            name: 'circle-thin',
-            type: 'font-awesome',
-            size: 12,
-            iconStyle: styles.circleIconBottom,
-          })}
-        </View>
-        <View style={styles.time}>
-          <Text>{transformServerDate.toLocalTime(schedule.start)}</Text>
-          <Text>{transformServerDate.toLocalTime(schedule.end)}</Text>
+        <View style={styles.date}>
+          <Text style={styles.dateNum} medium>
+            {transformServerDate.toLocal(schedule.start, 'DD')}
+          </Text>
+          <Text style={styles.secondaryText}>
+            {transformServerDate.toLocal(schedule.start, 'ddd')}
+          </Text>
         </View>
         <View style={styles.scheduleInfo}>
-          <Text>{transformServerDate.toLocal(schedule.start)}</Text>
+          <Text>
+            {transformServerDate.toLocalTime(schedule.start)} -{' '}
+            {transformServerDate.toLocalTime(schedule.end)}
+          </Text>
           <Text style={styles.secondaryText}>Room: {schedule.room_name}</Text>
         </View>
-        <TouchableView style={styles.trackingIcon}>
+        {/**
+         * <TouchableView style={styles.trackingIcon}>
           {this._renderIcon({
             name: 'remove-red-eye',
             color: Colors.black,
             size: 22,
           })}
         </TouchableView>
+         */}
       </View>
     );
   }
