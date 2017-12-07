@@ -37,6 +37,6 @@ export default StyleSheet.create({
     color: Colors.grey,
   },
   blurItem: {
-    opacity: 0.5,
+    opacity: 0.3,
   },
 });

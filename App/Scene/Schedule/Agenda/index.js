@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { gql, graphql, compose } from 'react-apollo';
 import { TabNavigator, TabBarTop } from 'react-navigation';
+import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { reset } from '~/Redux/Navigation/action';
 import { connect } from 'react-redux';
 import { KEY, setModalState } from '~/Redux/Modal';
@@ -26,15 +27,20 @@ const TABS_CONFIG = {
   animationEnabled: true,
   tabBarOptions: {
     scrollEnabled: true,
+    activeTintColor: Colors.primary,
+    inactiveTintColor: Colors.black,
     indicatorStyle: {
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.primary,
+      height: 2,
     },
     style: {
-      backgroundColor: Colors.primary,
+      backgroundColor: Colors.white,
+      elevation: 0,
+      borderBottomWidth: 1,
+      borderBottomColor: 'rgba(0,0,0,0.075)',
     },
     labelStyle: {
       margin: Metrics.smallMargin,
-      color: Colors.white,
     },
     upperCaseLabel: false,
   },
@@ -45,6 +51,8 @@ class Agenda extends Component {
     showFilterModal: PropTypes.func,
     hideFilterModal: PropTypes.func,
     modal: PropTypes.object,
+    sceneIndex: PropTypes.number,
+    navigationIndex: PropTypes.number,
     agenda: PropTypes.shape({
       getAllSchedules: PropTypes.array,
       loading: PropTypes.bool,
@@ -52,8 +60,45 @@ class Agenda extends Component {
     }),
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      lastNavigationIndex: 0,
+    };
+  }
+
   componentWillMount() {
     this.props.agenda.refetch();
+  }
+
+  componentWillReceiveProps({ navigationIndex }) {
+    if (navigationIndex !== this.props.sceneIndex) {
+      this.setState({
+        lastNavigationIndex: navigationIndex,
+      });
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.lastNavigationIndex !== this.state.lastNavigationIndex) {
+      return false;
+    }
+    if (nextProps.sceneIndex !== this.props.sceneIndex) {
+      return false;
+    }
+    return true;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    const { sceneIndex, agenda: { refetch } } = this.props;
+    if (
+      nextState.lastNavigationIndex !== sceneIndex &&
+      nextProps.navigationIndex === sceneIndex
+    ) {
+      refetch();
+      this.setState({ lastNavigationIndex: nextProps.navigationIndex });
+    }
   }
 
   _renderFilter = isOpen => (
@@ -176,7 +221,7 @@ class Agenda extends Component {
   _renderEmptySchedules() {
     return () => (
       <View style={styles.container}>
-        <EmptyCollection />
+        <EmptyCollection emptyText="There is no schedules" />
       </View>
     );
   }
@@ -229,9 +274,19 @@ Agenda.drawer = {
   primary: true,
 };
 
-const mapStateToProps = state => ({
-  modal: state[KEY],
-});
+const mapStateToProps = state => {
+  let sceneIndex = 0;
+  state[NAVIGATION_KEY].routes.map(({ routeName }, index) => {
+    if (routeName === 'agenda') {
+      sceneIndex = index;
+    }
+  });
+  return {
+    modal: state[KEY],
+    sceneIndex,
+    navigationIndex: state[NAVIGATION_KEY].index,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   showFilterModal: () => dispatch(setModalState(true)),

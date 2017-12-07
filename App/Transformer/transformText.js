@@ -24,7 +24,15 @@ export const reduceByCharacters = (text, length = DEFAULT_CHAR_MAX_LENGTH) => {
   return output + (text.length > length - 1 ? '...' : '');
 };
 
+export const trimText = text => {
+  if (typeof text == 'string') {
+    return text && text.trim();
+  }
+  return '';
+};
+
 export default {
   reduceByWords,
   reduceByCharacters,
+  trimText,
 };

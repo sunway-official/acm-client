@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '../../../Theme';
+import { Metrics, Colors, Fonts } from '~/Theme';
 
-const { smallMargin, baseMargin, doubleBaseMargin } = Metrics;
+const { baseMargin, doubleBaseMargin } = Metrics;
 const { white, grey } = Colors;
 const { size } = Fonts;
 
@@ -14,7 +14,6 @@ export default StyleSheet.create({
   },
   info: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
     paddingBottom: baseMargin,
   },
   descriptionContainer: {
@@ -23,6 +22,8 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: size.regular,
+    flex: 1,
+    flexWrap: 'wrap',
   },
   icon: {
     marginRight: doubleBaseMargin,
@@ -30,7 +31,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   noContent: {
-    padding: doubleBaseMargin,
+    paddingVertical: doubleBaseMargin,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -42,50 +43,28 @@ export default StyleSheet.create({
   },
   scheduleBlock: {
     flexDirection: 'row',
-    paddingHorizontal: baseMargin,
     paddingVertical: baseMargin,
     marginVertical: 2,
-    // backgroundColor: 'yellow',
   },
-  timeline: {
-    position: 'relative',
-    justifyContent: 'space-between',
-    paddingVertical: smallMargin,
-    // backgroundColor: 'red',
+  date: {
+    width: 60,
+    alignItems: 'center',
   },
-  verticalLine: {
-    position: 'absolute',
-    top: 9,
-    left: '49%',
-    height: '80%',
-    borderLeftWidth: 1,
-    borderLeftColor: grey,
-  },
-  circleIconTop: {
-    backgroundColor: white,
-    marginBottom: baseMargin,
-  },
-  circleIconBottom: {
-    backgroundColor: white,
-    marginTop: baseMargin,
-  },
+  dateNum: { fontSize: size.h6 },
   time: {
     width: 80,
     paddingLeft: baseMargin,
     justifyContent: 'space-between',
-    // backgroundColor: 'green',
   },
   scheduleInfo: {
     flex: 1,
-    justifyContent: 'center',
-    paddingLeft: smallMargin,
+    paddingLeft: baseMargin,
     paddingRight: baseMargin,
-    // backgroundColor: 'blue',
   },
   secondaryText: { color: grey },
   trackingIcon: {
     paddingHorizontal: baseMargin,
     justifyContent: 'center',
-    // backgroundColor: 'orange',
   },
+  emptyIcon: { width: 100, height: 105 },
 });

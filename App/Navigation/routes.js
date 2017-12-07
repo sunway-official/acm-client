@@ -55,7 +55,6 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    initial: true,
   },
   newsPosting: {
     name: 'New Post',
@@ -96,6 +95,7 @@ export const ROUTES = {
       name: 'calendar-range',
       type: 'material-community',
     },
+    initial: true,
   },
   activityDetail: {
     name: 'Activity Detail',

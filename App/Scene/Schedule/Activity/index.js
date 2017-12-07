@@ -2,14 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { gql, graphql } from 'react-apollo';
-import { Text, TouchableView, LoadingIndicator } from '~/Component';
+import { compose, gql, graphql } from 'react-apollo';
+import {
+  Text,
+  TouchableView,
+  LoadingIndicator,
+  EmptyCollection,
+} from '~/Component';
 import { Icon } from 'react-native-elements';
 import { Colors, Metrics } from '~/Theme';
 import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
 import { addHeaderOptions } from '~/Redux/Toolbar/action';
 import { transformServerDate, transformText } from '~/Transformer';
+import { IS_IOS } from '~/env';
 import AGENDA_QUERY from '~/Graphql/query/getAgenda.graphql';
+import DELETE_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/deletePersonalSchedule.graphql';
+import INSERT_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/insertPersonalSchedule.graphql';
 import styles from './styles';
 
 const DEFAULT_ACTIVITY_DETAIL = {
@@ -21,6 +29,7 @@ const DEFAULT_ACTIVITY_DETAIL = {
 };
 const ROUTE_NAME = 'activityDetail';
 const CHAR_LENGTH = 30;
+const TRACKING_ANIMATION_DELAY = 150;
 const DEFAULT_ICON_NAME = 'info-outline';
 
 class ActivityDetailScene extends Component {
@@ -31,13 +40,27 @@ class ActivityDetailScene extends Component {
       loading: PropTypes.bool,
       getAllSchedules: PropTypes.array,
     }),
+    insertPersonalScheduleMutation: PropTypes.func,
+    deletePersonalScheduleMutation: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      track: props.detail.track,
+      loading: false,
+    };
+
+    this._renderCurrentActivityTitle = this._renderCurrentActivityTitle.bind(
+      this,
+    );
+    this._renderDescription = this._renderDescription.bind(this);
     this._renderDetail = this._renderDetail.bind(this);
     this._renderRelatedSchedules = this._renderRelatedSchedules.bind(this);
     this._getRelatedSchedules = this._getRelatedSchedules.bind(this);
+    this._toggleLoading = this._toggleLoading.bind(this);
+    this._setTrackingState = this._setTrackingState.bind(this);
   }
 
   componentDidMount() {
@@ -78,16 +101,123 @@ class ActivityDetailScene extends Component {
     );
   }
 
+  _toggleLoading(loading) {
+    this.setState({ loading });
+  }
+
+  _setTrackingState(detail) {
+    const {
+      insertPersonalScheduleMutation,
+      deletePersonalScheduleMutation,
+    } = this.props;
+    this.setState({ track: !this.state.track }, async () => {
+      const { state: { track } } = this;
+      const changedDetail = { ...detail, track: track };
+      try {
+        this._toggleLoading(true);
+        // track this activity and add it into MyAgenda
+        if ((!detail.track && track) || (changedDetail.track && track)) {
+          const idToInsert =
+            this.deletedActivity !== undefined
+              ? this.deletedActivity.schedule_id
+              : changedDetail.id;
+          const {
+            data: { insertPersonalSchedule },
+          } = await insertPersonalScheduleMutation({
+            variables: {
+              schedule_id: idToInsert,
+            },
+          });
+          this.insertedActivity = insertPersonalSchedule;
+          if (changedDetail.personalSchedule) {
+            changedDetail.personalSchedule.id = insertPersonalSchedule.id;
+          }
+        } else {
+          // untrack this activity and remove it from MyAgenda
+          const idToDelete =
+            this.insertedActivity !== undefined
+              ? this.insertedActivity.id
+              : changedDetail.id;
+          const {
+            data: { deletePersonalSchedule },
+          } = await deletePersonalScheduleMutation({
+            variables: {
+              id: changedDetail.personalSchedule
+                ? changedDetail.personalSchedule.id
+                : idToDelete,
+            },
+          });
+          this.deletedActivity = deletePersonalSchedule;
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this._toggleLoading(false);
+      }
+    });
+  }
+
+  _renderCurrentActivityTitle(detail) {
+    const { track, loading } = this.state;
+    return (
+      <View style={styles.info}>
+        <Text bold style={styles.title}>
+          {detail.activity_title}
+        </Text>
+        {loading ? (
+          <View style={styles.trackingIcon}>
+            <LoadingIndicator
+              size={IS_IOS ? 'small' : Metrics.icons.small + 1}
+            />
+          </View>
+        ) : (
+          <TouchableView
+            style={[
+              styles.trackingIcon,
+              detail.isBefore && { display: 'none' },
+            ]}
+            borderless={true}
+            rippleColor={Colors.primary}
+            onPress={() => {
+              setTimeout(() => {
+                this._setTrackingState(detail);
+              }, TRACKING_ANIMATION_DELAY);
+            }}
+          >
+            {this._renderIcon({
+              name: track ? 'check-circle' : 'radio-button-unchecked',
+              color: Colors.primary,
+              size: Metrics.icons.small,
+            })}
+          </TouchableView>
+        )}
+      </View>
+    );
+  }
+
+  _renderDescription(description) {
+    return (
+      <View style={[styles.container, styles.descriptionContainer]}>
+        <Text bold style={styles.title}>
+          Description
+        </Text>
+        {transformText.trimText(description) == '' ? (
+          <View style={styles.noContent}>
+            <Text>No description</Text>
+          </View>
+        ) : (
+          <Text style={{ lineHeight: Metrics.section }}>{description}</Text>
+        )}
+      </View>
+    );
+  }
+
   _renderDetail() {
     const { detail } = this.props;
     return (
       <View>
         <View style={styles.container}>
-          <View style={styles.info}>
-            <Text bold style={styles.title}>
-              {detail.activity_title}
-            </Text>
-          </View>
+          {this._renderCurrentActivityTitle(detail)}
           <View style={styles.info}>
             <View style={styles.icon}>
               {this._renderIcon({ name: 'location', type: 'entypo' })}
@@ -104,20 +234,7 @@ class ActivityDetailScene extends Component {
             </View>
           </View>
         </View>
-        <View style={[styles.container, styles.descriptionContainer]}>
-          <Text bold style={styles.title}>
-            Description
-          </Text>
-          {detail.activity_description === '' ? (
-            <View style={styles.noContent}>
-              <Text>No description</Text>
-            </View>
-          ) : (
-            <Text style={{ lineHeight: Metrics.section }}>
-              {detail.activity_description}
-            </Text>
-          )}
-        </View>
+        {this._renderDescription(detail.activity_description)}
       </View>
     );
   }
@@ -136,36 +253,30 @@ class ActivityDetailScene extends Component {
   _renderScheduleBlock(schedule) {
     return (
       <View key={schedule.id} style={styles.scheduleBlock}>
-        <View style={styles.timeline}>
-          <View style={styles.verticalLine} />
-          {this._renderIcon({
-            name: 'circle-thin',
-            type: 'font-awesome',
-            size: 12,
-            iconStyle: styles.circleIconTop,
-          })}
-          {this._renderIcon({
-            name: 'circle-thin',
-            type: 'font-awesome',
-            size: 12,
-            iconStyle: styles.circleIconBottom,
-          })}
-        </View>
-        <View style={styles.time}>
-          <Text>{transformServerDate.toLocalTime(schedule.start)}</Text>
-          <Text>{transformServerDate.toLocalTime(schedule.end)}</Text>
+        <View style={styles.date}>
+          <Text style={styles.dateNum} medium>
+            {transformServerDate.toLocal(schedule.start, 'DD')}
+          </Text>
+          <Text style={styles.secondaryText}>
+            {transformServerDate.toLocal(schedule.start, 'ddd')}
+          </Text>
         </View>
         <View style={styles.scheduleInfo}>
-          <Text>{transformServerDate.toLocal(schedule.start)}</Text>
+          <Text>
+            {transformServerDate.toLocalTime(schedule.start)} -{' '}
+            {transformServerDate.toLocalTime(schedule.end)}
+          </Text>
           <Text style={styles.secondaryText}>Room: {schedule.room_name}</Text>
         </View>
-        <TouchableView style={styles.trackingIcon}>
+        {/**
+         * <TouchableView style={styles.trackingIcon}>
           {this._renderIcon({
             name: 'remove-red-eye',
             color: Colors.black,
             size: 22,
           })}
         </TouchableView>
+         */}
       </View>
     );
   }
@@ -181,9 +292,11 @@ class ActivityDetailScene extends Component {
         {loading ? (
           <LoadingIndicator />
         ) : schedules.length === 0 ? (
-          <View style={styles.noContent}>
-            <Text>No related schedules</Text>
-          </View>
+          <EmptyCollection
+            customStyles={styles.noContent}
+            iconStyles={styles.emptyIcon}
+            emptyText="No related schedules"
+          />
         ) : (
           schedules.map(schedule => {
             return this._renderScheduleBlock(schedule);
@@ -210,9 +323,7 @@ const mapStateToProps = state => {
   let data =
     routeName !== ROUTE_NAME
       ? { ...DEFAULT_ACTIVITY_DETAIL }
-      : {
-          ...state[NAVIGATION_KEY].routes[index].params.detail,
-        };
+      : { ...state[NAVIGATION_KEY].routes[index].params.detail };
   return {
     detail: data,
   };
@@ -234,4 +345,12 @@ Scene.drawer = {
   disableGestures: true,
 };
 
-export default graphql(gql(AGENDA_QUERY))(Scene);
+export default compose(
+  graphql(gql(AGENDA_QUERY)),
+  graphql(gql(DELETE_PERSONAL_SCHEDULE_MUTATION), {
+    name: 'deletePersonalScheduleMutation',
+  }),
+  graphql(gql(INSERT_PERSONAL_SCHEDULE_MUTATION), {
+    name: 'insertPersonalScheduleMutation',
+  }),
+)(Scene);
