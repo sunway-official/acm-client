@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, ViewPropTypes } from 'react-native';
 import { connect } from 'react-redux';
 import { AnimatableView } from '~/Component';
 import { Colors, Metrics } from '~/Theme';
@@ -23,7 +23,7 @@ class Header extends Component {
     statusBarBackgroundColor: PropTypes.string,
     borderBottomColor: PropTypes.string,
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),
-    style: View.propTypes.style,
+    style: ViewPropTypes.style,
     drawer: PropTypes.shape({
       isOpen: PropTypes.bool,
     }),

@@ -6,10 +6,10 @@ import Notification from '~/Scene/Notification';
 import People from '~/Scene/People';
 import Profile from '~/Scene/Profile';
 import ProfileEditing from '~/Scene/Profile/ProfileEditing';
+import ChangePassword from '~/Scene/Profile/ChangePassword';
 import Setting from '~/Scene/Setting';
 import { Agenda, MyAgenda, ActivityDetail } from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
-import ChangePassword from '~/Scene/Profile/ChangePassword';
 import { ConferenceLocation, ConferenceList } from '~/Scene/Conference';
 
 export const ROUTES = {

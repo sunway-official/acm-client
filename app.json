@@ -6,7 +6,7 @@
     "slug": "acm-client",
     "privacy": "public",
     "orientation": "portrait",
-    "sdkVersion": "21.0.0",
+    "sdkVersion": "22.0.0",
     "version": "0.3.5",
     "icon": "./App/Images/logo/white-orange-rounded-1024.png",
     "ios": {

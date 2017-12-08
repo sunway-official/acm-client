@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { ViewPropTypes } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { Images } from '~/Theme';
 import { HTTP_URL_REGEX } from '~/Lib/constants';
@@ -44,8 +44,8 @@ const UserAvatar = ({ avatar, gender, ...others }) => {
 UserAvatar.propTypes = {
   avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   gender: PropTypes.oneOf([GENDER_MALE, GENDER_FEMALE, GENDER_UNKNOWN]),
-  containerStyle: View.propTypes.style,
-  overlayContainerStyle: View.propTypes.style,
+  containerStyle: ViewPropTypes.style,
+  overlayContainerStyle: ViewPropTypes.style,
 };
 
 // Loop throght TYPES to define its proptypes

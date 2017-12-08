@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
 import Text from '../Text';
 import { Images } from '~/Theme';
@@ -41,10 +41,10 @@ const EmptyCollection = props => {
 };
 
 EmptyCollection.propTypes = {
-  customStyles: View.propTypes.style,
-  iconStyles: View.propTypes.style,
-  headerSubTextStyle: View.propTypes.style,
-  descriptionTextStyle: View.propTypes.style,
+  customStyles: ViewPropTypes.style,
+  iconStyles: ViewPropTypes.style,
+  headerSubTextStyle: ViewPropTypes.style,
+  descriptionTextStyle: ViewPropTypes.style,
   emptyText: PropTypes.string,
 };
 

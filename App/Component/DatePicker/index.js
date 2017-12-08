@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, ViewPropTypes } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import { transformServerDate } from '~/Transformer';
 import { DATE_FORMAT } from '~/env';
@@ -39,7 +39,7 @@ DatePickerForm.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
   }),
-  containerStyle: View.propTypes.style,
+  containerStyle: ViewPropTypes.style,
 };
 
 export default DatePickerForm;

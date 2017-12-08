@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, ViewPropTypes } from 'react-native';
 import { Colors } from '~/Theme';
 import { connect } from 'react-redux';
 import { KEY as ROUTE_KEY } from '~/Redux/Routes';
@@ -20,7 +20,7 @@ class Footer extends Component {
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),
     borderTopColor: PropTypes.string,
     visible: PropTypes.bool,
-    style: View.propTypes.style,
+    style: ViewPropTypes.style,
     drawer: PropTypes.shape({
       isOpen: PropTypes.bool,
     }),
