@@ -1,6 +1,6 @@
 {
   "name": "acm-client",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "private": true,
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "repository": {
@@ -19,7 +19,8 @@
     "fix-react-navigation": "cp -r Lib/react-navigation node_modules",
     "postinstall": "run-p rndebugger-open fix-react-navigation",
     "precommit": "run-s lint-staged lint",
-    "prettier-eslint:fix:App": "prettier-eslint \"App/**/*.js\" --single-quote --trailing-comma all --print-width 80 --tab-width 2 --write",
+    "prettier-eslint:fix:App":
+      "prettier-eslint \"App/**/*.js\" --single-quote --trailing-comma all --print-width 80 --tab-width 2 --write",
     "prettier-eslint:fix": "run-s prettier-eslint:fix:App"
   },
   "lint-staged": {
