@@ -86,6 +86,7 @@ export const ROUTES = {
       name: 'calendar-text',
       type: 'material-community',
     },
+    initial: true,
   },
   agenda: {
     name: 'Agenda',
@@ -120,7 +121,6 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
   },
   profileEditing: {
     name: 'Edit Profile',
