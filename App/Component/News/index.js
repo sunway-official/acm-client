@@ -76,7 +76,13 @@ class News extends Component {
   }
 
   _renderPhotoView(imageUrl) {
-    return <NewsPhotoView imageUrl={imageUrl} />;
+    return (
+      <NewsPhotoView
+        imageUrl={imageUrl}
+        onPressMore={this.onPressComment}
+        compact
+      />
+    );
   }
 
   _renderNewsContent(item) {

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Metrics, Colors, Fonts } from '~/Theme';
 
-const { baseMargin, doubleBaseMargin, smallMargin } = Metrics;
+const { baseMargin, doubleBaseMargin, smallMargin, photoView } = Metrics;
 const { white, grey } = Colors;
 
 export default StyleSheet.create({
@@ -55,54 +55,59 @@ export default StyleSheet.create({
     justifyContent: 'center',
     padding: smallMargin,
   },
-  photoViewContainer: {
-    flexDirection: 'row',
-  },
-  photoViewSubContainer: {
-    flex: 1,
-    marginHorizontal: baseMargin,
-    maxHeight: 200,
-  },
-  coverSingleImage: {
+
+  singleCoverImage: {
     resizeMode: 'cover',
-    minHeight: 200,
+    minHeight: photoView.minLargeImageHeight,
     marginVertical: baseMargin,
   },
-  photoViewTwoImage: {
+  secondImageContainer: {
     flex: 1,
     flexDirection: 'row',
-    marginVertical: baseMargin,
   },
-  firstMediumImage: {
+  secondImageView: {
     flex: 2,
     resizeMode: 'cover',
-    minHeight: 200,
-    marginRight: smallMargin,
+    minHeight: photoView.minLargeImageHeight,
+    margin: photoView.margin,
   },
-  secondMediumImage: {
+  thirdImageContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  thirdImageCoverContainer: {
     flex: 2,
-    resizeMode: 'cover',
-    minHeight: 200,
-    marginLeft: smallMargin,
   },
-  coverImage: {
+  thirdCoverImage: {
     resizeMode: 'cover',
-    minHeight: 200,
+    minHeight: photoView.minLargeImageHeight + photoView.margin,
+    margin: photoView.margin,
   },
-  smallImage: {
+  thirdImageSubContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    maxHeight: photoView.minLargeImageHeight,
+    margin: photoView.margin,
+  },
+  thirdSmallImageTop: {
     resizeMode: 'cover',
-    minHeight: 92,
-    marginBottom: baseMargin,
+    minHeight: photoView.minSmallImageHeight,
   },
-  moreImages: {
-    position: 'absolute',
-    color: Colors.white,
-    textAlign: 'center',
-    textAlignVertical: 'center',
+  thirdSmallImageBottom: {
+    resizeMode: 'cover',
+    minHeight: photoView.minSmallImageHeight,
+    marginTop: photoView.margin,
+  },
+  thirdBackdropView: {
+    flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
+    minHeight: photoView.minSmallImageHeight,
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  thirdTextAboveBackdropView: {
+    color: white,
+    textAlign: 'center',
+    fontSize: photoView.fontSize,
   },
 });

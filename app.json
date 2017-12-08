@@ -7,8 +7,8 @@
     "privacy": "public",
     "orientation": "portrait",
     "sdkVersion": "21.0.0",
-    "version": "0.3.3",
-    "icon": "./App/Images/logo/white-orange.png",
+    "version": "0.3.4",
+    "icon": "./App/Images/logo/white-orange-rounded-1024.png",
     "ios": {
       "bundleIdentifier": "com.sunway.acmclient"
     },
@@ -17,13 +17,14 @@
     },
     "primaryColor": "#FF5722",
     "loading": {
-      "icon": "./App/Images/logo/orange.png",
+      "icon": "./App/Images/logo/orange-transparent-500.png",
       "backgroundColor": "#FF5722",
       "hideExponentText": true,
       "exponentIconColor": "white"
     },
     "splash": {
       "image": "./App/Images/splash.png",
+      "backgroundColor": "#FF5722",
       "resizeMode": "cover"
     }
   }

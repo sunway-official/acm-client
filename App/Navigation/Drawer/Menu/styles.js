@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ColorPropType } from 'react-native';
 import { Metrics, Fonts, Colors } from '~/Theme';
 
 const statusBarMargin = Metrics.doubleBaseMargin * -1;
@@ -35,12 +35,17 @@ export default StyleSheet.create({
     borderColor: Colors.white,
   },
   conferenceImageWrapper: {
+    justifyContent: 'center',
     marginLeft: 'auto',
+    backgroundColor: Colors.primary,
+    width: Metrics.logoDrawer.width,
+    height: Metrics.logoDrawer.height,
+    borderRadius: Metrics.logoDrawer.width / 2,
   },
   conferenceImage: {
-    width: Metrics.images.medium,
-    height: Metrics.images.medium,
-    borderRadius: Metrics.images.medium / 2,
+    width: Metrics.logoDrawer.size,
+    marginLeft: 10,
+    resizeMode: 'contain',
   },
   line: {
     flexDirection: 'row',
