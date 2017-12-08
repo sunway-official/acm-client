@@ -2,88 +2,86 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { graphql, gql } from 'react-apollo';
 import { Text, TouchableView } from '~/Component';
 import { Colors } from '~/Theme';
 import Content from './Content';
 import styles from './styles';
-import { NEWS, FOLLOWERS } from '../fixture';
+import { FOLLOWERS, FOLLOWING } from '../fixture';
+import QUERY_ACTIVITIES from '~/Graphql/query/getNewsByUserID.graphql';
+
+const TABS = {
+  About: {
+    title: 'About',
+    icon: {
+      name: 'person',
+    },
+  },
+  Activities: {
+    title: 'Posts',
+    quantity: 0,
+  },
+  Followers: {
+    title: 'Followers',
+    quantity: FOLLOWERS.length,
+  },
+  Following: {
+    title: 'Following',
+    quantity: FOLLOWING.length,
+  },
+};
+const INITIAL_TAB = 'About';
 
 class Body extends Component {
   static propTypes = {
     user: PropTypes.object,
+    data: PropTypes.shape({
+      getNewsByUserID: PropTypes.array,
+      loading: PropTypes.bool,
+      refetch: PropTypes.func,
+    }),
   };
 
   constructor(props) {
     super(props);
-    this.state = this._getInitialState();
+
+    this.state = {
+      tabs: {},
+      currentTab: {},
+    };
     this._renderTab = this._renderTab.bind(this);
     this._renderContent = this._renderContent.bind(this);
-    this._handlePress = this._handlePress.bind(this);
-    this._resetState = this._resetState.bind(this);
+    this._onPress = this._onPress.bind(this);
   }
 
-  _getInitialState() {
-    const initialState = {
+  componentWillMount() {
+    // refetch Activities
+    this.props.data.refetch();
+
+    // set initial tab
+    this.setState({
+      currentTab: { ...TABS[INITIAL_TAB] },
       tabs: {
-        About: {
-          title: 'About',
-          isActive: false,
+        ...TABS,
+        [INITIAL_TAB]: {
+          ...TABS[INITIAL_TAB],
           initial: true,
-          icon: {
-            name: 'person',
-          },
-        },
-        Activities: {
-          title: 'Posts',
-          isActive: false,
-          quantity: NEWS.length,
-        },
-        Followers: {
-          title: 'Followers',
-          isActive: false,
-          quantity: FOLLOWERS.length,
-        },
-        Following: {
-          title: 'Following',
-          isActive: false,
-          quantity: FOLLOWERS.length,
         },
       },
-    };
-    return initialState;
-  }
-
-  _resetState(callbackFunc) {
-    this.setState(
-      {
-        tabs: {
-          ...this._getInitialState().tabs,
-          About: {
-            ...this._getInitialState().tabs.About,
-            initial: false,
-          },
-        },
-      },
-      callbackFunc,
-    );
-  }
-
-  _handlePress(tab) {
-    this._resetState(() => {
-      this.setState({
-        tabs: {
-          ...this.state.tabs,
-          [tab]: {
-            ...this.state.tabs[tab],
-            isActive: true,
-          },
-        },
-      });
     });
   }
 
-  _renderTab(key, index) {
-    const tab = this.state.tabs[key];
+  _onPress(tab, tabKey) {
+    this.setState({
+      currentTab: { ...tab },
+      tabs: {
+        ...TABS,
+        [tabKey]: { ...TABS[tabKey], isActive: true },
+      },
+    });
+  }
+
+  _renderTab(tab, key, index) {
     return (
       <TouchableView
         rippleColor="rgba(0,0,0,0.05)"
@@ -94,7 +92,7 @@ class Body extends Component {
             : { borderBottomColor: 'transparent' },
         ]}
         key={index}
-        onPress={() => this._handlePress(key)}
+        onPress={() => this._onPress(tab, key)}
       >
         {tab.icon && <Icon name={tab.icon.name} type={tab.icon.type} />}
         {tab.quantity !== undefined && (
@@ -106,23 +104,23 @@ class Body extends Component {
   }
 
   _renderContent() {
-    const { state: { tabs }, props: { user } } = this;
-    let tab = '';
-    Object.keys(tabs).forEach(key => {
-      if (tabs[key].isActive || tabs[key].initial) {
-        tab = tabs[key].title;
-      }
-    });
-    return <Content tab={tab} user={user} />;
+    const { state: { currentTab }, props: { user } } = this;
+    return <Content tab={currentTab.title} user={user} />;
   }
 
   render() {
+    const { tabs } = this.state;
+    const { data: { getNewsByUserID } } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.tabsContainer}>
-          {Object.keys(this.state.tabs).map((key, index) =>
-            this._renderTab(key, index),
-          )}
+          {Object.keys(tabs).map((key, index) => {
+            tabs['Activities'].quantity =
+              getNewsByUserID === undefined
+                ? tabs[key].quantity
+                : getNewsByUserID.length;
+            return this._renderTab(tabs[key], key, index);
+          })}
         </View>
         {this._renderContent()}
       </View>
@@ -130,4 +128,11 @@ class Body extends Component {
   }
 }
 
-export default Body;
+export default graphql(gql(QUERY_ACTIVITIES), {
+  options: ownProps => ({
+    variables: {
+      user_id: ownProps.user.id,
+      notifyOnNetworkStatusChange: true,
+    },
+  }),
+})(Body);
