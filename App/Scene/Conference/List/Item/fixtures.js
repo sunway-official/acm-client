@@ -22,6 +22,6 @@ function getRandomInt(min, max) {
 }
 
 export const randomBackground = () => {
-  index = getRandomInt(0, 12);
+  index = getRandomInt(0, 11);
   return backgrounds[index];
 };
