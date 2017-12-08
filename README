@@ -8,7 +8,7 @@ Client Project for ACM build with Expo, React-native, Redux & Apollo.
 
 ## Releases
 
-* Expo: https://expo.io/@pvtri96/acm
+* Expo: https://expo.io/@pvtri96/acm-client
 
 ## Instruction
 
