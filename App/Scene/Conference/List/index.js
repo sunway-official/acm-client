@@ -5,6 +5,7 @@ import { LoadingIndicator } from '~/Component';
 import { gql, compose, graphql } from 'react-apollo';
 import { connect } from 'react-redux';
 import { addHeaderOptions } from '~/Redux/Toolbar/action';
+import { Colors } from '~/Theme';
 import GET_ALL_CONFERENCES from '~/Graphql/query/getAllConferences.graphql';
 import QUERY_ME from '~/Graphql/query/me.graphql';
 import Item from './Item';
@@ -91,6 +92,7 @@ ConferenceListWrapper.drawer = {
 
 ConferenceListWrapper.header = {
   theme: 'dark',
+  statusBarBackgroundColor: Colors.primary,
   leftIcon: 'back',
 };
 
