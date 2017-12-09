@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image } from 'react-native';
+import { View, ImageBackground, Image } from 'react-native';
 import { Text, TouchableView } from '~/Component';
 import { S3_GET_PREFIX } from '~/env';
 
@@ -12,9 +12,9 @@ const TYPES = {
 };
 
 const NewsRenderPhotoImage = ({ imageUrl, style, children }) => (
-  <Image source={{ uri: S3_GET_PREFIX + imageUrl }} style={style}>
+  <ImageBackground source={{ uri: S3_GET_PREFIX + imageUrl }} style={style}>
     {children}
-  </Image>
+  </ImageBackground>
 );
 
 const SingleImageView = ({ imageUrl }) => (

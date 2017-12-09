@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image, TouchableOpacity, AsyncStorage } from 'react-native';
+import {
+  View,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+  AsyncStorage,
+} from 'react-native';
 import { Icon } from 'react-native-elements';
 import { compose, graphql, gql, withApollo } from 'react-apollo';
 import { AnimatableView, Text, UserAvatar } from '~/Component';
@@ -201,7 +207,7 @@ class Menu extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Image
+          <ImageBackground
             source={Images.materialBackground}
             style={[styles.headerBackground]}
           >
@@ -219,7 +225,7 @@ class Menu extends Component {
                 </Text>
               </View>
             </View>
-          </Image>
+          </ImageBackground>
           {this._renderDropdownButton()}
         </View>
         <View style={styles.bodyContainer}>
