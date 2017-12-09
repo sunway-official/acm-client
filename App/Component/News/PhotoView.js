@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { View, ImageBackground, Image } from 'react-native';
+import { View, ImageBackground, ViewPropTypes } from 'react-native';
 import { Text, TouchableView } from '~/Component';
 import { S3_GET_PREFIX } from '~/env';
 
@@ -114,7 +114,7 @@ class NewsPhotoView extends PureComponent {
 
 NewsRenderPhotoImage.propTypes = {
   imageUrl: PropTypes.string,
-  style: Image.propTypes.style,
+  style: ViewPropTypes.style,
   children: PropTypes.any,
 };
 

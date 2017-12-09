@@ -57,7 +57,6 @@ export default StyleSheet.create({
   },
 
   singleCoverImage: {
-    resizeMode: 'cover',
     minHeight: photoView.minLargeImageHeight,
     marginVertical: baseMargin,
   },
@@ -67,7 +66,6 @@ export default StyleSheet.create({
   },
   secondImageView: {
     flex: 2,
-    resizeMode: 'cover',
     minHeight: photoView.minLargeImageHeight,
     margin: photoView.margin,
   },
@@ -79,7 +77,6 @@ export default StyleSheet.create({
     flex: 2,
   },
   thirdCoverImage: {
-    resizeMode: 'cover',
     minHeight: photoView.minLargeImageHeight + photoView.margin,
     margin: photoView.margin,
   },
@@ -90,11 +87,9 @@ export default StyleSheet.create({
     margin: photoView.margin,
   },
   thirdSmallImageTop: {
-    resizeMode: 'cover',
     minHeight: photoView.minSmallImageHeight,
   },
   thirdSmallImageBottom: {
-    resizeMode: 'cover',
     minHeight: photoView.minSmallImageHeight,
     marginTop: photoView.margin,
   },
