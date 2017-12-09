@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Image, View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { LinearGradient } from 'expo';
 import { Text, LoadingIndicator } from '~/Component';
 import { randomBackground } from './fixtures';
 import { transformText } from '~/Transformer';
@@ -34,12 +35,8 @@ class ConferenceItem extends PureComponent {
     this.uri = randomBackground();
   }
 
-  navigateToConferenceDetail() {
-    /**
-     * TO DO:
-     * Navigate to conference detail action
-     */
-    alert('TO DO:\n' + '\tNavigate to Conference Detail');
+  navigateToConferenceDetail(conference) {
+    this.props.navigateToConferenceDetail(conference);
   }
 
   async switchConference() {
@@ -66,6 +63,7 @@ class ConferenceItem extends PureComponent {
 
   render() {
     const { title, description, data, id } = this.props;
+    const conference = { id, title, description, background: this.uri };
     const currentConferenceId = data.me.currentConference
       ? data.me.currentConference.id
       : NaN;
@@ -79,19 +77,22 @@ class ConferenceItem extends PureComponent {
       >
         <View style={styles.backdropContainer} />
         <View style={styles.container}>
-          <View style={styles.infoContainer}>
+          <LinearGradient
+            style={styles.infoContainer}
+            colors={['transparent', 'rgba(0,0,0,1)']}
+          >
             <Text style={[styles.text, styles.titleText]} bold>
               {title}
             </Text>
             <Text style={[styles.text, styles.descriptionText]}>
               {transformText.reduceByWords(description)}
             </Text>
-          </View>
+          </LinearGradient>
         </View>
         <View style={styles.actionsContainer}>
           <TouchableOpacity
             style={styles.actionWrapper}
-            onPress={this.navigateToConferenceDetail}
+            onPress={() => this.navigateToConferenceDetail(conference)}
           >
             <Icon name="info" color={Colors.white} size={Metrics.icons.small} />
             <Text style={[styles.text, styles.actionText]}>Detail</Text>
@@ -133,12 +134,22 @@ ConferenceItem.propTypes = {
     me: PropTypes.object,
   }),
   navigateToInitialScene: PropTypes.func,
+  navigateToConferenceDetail: PropTypes.func,
   switchConference: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
   navigateToInitialScene: () =>
     dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
+  navigateToConferenceDetail: conference =>
+    dispatch(
+      NavigationActions.navigate({
+        routeName: 'conferenceDetail',
+        params: {
+          conference,
+        },
+      }),
+    ),
 });
 
 export default compose(
