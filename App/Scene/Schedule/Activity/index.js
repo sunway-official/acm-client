@@ -240,7 +240,7 @@ class ActivityDetailScene extends Component {
   }
 
   _getRelatedSchedules() {
-    const { data: { getAllSchedules }, detail } = this.props;
+    const { data: { getAllSchedules = [] }, detail } = this.props;
     let arr = [];
     getAllSchedules.map(item => {
       if (detail.activity_id === item.activity_id && detail.id !== item.id) {
