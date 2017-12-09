@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, ViewPropTypes } from 'react-native';
 import Text from '../Text';
 import { Colors } from '~/Theme';
 import styles from './styles';
@@ -52,8 +52,8 @@ FormInput.propTypes = {
     error: PropTypes.string,
     warning: PropTypes.string,
   }),
-  containerStyle: View.propTypes.style,
-  customStyle: View.propTypes.style,
+  containerStyle: ViewPropTypes.style,
+  customStyle: ViewPropTypes.style,
 };
 
 export default FormInput;

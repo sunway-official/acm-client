@@ -20,7 +20,6 @@ import styles from './styles';
 
 const IMAGE_PICKER_CONFIG = {
   allowsEditing: true,
-  aspect: [4, 3],
   base64: true,
 };
 

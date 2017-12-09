@@ -5,6 +5,7 @@ import {
   View,
   TouchableNativeFeedback,
   TouchableOpacity,
+  ViewPropTypes,
 } from 'react-native';
 import { IS_ANDROID } from '~/env';
 
@@ -16,7 +17,7 @@ class TouchableView extends PureComponent {
     rippleColor: PropTypes.string,
     borderless: PropTypes.bool,
     children: PropTypes.any,
-    style: View.propTypes.style,
+    style: ViewPropTypes.style,
   };
 
   render() {

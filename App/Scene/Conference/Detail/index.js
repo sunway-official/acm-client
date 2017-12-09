@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import {
+  View,
+  ImageBackground,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { graphql, gql, compose } from 'react-apollo';
@@ -64,7 +69,7 @@ class ConferenceDetail extends Component {
 
   _renderBackground(conference) {
     return (
-      <Image
+      <ImageBackground
         source={{ uri: conference.background }}
         style={styles.backgroundImage}
       >
@@ -76,7 +81,7 @@ class ConferenceDetail extends Component {
             {conference.title}
           </Text>
         </LinearGradient>
-      </Image>
+      </ImageBackground>
     );
   }
 

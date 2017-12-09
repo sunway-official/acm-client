@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import { Text, UserAvatar } from '~/Component';
 import { Images } from '~/Theme';
 import styles from './styles';
@@ -64,7 +64,7 @@ class Header extends Component {
   render() {
     return (
       <View style={{ height: this.state.headerHeight }}>
-        <Image
+        <ImageBackground
           source={Images.materialBackground}
           style={styles.backgroundImage}
         >
@@ -75,7 +75,7 @@ class Header extends Component {
             {this._renderAvatar()}
             {this._renderInfo()}
           </View>
-        </Image>
+        </ImageBackground>
       </View>
     );
   }

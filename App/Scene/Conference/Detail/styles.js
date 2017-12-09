@@ -15,7 +15,7 @@ export default StyleSheet.create({
   },
   backgroundImage: {
     height: BACKGROUND_IMAGE_HEIGHT,
-    resizeMode: 'cover',
+    // resizeMode: 'cover',
     position: 'relative',
   },
   backgroundInfo: {

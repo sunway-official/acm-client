@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Image, View, TouchableOpacity } from 'react-native';
+import { ImageBackground, View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { LinearGradient } from 'expo';
@@ -68,7 +68,7 @@ class ConferenceItem extends PureComponent {
       ? data.me.currentConference.id
       : NaN;
     return (
-      <Image
+      <ImageBackground
         style={styles.background}
         source={{
           uri: this.uri,
@@ -121,7 +121,7 @@ class ConferenceItem extends PureComponent {
             </TouchableOpacity>
           )}
         </View>
-      </Image>
+      </ImageBackground>
     );
   }
 }

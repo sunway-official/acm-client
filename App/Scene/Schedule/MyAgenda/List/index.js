@@ -11,24 +11,6 @@ import Item from '../Item';
 import PERSONAL_SCHEDULES_QUERY from '~/Graphql/query/getMyAgenda.graphql';
 import styles from './styles';
 
-/**
- * Handle scrolling event in FlatList
- */
-const onViewableItemsChangedHandler = ({
-  viewableItems,
-  changed,
-  schedules,
-  setHeader,
-}) => {
-  if (viewableItems.length === 0) return;
-  if (changed.length === 0) return;
-  const { index } = viewableItems[0];
-  const { date } = schedules[index];
-  setHeader({
-    title: transformServerDate.toLocal(date),
-  });
-};
-
 class MyAgendaList extends Component {
   static propTypes = {
     schedules: PropTypes.array,
@@ -40,13 +22,23 @@ class MyAgendaList extends Component {
     }),
   };
 
+  constructor(props) {
+    super(props);
+
+    this._onViewableItemsChangedHandler = this._onViewableItemsChangedHandler.bind(
+      this,
+    );
+    this._renderList = this._renderList.bind(this);
+    this._renderEmptyList = this._renderEmptyList.bind(this);
+  }
+
   async componentWillUnmount() {
     const { data: { refetch } } = this.props;
     try {
       // refetch MyAgenda
       await refetch();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -57,7 +49,8 @@ class MyAgendaList extends Component {
     }
   }
 
-  _renderEmptyList(goToAgenda) {
+  _renderEmptyList() {
+    const { goToAgenda } = this.props;
     return (
       <View style={styles.emptyContainer}>
         <EmptyCollection
@@ -73,21 +66,34 @@ class MyAgendaList extends Component {
     );
   }
 
-  _renderList(schedules, setHeader) {
+  _renderList() {
+    const { schedules } = this.props;
     return (
       <FlatList
         data={schedules}
         renderItem={({ item }) => <Item {...item} />}
         keyExtractor={(item, index) => index}
-        onViewableItemsChanged={({ ...info }) =>
-          onViewableItemsChangedHandler({ ...info, schedules, setHeader })
-        }
+        onViewableItemsChanged={this._onViewableItemsChangedHandler}
       />
     );
   }
 
+  /**
+   * Handle scrolling event in FlatList
+   */
+  _onViewableItemsChangedHandler({ viewableItems, changed }) {
+    const { schedules, setHeader } = this.props;
+    if (viewableItems.length === 0) return;
+    if (changed.length === 0) return;
+    const { index } = viewableItems[0];
+    const { date } = schedules[index];
+    setHeader({
+      title: transformServerDate.toLocal(date),
+    });
+  }
+
   _renderLoading() {
-    return () => (
+    return (
       <View style={styles.loadingContainer}>
         <LoadingIndicator />
       </View>
@@ -95,18 +101,14 @@ class MyAgendaList extends Component {
   }
 
   render() {
-    const { schedules, setHeader, goToAgenda, data: { loading } } = this.props;
+    const { schedules, data: { loading } } = this.props;
     return (
       <View style={styles.container}>
         {schedules.length === 0 || <View style={styles.verticalLine} />}
         {schedules.length === 0 ? (
-          this._renderEmptyList(goToAgenda)
+          this._renderEmptyList()
         ) : (
-          <View>
-            {loading
-              ? this._renderLoading()
-              : this._renderList(schedules, setHeader, goToAgenda)}
-          </View>
+          <View>{loading ? this._renderLoading() : this._renderList()}</View>
         )}
       </View>
     );
