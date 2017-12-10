@@ -21,6 +21,7 @@ export default StyleSheet.create({
   },
   text: {
     color: Colors.white,
+    backgroundColor: Colors.transparent,
   },
   titleText: {
     fontSize: Fonts.size.h6,

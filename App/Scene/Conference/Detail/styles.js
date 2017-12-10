@@ -26,6 +26,7 @@ export default StyleSheet.create({
   backgroundText: {
     color: Colors.white,
     fontSize: size.h6,
+    backgroundColor: Colors.transparent,
   },
   infoWithIconSection: {
     flex: 1,
