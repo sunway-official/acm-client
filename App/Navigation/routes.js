@@ -10,7 +10,11 @@ import ChangePassword from '~/Scene/Profile/ChangePassword';
 import Setting from '~/Scene/Setting';
 import { Agenda, MyAgenda, ActivityDetail } from '~/Scene/Schedule';
 import Splash from '~/Scene/Splash';
-import { ConferenceLocation, ConferenceList } from '~/Scene/Conference';
+import {
+  ConferenceLocation,
+  ConferenceList,
+  ConferenceDetail,
+} from '~/Scene/Conference';
 
 export const ROUTES = {
   splash: {
@@ -55,6 +59,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
+    initial: true,
   },
   newsPosting: {
     name: 'New Post',
@@ -86,7 +91,6 @@ export const ROUTES = {
       name: 'calendar-text',
       type: 'material-community',
     },
-    initial: true,
   },
   agenda: {
     name: 'Agenda',
@@ -168,6 +172,11 @@ export const ROUTES = {
       name: 'apps',
       type: 'material-community',
     },
+  },
+  conferenceDetail: {
+    name: 'Conference Detail',
+    path: '/conference/detail',
+    screen: ConferenceDetail,
   },
   setting: {
     name: 'Setting',

@@ -45,6 +45,7 @@ const colors = {
   lightDeepOrange: '#FFAB91', // 200
   darkDeepOrange: '#D84315', // 800
   darkRed: '#C62828', // 800
+  lightBlack: '#212121',
 };
 
 const defaultColor = {

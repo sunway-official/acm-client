@@ -26,7 +26,6 @@ export default StyleSheet.create({
     fontSize: Fonts.size.h6,
   },
   infoContainer: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
     padding: Metrics.baseMargin,
   },
   actionsContainer: {
