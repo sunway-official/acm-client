@@ -52,13 +52,10 @@ class ConferenceList extends Component {
       nextProps.navigationIndex === sceneIndex &&
       nextState.lastNavigationIndex !== sceneIndex
     ) {
-      console.log('navigated back');
       this._renderSceneHeader();
       this.setState({ lastNavigationIndex: nextProps.navigationIndex });
     }
     // console.log(nextProps.queryMe.me);
-    console.log(nextProps.queryMe.me.id);
-    console.log(nextProps.queryMe.me.id !== this.props.queryMe.me.id);
     if (
       nextProps.queryMe.me.id &&
       nextProps.queryMe.me.id !== this.props.queryMe.me.id
