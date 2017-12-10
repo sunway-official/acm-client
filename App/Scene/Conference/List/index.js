@@ -80,13 +80,13 @@ class ConferenceList extends Component {
     const { queryMe, setHeader } = this.props;
     if (queryMe && queryMe.me) {
       const currentConferenceId = queryMe.me.currentConference;
-      let disable, statusBarBackgroundColor;
+      let disable;
       if (currentConferenceId === NO_CONFERENCE_VALUE) {
         disable = true;
       } else {
         disable = false;
       }
-      setHeader({ disable, statusBarBackgroundColor });
+      setHeader({ disable });
       this.setState({ disableHeader: disable });
     }
   }
