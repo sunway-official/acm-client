@@ -29,7 +29,7 @@ class About extends Component {
               type="entypo"
               color="#8BC34A"
               size={ICON_SIZE}
-              style={styles.icon}
+              iconStyle={styles.icon}
             />
           </View>
           <View style={styles.info}>
@@ -46,7 +46,7 @@ class About extends Component {
               type="material-community"
               color="#FF9800"
               size={ICON_SIZE}
-              style={styles.icon}
+              iconStyle={styles.icon}
             />
           </View>
           <View style={styles.info}>
@@ -61,7 +61,7 @@ class About extends Component {
               type="entypo"
               color="#e74c3c"
               size={ICON_SIZE}
-              style={styles.icon}
+              iconStyle={styles.icon}
             />
             <Text>Born on {transformServerDate.toLocal(user.dob)}</Text>
           </View>
@@ -73,7 +73,7 @@ class About extends Component {
               type="material-community"
               color="#FFEB3B"
               size={ICON_SIZE}
-              style={styles.icon}
+              iconStyle={styles.icon}
             />
           </View>
           <View style={styles.info}>
@@ -83,7 +83,7 @@ class About extends Component {
         </View>
         <View style={styles.infoContainer}>
           <View>
-            <Icon name="description" size={ICON_SIZE} style={styles.icon} />
+            <Icon name="description" size={ICON_SIZE} iconStyle={styles.icon} />
           </View>
           <View style={styles.info}>
             <Text>Biography</Text>
@@ -96,7 +96,7 @@ class About extends Component {
             type="material-community"
             color="#607D8B"
             size={ICON_SIZE}
-            style={styles.icon}
+            iconStyle={styles.icon}
           />
           <Text>Joined {transformServerDate.toLocal(user.created_at)}</Text>
         </View>
@@ -105,7 +105,7 @@ class About extends Component {
             name="wifi"
             color="#009688"
             size={ICON_SIZE}
-            style={styles.icon}
+            iconStyle={styles.icon}
           />
           <Text>Followed by 999 people</Text>
         </View>
@@ -117,7 +117,7 @@ class About extends Component {
                 type="material-community"
                 color="#4267B2"
                 size={ICON_SIZE}
-                style={styles.icon}
+                iconStyle={styles.icon}
               />
             </View>
             <AnchorText href={user.facebook_id} style={styles.info} />
@@ -130,7 +130,7 @@ class About extends Component {
               type="material-community"
               color="#1DA1F2"
               size={ICON_SIZE}
-              style={styles.icon}
+              iconStyle={styles.icon}
             />
             <AnchorText href={user.twitter_id} style={styles.info} />
           </View>
@@ -142,7 +142,7 @@ class About extends Component {
               type="material-community"
               color="#0073B1"
               size={ICON_SIZE}
-              style={styles.icon}
+              iconStyle={styles.icon}
             />
             <AnchorText href={user.linkedin_id} style={styles.info} />
           </View>

@@ -97,7 +97,7 @@ class ConferenceDetail extends Component {
             name="user"
             type="font-awesome"
             size={ICON_SIZE}
-            style={styles.icon}
+            containerStyle={styles.iconContainerStyle}
           />
           <Text style={[styles.secondaryText, styles.text]}>
             {organizer.name}
@@ -108,7 +108,7 @@ class ConferenceDetail extends Component {
             name="old-phone"
             type="entypo"
             size={ICON_SIZE}
-            style={styles.icon}
+            containerStyle={styles.iconContainerStyle}
           />
           <Text style={[styles.secondaryText, styles.text]}>
             {organizer.phone}
@@ -119,7 +119,7 @@ class ConferenceDetail extends Component {
             name="email-variant"
             type="material-community"
             size={ICON_SIZE}
-            style={styles.icon}
+            containerStyle={styles.iconContainerStyle}
           />
           <Text style={[styles.secondaryText, styles.text]}>
             {organizer.email}
@@ -130,7 +130,7 @@ class ConferenceDetail extends Component {
             name="web"
             type="material-community"
             size={ICON_SIZE}
-            style={styles.icon}
+            containerStyle={styles.iconContainerStyle}
           />
           <Text style={[styles.secondaryText, styles.text]}>
             {organizer.website}
@@ -180,7 +180,11 @@ class ConferenceDetail extends Component {
           When & Where
         </Text>
         <View style={styles.infoWithIconSection}>
-          <Icon name="access-time" size={ICON_SIZE} style={styles.icon} />
+          <Icon
+            name="access-time"
+            size={ICON_SIZE}
+            containerStyle={styles.iconContainerStyle}
+          />
           <View style={(styles.timeContainer, styles.text)}>
             <Text style={styles.customText}>
               Start:{' '}
@@ -206,7 +210,7 @@ class ConferenceDetail extends Component {
             name="calendar-range"
             type="material-community"
             size={ICON_SIZE}
-            style={styles.icon}
+            containerStyle={styles.iconContainerStyle}
           />
           <Text bold style={[styles.customText, styles.text]}>
             Agenda View
@@ -220,7 +224,7 @@ class ConferenceDetail extends Component {
             name="location"
             type="entypo"
             size={ICON_SIZE}
-            style={styles.icon}
+            containerStyle={styles.iconContainerStyle}
           />
           <Text bold style={[styles.customText, styles.text]}>
             Map View

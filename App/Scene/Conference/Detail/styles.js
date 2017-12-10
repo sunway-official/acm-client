@@ -14,8 +14,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   backgroundImage: {
-    height: BACKGROUND_IMAGE_HEIGHT,
-    // resizeMode: 'cover',
+    minHeight: BACKGROUND_IMAGE_HEIGHT,
     position: 'relative',
   },
   backgroundInfo: {
@@ -43,10 +42,10 @@ export default StyleSheet.create({
   infoSection: {
     paddingVertical: baseMargin,
   },
-  icon: {
+  iconContainerStyle: {
     flex: 1,
     alignItems: 'center',
-    marginRight: doubleBaseMargin,
+    paddingRight: doubleBaseMargin,
   },
   text: {
     flex: 11,
