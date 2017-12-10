@@ -3,9 +3,8 @@ import { Colors, Metrics, Fonts } from '~/Theme';
 
 const { size } = Fonts;
 const { doubleBaseMargin, baseMargin, smallMargin } = Metrics;
-const { primary, grey, white } = Colors;
+const { primary, grey, white, lightBlack } = Colors;
 const BACKGROUND_IMAGE_HEIGHT = 200;
-const LIGHT_BLACK = '#212121';
 
 export default StyleSheet.create({
   loadingContainer: {
@@ -64,7 +63,7 @@ export default StyleSheet.create({
     marginBottom: smallMargin,
   },
   coOrganizer: { flexDirection: 'row', marginBottom: baseMargin },
-  coOrganizerName: { flex: 5, color: LIGHT_BLACK },
+  coOrganizerName: { flex: 5, color: lightBlack },
   coOrganizerInfo: {
     flex: 7,
     flexDirection: 'column',
@@ -75,6 +74,6 @@ export default StyleSheet.create({
     marginBottom: 0,
   },
   customText: {
-    color: LIGHT_BLACK,
+    color: lightBlack,
   },
 });
