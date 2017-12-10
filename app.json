@@ -7,7 +7,7 @@
     "privacy": "public",
     "orientation": "portrait",
     "sdkVersion": "23.0.0",
-    "version": "0.3.7",
+    "version": "0.3.8",
     "icon": "./App/Images/logo/white-orange-rounded-1024.png",
     "ios": {
       "bundleIdentifier": "com.sunway.acmclient"
