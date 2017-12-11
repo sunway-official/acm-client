@@ -64,6 +64,7 @@ ConferenceLocationWrapper.drawer = {
 
 ConferenceLocationWrapper.header = {
   theme: 'dark',
+  leftIcon: 'back',
   statusBarBackgroundColor: Colors.primary,
 };
 

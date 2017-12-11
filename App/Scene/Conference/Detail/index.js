@@ -12,7 +12,7 @@ import { graphql, gql, compose } from 'react-apollo';
 import { LinearGradient } from 'expo';
 import { navigate } from '~/Redux/Navigation/action';
 import { Text, LoadingIndicator } from '~/Component';
-import { Colors } from '~/Theme';
+import { Colors, Metrics } from '~/Theme';
 import { transformServerDate, transformText } from '~/Transformer';
 import GET_CONFERENCE_BY_ID from '~/Graphql/query/getConferenceById.graphql';
 import { addHeaderOptions } from '~/Redux/Toolbar/action';
@@ -173,13 +173,28 @@ class ConferenceDetail extends Component {
   }
 
   _renderTimeAndLocation() {
-    const { data: { getConferenceByID }, goToAgenda, goToMap } = this.props;
+    const {
+      navigation,
+      data: { getConferenceByID },
+      goToAgenda,
+      goToMap,
+    } = this.props;
+    const { currentConferenceId, conference } = navigation.state.params;
+
     return (
       <View style={styles.infoSection}>
         <Text bold style={[styles.primaryText, styles.title]}>
-          When & Where
+          When
         </Text>
-        <View style={styles.infoWithIconSection}>
+        <View
+          style={[
+            styles.infoWithIconSection,
+            {
+              marginBottom:
+                currentConferenceId === conference.id ? Metrics.baseMargin : 0,
+            },
+          ]}
+        >
           <Icon
             name="access-time"
             size={ICON_SIZE}
@@ -202,41 +217,45 @@ class ConferenceDetail extends Component {
             </Text>
           </View>
         </View>
-        <TouchableOpacity
-          style={styles.infoWithIconSection}
-          onPress={goToAgenda}
-        >
-          <Icon
-            name="calendar-range"
-            type="material-community"
-            size={ICON_SIZE}
-            containerStyle={styles.iconContainerStyle}
-          />
-          <Text bold style={[styles.customText, styles.text]}>
-            Agenda View
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.infoWithIconSection, styles.mapViewContainer]}
-          onPress={goToMap}
-        >
-          <Icon
-            name="location"
-            type="entypo"
-            size={ICON_SIZE}
-            containerStyle={styles.iconContainerStyle}
-          />
-          <Text bold style={[styles.customText, styles.text]}>
-            Map View
-          </Text>
-        </TouchableOpacity>
+        {currentConferenceId === conference.id && (
+          <View>
+            <TouchableOpacity
+              style={styles.infoWithIconSection}
+              onPress={goToAgenda}
+            >
+              <Icon
+                name="calendar-range"
+                type="material-community"
+                size={ICON_SIZE}
+                containerStyle={styles.iconContainerStyle}
+              />
+              <Text bold style={[styles.customText, styles.text]}>
+                Agenda View
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.infoWithIconSection, styles.mapViewContainer]}
+              onPress={goToMap}
+            >
+              <Icon
+                name="location"
+                type="entypo"
+                size={ICON_SIZE}
+                containerStyle={styles.iconContainerStyle}
+              />
+              <Text bold style={[styles.customText, styles.text]}>
+                Map View
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     );
   }
 
   render() {
     const { navigation, data: { loading } } = this.props;
-    const conference = navigation.state.params.conference;
+    const { conference } = navigation.state.params;
 
     return loading ? (
       this._renderLoading()
