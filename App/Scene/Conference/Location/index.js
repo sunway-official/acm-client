@@ -5,7 +5,7 @@ import { MapView } from 'expo';
 import { graphql, gql } from 'react-apollo';
 import { LoadingIndicator } from '~/Component';
 import { Colors } from '~/Theme';
-import getConferenceByIDQuery from '~/Graphql/query/getConferenceById.graphql';
+import getCurrentConferenceQuery from '~/Graphql/query/getCurrentConference.graphql';
 import styles from './styles';
 
 class ConferenceLocation extends PureComponent {
@@ -13,7 +13,8 @@ class ConferenceLocation extends PureComponent {
     data: PropTypes.objectOf(PropTypes.any),
   };
   render() {
-    const { getConferenceByID, loading } = this.props.data;
+    const { getCurrentConference, loading } = this.props.data;
+    console.log(getCurrentConference);
     return (
       <View style={styles.container}>
         {loading ? (
@@ -27,20 +28,20 @@ class ConferenceLocation extends PureComponent {
             pitchEnabled
             rotateEnabled
             initialRegion={{
-              latitude: Number.parseFloat(getConferenceByID.address.lat),
-              longitude: Number.parseFloat(getConferenceByID.address.long),
+              latitude: Number.parseFloat(getCurrentConference.address.lat),
+              longitude: Number.parseFloat(getCurrentConference.address.long),
               latitudeDelta: 0.008,
               longitudeDelta: 0.007,
             }}
           >
             <MapView.Marker
               coordinate={{
-                latitude: Number.parseFloat(getConferenceByID.address.lat),
-                longitude: Number.parseFloat(getConferenceByID.address.long),
+                latitude: Number.parseFloat(getCurrentConference.address.lat),
+                longitude: Number.parseFloat(getCurrentConference.address.long),
               }}
               draggable={false}
-              description={getConferenceByID.description}
-              title={getConferenceByID.title}
+              description={getCurrentConference.description}
+              title={getCurrentConference.title}
             />
           </MapView>
         )}
@@ -49,14 +50,9 @@ class ConferenceLocation extends PureComponent {
   }
 }
 
-const ConferenceLocationWrapper = graphql(gql(getConferenceByIDQuery), {
-  options: () => ({
-    variables: {
-      // Will handle this issue later
-      id: 1,
-    },
-  }),
-})(ConferenceLocation);
+const ConferenceLocationWrapper = graphql(gql(getCurrentConferenceQuery))(
+  ConferenceLocation,
+);
 
 ConferenceLocationWrapper.drawer = {
   primary: true,
