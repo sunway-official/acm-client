@@ -35,8 +35,8 @@ class ConferenceItem extends PureComponent {
     this.uri = randomBackground();
   }
 
-  navigateToConferenceDetail(conference) {
-    this.props.navigateToConferenceDetail(conference);
+  navigateToConferenceDetail(conference, currentConferenceId) {
+    this.props.navigateToConferenceDetail(conference, currentConferenceId);
   }
 
   async switchConference() {
@@ -92,7 +92,9 @@ class ConferenceItem extends PureComponent {
         <View style={styles.actionsContainer}>
           <TouchableOpacity
             style={styles.actionWrapper}
-            onPress={() => this.navigateToConferenceDetail(conference)}
+            onPress={() =>
+              this.navigateToConferenceDetail(conference, currentConferenceId)
+            }
           >
             <Icon name="info" color={Colors.white} size={Metrics.icons.small} />
             <Text style={[styles.text, styles.actionText]}>Detail</Text>
@@ -141,12 +143,13 @@ ConferenceItem.propTypes = {
 const mapDispatchToProps = dispatch => ({
   navigateToInitialScene: () =>
     dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
-  navigateToConferenceDetail: conference =>
+  navigateToConferenceDetail: (conference, currentConferenceId) =>
     dispatch(
       NavigationActions.navigate({
         routeName: 'conferenceDetail',
         params: {
           conference,
+          currentConferenceId,
         },
       }),
     ),

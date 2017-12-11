@@ -249,6 +249,7 @@ class Agenda extends Component {
 
 Agenda.header = {
   theme: 'dark',
+  leftIcon: 'back',
   statusBarBackgroundColor: Colors.primary,
   actions: [
     {
