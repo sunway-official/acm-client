@@ -14,7 +14,6 @@ class ConferenceLocation extends PureComponent {
   };
   render() {
     const { getCurrentConference, loading } = this.props.data;
-    console.log(getCurrentConference);
     return (
       <View style={styles.container}>
         {loading ? (
