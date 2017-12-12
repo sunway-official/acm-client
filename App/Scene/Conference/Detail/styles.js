@@ -77,4 +77,5 @@ export default StyleSheet.create({
   customText: {
     color: lightBlack,
   },
+  emptyIcon: { height: 100, width: 150, marginTop: doubleBaseMargin },
 });

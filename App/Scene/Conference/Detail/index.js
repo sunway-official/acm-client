@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { graphql, gql, compose } from 'react-apollo';
 import { LinearGradient } from 'expo';
 import { navigate } from '~/Redux/Navigation/action';
-import { Text, LoadingIndicator } from '~/Component';
+import { Text, LoadingIndicator, EmptyCollection } from '~/Component';
 import { Colors, Metrics } from '~/Theme';
 import { transformServerDate, transformText } from '~/Transformer';
 import GET_CONFERENCE_BY_ID from '~/Graphql/query/getConferenceById.graphql';
@@ -149,17 +149,24 @@ class ConferenceDetail extends Component {
         <Text bold style={[styles.primaryText, styles.title]}>
           Co-organizers
         </Text>
-        {coOrganizers.map((item, index) => {
-          return (
-            <View key={index} style={styles.coOrganizer}>
-              <Text style={styles.coOrganizerName}>{item.name}</Text>
-              <View style={styles.coOrganizerInfo}>
-                <Text style={styles.secondaryText}>{item.phone}</Text>
-                <Text style={styles.secondaryText}>{item.website}</Text>
+        {coOrganizers.length === 0 ? (
+          <EmptyCollection
+            emptyText="No co-organizers"
+            iconStyles={styles.emptyIcon}
+          />
+        ) : (
+          coOrganizers.map((item, index) => {
+            return (
+              <View key={index} style={styles.coOrganizer}>
+                <Text style={styles.coOrganizerName}>{item.name}</Text>
+                <View style={styles.coOrganizerInfo}>
+                  <Text style={styles.secondaryText}>{item.phone}</Text>
+                  <Text style={styles.secondaryText}>{item.website}</Text>
+                </View>
               </View>
-            </View>
-          );
-        })}
+            );
+          })
+        )}
       </View>
     );
   }
