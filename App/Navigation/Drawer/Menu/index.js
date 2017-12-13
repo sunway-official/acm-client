@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   AsyncStorage,
+  Alert,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { compose, graphql, gql, withApollo } from 'react-apollo';
@@ -182,11 +183,25 @@ class Menu extends Component {
    * Handle logout
    */
   _renderLogoutMenuItem() {
-    const logoutFn = async () => {
-      this.props.closeDrawer();
-      await AsyncStorage.multiRemove(['token', 'refreshToken']);
-      this.props.reset('login');
-    };
+    const logoutFn = () =>
+      Alert.alert('Logout', 'Do you really want to logout?', [
+        {
+          text: 'Cancel',
+          onPress: () => {
+            this.props.closeDrawer();
+          },
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: async () => {
+            this.props.closeDrawer();
+            await AsyncStorage.multiRemove(['token', 'refreshToken']);
+            this.props.reset('login');
+          },
+        },
+      ]);
+
     return (
       <MenuItem
         key={'logout'}
