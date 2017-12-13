@@ -42,25 +42,29 @@ class ConferenceList extends Component {
   }
 
   componentDidMount() {
-    this._renderSceneHeader();
+    if (this.props.queryMe.me) {
+      this._renderSceneHeader();
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
-    // Check when navigation back by comparing lastNavigationIndex
-    const { sceneIndex } = this.props;
-    if (
-      nextProps.navigationIndex === sceneIndex &&
-      nextState.lastNavigationIndex !== sceneIndex
-    ) {
-      this._renderSceneHeader();
-      this.setState({ lastNavigationIndex: nextProps.navigationIndex });
-    }
-    // console.log(nextProps.queryMe.me);
-    if (
-      nextProps.queryMe.me.id &&
-      nextProps.queryMe.me.id !== this.props.queryMe.me.id
-    ) {
-      this._renderSceneHeader();
+    // Resolve an issue when on the first login
+    // when there is no current conference & queryMe still in pending
+    if (nextProps.queryMe.me) {
+      // If the query me has changed
+      if (nextProps.queryMe.me.id !== this.props.queryMe.me.id) {
+        this._renderSceneHeader();
+      } else {
+        // Check when navigation back by comparing lastNavigationIndex
+        const { sceneIndex } = this.props;
+        if (
+          nextProps.navigationIndex === sceneIndex &&
+          nextState.lastNavigationIndex !== sceneIndex
+        ) {
+          this._renderSceneHeader();
+          this.setState({ lastNavigationIndex: nextProps.navigationIndex });
+        }
+      }
     }
   }
 
@@ -92,8 +96,8 @@ class ConferenceList extends Component {
   }
 
   render() {
-    const { getAllConferences, loading } = this.props.queryConferences;
-    const conferences = getAllConferences;
+    const { getAllConferencesByUserID, loading } = this.props.queryConferences;
+    const conferences = getAllConferencesByUserID;
     return (
       <View
         style={[
@@ -107,7 +111,9 @@ class ConferenceList extends Component {
           <View>
             <FlatList
               data={conferences}
-              renderItem={({ item }) => <Item {...item} />}
+              renderItem={({ item: { conference } }) => (
+                <Item {...conference} />
+              )}
               keyExtractor={(item, index) => index}
             />
           </View>

@@ -1,10 +1,12 @@
 query {
-  getAllConferences {
-    id
-    title
-    description
-    start_date
-    end_date
-    bg_image
+  getAllConferencesByUserID {
+    conference {
+      id
+      title
+      description
+      start_date
+      end_date
+      bg_image
+    }
   }
 }
