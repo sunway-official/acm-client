@@ -100,6 +100,13 @@ class ConferenceList extends Component {
   render() {
     const { getAllConferencesByUserID, loading } = this.props.queryConferences;
     const conferences = getAllConferencesByUserID;
+    if (loading) {
+      return (
+        <View style={styles.loadingContainer}>
+          <LoadingIndicator />
+        </View>
+      );
+    }
     return (
       <View
         style={[
@@ -107,19 +114,13 @@ class ConferenceList extends Component {
           this.state.disableHeader ? styles.noHeader : null,
         ]}
       >
-        {loading ? (
-          <LoadingIndicator />
-        ) : (
-          <View>
-            <FlatList
-              data={conferences}
-              renderItem={({ item: { conference } }) => (
-                <Item {...conference} />
-              )}
-              keyExtractor={(item, index) => index}
-            />
-          </View>
-        )}
+        <View style={styles.listContainer}>
+          <FlatList
+            data={conferences}
+            renderItem={({ item: { conference } }) => <Item {...conference} />}
+            keyExtractor={(item, index) => index}
+          />
+        </View>
       </View>
     );
   }
