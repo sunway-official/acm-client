@@ -1,13 +1,13 @@
-# Junk
+# Directories
 node_modules/
 .expo/
 .idea/
 __tests__/
 
 # Dependencies
-package-lock.json
-npm-debug.*
-yarn.lock
+/package-lock.json
+/npm-debug.*
+/yarn.lock
 
 # Project files
 /env.js
