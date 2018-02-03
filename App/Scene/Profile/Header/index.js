@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, ImageBackground } from 'react-native';
-import { Text, UserAvatar } from '~/Component';
-import { Images } from '~/Theme';
+import { Text, UserAvatar } from 'Component';
+import { Images } from 'Theme';
 import styles from './styles';
 
 class Header extends Component {

@@ -1,5 +1,5 @@
 import { List } from 'immutable';
-import { toLocal } from '~/Transformer/transformServerDate';
+import { toLocal } from 'Transformer/transformServerDate';
 
 export default (data, key) => {
   // Initiate

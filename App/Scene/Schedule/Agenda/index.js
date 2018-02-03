@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { gql, graphql, compose } from 'react-apollo';
 import { TabNavigator, TabBarTop } from 'react-navigation';
-import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
-import { reset } from '~/Redux/Navigation/action';
+import { KEY as NAVIGATION_KEY } from 'Reduck/Navigation';
+import { reset } from 'Reduck/Navigation/action';
 import { connect } from 'react-redux';
-import { KEY, setModalState } from '~/Redux/Modal';
-import { Colors, Metrics } from '~/Theme';
-import { FilterModal, LoadingIndicator, EmptyCollection } from '~/Component';
+import { KEY, setModalState } from 'Reduck/Modal';
+import { Colors, Metrics } from 'Theme';
+import { FilterModal, LoadingIndicator, EmptyCollection } from 'Component';
 import Detail from './List';
-import transformer from '~/Transformer/schedules/agenda';
-import { transformServerDate } from '~/Transformer';
-import AGENDA_QUERY from '~/Graphql/query/getAgenda.graphql';
+import transformer from 'Transformer/schedules/agenda';
+import { transformServerDate } from 'Transformer';
+import AGENDA_QUERY from 'Graphql/query/getAgenda.graphql';
 import {
   formatDateToNumber,
   compareWithCurrentTime,
   compareWithCurrentDate,
-} from '~/Transformer/schedules/dateComparison';
+} from 'Transformer/schedules/dateComparison';
 import styles from './styles';
 
 const TABS_CONFIG = {

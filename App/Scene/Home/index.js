@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Button, Image } from 'react-native';
 import { ImagePicker } from 'expo';
-import { S3 } from '~/Provider';
-import { S3Image } from '~/Component';
-import { S3_GET_PREFIX } from '~/env';
-import { Colors } from '~/Theme';
+import { S3 } from 'Provider';
+import { S3Image } from 'Component';
+import { S3_GET_PREFIX } from 'env';
+import { Colors } from 'Theme';
 import styles from './styles';
 
 /*

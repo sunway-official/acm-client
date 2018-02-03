@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, ViewPropTypes } from 'react-native';
-import { Colors } from '~/Theme';
+import { Colors } from 'Theme';
 import { connect } from 'react-redux';
-import { KEY as ROUTE_KEY } from '~/Redux/Routes';
-import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
-import { AnimatableView } from '~/Component';
-import { NavigationActions } from '~/Redux/Navigation';
+import { KEY as ROUTE_KEY } from 'Reduck/Routes';
+import { KEY as NAVIGATION_KEY } from 'Reduck/Navigation';
+import { AnimatableView } from 'Component';
+import { NavigationActions } from 'Reduck/Navigation';
 import Tab from './Tab';
 import styles from './styles';
 

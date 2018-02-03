@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, ViewPropTypes } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import { transformServerDate } from '~/Transformer';
-import { DATE_FORMAT } from '~/env';
+import { transformServerDate } from 'Transformer';
+import { DATE_FORMAT } from 'env';
 import moment from 'moment';
 import styles, { customStyles } from './styles';
 

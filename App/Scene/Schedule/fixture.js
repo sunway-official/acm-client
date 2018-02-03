@@ -3,7 +3,7 @@
  */
 
 import moment from 'moment';
-import { DATE_FORMAT } from '~/env';
+import { DATE_FORMAT } from 'env';
 
 const TODAY = moment();
 
@@ -31,7 +31,7 @@ const SCHEDULES = [
       {
         title: 'React native',
         time: '11 AM',
-        shortDescription: 'React, React native & Redux.',
+        shortDescription: 'React, React native & Reduck.',
       },
       {
         title: 'Lunch',
@@ -75,7 +75,7 @@ const SCHEDULES = [
       {
         title: 'React native',
         time: '11 AM',
-        shortDescription: 'React, React native & Redux.',
+        shortDescription: 'React, React native & Reduck.',
       },
       {
         title: 'Lunch',

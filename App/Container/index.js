@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Font } from 'expo';
-import fonts from '~/Asset/Font';
+import fonts from 'Asset/Font';
 import RootContainer from './Root';
-import initStore from '~/Redux';
-import { initApollo } from '~/Config';
+import initStore from 'Reduck';
+import { initApollo } from 'Configuration';
 
 class App extends Component {
   constructor(props) {

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '~/Theme';
+import { Metrics, Colors, Fonts } from 'Theme';
 
 const { baseMargin, doubleBaseMargin, smallMargin, photoView } = Metrics;
 const { white, grey } = Colors;

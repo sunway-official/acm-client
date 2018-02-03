@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
-import { Colors } from '~/Theme';
-import { IS_ANDROID } from '~/env';
+import { Colors } from 'Theme';
+import { IS_ANDROID } from 'env';
 
 const LoadingIndicator = ({ ...others }) => (
   <ActivityIndicator color={Colors.primary} {...others} />

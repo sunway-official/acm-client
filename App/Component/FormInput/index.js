@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, TextInput, ViewPropTypes } from 'react-native';
 import Text from '../Text';
-import { Colors } from '~/Theme';
+import { Colors } from 'Theme';
 import styles from './styles';
 
 const changeUnderlineColor = ({ touched, error, warning }) => {

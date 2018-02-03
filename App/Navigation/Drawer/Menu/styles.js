@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Fonts, Colors } from '~/Theme';
+import { Metrics, Fonts, Colors } from 'Theme';
 
 const statusBarMargin = Metrics.doubleBaseMargin * -1;
 

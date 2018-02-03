@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
-import { Colors } from '~/Theme';
-import { News, LoadingIndicator, EmptyCollection } from '~/Component';
-import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
+import { Colors } from 'Theme';
+import { News, LoadingIndicator, EmptyCollection } from 'Component';
+import { KEY as NAVIGATION_KEY } from 'Reduck/Navigation';
 import FakePosting from './FakePosting';
-import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
-import QUERY_ME from '~/Graphql/query/me.graphql';
+import QUERY_ALL_NEWS from 'Graphql/query/getAllNews.graphql';
+import QUERY_ME from 'Graphql/query/me.graphql';
 import styles from './styles';
 
 const PAGE_SIZE = 10;

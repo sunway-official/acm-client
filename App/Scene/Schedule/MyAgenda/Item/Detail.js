@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { graphql, gql, compose } from 'react-apollo';
 import { connect } from 'react-redux';
-import { Text, TouchableView, LoadingIndicator } from '~/Component';
+import { Text, TouchableView, LoadingIndicator } from 'Component';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import { Colors, Metrics } from '~/Theme';
-import { transformServerDate } from '~/Transformer';
-import { NavigationActions } from '~/Redux/Navigation';
-import DELETE_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/deletePersonalSchedule.graphql';
-import INSERT_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/insertPersonalSchedule.graphql';
+import { Colors, Metrics } from 'Theme';
+import { transformServerDate } from 'Transformer';
+import { NavigationActions } from 'Reduck/Navigation';
+import DELETE_PERSONAL_SCHEDULE_MUTATION from 'Graphql/mutation/deletePersonalSchedule.graphql';
+import INSERT_PERSONAL_SCHEDULE_MUTATION from 'Graphql/mutation/insertPersonalSchedule.graphql';
 
 const TRACKING_ANIMATION_DELAY = 150;
 

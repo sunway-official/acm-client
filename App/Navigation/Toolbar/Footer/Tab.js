@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableView, Text } from '~/Component';
+import { TouchableView, Text } from 'Component';
 import { Icon } from 'react-native-elements';
-import { Colors, Metrics, Icons, Fonts } from '~/Theme';
+import { Colors, Metrics, Icons, Fonts } from 'Theme';
 import styles from './styles';
 const THEME_DARK = 'dark';
 

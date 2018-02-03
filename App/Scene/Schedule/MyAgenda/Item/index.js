@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
-import { Text } from '~/Component';
+import { Text } from 'Component';
 import moment from 'moment';
 import ItemDetail from './Detail';
 import styles from './styles';
-import { Colors } from '~/Theme';
+import { Colors } from 'Theme';
 import { Icon } from 'react-native-elements';
 import {
   compareWithCurrentDate,
   compareWithCurrentTime,
-} from '~/Transformer/schedules/dateComparison';
+} from 'Transformer/schedules/dateComparison';
 
 const DEFAULT_ITEM_ICON = {
   type: 'material-community',

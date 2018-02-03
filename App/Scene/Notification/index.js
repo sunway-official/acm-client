@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Button } from 'react-native';
-import { Text } from '~/Component';
+import { Text } from 'Component';
 import { connect } from 'react-redux';
-import { NavigationActions } from '~/Redux/Navigation';
+import { NavigationActions } from 'Reduck/Navigation';
 import styles from './styles';
-import { Colors } from '~/Theme';
+import { Colors } from 'Theme';
 
 const text = ['Welcome to Notification!'];
 

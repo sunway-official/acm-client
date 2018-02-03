@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Colors, Metrics } from '~/Theme';
-import { Text, UserAvatar } from '~/Component';
-import { FOLLOWING } from '~/Scene/Profile/fixture';
+import { Colors, Metrics } from 'Theme';
+import { Text, UserAvatar } from 'Component';
+import { FOLLOWING } from 'Scene/Profile/fixture';
 import styles from './styles';
 
 class Following extends Component {

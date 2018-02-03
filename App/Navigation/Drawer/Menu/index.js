@@ -10,15 +10,15 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { compose, graphql, gql, withApollo } from 'react-apollo';
-import { AnimatableView, Text, UserAvatar } from '~/Component';
+import { AnimatableView, Text, UserAvatar } from 'Component';
 import { connect } from 'react-redux';
-import { KEY as ROUTES_KEY } from '~/Redux/Routes';
-import { KEY as NAVIGATION_KEY, NavigationActions } from '~/Redux/Navigation';
-import { setDrawerState } from '~/Redux/Drawer';
-import { Images, Metrics, Colors } from '~/Theme';
-import { IS_DEBUGGING } from '~/env';
+import { KEY as ROUTES_KEY } from 'Reduck/Routes';
+import { KEY as NAVIGATION_KEY, NavigationActions } from 'Reduck/Navigation';
+import { setDrawerState } from 'Reduck/Drawer';
+import { Images, Metrics, Colors } from 'Theme';
+import { IS_DEBUGGING } from 'env';
 import MenuItem from './Item';
-import QUERY_ME from '~/Graphql/query/me.graphql';
+import QUERY_ME from 'Graphql/query/me.graphql';
 import styles from './styles';
 
 const USER_FIRSTNAME = 'Sunway';

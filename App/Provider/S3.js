@@ -5,7 +5,7 @@ import {
   S3_SECRET_KEY,
   S3_BUCKET_NAME,
   S3_BUCKET_REGION,
-} from '~/env';
+} from 'env';
 import uuid from 'uuid/v1';
 
 const BASE64_PREFIX = 'data:image/png;base64,';

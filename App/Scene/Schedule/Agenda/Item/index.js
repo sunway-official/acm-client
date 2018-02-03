@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Colors } from '~/Theme';
-import { TouchableView, Text } from '~/Component';
-import { transformServerDate } from '~/Transformer';
-import { NavigationActions } from '~/Redux/Navigation';
+import { Colors } from 'Theme';
+import { TouchableView, Text } from 'Component';
+import { transformServerDate } from 'Transformer';
+import { NavigationActions } from 'Reduck/Navigation';
 import { gql, graphql, compose } from 'react-apollo';
-import INSERT_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/insertPersonalSchedule.graphql';
-import DELETE_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/deletePersonalSchedule.graphql';
+import INSERT_PERSONAL_SCHEDULE_MUTATION from 'Graphql/mutation/insertPersonalSchedule.graphql';
+import DELETE_PERSONAL_SCHEDULE_MUTATION from 'Graphql/mutation/deletePersonalSchedule.graphql';
 import styles from './styles';
 
 const DEFAULT_ITEM_ICON = {

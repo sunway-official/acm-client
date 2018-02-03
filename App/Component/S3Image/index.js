@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native';
-import { S3 } from '~/Provider';
+import { S3 } from 'Provider';
 
 /**
  * S3Image Component

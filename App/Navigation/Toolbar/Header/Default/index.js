@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
-import { Text, TouchableView } from '~/Component';
-import { Colors, Metrics, Icons } from '~/Theme';
-import { openMenu } from '~/Redux/Toolbar/action';
+import { Text, TouchableView } from 'Component';
+import { Colors, Metrics, Icons } from 'Theme';
+import { openMenu } from 'Reduck/Toolbar/action';
 import styles from '../styles';
 
 const THEME_DARK = 'dark';

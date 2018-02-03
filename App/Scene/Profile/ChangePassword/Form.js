@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { required, password } from '~/Lib/validate';
+import { required, password } from 'Lib/validate';
 import { View, KeyboardAvoidingView } from 'react-native';
 import styles from './styles';
-import { Colors } from '~/Theme';
-import { Text, FormInput } from '~/Component';
-import TouchableView from '~/Component/TouchableView';
+import { Colors } from 'Theme';
+import { Text, FormInput } from 'Component';
+import TouchableView from 'Component/TouchableView';
 
 const _renderHint = () => (
   <View style={styles.hintContainer}>
@@ -110,8 +110,6 @@ ChangePasswordForm.propTypes = {
   changePasswordError: PropTypes.string,
 };
 
-ChangePasswordForm = reduxForm({
+export default reduxForm({
   form: 'updatePassword',
 })(ChangePasswordForm);
-
-export default ChangePasswordForm;

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { graphql, gql } from 'react-apollo';
-import { Text, TouchableView } from '~/Component';
-import { Colors } from '~/Theme';
+import { Text, TouchableView } from 'Component';
+import { Colors } from 'Theme';
 import Content from './Content';
 import styles from './styles';
 import { FOLLOWERS, FOLLOWING } from '../fixture';
-import QUERY_ACTIVITIES from '~/Graphql/query/getNewsByUserID.graphql';
+import QUERY_ACTIVITIES from 'Graphql/query/getNewsByUserID.graphql';
 
 const TABS = {
   About: {

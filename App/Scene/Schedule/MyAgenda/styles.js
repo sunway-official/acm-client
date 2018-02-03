@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '~/Theme';
+import { Colors } from 'Theme';
 
 const Schedule = StyleSheet.create({
   container: {

@@ -4,18 +4,18 @@ import { graphql, gql, compose } from 'react-apollo';
 import { ScrollView, View } from 'react-native';
 import { ImagePicker } from 'expo';
 import { connect } from 'react-redux';
-import { LoadingIndicator } from '~/Component';
-import { Colors } from '~/Theme';
-import { S3 } from '~/Provider';
+import { LoadingIndicator } from 'Component';
+import { Colors } from 'Theme';
+import { S3 } from 'Provider';
 import {
   addHeaderOptions,
   closeMenu as closeHeaderMenu,
-} from '~/Redux/Toolbar/action';
+} from 'Reduck/Toolbar/action';
 import ProfileHeader from './Header';
 import ProfileBody from './Body';
 import { DEFAULT_USER_AVATAR } from './fixture';
-import { NavigationActions } from '~/Redux/Navigation';
-import QUERY_ME from '~/Graphql/query/me.graphql';
+import { NavigationActions } from 'Reduck/Navigation';
+import QUERY_ME from 'Graphql/query/me.graphql';
 import UPDATE_AVATAR from './updateAvatar.graphql';
 import { DEFAULT_ME } from './fixture';
 import styles from './styles';

@@ -8,16 +8,16 @@ import {
   TouchableView,
   LoadingIndicator,
   EmptyCollection,
-} from '~/Component';
+} from 'Component';
 import { Icon } from 'react-native-elements';
-import { Colors, Metrics } from '~/Theme';
-import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
-import { addHeaderOptions } from '~/Redux/Toolbar/action';
-import { transformServerDate, transformText } from '~/Transformer';
-import { IS_IOS } from '~/env';
-import AGENDA_QUERY from '~/Graphql/query/getAgenda.graphql';
-import DELETE_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/deletePersonalSchedule.graphql';
-import INSERT_PERSONAL_SCHEDULE_MUTATION from '~/Graphql/mutation/insertPersonalSchedule.graphql';
+import { Colors, Metrics } from 'Theme';
+import { KEY as NAVIGATION_KEY } from 'Reduck/Navigation';
+import { addHeaderOptions } from 'Reduck/Toolbar/action';
+import { transformServerDate, transformText } from 'Transformer';
+import { IS_IOS } from 'env';
+import AGENDA_QUERY from 'Graphql/query/getAgenda.graphql';
+import DELETE_PERSONAL_SCHEDULE_MUTATION from 'Graphql/mutation/deletePersonalSchedule.graphql';
+import INSERT_PERSONAL_SCHEDULE_MUTATION from 'Graphql/mutation/insertPersonalSchedule.graphql';
 import styles from './styles';
 
 const DEFAULT_ACTIVITY_DETAIL = {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-import { Text, UserAvatar } from '~/Component';
+import { Text, UserAvatar } from 'Component';
 import styles from './styles';
 
 class Comment extends PureComponent {

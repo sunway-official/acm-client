@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
-import { Text } from '~/Component';
+import { Text } from 'Component';
 
 import styles from './styles';
-import { Colors } from '~/Theme';
+import { Colors } from 'Theme';
 
 const DEFAULT_TOUCHABLE_OPACITY = 0.2;
 

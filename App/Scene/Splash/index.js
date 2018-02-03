@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, ImageBackground } from 'react-native';
-import { Text, LoadingIndicator } from '~/Component';
-import { Images, Colors } from '~/Theme';
+import { Text, LoadingIndicator } from 'Component';
+import { Images, Colors } from 'Theme';
 import styles from './styles';
 
 const SplashScene = () => (

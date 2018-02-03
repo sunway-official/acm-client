@@ -1,20 +1,20 @@
-import Home from '~/Scene/Home';
-import Login from '~/Scene/Auth/Login';
-import ForgotPassword from '~/Scene/Auth/ForgotPassword/';
-import { NewsFeed, NewsPosting, NewsDetail } from '~/Scene/News';
-import Notification from '~/Scene/Notification';
-import People from '~/Scene/People';
-import Profile from '~/Scene/Profile';
-import ProfileEditing from '~/Scene/Profile/ProfileEditing';
-import ChangePassword from '~/Scene/Profile/ChangePassword';
-import Setting from '~/Scene/Setting';
-import { Agenda, MyAgenda, ActivityDetail } from '~/Scene/Schedule';
-import Splash from '~/Scene/Splash';
+import Home from 'Scene/Home';
+import Login from 'Scene/Auth/Login';
+import ForgotPassword from 'Scene/Auth/ForgotPassword/';
+import { NewsFeed, NewsPosting, NewsDetail } from 'Scene/News';
+import Notification from 'Scene/Notification';
+import People from 'Scene/People';
+import Profile from 'Scene/Profile';
+import ProfileEditing from 'Scene/Profile/ProfileEditing';
+import ChangePassword from 'Scene/Profile/ChangePassword';
+import Setting from 'Scene/Setting';
+import { Agenda, MyAgenda, ActivityDetail } from 'Scene/Schedule';
+import Splash from 'Scene/Splash';
 import {
   ConferenceLocation,
   ConferenceList,
   ConferenceDetail,
-} from '~/Scene/Conference';
+} from 'Scene/Conference';
 
 export const ROUTES = {
   splash: {

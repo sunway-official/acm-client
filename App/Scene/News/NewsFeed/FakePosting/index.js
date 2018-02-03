@@ -6,9 +6,9 @@ import styles from './styles';
 import { Icon } from 'react-native-elements';
 
 import { View, TouchableOpacity } from 'react-native';
-import { UserAvatar, TouchableView, Text } from '~/Component';
+import { UserAvatar, TouchableView, Text } from 'Component';
 
-import { NavigationActions } from '~/Redux/Navigation';
+import { NavigationActions } from 'Reduck/Navigation';
 
 class NewsFeedFakePosting extends Component {
   static propTypes = {

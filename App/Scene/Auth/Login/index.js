@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AsyncStorage, Keyboard } from 'react-native';
-import { NavigationActions } from '~/Redux/Navigation';
+import { NavigationActions } from 'Reduck/Navigation';
 import LoginForm from '../Login/Form';
-import { getInitialRoute } from '~/Navigation/resolver';
+import { getInitialRoute } from 'Navigation/resolver';
 import { compose, gql, graphql, withApollo } from 'react-apollo';
-import mutation from '~/Graphql/mutation/login.graphql';
-import QUERY_ME from '~/Graphql/query/me.graphql';
+import mutation from 'Graphql/mutation/login.graphql';
+import QUERY_ME from 'Graphql/query/me.graphql';
 
 class LoginScene extends Component {
   static propTypes = {

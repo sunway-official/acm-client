@@ -4,17 +4,17 @@ import { ImageBackground, View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { LinearGradient } from 'expo';
-import { Text, LoadingIndicator } from '~/Component';
+import { Text, LoadingIndicator } from 'Component';
 import { randomBackground } from './fixtures';
-import { transformText } from '~/Transformer';
+import { transformText } from 'Transformer';
 import { gql, compose, graphql } from 'react-apollo';
-import { getInitialRoute } from '~/Navigation/resolver';
-import { NavigationActions } from '~/Redux/Navigation';
-import { Colors, Metrics } from '~/Theme';
-import { IS_IOS } from '~/env';
-import SWITCH_CURRENT_CONFERENCE from '~/Graphql/mutation/switchtCurrentConference.graphql';
-import GET_CURRENT_CONFERENCE from '~/Graphql/query/getCurrentConference.graphql';
-import QUERY_ME from '~/Graphql/query/me.graphql';
+import { getInitialRoute } from 'Navigation/resolver';
+import { NavigationActions } from 'Reduck/Navigation';
+import { Colors, Metrics } from 'Theme';
+import { IS_IOS } from 'env';
+import SWITCH_CURRENT_CONFERENCE from 'Graphql/mutation/switchtCurrentConference.graphql';
+import GET_CURRENT_CONFERENCE from 'Graphql/query/getCurrentConference.graphql';
+import QUERY_ME from 'Graphql/query/me.graphql';
 import styles from './styles';
 
 class ConferenceItem extends PureComponent {

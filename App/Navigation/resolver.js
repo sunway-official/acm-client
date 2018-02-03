@@ -1,5 +1,5 @@
 import { ROUTES, config } from './routes';
-import withFadeIn from '~/Container/withFadeIn';
+import withFadeIn from 'Container/withFadeIn';
 
 export const getInitialRoute = () => {
   let route = {};

@@ -28,7 +28,7 @@ export default [
       {
         title: 'React native',
         time: modifyDate(3),
-        shortDescription: 'React, React native & Redux.',
+        shortDescription: 'React, React native & Reduck.',
       },
       {
         title: 'Lunch',

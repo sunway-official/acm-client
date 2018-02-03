@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
-import { LoadingIndicator } from '~/Component';
+import { LoadingIndicator } from 'Component';
 import { gql, compose, graphql } from 'react-apollo';
 import { connect } from 'react-redux';
-import { addHeaderOptions } from '~/Redux/Toolbar/action';
-import { Colors } from '~/Theme';
-import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
-import GET_ALL_CONFERENCES from '~/Graphql/query/getAllConferences.graphql';
-import QUERY_ME from '~/Graphql/query/me.graphql';
+import { addHeaderOptions } from 'Reduck/Toolbar/action';
+import { Colors } from 'Theme';
+import { KEY as NAVIGATION_KEY } from 'Reduck/Navigation';
+import GET_ALL_CONFERENCES from 'Graphql/query/getAllConferences.graphql';
+import QUERY_ME from 'Graphql/query/me.graphql';
 import Item from './Item';
 import styles from './styles';
 

@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Text, Modal, TouchableView } from '~/Component';
-import { Colors, Icons } from '~/Theme';
+import { Text, Modal, TouchableView } from 'Component';
+import { Colors, Icons } from 'Theme';
 import styles from './styles';
 import { connect } from 'react-redux';
-import { KEY } from '~/Redux/Toolbar';
-import { closeMenu } from '~/Redux/Toolbar/action';
+import { KEY } from 'Reduck/Toolbar';
+import { closeMenu } from 'Reduck/Toolbar/action';
 
 /*eslint-disable react/prop-types*/
 const _renderActions = ({ title, icon, onPress }, index, dispatch) => {

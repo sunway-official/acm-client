@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import { View as AnimatableView } from 'react-native-animatable';
-import { IS_DEBUGGING } from '~/env';
+import { IS_DEBUGGING } from 'env';
 
 let AnimatadView;
 

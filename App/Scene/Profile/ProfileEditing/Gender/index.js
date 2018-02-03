@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Modal, Text, FormInput } from '~/Component';
-import { setModalState } from '~/Redux/Modal';
+import { Modal, Text, FormInput } from 'Component';
+import { setModalState } from 'Reduck/Modal';
 import styles from './styles';
 
 const data = [

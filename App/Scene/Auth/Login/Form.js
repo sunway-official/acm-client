@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { required, email, password } from '~/Lib/validate';
+import { required, email, password } from 'Lib/validate';
 import { Icon } from 'react-native-elements';
 import { Image, View, KeyboardAvoidingView } from 'react-native';
-import { Images, Colors } from '~/Theme';
-import { FormInput, Text, TouchableView, AnimatableView } from '~/Component';
+import { Images, Colors } from 'Theme';
+import { FormInput, Text, TouchableView, AnimatableView } from 'Component';
 import styles from '../styles';
 
 const _renderLoadingButton = () => (
@@ -119,8 +119,6 @@ LoginForm.propTypes = {
   loading: PropTypes.bool,
 };
 
-LoginForm = reduxForm({
+export default reduxForm({
   form: 'login',
 })(LoginForm);
-
-export default LoginForm;

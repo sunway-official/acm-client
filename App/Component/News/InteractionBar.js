@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
-import { Text } from '~/Component';
+import { Text } from 'Component';
 
 import { Icon } from 'react-native-elements';
-import { Colors, Metrics } from '~/Theme';
+import { Colors, Metrics } from 'Theme';
 import styles from './styles';
 
 const NewsRenderIcon = ({ name, type, color }) => (

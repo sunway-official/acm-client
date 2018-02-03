@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Field, reduxForm } from 'redux-form';
-import { Text, FormInput, TouchableView } from '~/Component';
+import { Text, FormInput, TouchableView } from 'Component';
 import fields from '../fields';
 import styles from './styles';
 

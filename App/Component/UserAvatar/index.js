@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ViewPropTypes } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { Images } from '~/Theme';
-import { HTTP_URL_REGEX } from '~/Lib/constants';
-import { S3_GET_PREFIX } from '~/env';
+import { Images } from 'Theme';
+import { HTTP_URL_REGEX } from 'Lib/constants';
+import { S3_GET_PREFIX } from 'env';
 
 const TYPES = {
   SMALL: 'small',

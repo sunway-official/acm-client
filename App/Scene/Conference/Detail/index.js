@@ -10,12 +10,12 @@ import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { graphql, gql, compose } from 'react-apollo';
 import { LinearGradient } from 'expo';
-import { navigate } from '~/Redux/Navigation/action';
-import { Text, LoadingIndicator, EmptyCollection } from '~/Component';
-import { Colors, Metrics } from '~/Theme';
-import { transformServerDate, transformText } from '~/Transformer';
-import GET_CONFERENCE_BY_ID from '~/Graphql/query/getConferenceById.graphql';
-import { addHeaderOptions } from '~/Redux/Toolbar/action';
+import { navigate } from 'Reduck/Navigation/action';
+import { Text, LoadingIndicator, EmptyCollection } from 'Component';
+import { Colors, Metrics } from 'Theme';
+import { transformServerDate, transformText } from 'Transformer';
+import GET_CONFERENCE_BY_ID from 'Graphql/query/getConferenceById.graphql';
+import { addHeaderOptions } from 'Reduck/Toolbar/action';
 import styles from './styles';
 
 const ICON_SIZE = 18,

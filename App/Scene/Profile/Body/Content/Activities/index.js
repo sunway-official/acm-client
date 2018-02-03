@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
-import { News, LoadingIndicator, EmptyCollection } from '~/Component';
+import { News, LoadingIndicator, EmptyCollection } from 'Component';
 import { gql, graphql } from 'react-apollo';
-import QUERY_ACTIVITIES from '~/Graphql/query/getNewsByUserID.graphql';
+import QUERY_ACTIVITIES from 'Graphql/query/getNewsByUserID.graphql';
 import styles from './styles';
 
 const NETWORK_STATUS_LOADING = 1;

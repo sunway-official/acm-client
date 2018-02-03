@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Text, TouchableView } from '~/Component';
+import { Text, TouchableView } from 'Component';
 
 import styles from './styles';
-import { Colors, Metrics } from '~/Theme';
+import { Colors, Metrics } from 'Theme';
 
 const PostsActions = ({
   onPressAlbum,

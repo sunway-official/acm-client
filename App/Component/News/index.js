@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { compose, gql, graphql } from 'react-apollo';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { NavigationActions } from '~/Redux/Navigation';
-import { Text } from '~/Component';
-import { transformDate } from '~/Transformer';
+import { NavigationActions } from 'Reduck/Navigation';
+import { Text } from 'Component';
+import { transformDate } from 'Transformer';
 import NewsHeader from './Header';
 import NewsInteractionBar from './InteractionBar';
 import NewsPhotoView from './PhotoView';
 
-import MUTATION_INSERT_NEWS_LIKE from '~/Graphql/mutation/insertNewsLike.graphql';
-import MUTATION_DELETE_NEWS_LIKE from '~/Graphql/mutation/deleteNewsLike.graphql';
+import MUTATION_INSERT_NEWS_LIKE from 'Graphql/mutation/insertNewsLike.graphql';
+import MUTATION_DELETE_NEWS_LIKE from 'Graphql/mutation/deleteNewsLike.graphql';
 
 import styles from './styles';
 

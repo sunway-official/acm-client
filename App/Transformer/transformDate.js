@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { DATE_FORMAT } from '~/env';
+import { DATE_FORMAT } from 'env';
 
 const formatTimestamp = createdAt => {
   const date = new Date(createdAt);

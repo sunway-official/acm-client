@@ -8,20 +8,20 @@ import {
   RefreshControl,
 } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
-import { Text, LoadingIndicator } from '~/Component';
-import NewsHeader from '~/Component/News/Header';
-import NewsInteractionBar from '~/Component/News/InteractionBar';
-import NewsPhotoView from '~/Component/News/PhotoView';
+import { Text, LoadingIndicator } from 'Component';
+import NewsHeader from 'Component/News/Header';
+import NewsInteractionBar from 'Component/News/InteractionBar';
+import NewsPhotoView from 'Component/News/PhotoView';
 import Comments from './Comments';
 import CommentForm from './Comments/Form';
-import { Colors } from '~/Theme';
-import { KEY as NAVIGATION_KEY } from '~/Redux/Navigation';
-import { transformDate } from '~/Transformer';
-import QUERY_ALL_COMMENTS from '~/Graphql/query/getAllNewsComments.graphql';
-import QUERY_ALL_LIKES from '~/Graphql/query/getAllNewsLikes.graphql';
-import QUERY_ME from '~/Graphql/query/me.graphql';
-import INSERT_NEWS_LIKE_MUTATION from '~/Graphql/mutation/insertNewsLike.graphql';
-import DELETE_NEWS_LIKE_MUTATION from '~/Graphql/mutation/deleteNewsLike.graphql';
+import { Colors } from 'Theme';
+import { KEY as NAVIGATION_KEY } from 'Reduck/Navigation';
+import { transformDate } from 'Transformer';
+import QUERY_ALL_COMMENTS from 'Graphql/query/getAllNewsComments.graphql';
+import QUERY_ALL_LIKES from 'Graphql/query/getAllNewsLikes.graphql';
+import QUERY_ME from 'Graphql/query/me.graphql';
+import INSERT_NEWS_LIKE_MUTATION from 'Graphql/mutation/insertNewsLike.graphql';
+import DELETE_NEWS_LIKE_MUTATION from 'Graphql/mutation/deleteNewsLike.graphql';
 
 import styles from './styles';
 

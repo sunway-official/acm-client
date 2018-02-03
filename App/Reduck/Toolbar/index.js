@@ -14,7 +14,7 @@ import {
 
 export const KEY = 'toolbar';
 
-const routes = require('~/Navigation/resolver').generateRoutes();
+const routes = require('Navigation/resolver').generateRoutes();
 const initialRoute = routes['splash'];
 
 const INITIAL_STATE = {

@@ -1,5 +1,5 @@
 import { Dimensions, StatusBar } from 'react-native';
-import { IS_ANDROID, IS_IOS } from '~/env';
+import { IS_ANDROID, IS_IOS } from 'env';
 
 const { width, height } = Dimensions.get('window');
 

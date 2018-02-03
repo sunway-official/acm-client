@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { AsyncStorage, Keyboard, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavigationActions } from '~/Redux/Navigation';
+import { NavigationActions } from 'Reduck/Navigation';
 import { gql, graphql, compose, withApollo } from 'react-apollo';
-import { Text, TouchableView, LoadingIndicator, Dialog } from '~/Component';
-import { Metrics } from '~/Theme';
-import { KEY, setModalState } from '~/Redux/Modal';
-import mutation from '~/Graphql/mutation/updatePassword.graphql';
+import { Text, TouchableView, LoadingIndicator, Dialog } from 'Component';
+import { Metrics } from 'Theme';
+import { KEY, setModalState } from 'Reduck/Modal';
+import mutation from 'Graphql/mutation/updatePassword.graphql';
 import ChangePasswordForm from '../ChangePassword/Form';
 import styles from './styles';
 

@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { View, ImageBackground, ViewPropTypes } from 'react-native';
-import { Text, TouchableView } from '~/Component';
-import { S3_GET_PREFIX } from '~/env';
+import { Text, TouchableView } from 'Component';
+import { S3_GET_PREFIX } from 'env';
 
 import styles from './styles';
 

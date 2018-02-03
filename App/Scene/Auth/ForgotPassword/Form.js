@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { required, email } from '~/Lib/validate';
+import { required, email } from 'Lib/validate';
 import { KeyboardAvoidingView, Image, View } from 'react-native';
-import { Images } from '~/Theme';
-import { Text, TouchableView, FormInput } from '~/Component';
+import { Images } from 'Theme';
+import { Text, TouchableView, FormInput } from 'Component';
 import styles from '../styles';
 
 const submit = values => {
@@ -71,8 +71,6 @@ ForgotPasswordForm.propTypes = {
   error: PropTypes.string,
 };
 
-ForgotPasswordForm = reduxForm({
+export default reduxForm({
   form: 'forgotPassword',
 })(ForgotPasswordForm);
-
-export default ForgotPasswordForm;

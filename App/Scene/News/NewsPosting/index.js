@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 import { gql, graphql, compose } from 'react-apollo';
 import { Keyboard, KeyboardAvoidingView } from 'react-native';
 import { ImagePicker } from 'expo';
-import { AutoExpandingTextInput } from '~/Component';
-import { NavigationActions } from '~/Redux/Navigation';
-import { S3 } from '~/Provider';
+import { AutoExpandingTextInput } from 'Component';
+import { NavigationActions } from 'Reduck/Navigation';
+import { S3 } from 'Provider';
 
 import PostsHeader from './Header';
 import PostContent from './Content';
 import PostActions from './Actions';
 
-import QUERY_ME from '~/Graphql/query/me.graphql';
-import QUERY_ALL_NEWS from '~/Graphql/query/getAllNews.graphql';
-import MUTATION_INSERT_NEWS from '~/Graphql/mutation/insertNews.graphql';
-import MUTATION_INSERT_NEWS_PHOTO from '~/Graphql/mutation/insertNewsPhoto.graphql';
+import QUERY_ME from 'Graphql/query/me.graphql';
+import QUERY_ALL_NEWS from 'Graphql/query/getAllNews.graphql';
+import MUTATION_INSERT_NEWS from 'Graphql/mutation/insertNews.graphql';
+import MUTATION_INSERT_NEWS_PHOTO from 'Graphql/mutation/insertNewsPhoto.graphql';
 import styles from './styles';
 
 const IMAGE_PICKER_CONFIG = {

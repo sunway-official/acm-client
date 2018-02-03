@@ -23,7 +23,7 @@
   },
   "settings": {
     "import/resolver": {
-      "babel-root-import": {}
+      "babel-module": {}
     }
   }
 }

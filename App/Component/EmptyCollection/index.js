@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
 import Text from '../Text';
-import { Images } from '~/Theme';
+import { Images } from 'Theme';
 import styles from './styles';
 
 const EMPTY_TEXT_DEFAULT = 'Your collection is empty';

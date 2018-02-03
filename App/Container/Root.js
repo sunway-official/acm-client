@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavigationActions } from '~/Redux/Navigation';
-import AppNavigation from '~/Navigation';
-import { getInitialRoute } from '~/Navigation/resolver';
+import { NavigationActions } from 'Reduck/Navigation';
+import AppNavigation from 'Navigation';
+import { getInitialRoute } from 'Navigation/resolver';
 import { gql, compose, withApollo } from 'react-apollo';
-import { LocalNotification } from '~/Notification';
-import QUERY_ME from '~/Graphql/query/me.graphql';
+import { LocalNotification } from 'Notification';
+import QUERY_ME from 'Graphql/query/me.graphql';
 import styles from './styles';
 
 class Root extends Component {

@@ -4,11 +4,11 @@ import SideMenu from 'react-native-side-menu';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { View as AninatableView } from 'react-native-animatable';
-import { KEY, setDrawerState } from '~/Redux/Drawer';
+import { KEY, setDrawerState } from 'Reduck/Drawer';
 import Menu from './Menu';
-import { Metrics } from '~/Theme';
+import { Metrics } from 'Theme';
 import styles from './styles';
-import { IS_DEBUGGING } from '~/env';
+import { IS_DEBUGGING } from 'env';
 
 const drawerOffset = 0.75;
 const BACKDROP_ANIMATION_NAME = 'fadeIn';

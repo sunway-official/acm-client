@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
-import { Text, UserAvatar } from '~/Component';
-import { Colors, Metrics } from '~/Theme';
+import { Text, UserAvatar } from 'Component';
+import { Colors, Metrics } from 'Theme';
 
 import styles from './styles';
 
-import MUTATION_INSERT_NEWS_COMMENT from '~/Graphql/mutation/insertNewsComment.graphql';
-import QUERY_ME from '~/Graphql/query/me.graphql';
+import MUTATION_INSERT_NEWS_COMMENT from 'Graphql/mutation/insertNewsComment.graphql';
+import QUERY_ME from 'Graphql/query/me.graphql';
 
 const FORM_HEIGHT = 40;
 const DEFAULT_INPUT_PADDING = 10;

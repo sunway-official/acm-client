@@ -1,5 +1,5 @@
-import { required } from '~/Lib/validate';
-import { DatePicker } from '~/Component';
+import { required } from 'Lib/validate';
+import { DatePicker } from 'Component';
 import GenderForm from './Gender';
 
 const inputForms = {

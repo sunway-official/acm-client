@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ViewPropTypes,
 } from 'react-native';
-import { IS_ANDROID } from '~/env';
+import { IS_ANDROID } from 'env';
 
 const IS_RIPPLE_EFFECT_SUPPORTED = Platform.Version >= 21 && IS_ANDROID;
 

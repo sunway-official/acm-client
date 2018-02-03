@@ -8,7 +8,7 @@ import TouchableView from '../TouchableView';
 import Text from '../Text';
 import Modal from '../Modal';
 
-import { Colors } from '~/Theme/';
+import { Colors } from 'Theme/';
 
 const dummyContents = [
   'Leadership',

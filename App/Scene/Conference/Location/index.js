@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { MapView } from 'expo';
 import { graphql, gql } from 'react-apollo';
-import { LoadingIndicator } from '~/Component';
-import { Colors } from '~/Theme';
-import getCurrentConferenceQuery from '~/Graphql/query/getCurrentConference.graphql';
+import { LoadingIndicator } from 'Component';
+import { Colors } from 'Theme';
+import getCurrentConferenceQuery from 'Graphql/query/getCurrentConference.graphql';
 import styles from './styles';
 
 class ConferenceLocation extends PureComponent {

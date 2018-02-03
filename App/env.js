@@ -1,4 +1,4 @@
-import { transformServerEndPoint } from '~/Transformer';
+import { transformServerEndPoint } from 'Transformer';
 import { Constants } from 'expo';
 import { Platform } from 'react-native';
 import env from '../env';
