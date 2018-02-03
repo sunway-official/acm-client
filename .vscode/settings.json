@@ -12,12 +12,5 @@
   "prettier.tabWidth": 2,
   "prettier.eslintIntegration": true,
   "editor.formatOnSave": true,
-  "eslint.autoFixOnSave": true,
-  "path-autocomplete.excludedItems": {
-    "**/{.git,.expo,.idea,node_modules}": { "when": "**" } // always ignore .git, .expo, .idea and node_modules folders
-  },
-  "path-autocomplete.pathMappings": {
-    "~": "${workspace}/App"
-  },
-  "path-autocomplete.enableFolderTrailingSlash": false
+  "eslint.autoFixOnSave": true
 }

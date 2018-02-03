@@ -6,8 +6,8 @@
     "slug": "acm-client",
     "privacy": "public",
     "orientation": "portrait",
-    "sdkVersion": "24.0.0",
-    "version": "0.3.9",
+    "sdkVersion": "25.0.0",
+    "version": "0.3.10",
     "icon": "./App/Images/logo/white-orange-rounded-1024.png",
     "ios": {
       "bundleIdentifier": "com.sunway.acmclient"
