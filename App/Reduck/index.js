@@ -1,11 +1,10 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-/*eslint-disable import/no-extraneous-dependencies */
-import { composeWithDevTools } from 'redux-devtools-extension';
-/*eslint-enable import/no-extraneous-dependencies */
+import { composeWithDevTools } from 'redux-devtools-extension'; // eslint-disable-line import/no-extraneous-dependencies
 import getReducers from './rootReducer';
+import { navigationMiddleware } from './Navigation';
 
-const middlewares = [thunk];
+const middlewares = [thunk, navigationMiddleware];
 const enhancer = composeWithDevTools({
   // Options: https://github.com/jhen0409/react-native-debugger#options
 })(applyMiddleware(...middlewares));

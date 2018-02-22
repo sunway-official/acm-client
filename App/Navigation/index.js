@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import { addNavigationHelpers } from 'react-navigation';
+import { addListener } from 'Reduck/Navigation';
 import { connect } from 'react-redux';
 import styles from './styles';
 import { AppNavigator, KEY } from 'Reduck/Navigation';
@@ -18,7 +19,11 @@ const AppNavigation = ({ navigation, dispatch }) => (
     <Drawer>
       <ToolbarWrapper>
         <AppNavigator
-          navigation={addNavigationHelpers({ dispatch, state: navigation })}
+          navigation={addNavigationHelpers({
+            dispatch,
+            state: navigation,
+            addListener,
+          })}
         />
       </ToolbarWrapper>
     </Drawer>
