@@ -19,7 +19,7 @@ export const IS_IOS = Platform.OS === 'ios';
  *
  */
 
-// Export all default enviroment
+// Export all default environment
 Object.keys(env).map(key => {
   // console.log(key);
   switch (key) {
