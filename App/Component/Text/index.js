@@ -48,7 +48,7 @@ class RobotoText extends PureComponent {
       fontFamily,
     };
     let styleProp = [];
-    if (typeof style === 'array') {
+    if (Array.isArray(style)) {
       styleProp = [...style];
     } else {
       styleProp = [style];
@@ -63,7 +63,7 @@ RobotoText.propTypes = {
   style: PropTypes.any,
 };
 
-// Loop throght TYPES to define its proptypes
+// Loop through TYPES to define its propTypes
 Object.keys(TYPES).map(key => {
   RobotoText.propTypes[TYPES[key]] = PropTypes.bool;
 });

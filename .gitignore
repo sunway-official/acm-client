@@ -11,3 +11,7 @@ __tests__/
 
 # Project files
 /env.js
+
+# Graphql config
+
+/graphql.config.json

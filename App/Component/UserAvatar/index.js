@@ -48,7 +48,7 @@ UserAvatar.propTypes = {
   overlayContainerStyle: ViewPropTypes.style,
 };
 
-// Loop throght TYPES to define its proptypes
+// Loop through TYPES to define its propTypes
 Object.keys(TYPES).map(key => {
   UserAvatar.propTypes[TYPES[key]] = PropTypes.bool;
 });
