@@ -50,7 +50,7 @@ class ConferenceList extends Component {
   componentWillUpdate(nextProps, nextState) {
     // Resolve an issue when on the first login
     // when there is no current conference & queryMe still in pending
-    if (nextProps.queryMe.me) {
+    if (this.props.queryMe.me && nextProps.queryMe.me) {
       // If the query me has changed
       if (nextProps.queryMe.me.id !== this.props.queryMe.me.id) {
         this._renderSceneHeader();
