@@ -3,13 +3,14 @@ import { Metrics } from 'Theme';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginBottom: Metrics.baseMargin,
   },
-  centerText: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: Metrics.doubleBaseMargin,
+  header: {
+    flexDirection: 'row',
+    paddingHorizontal: Metrics.doubleBaseMargin,
+    paddingVertical: Metrics.baseMargin,
+  },
+  textMarkAll: {
+    marginLeft: Metrics.baseMargin,
   },
 });
