@@ -3,6 +3,12 @@ query getCurrentConference {
     id
     title
     description
+    topics{
+      id
+      name
+      description
+      color_code
+    }
     start_date
     end_date
     address {

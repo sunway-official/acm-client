@@ -13,6 +13,7 @@ import Detail from './List';
 import transformer from 'Transformer/schedules/agenda';
 import { transformServerDate } from 'Transformer';
 import AGENDA_QUERY from 'Graphql/query/getAgenda.graphql';
+import CURRENT_CONFERENCE_QUERY from 'Graphql/query/getCurrentConference.graphql';
 import {
   formatDateToNumber,
   compareWithCurrentTime,
@@ -47,29 +48,15 @@ const TABS_CONFIG = {
 };
 
 class Agenda extends Component {
-  static propTypes = {
-    showFilterModal: PropTypes.func,
-    hideFilterModal: PropTypes.func,
-    modal: PropTypes.object,
-    sceneIndex: PropTypes.number,
-    navigationIndex: PropTypes.number,
-    agenda: PropTypes.shape({
-      getAllSchedules: PropTypes.array,
-      loading: PropTypes.bool,
-      refetch: PropTypes.func,
-    }),
-  };
-
   constructor(props) {
     super(props);
 
     this.state = {
       lastNavigationIndex: 0,
+      topicIDs: [],
     };
-  }
 
-  componentWillMount() {
-    this.props.agenda.refetch();
+    this._handleFilter = this._handleFilter.bind(this);
   }
 
   componentWillReceiveProps({ navigationIndex }) {
@@ -87,33 +74,50 @@ class Agenda extends Component {
     if (nextProps.sceneIndex !== this.props.sceneIndex) {
       return false;
     }
+    if (nextProps.selectedTopics !== this.props.selectedTopics) {
+      return false;
+    }
     return true;
   }
 
   componentWillUpdate(nextProps, nextState) {
-    const { sceneIndex, agenda: { refetch } } = this.props;
+    const { sceneIndex } = this.props;
     if (
       nextState.lastNavigationIndex !== sceneIndex &&
       nextProps.navigationIndex === sceneIndex
     ) {
-      refetch();
       this.setState({ lastNavigationIndex: nextProps.navigationIndex });
     }
   }
 
-  _renderFilter = isOpen => (
-    <FilterModal
-      isVisible={isOpen}
-      onBackdropPress={() => this.props.hideFilterModal()}
-      onCancelPress={() => this.props.hideFilterModal()}
-    />
-  );
+  _handleFilter = async () => {
+    const { selectedTopics } = this.props;
+
+    this.props.agenda.refetch({
+      topics: selectedTopics.map(({ id }) => id),
+    });
+    this.props.hideFilterModal();
+  };
+
+  _renderFilter = isOpen => {
+    const { currentConference: { getCurrentConference, loading } } = this.props;
+
+    return (
+      <FilterModal
+        isVisible={isOpen}
+        contents={loading ? [] : getCurrentConference.topics}
+        onBackdropPress={() => this.props.hideFilterModal()}
+        onCancelPress={() => this.props.hideFilterModal()}
+        onApplyPress={() => this._handleFilter()}
+      />
+    );
+  };
 
   /**
    * Check current date is in between the first date of schedule and the last date of schedule or not
    */
   _checkExistedCurrentDateInPeriodTimeOfConference(schedules) {
-    // 2 case:
+    // 2 cases:
     // current date is before the first date of schedule (in the past)
     // current date is after the last date of schedule (in the future)
     if (
@@ -154,8 +158,8 @@ class Agenda extends Component {
     return negativeNumbers[0];
   }
 
-  _renderTabs(getAllSchedules) {
-    const schedules = transformer(getAllSchedules, 'start');
+  _renderTabs(getAgenda) {
+    const schedules = transformer(getAgenda, 'start');
     let tabs = {},
       initialDate = '';
 
@@ -186,6 +190,7 @@ class Agenda extends Component {
           activity.isBefore = true;
         });
       }
+
       tabs = {
         ...tabs,
         [tabName]: {
@@ -227,16 +232,16 @@ class Agenda extends Component {
   }
 
   render() {
-    const { agenda: { loading, getAllSchedules } } = this.props;
+    const { agenda: { loading, getAgenda } } = this.props;
     const isFilterOpen = this.props.modal.isOpen;
     let Tabs;
     if (loading) {
       Tabs = this._renderLoading();
     } else {
       Tabs =
-        getAllSchedules.length === 0
+        getAgenda.length === 0
           ? this._renderEmptySchedules()
-          : this._renderTabs(getAllSchedules);
+          : this._renderTabs(getAgenda);
     }
     return (
       <View style={styles.container}>
@@ -275,6 +280,25 @@ Agenda.drawer = {
   primary: true,
 };
 
+Agenda.propTypes = {
+  showFilterModal: PropTypes.func,
+  hideFilterModal: PropTypes.func,
+  modal: PropTypes.object,
+  sceneIndex: PropTypes.number,
+  navigationIndex: PropTypes.number,
+  agenda: PropTypes.shape({
+    getAgenda: PropTypes.array,
+    loading: PropTypes.bool,
+    refetch: PropTypes.func,
+  }),
+  currentConference: PropTypes.shape({
+    getCurrentConference: PropTypes.object,
+    loading: PropTypes.bool,
+    refetch: PropTypes.func,
+  }),
+  selectedTopics: PropTypes.array,
+};
+
 const mapStateToProps = state => {
   let sceneIndex = 0;
   state[NAVIGATION_KEY].routes.map(({ routeName }, index) => {
@@ -286,6 +310,7 @@ const mapStateToProps = state => {
     modal: state[KEY],
     sceneIndex,
     navigationIndex: state[NAVIGATION_KEY].index,
+    selectedTopics: state.filter.selectedTopics,
   };
 };
 
@@ -297,6 +322,15 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   graphql(gql(AGENDA_QUERY), {
     name: 'agenda',
+    options: {
+      variables: {
+        topics: [],
+      },
+      notifyOnNetworkStatusChange: true,
+    },
+  }),
+  graphql(gql(CURRENT_CONFERENCE_QUERY), {
+    name: 'currentConference',
     options: {
       notifyOnNetworkStatusChange: true,
     },
