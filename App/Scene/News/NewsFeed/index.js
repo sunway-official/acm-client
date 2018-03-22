@@ -164,15 +164,6 @@ NewsFeedScene.header = {
   theme: 'dark',
   backgroundColor: Colors.primary,
   statusBarBackgroundColor: Colors.primary,
-  actions: [
-    {
-      icon: {
-        name: 'bell',
-        type: 'evilicon',
-      },
-      onPress: dispatch => dispatch(navigate({ routeName: 'notification' })),
-    },
-  ],
 };
 
 NewsFeedScene.footer = {

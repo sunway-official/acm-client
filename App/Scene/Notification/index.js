@@ -74,16 +74,16 @@ class NotificationScene extends Component {
 }
 
 NotificationScene.header = {
-  leftIcon: 'back',
+  leftIcon: 'drawer',
   theme: 'dark',
-  backgroundColor: Colors.purple,
-  statusBarBackgroundColor: Colors.purple,
+  backgroundColor: Colors.primary,
+  statusBarBackgroundColor: Colors.primary,
 };
 
-// NotificationScene.footer = {
-//   activeColor: Colors.purple,
-//   show: true,
-// };
+NotificationScene.footer = {
+  activeColor: Colors.primary,
+  show: true,
+};
 
 NotificationScene.propTypes = {
   home: PropTypes.func,

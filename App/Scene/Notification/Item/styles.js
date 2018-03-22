@@ -8,6 +8,8 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: Colors.white,
     padding: Metrics.doubleBaseMargin,
+    borderBottomColor: Colors.lightGrey,
+    borderBottomWidth: 1,
   },
   leftNotificationListContainer: {
     flexDirection: 'row',
@@ -25,10 +27,6 @@ export default StyleSheet.create({
   },
   heading: {
     fontWeight: 'bold',
-  },
-  username: {},
-  content: {
-    // paddingRight: Metrics.baseMargin,
   },
   createdAt: {
     fontSize: Fonts.size.small,

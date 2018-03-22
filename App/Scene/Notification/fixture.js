@@ -8,8 +8,7 @@ export const DEFAULT_USER_AVATAR =
 export const NOTIFICATION = [
   {
     username: 'Bill Gates',
-    avatar:
-      'https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png',
+    avatar: 'https://avatars2.githubusercontent.com/u/11881459?s=88&v=4',
     title: 'Conferences A',
     content:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took ',

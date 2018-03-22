@@ -27,9 +27,10 @@ class NotificationItem extends Component {
         <View style={[styles.notificationListContainer, markAsRead]}>
           <View style={styles.leftNotificationListContainer}>
             <UserAvatar
-              small
-              avatar={undefined}
+              medium
+              avatar={avatar}
               // gender={gender}
+              rounded={false}
               containerStyle={styles.avatar}
             />
           </View>
