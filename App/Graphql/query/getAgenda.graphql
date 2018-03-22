@@ -1,5 +1,5 @@
-{
-  getAllSchedules {
+query getAgenda($topics: [ID!]!) {
+  getAgenda(topics: $topics) {
     id
     start
     end
@@ -7,6 +7,10 @@
     activity_title
     activity_description
     room_name
+    topics {
+      topic_id
+      topic_name
+    }
     personalSchedule {
       id
     }

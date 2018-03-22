@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: Metrics.baseMargin,
+    paddingVertical: Metrics.baseMargin + Metrics.smallMargin,
     borderColor: Colors.white,
   },
   actionText: {
