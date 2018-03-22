@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { AsyncStorage, Keyboard } from 'react-native';
+import { Notifications } from 'expo';
 import { NavigationActions } from 'Reduck/Navigation';
 import LoginForm from '../Login/Form';
 import { getInitialRoute } from 'Navigation/resolver';
 import { compose, gql, graphql, withApollo } from 'react-apollo';
-import mutation from 'Graphql/mutation/login.graphql';
+import MUTATION_LOGIN from 'Graphql/mutation/login.graphql';
 import QUERY_ME from 'Graphql/query/me.graphql';
+import MUTATION_UPDATE_NOTIFICATION_TOKEN from 'Graphql/mutation/updateNotificationToken.graphql';
 
 class LoginScene extends Component {
   static propTypes = {
@@ -56,9 +58,16 @@ class LoginScene extends Component {
         ['token', token],
         ['refreshToken', refreshToken],
       ]);
-      await this.props.client.resetStore();
+      this.props.client.resetStore();
+
       // Refetch QUERY_ME for checking current conference
       await this.props.client.query({ query: gql(QUERY_ME) });
+      // Update user push notification token
+      const key = await Notifications.getExpoPushTokenAsync();
+      await this.props.client.mutate({
+        mutation: gql(MUTATION_UPDATE_NOTIFICATION_TOKEN),
+        variables: { key },
+      });
       // Navigate to initial route if there is no problems
       this.props.navigateToInitialScene();
     } catch ({ graphQLErrors }) {
@@ -107,6 +116,6 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   connect(undefined, mapDispatchToProps),
-  graphql(gql(mutation)),
+  graphql(gql(MUTATION_LOGIN)),
   withApollo,
 )(LoginScene);

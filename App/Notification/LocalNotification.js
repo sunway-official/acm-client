@@ -1,11 +1,11 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Permissions } from 'expo';
+import { Permissions, Notifications } from 'expo';
 import { withApollo, gql } from 'react-apollo';
-import setMyAgendaScheduleAsync from './handler/myAgenda';
-
-import myAgendaQuery from 'Graphql/query/getMyAgenda.graphql';
 import myAgendaTransformer from 'Transformer/schedules/myAgenda';
+import setMyAgendaScheduleAsync from './handler/myAgenda';
+import QUERY_MY_AGENDA from 'Graphql/query/getMyAgenda.graphql';
+import MUTATION_UPDATE_NOTIFICATION_TOKEN from 'Graphql/mutation/updateNotificationToken.graphql';
 
 /**
  * Must use React Component for using Apollo Client
@@ -21,7 +21,7 @@ class LocalNotification extends Component {
        */
       // Create new observable query for my agenda
       const observableQuery = await client.watchQuery({
-        query: gql(myAgendaQuery),
+        query: gql(QUERY_MY_AGENDA),
         notifyOnNetworkStatusChange: true,
       });
       // Listen to whenever the query has changed
@@ -41,7 +41,16 @@ class LocalNotification extends Component {
       });
 
       /**
-       * TO DO: Handle other local notifications
+       * Update user push notification token
+       */
+      const key = await Notifications.getExpoPushTokenAsync();
+      // eslint-disable-next-line
+      const response = await client.mutate({
+        mutation: gql(MUTATION_UPDATE_NOTIFICATION_TOKEN),
+        variables: { key },
+      });
+      /**
+       * TODO: Handle other local notifications
        */
     }
   }

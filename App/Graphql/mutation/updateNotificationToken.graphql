@@ -1,0 +1,6 @@
+mutation ($key: String!){
+  addUserNotificationKey(key: $key) {
+    id
+    email
+  }
+}
