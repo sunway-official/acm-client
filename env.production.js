@@ -1,5 +1,5 @@
 export default {
-  SERVER_ENDPOINT: 'https://acm-server-187014.appspot.com/graphql',
+  SERVER_ENDPOINT: 'https://acm-server.herokuapp.com/graphql',
   SERVER_SUBSCRIPTION_ENDPOINT: 'ws://35.200.147.201:65080/subscriptions',
   DATE_FORMAT: 'DD/MM/YYYY',
 
