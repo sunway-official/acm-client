@@ -7,6 +7,7 @@ import { View } from 'react-native';
 import { Colors } from 'Theme';
 import { News, LoadingIndicator, EmptyCollection } from 'Component';
 import { KEY as NAVIGATION_KEY } from 'Reduck/Navigation';
+import { navigate } from 'Reduck/Navigation/action';
 import FakePosting from './FakePosting';
 import QUERY_ALL_NEWS from 'Graphql/query/getAllNews.graphql';
 import QUERY_ME from 'Graphql/query/me.graphql';
@@ -163,6 +164,15 @@ NewsFeedScene.header = {
   theme: 'dark',
   backgroundColor: Colors.primary,
   statusBarBackgroundColor: Colors.primary,
+  actions: [
+    {
+      icon: {
+        name: 'bell',
+        type: 'evilicon',
+      },
+      onPress: dispatch => dispatch(navigate({ routeName: 'notification' })),
+    },
+  ],
 };
 
 NewsFeedScene.footer = {

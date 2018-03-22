@@ -74,7 +74,7 @@ class NotificationScene extends Component {
 }
 
 NotificationScene.header = {
-  leftIcon: 'drawer',
+  leftIcon: 'back',
   theme: 'dark',
   backgroundColor: Colors.purple,
   statusBarBackgroundColor: Colors.purple,
