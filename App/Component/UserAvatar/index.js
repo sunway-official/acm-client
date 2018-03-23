@@ -17,7 +17,7 @@ const GENDER_MALE = 'male';
 const GENDER_FEMALE = 'female';
 const GENDER_UNKNOWN = 'unknown';
 
-const UserAvatar = ({ avatar, gender, ...others }) => {
+const UserAvatar = ({ avatar, gender, rounded, ...others }) => {
   let sourceAvatar;
   let defaultAvatar = Images.avatar['male02'];
   if (avatar) {
@@ -38,14 +38,19 @@ const UserAvatar = ({ avatar, gender, ...others }) => {
     sourceAvatar = defaultAvatar;
   }
 
-  return <Avatar {...others} rounded source={sourceAvatar} />;
+  return <Avatar rounded={rounded} {...others} source={sourceAvatar} />;
 };
 
 UserAvatar.propTypes = {
   avatar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   gender: PropTypes.oneOf([GENDER_MALE, GENDER_FEMALE, GENDER_UNKNOWN]),
+  rounded: PropTypes.bool,
   containerStyle: ViewPropTypes.style,
   overlayContainerStyle: ViewPropTypes.style,
+};
+
+UserAvatar.defaultProps = {
+  rounded: true,
 };
 
 // Loop through TYPES to define its propTypes
