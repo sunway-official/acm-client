@@ -15,6 +15,7 @@ import {
   ConferenceList,
   ConferenceDetail,
 } from 'Scene/Conference';
+import PapersTracker from 'Scene/PapersTracker';
 
 export const ROUTES = {
   splash: {
@@ -154,7 +155,6 @@ export const ROUTES = {
     activeIcon: {
       name: 'notifications',
     },
-    initial: true,
   },
   conferenceLocation: {
     name: 'Location',
@@ -187,6 +187,16 @@ export const ROUTES = {
       name: 'settings',
       type: 'material-community',
     },
+  },
+  papersTracker: {
+    name: 'Papers Tracker',
+    path: '/papersTracker',
+    screen: PapersTracker,
+    icon: {
+      name: 'ios-paper',
+      type: 'ionicon',
+    },
+    initial: true,
   },
 };
 
