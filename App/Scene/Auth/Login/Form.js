@@ -68,10 +68,12 @@ const _renderButton = args => {
   );
 };
 
-const _renderFooter = onNavigate => (
+const _renderFooter = (onNavigateToForgotPassword, onNavigateToRegister) => (
   <View>
-    <TouchableView onPress={onNavigate}>
+    <TouchableView onPress={onNavigateToForgotPassword}>
       <Text style={styles.footerText}>Forgot your password.</Text>
+    </TouchableView>
+    <TouchableView onPress={onNavigateToRegister}>
       <Text medium style={styles.signUpText}>
         {"Don't have an account. Register"}
       </Text>
@@ -87,7 +89,8 @@ const _renderError = error => (
 
 const LoginForm = ({
   onLogin,
-  onNavigate,
+  onNavigateToForgotPassword,
+  onNavigateToRegister,
   handleSubmit,
   loading,
   loginError,
@@ -98,7 +101,7 @@ const LoginForm = ({
       {_renderForm()}
       {_renderError(loginError)}
       {_renderButton({ handleSubmit, onLogin, loading })}
-      {_renderFooter(onNavigate)}
+      {_renderFooter(onNavigateToForgotPassword, onNavigateToRegister)}
     </KeyboardAvoidingView>
   );
 };
@@ -109,7 +112,8 @@ LoginForm.defaultProps = {
 
 LoginForm.propTypes = {
   onLogin: PropTypes.func,
-  onNavigate: PropTypes.func,
+  onNavigateToForgotPassword: PropTypes.func,
+  onNavigateToRegister: PropTypes.func,
   handleSubmit: PropTypes.func,
   reset: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,

@@ -14,6 +14,7 @@ import MUTATION_UPDATE_NOTIFICATION_TOKEN from 'Graphql/mutation/updateNotificat
 class LoginScene extends Component {
   static propTypes = {
     navigateToForgotPassword: PropTypes.func,
+    navigateToRegister: PropTypes.func,
     mutate: PropTypes.func,
     navigateToInitialScene: PropTypes.func,
     navigateToConferencesList: PropTypes.func,
@@ -93,13 +94,14 @@ class LoginScene extends Component {
   }
 
   render() {
-    const { navigateToForgotPassword } = this.props;
+    const { navigateToForgotPassword, navigateToRegister } = this.props;
     return (
       <LoginForm
         loading={this.state.loading}
         loginError={this.state.error}
         onLogin={this._submit}
-        onNavigate={navigateToForgotPassword}
+        onNavigateToForgotPassword={navigateToForgotPassword}
+        onNavigateToRegister={navigateToRegister}
       />
     );
   }
@@ -112,6 +114,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
   navigateToConferencesList: () =>
     dispatch(NavigationActions.reset({ routeName: 'conferenceList' })),
+  navigateToRegister: () =>
+    dispatch(NavigationActions.navigate({ routeName: 'register' })),
 });
 
 export default compose(

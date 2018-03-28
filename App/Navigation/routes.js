@@ -1,6 +1,7 @@
 import Home from 'Scene/Home';
 import Login from 'Scene/Auth/Login';
 import ForgotPassword from 'Scene/Auth/ForgotPassword/';
+import Register from 'Scene/Auth/Register';
 import { NewsFeed, NewsPosting, NewsDetail } from 'Scene/News';
 import Notification from 'Scene/Notification';
 import People from 'Scene/People';
@@ -51,6 +52,16 @@ export const ROUTES = {
       name: 'login-variant',
       type: 'material-community',
     },
+  },
+  register: {
+    name: 'Register',
+    path: '/register',
+    screen: Register,
+    icon: {
+      name: 'login-variant',
+      type: 'material-community',
+    },
+    initial: true,
   },
   newsFeed: {
     name: 'News Feed',
