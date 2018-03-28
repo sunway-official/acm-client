@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Fonts, Metrics } from 'Theme/';
+import { Colors, Fonts, Metrics } from 'Theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,10 +27,9 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     paddingVertical: Metrics.smallMargin,
+    paddingHorizontal: Metrics.baseMargin,
   },
   buttonContainer: {
-    // flexDirection: 'row',
-    // justifyContent: 'center',
     marginTop: Metrics.doubleBaseMargin,
   },
   submitButton: {
@@ -61,11 +60,18 @@ const styles = StyleSheet.create({
   errorText: {
     color: Colors.danger,
     fontSize: Fonts.size.small,
-    // borderTopWidth: 1,
-    // borderColor: Colors.danger,
     paddingTop: 5,
+    paddingBottom: 5,
+  },
+  registerFormContainer: {
+    margin: Metrics.baseMargin,
+    backgroundColor: Colors.white,
+    zIndex: 1,
+    position: 'relative',
+    paddingHorizontal: 0,
   },
   registerTitle: {
+    marginTop: Metrics.largeMargin,
     fontSize: Fonts.size.h6,
   },
   registerDescription: {
@@ -74,9 +80,16 @@ const styles = StyleSheet.create({
   },
   registerField: {
     marginBottom: Metrics.doubleBaseMargin,
+    paddingHorizontal: Metrics.doubleBaseMargin,
   },
-  errorText: {
-    color: Colors.red,
+  registerButtonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: Metrics.doubleBaseMargin,
+  },
+  registerSubmitButton: {
+    width: '70%',
   },
 });
 

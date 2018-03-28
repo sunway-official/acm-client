@@ -45,18 +45,19 @@ class RegisterScene extends Component {
   async _submit(values) {
     const { mutate, navigate } = this.props;
 
-    console.log('value: ', values);
-    if (Object.keys(values).length === 0 && values.constructor === Object) {
-      this.setState({
-        errorText: 'Please fill out your information.',
-      });
-    } else {
-      this.setState({ loading: true });
-    }
-
-    Keyboard.dismiss();
-
     try {
+      if (Object.keys(values).length === 0 && values.constructor === Object) {
+        this.setState({
+          errorText: 'Please fill out your information.',
+        });
+
+        return;
+      } else {
+        this.setState({ loading: true });
+      }
+
+      Keyboard.dismiss();
+
       await mutate({
         variables: { ...values },
       });

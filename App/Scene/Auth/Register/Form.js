@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, email } from 'Lib/validate';
 import { Icon } from 'react-native-elements';
-import { KeyboardAvoidingView, Image, View } from 'react-native';
+import { KeyboardAvoidingView, Image, View, ScrollView } from 'react-native';
 import { Colors } from 'Theme';
 import { Text, TouchableView, FormInput, AnimatableView } from 'Component';
 import styles from '../styles';
@@ -88,8 +88,8 @@ const _renderLoadingButton = () => (
 const _renderButton = args => {
   const { handleSubmit, loading, onRegister, onBack } = args;
   return (
-    <View>
-      <View style={styles.buttonContainer}>
+    <View style={[styles.buttonContainer, styles.registerButtonContainer]}>
+      <View style={styles.registerSubmitButton}>
         {loading ? (
           _renderLoadingButton()
         ) : (
@@ -119,14 +119,12 @@ const RegisterForm = ({
   onBack,
   errorText,
 }) => (
-  <KeyboardAvoidingView
-    onSubmit={handleSubmit}
-    style={styles.container}
-    behavior={'padding'}
-  >
-    {_renderHeader(errorText)}
-    {_renderForm()}
-    {_renderButton({ handleSubmit, loading, onRegister, onBack })}
+  <KeyboardAvoidingView onSubmit={handleSubmit} behavior={'padding'}>
+    <ScrollView style={[styles.registerFormContainer]}>
+      {_renderHeader(errorText)}
+      {_renderForm()}
+      {_renderButton({ handleSubmit, loading, onRegister, onBack })}
+    </ScrollView>
   </KeyboardAvoidingView>
 );
 
