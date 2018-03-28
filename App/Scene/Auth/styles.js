@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
     paddingVertical: Metrics.smallMargin,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    // flexDirection: 'row',
+    // justifyContent: 'center',
     marginTop: Metrics.doubleBaseMargin,
   },
   submitButton: {
@@ -64,6 +64,19 @@ const styles = StyleSheet.create({
     // borderTopWidth: 1,
     // borderColor: Colors.danger,
     paddingTop: 5,
+  },
+  registerTitle: {
+    fontSize: Fonts.size.h6,
+  },
+  registerDescription: {
+    fontSize: Fonts.size.medium,
+    marginBottom: Metrics.baseMargin,
+  },
+  registerField: {
+    marginBottom: Metrics.doubleBaseMargin,
+  },
+  errorText: {
+    color: Colors.red,
   },
 });
 
