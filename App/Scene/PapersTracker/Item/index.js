@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { connect } from 'react-redux';
-import { Text, LoadingIndicator } from 'Component';
+import { Text } from 'Component';
 import { transformText } from 'Transformer';
 import { Icon } from 'react-native-elements';
 import { Colors } from 'Theme';
