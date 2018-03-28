@@ -15,4 +15,8 @@ export default StyleSheet.create({
   textMarkAll: {
     marginLeft: Metrics.baseMargin,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
 });
