@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
-import {
-  Text,
-  EmptyCollection,
-  LoadingIndicator,
-  TouchableView,
-} from 'Component';
-import { Icon } from 'react-native-elements';
+import { View } from 'react-native';
+import { LoadingIndicator } from 'Component';
 import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
+import { compose, gql, graphql } from 'react-apollo';
 import { NavigationActions } from 'Reduck/Navigation';
-import { Colors } from 'Theme';
+import GET_CURRENT_PAPER from 'Graphql/query/getCurrentPaper.graphql';
 
-import { PAPER } from './fixture';
+// import { PAPER } from './fixture';
 import Item from './Item';
 import styles from './styles';
 
@@ -21,7 +16,7 @@ class PapersTrackerScene extends Component {
   _renderPapersTrackerList() {
     return (
       <FlatList
-        data={PAPER}
+        data={this.props.data.getCurrentPaper}
         renderItem={({ item, index }) => <Item key={index} {...item} />}
         keyExtractor={(item, index) => index}
       />
@@ -43,10 +38,9 @@ class PapersTrackerScene extends Component {
   }
 
   render() {
-    const { home } = this.props;
-    // if (networkStatus === NETWORK_STATUS_LOADING) {
-    //   return this._renderLoading();
-    // }
+    if (this.props.data.loading) {
+      return this._renderLoading();
+    }
     return this._renderPapersTrackerContainer();
   }
 }
@@ -61,11 +55,14 @@ PapersTrackerScene.header = {
 };
 
 PapersTrackerScene.propTypes = {
-  home: PropTypes.func,
+  data: PropTypes.object,
 };
 
 const mapDispatchToProps = dispatch => ({
   home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
 });
 
-export default connect(undefined, mapDispatchToProps)(PapersTrackerScene);
+export default compose(
+  graphql(gql(GET_CURRENT_PAPER)),
+  connect(undefined, mapDispatchToProps),
+)(PapersTrackerScene);

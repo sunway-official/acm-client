@@ -60,7 +60,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    // initial: true,
+    initial: true,
   },
   newsPosting: {
     name: 'New Post',
@@ -196,7 +196,6 @@ export const ROUTES = {
       name: 'ios-paper',
       type: 'ionicon',
     },
-    initial: true,
   },
 };
 

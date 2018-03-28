@@ -1,12 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Fonts, Colors } from 'Theme';
+import { Metrics } from 'Theme';
 
-const { baseMargin, doubleBaseMargin } = Metrics;
-const { white, grey } = Colors;
-const { size } = Fonts;
+const { doubleBaseMargin } = Metrics;
 
 export default StyleSheet.create({
   container: {
     margin: doubleBaseMargin,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });

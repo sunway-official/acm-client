@@ -1,0 +1,10 @@
+query getCurrentPaper {
+  getCurrentPaper {
+    id
+    title
+    abstract
+    topic_name
+    keywords
+    status
+  }
+}

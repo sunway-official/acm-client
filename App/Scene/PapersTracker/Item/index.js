@@ -1,22 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ImageBackground, View, TouchableOpacity } from 'react-native';
-// import { Icon } from 'react-native-elements';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
-// import { LinearGradient } from 'expo';
-import { Text, LoadingIndicator, UserAvatar } from 'Component';
-// import { randomBackground } from './fixtures';
-import { transformText, transformDate } from 'Transformer';
-import { gql, compose, graphql } from 'react-apollo';
-// import { getInitialRoute } from 'Navigation/resolver';
-// import { NavigationActions } from 'Reduck/Navigation';
-import { Colors, Metrics } from 'Theme';
+import { Text, LoadingIndicator } from 'Component';
+import { transformText } from 'Transformer';
 import { Icon } from 'react-native-elements';
+import { Colors } from 'Theme';
 
 import styles from './styles';
 
 const ICON_SIZE = 18;
 const CHAR_LENGTH = 140;
+
+const getStatusColor = status => {
+  switch (status) {
+    case 'Re-submitting':
+      return Colors.grey;
+    case 'Reviewed':
+      return Colors.lightIndigo;
+    case 'Reviewing':
+      return Colors.grey;
+    case 'Accepted':
+      return Colors.green;
+    case 'Rejected':
+      return Colors.red;
+    default:
+      break;
+  }
+};
 
 class PapersTrackerItem extends Component {
   render() {
@@ -68,7 +79,7 @@ class PapersTrackerItem extends Component {
             <View style={styles.moreDetailsWrapper}>
               <View style={styles.detailHeaderWrapper}>
                 <Text style={styles.statusTitle}>STATUS</Text>
-                <Text style={styles.statusText}>{status}</Text>
+                <Text style={{ color: getStatusColor(status) }}>{status}</Text>
               </View>
               <View style={styles.detailActionsWrapper}>
                 <Text style={styles.keywordsText}>{keywords}</Text>
@@ -90,12 +101,4 @@ PapersTrackerItem.propTypes = {
   status: PropTypes.string,
 };
 
-const mapDispatchToProps = dispatch => ({});
-
-export default compose(
-  // graphql(gql(QUERY_ME)),
-  // graphql(gql(SWITCH_CURRENT_CONFERENCE), {
-  //   name: 'switchConference',
-  // }),
-  connect(undefined, mapDispatchToProps),
-)(PapersTrackerItem);
+export default PapersTrackerItem;

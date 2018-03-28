@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { Metrics, Fonts, Colors } from 'Theme';
 
 const { baseMargin, doubleBaseMargin, buttonCornerRadius } = Metrics;
-const { white, grey, green, lightGrey, primary } = Colors;
+const { white, grey } = Colors;
 const { size } = Fonts;
 
 export default StyleSheet.create({
@@ -15,6 +15,7 @@ export default StyleSheet.create({
   papersTrackerWrapper: {
     flexDirection: 'row',
     paddingVertical: baseMargin * 1.25,
+    marginRight: baseMargin,
   },
   infoWrapper: {
     paddingLeft: doubleBaseMargin,
@@ -27,7 +28,7 @@ export default StyleSheet.create({
     flex: 1,
     paddingLeft: doubleBaseMargin,
     flexDirection: 'row',
-    // alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
   detailHeaderWrapper: {
@@ -35,22 +36,16 @@ export default StyleSheet.create({
   },
   detailActionsWrapper: {
     flexDirection: 'row',
-    // alignItems: 'center',
-    // backgroundColor: lightGrey,
     padding: baseMargin,
     borderRadius: buttonCornerRadius,
-    // minWidth: 30,
-    // justifyContent: 'space-around',
   },
   statusTitle: {
     color: grey,
     fontSize: size.small,
   },
-  statusText: {
-    color: primary,
-  },
   keywordsText: {
     fontSize: size.small,
     color: grey,
+    paddingLeft: doubleBaseMargin,
   },
 });
