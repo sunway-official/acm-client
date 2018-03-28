@@ -25,20 +25,24 @@ class Root extends Component {
   };
 
   async componentWillMount() {
-    const { client } = this.props;
-    try {
-      // Fetch QUERY_ME for checking login status & current conference
-      const { data: { me: { currentConference } } } = await client.query({
+    // Fetch QUERY_ME for checking login status & current conference
+    this.props.client
+      .watchQuery({
         query: gql(QUERY_ME),
+        notifyOnNetworkStatusChange: true,
+      })
+      .subscribe({
+        next: ({ data: { me: { currentConference } } }) => {
+          if (!currentConference) {
+            this.props.navigateToConferencesList();
+          } else {
+            this.props.navigateToInitialScene();
+          }
+        },
+        error: () => {
+          this.props.login();
+        },
       });
-      if (currentConference === null) {
-        this.props.navigateToConferencesList();
-      } else {
-        this.props.navigateToInitialScene();
-      }
-    } catch (error) {
-      this.props.login();
-    }
   }
 
   componentDidMount() {

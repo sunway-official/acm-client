@@ -16,8 +16,6 @@ class LoginScene extends Component {
     navigateToForgotPassword: PropTypes.func,
     navigateToRegister: PropTypes.func,
     mutate: PropTypes.func,
-    navigateToInitialScene: PropTypes.func,
-    navigateToConferencesList: PropTypes.func,
     client: PropTypes.any,
   };
 
@@ -63,16 +61,18 @@ class LoginScene extends Component {
 
       // Refetch QUERY_ME for checking current conference
       await this.props.client.query({ query: gql(QUERY_ME) });
+
       // Update user push notification token
       const key = await Notifications.getExpoPushTokenAsync();
       await this.props.client.mutate({
         mutation: gql(MUTATION_UPDATE_NOTIFICATION_TOKEN),
         variables: { key },
       });
-      // Navigate to initial route if there is no problems
-      this.props.navigateToInitialScene();
     } catch ({ graphQLErrors }) {
-      const error = graphQLErrors[0];
+      const error = graphQLErrors && graphQLErrors[0];
+      if (!error) {
+        return;
+      }
       if (error.message.includes('wrong-email-or-password')) {
         this.setState({
           error: 'Wrong email or password.',
@@ -83,8 +83,6 @@ class LoginScene extends Component {
           error: 'User is not exists',
           loading: false,
         });
-      } else if (error.message.includes('no-current-conference')) {
-        this.props.navigateToConferencesList();
       }
     }
   }
@@ -110,8 +108,6 @@ class LoginScene extends Component {
 const mapDispatchToProps = dispatch => ({
   navigateToForgotPassword: () =>
     dispatch(NavigationActions.navigate({ routeName: 'forgot' })),
-  navigateToInitialScene: () =>
-    dispatch(NavigationActions.reset({ routeName: getInitialRoute() })),
   navigateToConferencesList: () =>
     dispatch(NavigationActions.reset({ routeName: 'conferenceList' })),
   navigateToRegister: () =>

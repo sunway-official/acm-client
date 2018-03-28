@@ -9,7 +9,7 @@ export default StyleSheet.create({
   papersTrackerContainer: {
     flexDirection: 'column',
     paddingHorizontal: doubleBaseMargin,
-    marginVertical: baseMargin,
+    margin: baseMargin,
     backgroundColor: white,
   },
   papersTrackerWrapper: {

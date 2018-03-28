@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { LoadingIndicator } from 'Component';
+import { LoadingIndicator, EmptyCollection } from 'Component';
 import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
@@ -38,6 +38,9 @@ class PapersTrackerScene extends Component {
   }
 
   render() {
+    if (this.props.data.error) {
+      return <EmptyCollection emptyText="You don't have any papers." />;
+    }
     if (this.props.data.loading) {
       return this._renderLoading();
     }
