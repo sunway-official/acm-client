@@ -59,7 +59,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    // initial: true,
+    initial: true,
   },
   newsPosting: {
     name: 'New Post',
@@ -154,7 +154,6 @@ export const ROUTES = {
     activeIcon: {
       name: 'notifications',
     },
-    initial: true,
   },
   conferenceLocation: {
     name: 'Location',

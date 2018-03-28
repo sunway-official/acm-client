@@ -346,7 +346,14 @@ Scene.drawer = {
 };
 
 export default compose(
-  graphql(gql(AGENDA_QUERY)),
+  graphql(gql(AGENDA_QUERY), {
+    options: {
+      variables: {
+        topics: [],
+      },
+      notifyOnNetworkStatusChange: true,
+    },
+  }),
   graphql(gql(DELETE_PERSONAL_SCHEDULE_MUTATION), {
     name: 'deletePersonalScheduleMutation',
   }),
