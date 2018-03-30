@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
 import {
   Text,
   EmptyCollection,
@@ -10,14 +10,14 @@ import {
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
+import { compose, gql, graphql } from 'react-apollo';
 import { NavigationActions } from 'Reduck/Navigation';
 import { Colors } from 'Theme';
+import GET_NOTIFICATIONS from 'Graphql/query/getNotifications.graphql';
 
-import { NOTIFICATION } from './fixture';
+// import { NOTIFICATION } from './fixture';
 import Item from './Item';
 import styles from './styles';
-
-const text = ['Welcome to Notification!'];
 
 const closeIcon = {
   type: 'material-community',
@@ -32,7 +32,7 @@ class NotificationScene extends Component {
   _renderNotificationList() {
     return (
       <FlatList
-        data={NOTIFICATION}
+        data={this.props.data.getNotifications}
         renderItem={({ item, index }) => <Item key={index} {...item} />}
         keyExtractor={(item, index) => index}
       />
@@ -65,10 +65,12 @@ class NotificationScene extends Component {
   }
 
   render() {
-    const { home } = this.props;
-    // if (networkStatus === NETWORK_STATUS_LOADING) {
-    //   return this._renderLoading();
-    // }
+    if (this.props.data.loading) {
+      return this._renderLoading();
+    }
+    if (this.props.data.error) {
+      return <EmptyCollection emptyText="You don't have any notification." />;
+    }
     return this._renderNotificationContainer();
   }
 }
@@ -86,12 +88,14 @@ NotificationScene.footer = {
 };
 
 NotificationScene.propTypes = {
-  home: PropTypes.func,
-  networkStatus: PropTypes.number,
+  data: PropTypes.object,
 };
 
 const mapDispatchToProps = dispatch => ({
   home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
 });
 
-export default connect(undefined, mapDispatchToProps)(NotificationScene);
+export default compose(
+  graphql(gql(GET_NOTIFICATIONS)),
+  connect(undefined, mapDispatchToProps),
+)(NotificationScene);

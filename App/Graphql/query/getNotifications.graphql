@@ -1,0 +1,15 @@
+query getNotifications {
+  getNotifications {
+    id
+    sender {
+      firstname
+      lastname
+      avatar
+      gender
+    }
+    title
+    content
+    read
+    updated_at
+  }
+}
