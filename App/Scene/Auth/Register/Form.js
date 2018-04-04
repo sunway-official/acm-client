@@ -28,7 +28,6 @@ const _renderForm = () => (
       <Text>First name</Text>
       <Field
         name="firstname"
-        type="firstname"
         component={FormInput}
         validate={[required]}
         placeholder="Type your first name"
@@ -39,7 +38,6 @@ const _renderForm = () => (
       <Text>Last name</Text>
       <Field
         name="lastname"
-        type="lastname"
         component={FormInput}
         validate={[required]}
         placeholder="Type your last name"
@@ -47,10 +45,19 @@ const _renderForm = () => (
       />
     </View>
     <View style={styles.registerField}>
+      <Text>Username</Text>
+      <Field
+        name="username"
+        component={FormInput}
+        validate={[required]}
+        placeholder="Type your username"
+        underlineColorAndroid={'transparent'}
+      />
+    </View>
+    <View style={styles.registerField}>
       <Text>Email</Text>
       <Field
         name="email"
-        type="email"
         component={FormInput}
         validate={[required, email]}
         placeholder="Type your Email"
@@ -67,6 +74,27 @@ const _renderForm = () => (
         validate={[required]}
         placeholder="Type your password"
         secureTextEntry={true}
+        underlineColorAndroid={'transparent'}
+        returnKeyType={'done'}
+      />
+    </View>
+    <View style={styles.registerField}>
+      <Text>Organization</Text>
+      <Field
+        name="organization"
+        component={FormInput}
+        validate={[required]}
+        placeholder="Type your organization"
+        underlineColorAndroid={'transparent'}
+      />
+    </View>
+    <View style={styles.registerField}>
+      <Text>Biography</Text>
+      <Field
+        name="biography"
+        component={FormInput}
+        validate={[required]}
+        placeholder="Type something about yourself"
         underlineColorAndroid={'transparent'}
       />
     </View>
@@ -120,7 +148,12 @@ const RegisterForm = ({
   errorText,
 }) => (
   <KeyboardAvoidingView onSubmit={handleSubmit} behavior={'padding'}>
-    <ScrollView style={[styles.registerFormContainer]}>
+    <ScrollView
+      style={[styles.registerFormContainer]}
+      keyboardShouldPersistTaps="always"
+      // automaticallyAdjustContentInsets={false}
+      horizontal={false}
+    >
       {_renderHeader(errorText)}
       {_renderForm()}
       {_renderButton({ handleSubmit, loading, onRegister, onBack })}

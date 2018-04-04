@@ -25,10 +25,6 @@ const styles = StyleSheet.create({
     fontSize: Fonts.size.small,
     paddingBottom: Metrics.doubleBaseMargin,
   },
-  formContainer: {
-    paddingVertical: Metrics.smallMargin,
-    paddingHorizontal: Metrics.baseMargin,
-  },
   buttonContainer: {
     marginTop: Metrics.doubleBaseMargin,
   },
@@ -64,15 +60,14 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   registerFormContainer: {
-    margin: Metrics.baseMargin,
     backgroundColor: Colors.white,
     zIndex: 1,
     position: 'relative',
-    paddingHorizontal: 0,
   },
   registerTitle: {
     marginTop: Metrics.largeMargin,
     fontSize: Fonts.size.h6,
+    color: Colors.primary,
   },
   registerDescription: {
     fontSize: Fonts.size.medium,
