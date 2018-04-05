@@ -19,7 +19,7 @@ class NotificationItem extends Component {
       read,
     } = this.props;
 
-    let markAsRead = read ? { backgroundColor: Colors.lightGrey } : null;
+    let markAsRead = read ? null : { backgroundColor: Colors.lightGrey };
 
     return (
       <View>

@@ -7,6 +7,7 @@ import {
   LoadingIndicator,
   TouchableView,
 } from 'Component';
+import _ from 'lodash';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
@@ -28,19 +29,37 @@ class NotificationScene extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      refreshing: false,
+    };
+
     this._onRefresh = this._onRefresh.bind(this);
   }
 
-  _onRefresh() {
-    this.props.data.refetch();
+  async _onRefresh() {
+    this.setState({
+      refreshing: true,
+    });
+
+    await this.props.data.refetch();
+
+    this.setState({
+      refreshing: false,
+    });
   }
 
   _renderNotificationList() {
+    const data = _.orderBy(
+      this.props.data.getNotifications,
+      'updated_at',
+      'desc',
+    );
     return (
       <FlatList
-        data={this.props.data.getNotifications}
+        data={data}
         renderItem={({ item, index }) => <Item key={index} {...item} />}
         keyExtractor={(item, index) => index.toString()}
+        refreshing={this.state.refreshing}
         onRefresh={this._onRefresh}
       />
     );
@@ -72,7 +91,7 @@ class NotificationScene extends Component {
   }
 
   render() {
-    if (this.props.data.loading) {
+    if (!this.state.refreshing && this.props.data.loading) {
       return this._renderLoading();
     }
     if (this.props.data.error) {
