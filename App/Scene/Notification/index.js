@@ -40,7 +40,7 @@ class NotificationScene extends Component {
       <FlatList
         data={this.props.data.getNotifications}
         renderItem={({ item, index }) => <Item key={index} {...item} />}
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => index.toString()}
         onRefresh={this._onRefresh}
       />
     );

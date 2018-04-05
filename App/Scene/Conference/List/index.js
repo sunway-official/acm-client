@@ -118,7 +118,7 @@ class ConferenceList extends Component {
           <FlatList
             data={conferences}
             renderItem={({ item: { conference } }) => <Item {...conference} />}
-            keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
       </View>

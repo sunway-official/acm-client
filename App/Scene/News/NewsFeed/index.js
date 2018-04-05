@@ -121,7 +121,7 @@ class NewsFeedScene extends Component {
             gender={user.gender}
           />
         )}
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => index.toString()}
         onRefresh={this._onRefresh}
         onEndReachedThreshold={0.8}
         onEndReached={() => this._onEndReached(allNews)}

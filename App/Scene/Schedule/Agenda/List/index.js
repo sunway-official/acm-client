@@ -17,7 +17,7 @@ const ListView = ({ detail }) => {
       <View style={styles.verticalLine} />
       <FlatList
         data={detail}
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={_renderItem}
       />
     </View>

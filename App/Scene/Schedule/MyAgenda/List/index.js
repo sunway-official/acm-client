@@ -72,7 +72,7 @@ class MyAgendaList extends Component {
       <FlatList
         data={schedules}
         renderItem={({ item }) => <Item {...item} />}
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => index.toString()}
         onViewableItemsChanged={this._onViewableItemsChangedHandler}
       />
     );

@@ -18,7 +18,7 @@ class PapersTrackerScene extends Component {
       <FlatList
         data={this.props.data.getCurrentPaper}
         renderItem={({ item, index }) => <Item key={index} {...item} />}
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => index.toString()}
       />
     );
   }

@@ -42,7 +42,7 @@ class Activities extends Component {
             avatar={user.avatar}
           />
         )}
-        keyExtractor={(item, index) => index}
+        keyExtractor={(item, index) => index.toString()}
         onRefresh={this.onRefresh}
         refreshing={networkStatus === NETWORK_STATUS_REFETCHING}
       />
