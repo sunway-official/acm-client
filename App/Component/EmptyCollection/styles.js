@@ -23,5 +23,12 @@ export default StyleSheet.create({
   headerSubText: {
     fontSize: Fonts.size.h5,
   },
-  descriptionText: { fontSize: Fonts.medium, marginTop: 10 },
+  descriptionText: {
+    marginTop: 10,
+    fontSize: Fonts.medium,
+  },
+  reloadableText: {
+    marginTop: 10,
+    color: Colors.primary,
+  },
 });

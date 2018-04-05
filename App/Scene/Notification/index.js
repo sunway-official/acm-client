@@ -14,8 +14,6 @@ import { compose, gql, graphql } from 'react-apollo';
 import { NavigationActions } from 'Reduck/Navigation';
 import { Colors } from 'Theme';
 import GET_NOTIFICATIONS from 'Graphql/query/getNotifications.graphql';
-
-// import { NOTIFICATION } from './fixture';
 import Item from './Item';
 import styles from './styles';
 
@@ -26,15 +24,24 @@ const closeIcon = {
   size: 20,
 };
 
-// const NETWORK_STATUS_LOADING = 1;
-
 class NotificationScene extends Component {
+  constructor(props) {
+    super(props);
+
+    this._onRefresh = this._onRefresh.bind(this);
+  }
+
+  _onRefresh() {
+    this.props.data.refetch();
+  }
+
   _renderNotificationList() {
     return (
       <FlatList
         data={this.props.data.getNotifications}
         renderItem={({ item, index }) => <Item key={index} {...item} />}
         keyExtractor={(item, index) => index}
+        onRefresh={this._onRefresh}
       />
     );
   }
@@ -69,7 +76,13 @@ class NotificationScene extends Component {
       return this._renderLoading();
     }
     if (this.props.data.error) {
-      return <EmptyCollection emptyText="You don't have any notification." />;
+      return (
+        <EmptyCollection
+          emptyText="You don't have any notification."
+          reloadable
+          onReload={this._onRefresh}
+        />
+      );
     }
     return this._renderNotificationContainer();
   }
@@ -96,6 +109,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default compose(
-  graphql(gql(GET_NOTIFICATIONS)),
+  graphql(gql(GET_NOTIFICATIONS), {
+    options: {
+      notifyOnNetworkStatusChange: true,
+      fetchPolicy: 'network-only',
+    },
+  }),
   connect(undefined, mapDispatchToProps),
 )(NotificationScene);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, ViewPropTypes } from 'react-native';
+import { View, Image, TouchableOpacity, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
 import Text from '../Text';
 import { Images } from 'Theme';
@@ -35,6 +35,13 @@ const EmptyCollection = props => {
         >
           {_checkText(props.emptyText) ? EMPTY_TEXT_DEFAULT : props.emptyText}
         </Text>
+        {props.reloadable && (
+          <TouchableOpacity activeOpacity={0.3} onPress={props.onReload}>
+            <Text bold style={styles.reloadableText}>
+              Reload
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -46,6 +53,8 @@ EmptyCollection.propTypes = {
   headerSubTextStyle: ViewPropTypes.style,
   descriptionTextStyle: ViewPropTypes.style,
   emptyText: PropTypes.string,
+  reloadable: PropTypes.bool,
+  onReload: PropTypes.func,
 };
 
 export default EmptyCollection;
