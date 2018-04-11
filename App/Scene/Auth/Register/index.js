@@ -59,12 +59,13 @@ class RegisterScene extends Component {
       Keyboard.dismiss();
 
       await mutate({
-        variables: { ...values },
+        variables: values,
       });
 
       this.setState({ loading: false, errorText: '' });
       navigate('login');
     } catch (error) {
+      console.log(error);
       this.setState({
         errorText: 'This email is already existed.',
         loading: false,

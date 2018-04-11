@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, email } from 'Lib/validate';
 import { Icon } from 'react-native-elements';
-import { KeyboardAvoidingView, Image, View, ScrollView } from 'react-native';
+import { KeyboardAvoidingView, View, ScrollView } from 'react-native';
 import { Colors } from 'Theme';
 import { Text, TouchableView, FormInput, AnimatableView } from 'Component';
 import styles from '../styles';
@@ -45,16 +45,6 @@ const _renderForm = () => (
       />
     </View>
     <View style={styles.registerField}>
-      <Text>Username</Text>
-      <Field
-        name="username"
-        component={FormInput}
-        validate={[required]}
-        placeholder="Type your username"
-        underlineColorAndroid={'transparent'}
-      />
-    </View>
-    <View style={styles.registerField}>
       <Text>Email</Text>
       <Field
         name="email"
@@ -63,6 +53,16 @@ const _renderForm = () => (
         placeholder="Type your Email"
         underlineColorAndroid={'transparent'}
         keyboardType={'email-address'}
+      />
+    </View>
+    <View style={styles.registerField}>
+      <Text>Username</Text>
+      <Field
+        name="username"
+        component={FormInput}
+        validate={[required]}
+        placeholder="Type your username"
+        underlineColorAndroid={'transparent'}
       />
     </View>
     <View style={styles.registerField}>
@@ -91,7 +91,7 @@ const _renderForm = () => (
     <View style={styles.registerField}>
       <Text>Biography</Text>
       <Field
-        name="biography"
+        name="bio"
         component={FormInput}
         validate={[required]}
         placeholder="Type something about yourself"
