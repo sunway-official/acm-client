@@ -17,6 +17,7 @@ import {
   ConferenceDetail,
 } from 'Scene/Conference';
 import PapersTracker from 'Scene/PapersTracker';
+import Statistics from 'Scene/Statistics';
 
 export const ROUTES = {
   splash: {
@@ -71,7 +72,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    initial: true,
+    // initial: true,
   },
   newsPosting: {
     name: 'New Post',
@@ -207,6 +208,16 @@ export const ROUTES = {
       name: 'ios-paper',
       type: 'ionicon',
     },
+  },
+  statistics: {
+    name: 'Statistics',
+    path: '/statistics',
+    screen: Statistics,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
+    },
+    initial: true,
   },
 };
 
