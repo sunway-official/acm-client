@@ -15,3 +15,5 @@ __tests__/
 # Graphql config
 
 /graphql.config.json
+
+.node-version
