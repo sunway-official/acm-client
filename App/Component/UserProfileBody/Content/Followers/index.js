@@ -39,7 +39,7 @@ class Follower extends Component {
       <TouchableView
         key={index}
         style={styles.followerContainer}
-        onPress={() => navigate('people')}
+        onPress={() => navigate('people', { ...follower })}
       >
         <View style={styles.leftFollowerContainer}>
           <UserAvatar medium avatar={follower.avatar} />
@@ -77,7 +77,13 @@ class Follower extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  navigate: routeName => dispatch(NavigationActions.navigate({ routeName })),
+  navigate: (routeName, follower) =>
+    dispatch(
+      NavigationActions.navigate({
+        routeName,
+        params: { personInfo: follower },
+      }),
+    ),
 });
 
 export default compose(connect(undefined, mapDispatchToProps))(Follower);

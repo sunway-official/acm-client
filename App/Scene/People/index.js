@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Button } from 'react-native';
-import { Text } from 'Component';
+import { Text, UserProfileBody, UserProfileHeader } from 'Component';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'Reduck/Navigation';
 import styles from './styles';
 import { Colors } from 'Theme';
 
-const text = ['Welcome to People!', 'We are under developement.'];
+class PeopleScene extends Component {
+  static propTypes = {
+    personalInfo: PropTypes.object,
+  };
 
-const PeopleScene = ({ home }) => (
-  <View style={styles.container}>
-    <View style={styles.centerText}>
-      {text.map((text, index) => <Text key={index}>{text}</Text>)}
-    </View>
-    <Button color={Colors.green} title="Home" onPress={home} />
-  </View>
-);
+  render() {
+    const { personalInfo } = this.props;
+    return (
+      <View>
+        <UserProfileHeader user={personalInfo} />
+        <UserProfileBody user={personalInfo} />
+      </View>
+    );
+  }
+}
 
 PeopleScene.header = {
   leftIcon: 'drawer',
@@ -33,17 +38,10 @@ PeopleScene.header = {
   ],
 };
 
-// PeopleScene.footer = {
-//   show: true,
-//   activeColor: Colors.green,
-// };
-
 PeopleScene.propTypes = {
   home: PropTypes.func,
 };
 
-const mapDispatchToProps = dispatch => ({
-  home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
-});
+// const mapDispatchToProps = dispatch => ({});
 
-export default connect(undefined, mapDispatchToProps)(PeopleScene);
+export default connect(undefined, undefined)(PeopleScene);

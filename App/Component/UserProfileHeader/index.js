@@ -5,7 +5,7 @@ import { Text, UserAvatar } from 'Component';
 import { Images } from 'Theme';
 import styles from './styles';
 
-class Header extends Component {
+class UserProfileHeader extends Component {
   static propTypes = {
     user: PropTypes.object,
   };
@@ -80,4 +80,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default UserProfileHeader;

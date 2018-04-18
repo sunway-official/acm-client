@@ -4,7 +4,7 @@ import { graphql, gql, compose } from 'react-apollo';
 import { ScrollView, View } from 'react-native';
 import { ImagePicker } from 'expo';
 import { connect } from 'react-redux';
-import { LoadingIndicator } from 'Component';
+import { LoadingIndicator, UserProfileHeader } from 'Component';
 import { Colors } from 'Theme';
 import { S3 } from 'Provider';
 import {
@@ -179,7 +179,7 @@ class ProfileScene extends Component {
         }}
         overScrollMode={'never'}
       >
-        <ProfileHeader avatar={DEFAULT_USER_AVATAR} user={me} />
+        <UserProfileHeader user={me} />
         <ProfileBody user={me} />
         {this._renderLoading(this.state.loading)}
       </ScrollView>

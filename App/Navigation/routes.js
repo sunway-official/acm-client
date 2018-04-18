@@ -61,7 +61,6 @@ export const ROUTES = {
       name: 'login-variant',
       type: 'material-community',
     },
-    initial: true,
   },
   newsFeed: {
     name: 'News Feed',
@@ -71,7 +70,6 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    initial: true,
   },
   newsPosting: {
     name: 'New Post',
@@ -137,6 +135,7 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
+    initial: true,
   },
   profileEditing: {
     name: 'Edit Profile',

@@ -1,46 +1,35 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose } from 'react-apollo';
-import { NavigationActions } from 'Reduck/Navigation';
+// import PropTypes from 'prop-types';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Colors, Metrics } from 'Theme';
-import { Text, UserAvatar, TouchableView } from 'Component';
-import { FOLLOWERS } from 'Scene/Profile/fixture';
+import { Text, UserAvatar } from 'Component';
+import { FOLLOWING } from 'Scene/Profile/fixture';
 import styles from './styles';
 
-class Follower extends Component {
-  static propTypes = {
-    navigate: PropTypes.func,
-  };
+class Following extends Component {
+  static propTypes = {};
 
   constructor(props) {
     super(props);
     this.state = {
-      followers: FOLLOWERS,
+      followers: FOLLOWING,
     };
     this._renderFollower = this._renderFollower.bind(this);
     this._onFollowPress = this._onFollowPress.bind(this);
   }
 
   _onFollowPress(follower, index) {
-    let followers = FOLLOWERS;
-    followers[index].followByMe = !followers[index].followByMe;
+    let followers = FOLLOWING;
+    followers[index].followByMe = followers[index].followByMe ? false : true;
     this.setState({
       followers,
     });
   }
 
   _renderFollower(follower, index) {
-    const { navigate } = this.props;
-
     return (
-      <TouchableView
-        key={index}
-        style={styles.followerContainer}
-        onPress={() => navigate('people')}
-      >
+      <View key={index} style={styles.followerContainer}>
         <View style={styles.leftFollowerContainer}>
           <UserAvatar medium avatar={follower.avatar} />
           <View marginHorizontal={Metrics.baseMargin}>
@@ -61,14 +50,14 @@ class Follower extends Component {
             size={18}
           />
         </TouchableOpacity>
-      </TouchableView>
+      </View>
     );
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {this.state.followers.map((follower, index) =>
+        {FOLLOWING.map((follower, index) =>
           this._renderFollower(follower, index),
         )}
       </View>
@@ -76,8 +65,4 @@ class Follower extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  navigate: routeName => dispatch(NavigationActions.navigate({ routeName })),
-});
-
-export default compose(connect(undefined, mapDispatchToProps))(Follower);
+export default Following;
