@@ -11,8 +11,8 @@ import { compose } from 'react-apollo';
 import styles from './styles';
 import { Metrics, Colors } from 'Theme';
 import Bar from './Bar';
-import Pie from './Pie';
 import { Icon } from 'react-native-elements';
+import AttendeesStatisticScene from './Attendees';
 
 const categories = ['Attendees', 'Speakers', 'Topics', 'Papers', 'Newfeed'];
 
@@ -40,56 +40,64 @@ class StatisticsScene extends Component {
     return (
       <View
         style={{
-          // backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
           paddingTop: Metrics.doubleBaseMargin,
         }}
       >
-        <Text style={styles.text}>Select statistic you want to show</Text>
-        {/*<Bar />*/}
-        {/*<Pie />*/}
-        <View
-          style={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-            paddingTop: Metrics.doubleBaseMargin,
-          }}
-        >
-          {categories.map((item, index) => (
-            <View
-              key={index}
-              style={{ width: '30%', padding: Metrics.baseMargin }}
-            >
-              <TouchableOpacity
-                style={{
-                  borderRadius: 10,
-                  padding: Metrics.baseMargin,
-                  backgroundColor: Colors.white,
-                }}
-                // onPress={onPress}
-                // activeOpacity={ACTIVE_TOUCHABLE_OPACITY}
+        <ScrollView>
+          {/*<Text style={styles.text}>Select statistic you want to show</Text>*/}
+          {/*<Bar />*/}
+          <View
+            style={{
+              padding: Metrics.doubleBaseMargin,
+            }}
+          >
+            <AttendeesStatisticScene />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+              paddingTop: Metrics.doubleBaseMargin,
+            }}
+          >
+            {categories.map((item, index) => (
+              <View
+                key={index}
+                style={{ width: '30%', padding: Metrics.baseMargin }}
               >
-                <AnimatableView ref={ref => (icon = ref)}>
-                  <Icon
-                    color={Colors.primary}
-                    size={Metrics.icons.small}
-                    name="people"
-                    type="material-icons"
-                  />
-                </AnimatableView>
-              </TouchableOpacity>
-              <Text
-                style={{
-                  marginTop: Metrics.baseMargin,
-                  textAlign: 'center',
-                }}
-              >
-                {item}
-              </Text>
-            </View>
-          ))}
-        </View>
+                <TouchableOpacity
+                  style={{
+                    borderRadius: 10,
+                    padding: Metrics.baseMargin,
+                    backgroundColor: Colors.white,
+                  }}
+                  // onPress={onPress}
+                  // activeOpacity={ACTIVE_TOUCHABLE_OPACITY}
+                >
+                  <AnimatableView ref={ref => (icon = ref)}>
+                    <Icon
+                      color={Colors.primary}
+                      size={Metrics.icons.small}
+                      name="people"
+                      type="material-icons"
+                    />
+                  </AnimatableView>
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    marginTop: Metrics.baseMargin,
+                    textAlign: 'center',
+                  }}
+                >
+                  {item}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
       </View>
     );
   }

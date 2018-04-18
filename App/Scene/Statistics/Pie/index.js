@@ -1,65 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
-import { Text, LoadingIndicator } from 'Component';
-import { compose } from 'react-apollo';
-import styles from './styles';
-import { Metrics, Colors } from 'Theme';
+import { Text } from 'Component';
 import { VictoryPie } from 'victory-native';
+import { View } from 'react-native';
+import styles from './styles';
 
-const data = [
-  { x: 1, y: 2, label: 'one' },
-  { x: 2, y: 3, label: 'two' },
-  { x: 3, y: 5, label: 'three' },
-];
-
-class PieChartScene extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  _renderLoading() {
-    return (
-      <View style={styles.loadingContainer}>
-        <LoadingIndicator />
-      </View>
-    );
-  }
-
-  render() {
-    return [
-      <VictoryPie
-        key={1}
-        events={[
-          {
-            target: 'data',
-            eventHandlers: {},
-          },
-        ]}
-        data={data}
-        colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy']}
-      />,
-      <Text key={2} style={styles.text}>
-        This is pie chart for demo
-      </Text>,
-    ];
-  }
-}
-
-PieChartScene.header = {
-  leftIcon: 'drawer',
-  theme: 'dark',
-  backgroundColor: Colors.primary,
-  statusBarBackgroundColor: Colors.primary,
-};
-
-PieChartScene.footer = {
-  activeColor: Colors.primary,
-  show: true,
-};
+const PieChartScene = ({ data, colorScale }) => (
+  <View>
+    <VictoryPie
+      data={data}
+      colorScale={colorScale}
+      labelRadius={72}
+      style={{
+        labels: {
+          fill: 'white',
+          fontSize: 12,
+          fontWeight: 'bold',
+        },
+      }}
+    />
+    <Text style={styles.text}>The number of attendees based on categories</Text>
+  </View>
+);
 
 PieChartScene.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.array,
+  colorScale: PropTypes.array,
 };
 
 export default PieChartScene;

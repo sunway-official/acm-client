@@ -1,0 +1,9 @@
+{
+  getAttendeesStatistic{
+    id,
+    key
+    value,
+    percentage,
+    label
+  }
+}
