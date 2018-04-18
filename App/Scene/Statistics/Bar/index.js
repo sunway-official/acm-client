@@ -33,8 +33,9 @@ class BarChartScene extends Component {
   }
 
   render() {
-    return (
+    return [
       <VictoryChart
+        key={1}
         // adding the material theme provided with Victory
         theme={VictoryTheme.material}
         domainPadding={50}
@@ -44,9 +45,17 @@ class BarChartScene extends Component {
           tickFormat={['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4']}
         />
         <VictoryAxis dependentAxis tickFormat={x => `$${x / 1000}k`} />
-        <VictoryBar data={data} x="quarter" y="earnings" />
-      </VictoryChart>
-    );
+        <VictoryBar
+          data={data}
+          x="quarter"
+          y="earnings"
+          style={{ data: { fill: Colors.primary } }}
+        />
+      </VictoryChart>,
+      <Text key={2} style={styles.text}>
+        This is bar chart for demo
+      </Text>,
+    ];
   }
 }
 

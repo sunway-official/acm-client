@@ -27,8 +27,9 @@ class PieChartScene extends Component {
   }
 
   render() {
-    return (
+    return [
       <VictoryPie
+        key={1}
         events={[
           {
             target: 'data',
@@ -36,8 +37,12 @@ class PieChartScene extends Component {
           },
         ]}
         data={data}
-      />
-    );
+        colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy']}
+      />,
+      <Text key={2} style={styles.text}>
+        This is pie chart for demo
+      </Text>,
+    ];
   }
 }
 

@@ -3,7 +3,8 @@ import { Metrics, Colors } from 'Theme';
 
 export default StyleSheet.create({
   container: {
-    // marginBottom: Metrics.baseMargin,
+    padding: Metrics.baseMargin,
+    backgroundColor: Colors.white,
   },
   text: {
     textAlign: 'center',
