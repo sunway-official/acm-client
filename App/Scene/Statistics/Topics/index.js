@@ -5,7 +5,7 @@ import { LoadingIndicator, PieChart } from 'Component';
 import { compose, gql, graphql } from 'react-apollo';
 import styles from './styles';
 import { Colors } from 'Theme';
-import GET_ATTENDEES_STATISTIC from 'Graphql/query/getAttendeesStatistic.graphql';
+import GET_ATTENDEES_STATISTIC from 'Graphql/query/getTopicsStatistic.graphql';
 
 const color = [
   'tomato',
@@ -18,7 +18,7 @@ const color = [
   'red',
 ];
 
-class AttendeesStatisticScene extends Component {
+class TopicsStatisticScene extends Component {
   static _renderLoading() {
     return (
       <View style={styles.loadingContainer}>
@@ -32,24 +32,24 @@ class AttendeesStatisticScene extends Component {
       return {
         x: item.key,
         y: item.percentage,
-        label: `${item.label}\n(${item.value} people)`,
+        label: `(${item.value} topic)`,
       };
     });
   };
 
   render() {
     if (this.props.data.loading) {
-      return AttendeesStatisticScene._renderLoading();
+      return TopicsStatisticScene._renderLoading();
     }
 
     return (
       <View style={styles.container}>
         <View style={styles.chart}>
           <PieChart
-            data={this.filteredList(this.props.data.getAttendeesStatistic)}
-            description={'The number of attendees based on organizer'}
+            data={this.filteredList(this.props.data.getTopicsStatistic)}
+            description={'The number of topics based on categories'}
             colorScale={color}
-            labelRadius={72}
+            labelRadius={95}
           />
         </View>
       </View>
@@ -57,17 +57,17 @@ class AttendeesStatisticScene extends Component {
   }
 }
 
-AttendeesStatisticScene.header = {
+TopicsStatisticScene.header = {
   leftIcon: 'back',
   theme: 'dark',
   backgroundColor: Colors.primary,
   statusBarBackgroundColor: Colors.primary,
 };
 
-AttendeesStatisticScene.propTypes = {
+TopicsStatisticScene.propTypes = {
   data: PropTypes.object,
 };
 
 export default compose(graphql(gql(GET_ATTENDEES_STATISTIC)))(
-  AttendeesStatisticScene,
+  TopicsStatisticScene,
 );

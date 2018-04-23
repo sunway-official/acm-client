@@ -4,7 +4,7 @@ import { Text } from 'Component';
 import { VictoryPie } from 'victory-native';
 import styles from './styles';
 
-const PieChart = ({ data, description, colorScale }) => [
+const PieChart = ({ data, description, colorScale, labelRadius }) => [
   <Text key={1} style={styles.text}>
     {description}
   </Text>,
@@ -12,7 +12,7 @@ const PieChart = ({ data, description, colorScale }) => [
     key={2}
     data={data}
     colorScale={colorScale}
-    labelRadius={72}
+    labelRadius={labelRadius}
     style={{
       labels: {
         fill: 'white',

@@ -21,7 +21,12 @@ const categories = [
     iconType: 'material-icons',
     scene: '',
   },
-  { label: 'Topics', icon: 'ios-paper', iconType: 'ionicon', scene: '' },
+  {
+    label: 'Topics',
+    icon: 'ios-paper',
+    iconType: 'ionicon',
+    scene: 'topicsStatistic',
+  },
   { label: 'Papers', icon: 'ios-paper', iconType: 'ionicon', scene: '' },
   {
     label: 'News Feed',
