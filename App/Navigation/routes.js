@@ -18,6 +18,7 @@ import {
 } from 'Scene/Conference';
 import PapersTracker from 'Scene/PapersTracker';
 import Statistics from 'Scene/Statistics';
+import AttendeesStatisticScene from 'Scene/Statistics/Attendees';
 
 export const ROUTES = {
   splash: {
@@ -218,6 +219,15 @@ export const ROUTES = {
       type: 'material-community',
     },
     initial: true,
+  },
+  attendeesStatistic: {
+    name: 'Attendees Statistics',
+    path: '/statistics/attendees',
+    screen: AttendeesStatisticScene,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
+    },
   },
 };
 

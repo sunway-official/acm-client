@@ -1,26 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  ScrollView,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-} from 'react-native';
-import { Text, LoadingIndicator, AnimatableView } from 'Component';
-import { compose } from 'react-apollo';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, AnimatableView } from 'Component';
 import styles from './styles';
 import { Metrics, Colors } from 'Theme';
-import Bar from './Bar';
 import { Icon } from 'react-native-elements';
-import AttendeesStatisticScene from './Attendees';
+import { NavigationActions } from 'Reduck/Navigation';
+import { connect } from 'react-redux';
 
-const categories = ['Attendees', 'Speakers', 'Topics', 'Papers', 'Newfeed'];
-
-const data = [
-  { quarter: 1, earnings: 13000 },
-  { quarter: 2, earnings: 16500 },
-  { quarter: 3, earnings: 14250 },
-  { quarter: 4, earnings: 19000 },
+const categories = [
+  {
+    label: 'Attendees',
+    icon: 'people',
+    iconType: 'material-icons',
+    scene: 'attendeesStatistic',
+  },
+  {
+    label: 'Speakers',
+    icon: 'keyboard-voice',
+    iconType: 'material-icons',
+    scene: '',
+  },
+  { label: 'Topics', icon: 'ios-paper', iconType: 'ionicon', scene: '' },
+  { label: 'Papers', icon: 'ios-paper', iconType: 'ionicon', scene: '' },
+  {
+    label: 'News Feed',
+    icon: 'newspaper',
+    iconType: 'material-community',
+    scene: '',
+  },
 ];
 
 class StatisticsScene extends Component {
@@ -28,72 +36,28 @@ class StatisticsScene extends Component {
     super(props);
   }
 
-  _renderLoading() {
-    return (
-      <View style={styles.loadingContainer}>
-        <LoadingIndicator />
-      </View>
-    );
-  }
-
   render() {
     return (
-      <View
-        style={{
-          backgroundColor: Colors.white,
-          paddingTop: Metrics.doubleBaseMargin,
-        }}
-      >
+      <View style={styles.container}>
         <ScrollView>
-          {/*<Text style={styles.text}>Select statistic you want to show</Text>*/}
-          {/*<Bar />*/}
-          <View
-            style={{
-              padding: Metrics.doubleBaseMargin,
-            }}
-          >
-            <AttendeesStatisticScene />
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              alignItems: 'flex-start',
-              paddingTop: Metrics.doubleBaseMargin,
-            }}
-          >
+          <Text style={styles.text}>Select statistic you want to show</Text>
+          <View style={styles.categoriesWrapper}>
             {categories.map((item, index) => (
-              <View
-                key={index}
-                style={{ width: '30%', padding: Metrics.baseMargin }}
-              >
+              <View key={index} style={styles.categoryItem}>
                 <TouchableOpacity
-                  style={{
-                    borderRadius: 10,
-                    padding: Metrics.baseMargin,
-                    backgroundColor: Colors.white,
-                  }}
-                  // onPress={onPress}
-                  // activeOpacity={ACTIVE_TOUCHABLE_OPACITY}
+                  style={styles.categoryButton}
+                  onPress={() => this.props.navigate(item.scene)}
                 >
                   <AnimatableView ref={ref => (icon = ref)}>
                     <Icon
                       color={Colors.primary}
                       size={Metrics.icons.small}
-                      name="people"
-                      type="material-icons"
+                      name={item.icon}
+                      type={item.iconType}
                     />
                   </AnimatableView>
                 </TouchableOpacity>
-                <Text
-                  style={{
-                    marginTop: Metrics.baseMargin,
-                    textAlign: 'center',
-                  }}
-                >
-                  {item}
-                </Text>
+                <Text style={styles.categoryLabel}>{item.label}</Text>
               </View>
             ))}
           </View>
@@ -117,6 +81,11 @@ StatisticsScene.footer = {
 
 StatisticsScene.propTypes = {
   data: PropTypes.object,
+  navigate: PropTypes.func,
 };
 
-export default StatisticsScene;
+const mapDispatchToProps = dispatch => ({
+  navigate: routeName => dispatch(NavigationActions.navigate({ routeName })),
+});
+
+export default connect(undefined, mapDispatchToProps)(StatisticsScene);

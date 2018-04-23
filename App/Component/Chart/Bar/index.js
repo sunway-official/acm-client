@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Text, LoadingIndicator } from 'Component';
-import { compose } from 'react-apollo';
 import styles from './styles';
-import { Metrics, Colors } from 'Theme';
+import { Colors } from 'Theme';
 import {
   VictoryBar,
   VictoryChart,
@@ -24,7 +23,7 @@ class BarChartScene extends Component {
     super(props);
   }
 
-  _renderLoading() {
+  static _renderLoading() {
     return (
       <View style={styles.loadingContainer}>
         <LoadingIndicator />
