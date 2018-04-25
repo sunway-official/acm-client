@@ -7,6 +7,7 @@ import { Colors } from 'Theme';
 
 import AttendeesStatisticByOrganization from './ByOrganization';
 import AttendeesStatisticByInteresting from './ByInteresting';
+import AttendeesStatisticByLanguage from './ByLanguage';
 
 class AttendeesStatisticScene extends Component {
   static _renderLoading() {
@@ -23,6 +24,7 @@ class AttendeesStatisticScene extends Component {
         <View style={styles.container}>
           <AttendeesStatisticByOrganization />
           <AttendeesStatisticByInteresting />
+          <AttendeesStatisticByLanguage />
         </View>
       </ScrollView>
     );

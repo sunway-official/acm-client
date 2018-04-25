@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import { LoadingIndicator, PieChart, BarChart } from 'Component';
 import { compose, gql, graphql } from 'react-apollo';
 import styles from '../styles';
-import GET_ATTENDEES_STATISTIC_BY_THEIR_INTERESTING from 'Graphql/query/getAttendeesStatisticByTheirInteresting.graphql';
+import GET_ATTENDEES_STATISTIC_BY_LANGUAGE from 'Graphql/query/getAttendeesStatisticByLanguage.graphql';
 
 const color = [
   'tomato',
@@ -52,21 +52,21 @@ class AttendeesStatisticByInteresting extends Component {
 
     return (
       <View>
-        {this.props.data.getAttendeesStatisticByTheirInteresting.length < 5 ? (
+        {this.props.data.getAttendeesStatisticByLanguage.length < 5 ? (
           <PieChart
             data={this.filteredListToPieChart(
-              this.props.data.getAttendeesStatisticByTheirInteresting,
+              this.props.data.getAttendeesStatisticByLanguage,
             )}
-            description={'The number of attendees based on interesting'}
+            description={'The number of attendees based on language'}
             colorScale={color}
             labelRadius={72}
           />
         ) : (
           <BarChart
             data={this.filteredListToBarChart(
-              this.props.data.getAttendeesStatisticByTheirInteresting,
+              this.props.data.getAttendeesStatisticByLanguage,
             )}
-            description={'The number of attendees based on interesting'}
+            description={'The number of attendees based on language'}
           />
         )}
       </View>
@@ -78,6 +78,6 @@ AttendeesStatisticByInteresting.propTypes = {
   data: PropTypes.object,
 };
 
-export default compose(
-  graphql(gql(GET_ATTENDEES_STATISTIC_BY_THEIR_INTERESTING)),
-)(AttendeesStatisticByInteresting);
+export default compose(graphql(gql(GET_ATTENDEES_STATISTIC_BY_LANGUAGE)))(
+  AttendeesStatisticByInteresting,
+);
