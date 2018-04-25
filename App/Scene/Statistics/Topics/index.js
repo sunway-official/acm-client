@@ -51,8 +51,6 @@ class TopicsStatisticScene extends Component {
       return TopicsStatisticScene._renderLoading();
     }
 
-    console.log(this.props.data.getTopicsStatistic.length);
-
     return (
       <View style={styles.container}>
         <View style={styles.chart}>
