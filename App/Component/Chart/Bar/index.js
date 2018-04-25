@@ -3,22 +3,10 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Text, LoadingIndicator } from 'Component';
 import styles from './styles';
-import { Colors } from 'Theme';
-import {
-  VictoryBar,
-  VictoryChart,
-  VictoryAxis,
-  VictoryTheme,
-} from 'victory-native';
+import { Colors, Metrics } from 'Theme';
+import { VictoryBar, VictoryChart, VictoryAxis } from 'victory-native';
 
-const data = [
-  { quarter: 1, earnings: 13000 },
-  { quarter: 2, earnings: 16500 },
-  { quarter: 3, earnings: 14250 },
-  { quarter: 4, earnings: 19000 },
-];
-
-class BarChartScene extends Component {
+class BarChart extends Component {
   constructor(props) {
     super(props);
   }
@@ -33,45 +21,75 @@ class BarChartScene extends Component {
 
   render() {
     return [
+      <Text key={1} style={styles.text}>
+        Topics statistic
+      </Text>,
       <VictoryChart
-        key={1}
-        // adding the material theme provided with Victory
-        theme={VictoryTheme.material}
-        domainPadding={50}
+        key={2}
+        domainPadding={{ y: 20 }}
+        height={Metrics.screenWidth}
+        width={Metrics.screenWidth / 1.1}
       >
         <VictoryAxis
-          tickValues={[1, 2, 3, 4]}
-          tickFormat={['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4']}
+          style={{
+            axis: { stroke: Colors.primary },
+            axisLabel: { fontSize: 16, fill: Colors.gray },
+            ticks: { stroke: Colors.gray },
+            tickLabels: {
+              fontSize: 14,
+              fill: Colors.white,
+              fontWeight: 'bold',
+            },
+            grid: { stroke: Colors.lightCyan, strokeWidth: 0.25 },
+          }}
+          dependentAxis
         />
-        <VictoryAxis dependentAxis tickFormat={x => `$${x / 1000}k`} />
+        <VictoryAxis
+          style={{
+            axis: { stroke: Colors.secondary },
+            axisLabel: { fontSize: 16 },
+            ticks: { stroke: Colors.gray },
+            tickLabels: {
+              fontSize: 10,
+              fill: Colors.black,
+              fontWeight: 'bold',
+            },
+          }}
+        />
         <VictoryBar
-          data={data}
-          x="quarter"
-          y="earnings"
-          style={{ data: { fill: Colors.primary } }}
+          horizontal
+          style={{
+            data: {
+              fill: Colors.primary,
+              fillOpacity: 0.7,
+              strokeWidth: 1,
+            },
+            labels: {
+              fontSize: 10,
+            },
+          }}
+          data={this.props.data}
+          labels={d => `${d.x}`}
         />
       </VictoryChart>,
-      <Text key={2} style={styles.text}>
-        This is bar chart for demo
-      </Text>,
     ];
   }
 }
 
-BarChartScene.header = {
+BarChart.header = {
   leftIcon: 'drawer',
   theme: 'dark',
   backgroundColor: Colors.primary,
   statusBarBackgroundColor: Colors.primary,
 };
 
-BarChartScene.footer = {
+BarChart.footer = {
   activeColor: Colors.primary,
   show: true,
 };
 
-BarChartScene.propTypes = {
-  data: PropTypes.object,
+BarChart.propTypes = {
+  data: PropTypes.array,
 };
 
-export default BarChartScene;
+export default BarChart;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { LoadingIndicator, PieChart } from 'Component';
+import { LoadingIndicator, PieChart, BarChart } from 'Component';
 import { compose, gql, graphql } from 'react-apollo';
 import styles from './styles';
 import { Colors } from 'Theme';
@@ -27,12 +27,21 @@ class TopicsStatisticScene extends Component {
     );
   }
 
-  filteredList = data => {
+  filteredListToPieChart = data => {
     return data.map(item => {
       return {
         x: item.key,
         y: item.percentage,
         label: `(${item.value} topic)`,
+      };
+    });
+  };
+
+  filteredListToBarChart = data => {
+    return data.map(item => {
+      return {
+        x: item.label,
+        y: item.value,
       };
     });
   };
@@ -45,12 +54,22 @@ class TopicsStatisticScene extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.chart}>
-          <PieChart
-            data={this.filteredList(this.props.data.getTopicsStatistic)}
-            description={'The number of topics based on categories'}
-            colorScale={color}
-            labelRadius={95}
-          />
+          {this.props.data.length > 6 ? (
+            <PieChart
+              data={this.filteredListToPieChart(
+                this.props.data.getTopicsStatistic,
+              )}
+              description={'The number of topics based on categories'}
+              colorScale={color}
+              labelRadius={95}
+            />
+          ) : (
+            <BarChart
+              data={this.filteredListToBarChart(
+                this.props.data.getTopicsStatistic,
+              )}
+            />
+          )}
         </View>
       </View>
     );
