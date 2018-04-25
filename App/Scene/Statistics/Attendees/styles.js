@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics } from 'Theme';
+import { Colors } from 'Theme';
 
 export default StyleSheet.create({
   loadingContainer: {
@@ -9,8 +9,5 @@ export default StyleSheet.create({
   container: {
     backgroundColor: Colors.white,
     height: '100%',
-  },
-  chart: {
-    paddingTop: Metrics.doubleBaseMargin,
   },
 });

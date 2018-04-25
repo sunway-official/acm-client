@@ -32,7 +32,7 @@ class TopicsStatisticScene extends Component {
       return {
         x: item.key,
         y: item.percentage,
-        label: `(${item.value} topic)`,
+        label: `${item.label}\n(${item.value} topic)`,
       };
     });
   };
@@ -51,23 +51,26 @@ class TopicsStatisticScene extends Component {
       return TopicsStatisticScene._renderLoading();
     }
 
+    console.log(this.props.data.getTopicsStatistic.length);
+
     return (
       <View style={styles.container}>
         <View style={styles.chart}>
-          {this.props.data.length > 6 ? (
+          {this.props.data.getTopicsStatistic.length < 6 ? (
             <PieChart
               data={this.filteredListToPieChart(
                 this.props.data.getTopicsStatistic,
               )}
               description={'The number of topics based on categories'}
               colorScale={color}
-              labelRadius={95}
+              labelRadius={72}
             />
           ) : (
             <BarChart
               data={this.filteredListToBarChart(
                 this.props.data.getTopicsStatistic,
               )}
+              description={'Topics statistic'}
             />
           )}
         </View>

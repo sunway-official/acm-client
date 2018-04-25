@@ -5,9 +5,9 @@ import styles from './styles';
 import { Colors, Metrics } from 'Theme';
 import { VictoryBar, VictoryChart, VictoryAxis } from 'victory-native';
 
-const BarChart = ({ data }) => [
+const BarChart = ({ data, description = null }) => [
   <Text key={1} style={styles.text}>
-    Topics statistic
+    {description}
   </Text>,
   <VictoryChart
     key={2}

@@ -1,0 +1,9 @@
+{
+  getAttendeesStatisticByOrganization {
+    id
+    key
+    value
+    percentage
+    label
+  }
+}
