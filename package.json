@@ -51,7 +51,7 @@
     "redux-thunk": "^2.2.0",
     "subscriptions-transport-ws": "^0.9.1",
     "uuid": "^3.1.0",
-    "victory-native": "^0.17.4"
+    "victory-native": "0.17.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.3",

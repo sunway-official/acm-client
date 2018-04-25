@@ -1,0 +1,9 @@
+{
+  getAttendeesStatisticByPosition {
+    id
+    key
+    value
+    percentage
+    label
+  }
+}
