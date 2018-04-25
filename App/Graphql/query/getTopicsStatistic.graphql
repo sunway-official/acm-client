@@ -1,0 +1,9 @@
+{
+  getTopicsStatistic {
+    id
+    key
+    value
+    percentage
+    label
+  }
+}

@@ -17,6 +17,9 @@ import {
   ConferenceDetail,
 } from 'Scene/Conference';
 import PapersTracker from 'Scene/PapersTracker';
+import Statistics from 'Scene/Statistics';
+import AttendeesStatisticScene from 'Scene/Statistics/Attendees';
+import TopicsStatisticScene from 'Scene/Statistics/Topics';
 
 export const ROUTES = {
   splash: {
@@ -206,6 +209,33 @@ export const ROUTES = {
     icon: {
       name: 'ios-paper',
       type: 'ionicon',
+    },
+  },
+  statistics: {
+    name: 'Statistics',
+    path: '/statistics',
+    screen: Statistics,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
+    },
+  },
+  attendeesStatistic: {
+    name: 'Attendees Statistics',
+    path: '/statistics/attendees',
+    screen: AttendeesStatisticScene,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
+    },
+  },
+  topicsStatistic: {
+    name: 'Topics Statistic',
+    path: '/statistics/topics',
+    screen: TopicsStatisticScene,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
     },
   },
 };

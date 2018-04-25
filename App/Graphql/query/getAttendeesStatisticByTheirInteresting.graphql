@@ -1,0 +1,9 @@
+{
+  getAttendeesStatisticByTheirInteresting {
+    id
+    key
+    value
+    percentage
+    label
+  }
+}
