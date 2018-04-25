@@ -74,7 +74,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
-    // initial: true,
+    initial: true,
   },
   newsPosting: {
     name: 'New Post',
@@ -219,7 +219,6 @@ export const ROUTES = {
       name: 'chart-bar',
       type: 'material-community',
     },
-    initial: true,
   },
   attendeesStatistic: {
     name: 'Attendees Statistics',
