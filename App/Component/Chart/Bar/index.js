@@ -5,7 +5,7 @@ import styles from './styles';
 import { Colors, Metrics } from 'Theme';
 import { VictoryBar, VictoryChart, VictoryAxis } from 'victory-native';
 
-const BarChart = () => [
+const BarChart = ({ data }) => [
   <Text key={1} style={styles.text}>
     Topics statistic
   </Text>,
@@ -53,7 +53,7 @@ const BarChart = () => [
           fontSize: 10,
         },
       }}
-      data={this.props.data}
+      data={data}
       labels={d => `${d.x}`}
     />
   </VictoryChart>,
