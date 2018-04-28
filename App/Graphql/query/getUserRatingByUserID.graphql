@@ -1,0 +1,6 @@
+query getUserRatingByUserID($user_id: ID!) {
+  getUserRating(user_id: $user_id) {
+    id
+    rating
+  }
+}

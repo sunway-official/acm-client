@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose, graphql, gql } from 'react-apollo';
 import { View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Text, AnchorText, TouchableView, FormInput } from 'Component';
+import { Text, AnchorText, TouchableView } from 'Component';
 import styles from './styles';
 import { transformServerDate } from 'Transformer';
-import { Field, reduxForm } from 'redux-form';
 import StarRating from 'react-native-star-rating';
+import { Colors, Metrics } from 'Theme';
+import GET_RATING_BY_USER_ID from 'Graphql/query/getUserRatingByUserID.graphql';
+import MUTATE_USER_RATING from 'Graphql/mutation/rateUser.graphql';
 
 const ICON_SIZE = 18;
 
@@ -14,6 +17,8 @@ class About extends Component {
   static propTypes = {
     userQuery: PropTypes.object,
     enableReview: PropTypes.bool,
+    getRatingByUserID: PropTypes.object,
+    rateUser: PropTypes.func,
   };
 
   static defaultProps = {
@@ -29,6 +34,30 @@ class About extends Component {
 
     this._renderUserInformation = this._renderUserInformation.bind(this);
     this._onStarRatingPress = this._onStarRatingPress.bind(this);
+    this._onSubmitRating = this._onSubmitRating.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (
+      nextProps.getRatingByUserID.getUserRating &&
+      this.props.getRatingByUserID.getUserRating
+    ) {
+      const {
+        getRatingByUserID: {
+          getUserRating: { rating: nextRating },
+        },
+      } = nextProps;
+      const {
+        getRatingByUserID: {
+          getUserRating: { rating: currentRating },
+        },
+      } = this.props;
+      if (currentRating !== nextRating) {
+        this.setState({
+          starCount: nextRating,
+        });
+      }
+    }
   }
 
   _renderUserInformation() {
@@ -44,11 +73,35 @@ class About extends Component {
           facebook_id,
           twitter_id,
           linkedin_id,
+          rating,
         },
       },
     } = this.props;
+
     return (
       <View>
+        <View style={styles.infoContainer}>
+          <View style={styles.rating}>
+            <StarRating
+              containerStyle={{
+                width: '50%',
+                marginBottom: Metrics.baseMargin,
+              }}
+              maxStars={5}
+              emptyStar={'ios-star-outline'}
+              fullStar={'ios-star'}
+              halfStar={'ios-star-half'}
+              iconSet={'Ionicons'}
+              halfStarEnabled
+              fullStarColor={Colors.primary}
+              emptyStarColor={Colors.primary}
+              starSize={24}
+              rating={rating}
+              disabled
+            />
+            <Text>{rating}/5</Text>
+          </View>
+        </View>
         <View style={styles.infoContainer}>
           <View>
             <Icon
@@ -127,15 +180,6 @@ class About extends Component {
           />
           <Text>Joined {transformServerDate.toLocal(created_at)}</Text>
         </View>
-        <View style={styles.infoContainer}>
-          <Icon
-            name="wifi"
-            color="#009688"
-            size={ICON_SIZE}
-            iconStyle={styles.icon}
-          />
-          <Text>Followed by 999 people</Text>
-        </View>
         {facebook_id ? (
           <View style={styles.infoContainer}>
             <View>
@@ -179,11 +223,25 @@ class About extends Component {
   }
 
   _onStarRatingPress(rating) {
-    this.setState({ starCount: rating });
+    this.setState({
+      starCount: rating,
+    });
+  }
+
+  _onSubmitRating() {
+    const {
+      rateUser,
+      userQuery: { getUserByID },
+    } = this.props;
+    const { starCount } = this.state;
+    rateUser({ rating: starCount, user_id: getUserByID.id });
   }
 
   render() {
-    const { enableReview } = this.props;
+    const {
+      enableReview,
+      getRatingByUserID: { getUserRating = {} },
+    } = this.props;
     const { starCount } = this.state;
 
     return (
@@ -192,7 +250,10 @@ class About extends Component {
           <View style={styles.reviewContainer}>
             <Text style={styles.ratingTitle}>Rating for me</Text>
             <StarRating
-              containerStyle={{ width: '50%', marginVertical: 16 }}
+              containerStyle={{
+                width: '50%',
+                marginVertical: Metrics.doubleBaseMargin,
+              }}
               maxStars={5}
               emptyStar={'ios-star-outline'}
               fullStar={'ios-star'}
@@ -201,19 +262,13 @@ class About extends Component {
               halfStarEnabled
               fullStarColor={'#f2ea52'}
               rating={starCount}
-              selectedStar={rating => this._onStarRatingPress(rating)}
+              selectedStar={this._onStarRatingPress}
             />
-            <View style={styles.reviewTextBoxContainer}>
-              <Field
-                name="review"
-                component={FormInput}
-                placeholder="Your opinion..."
-                underlineColorAndroid={'transparent'}
-                multiline
-              />
-            </View>
-            <TouchableView style={styles.ratingSubmitBtn}>
-              <Text style={styles.ratingSubmitTitle}>RATE NOW</Text>
+            <TouchableView
+              style={styles.ratingSubmitBtn}
+              onPress={this._onSubmitRating}
+            >
+              <Text style={styles.ratingSubmitTitle}>Rate now</Text>
             </TouchableView>
           </View>
         )}
@@ -231,4 +286,28 @@ class About extends Component {
   }
 }
 
-export default reduxForm({ form: 'review' })(About);
+export default compose(
+  graphql(gql(GET_RATING_BY_USER_ID), {
+    name: 'getRatingByUserID',
+    options: ({ userQuery: { getUserByID } }) => ({
+      variables: {
+        user_id: getUserByID.id,
+      },
+    }),
+  }),
+  graphql(gql(MUTATE_USER_RATING), {
+    props: ({ mutate }) => ({
+      rateUser: ({ rating, user_id }) => {
+        console.log(user_id);
+        return mutate({
+          variables: { user_id, rating },
+          refetchQueries: [
+            {
+              query: gql(GET_RATING_BY_USER_ID),
+            },
+          ],
+        });
+      },
+    }),
+  }),
+)(About);

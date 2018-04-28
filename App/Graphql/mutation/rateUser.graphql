@@ -1,0 +1,6 @@
+mutation($user_id: ID!, $rating: Float!) {
+  rateUser(user_id: $user_id, rating: $rating) {
+    id
+    rating
+  }
+}

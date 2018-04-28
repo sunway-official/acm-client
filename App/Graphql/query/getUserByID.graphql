@@ -15,5 +15,6 @@ query getUserByID($userId: ID!) {
     twitter_id
     linkedin_id
     created_at
+    rating
   }
 }

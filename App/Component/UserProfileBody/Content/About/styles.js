@@ -64,4 +64,8 @@ export default StyleSheet.create({
     marginLeft: baseMargin,
     marginRight: doubleBaseMargin,
   },
+  rating: {
+    flex: 1,
+    alignItems: 'center',
+  },
 });
