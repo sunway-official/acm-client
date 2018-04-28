@@ -1,0 +1,19 @@
+query getUserByID($userId: ID!) {
+  getUserByID(userId: $userId) {
+    id
+    firstname
+    lastname
+    dob
+    gender
+    bio
+    organization
+    position
+    language
+    avatar
+    interested_in
+    facebook_id
+    twitter_id
+    linkedin_id
+    created_at
+  }
+}

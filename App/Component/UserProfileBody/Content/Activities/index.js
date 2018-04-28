@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
 import { News, LoadingIndicator, EmptyCollection } from 'Component';
-import { gql, graphql } from 'react-apollo';
-import QUERY_ACTIVITIES from 'Graphql/query/getNewsByUserID.graphql';
 import styles from './styles';
 
 const NETWORK_STATUS_LOADING = 1;
@@ -16,7 +14,7 @@ class Activities extends Component {
   }
 
   onRefresh() {
-    this.props.refetch();
+    this.props.tabContent.refetch();
   }
 
   _renderLoading() {
@@ -28,18 +26,22 @@ class Activities extends Component {
   }
 
   _renderDataList() {
-    const { allNews, networkStatus, user } = this.props;
+    const {
+      tabContent: { getNewsByUserID },
+      networkStatus,
+      userQuery: { getUserByID },
+    } = this.props;
 
     return (
       <FlatList
-        data={allNews}
+        data={getNewsByUserID}
         renderItem={({ item, index }) => (
           <News
             item={item}
             key={index}
-            userId={user.id}
+            userId={getUserByID.id}
             onRefresh={this.onRefresh}
-            avatar={user.avatar}
+            avatar={getUserByID.avatar}
           />
         )}
         keyExtractor={(item, index) => index.toString()}
@@ -50,11 +52,11 @@ class Activities extends Component {
   }
 
   render() {
-    const { allNews, networkStatus } = this.props;
+    const { tabContent: { getNewsByUserID }, networkStatus } = this.props;
     if (networkStatus === NETWORK_STATUS_LOADING) {
       return <View>{this._renderLoading()}</View>;
     }
-    return allNews.length > 0 ? (
+    return getNewsByUserID.length > 0 ? (
       <View>{this._renderDataList()}</View>
     ) : (
       <EmptyCollection customStyles={styles.emptyContainer} />
@@ -63,23 +65,9 @@ class Activities extends Component {
 }
 
 Activities.propTypes = {
-  allNews: PropTypes.array,
-  refetch: PropTypes.func,
   networkStatus: PropTypes.number,
-  user: PropTypes.object,
+  userQuery: PropTypes.object,
+  tabContent: PropTypes.object,
 };
 
-const ActivitiesWithQuery = graphql(gql(QUERY_ACTIVITIES), {
-  options: ownProps => ({
-    variables: { user_id: ownProps.user.id },
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: 'network-only',
-  }),
-  props: ({ data: { getNewsByUserID, refetch, networkStatus } }) => ({
-    allNews: getNewsByUserID,
-    refetch,
-    networkStatus,
-  }),
-})(Activities);
-
-export default ActivitiesWithQuery;
+export default Activities;

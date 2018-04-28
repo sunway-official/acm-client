@@ -12,8 +12,12 @@ const ICON_SIZE = 18;
 
 class About extends Component {
   static propTypes = {
-    user: PropTypes.object,
+    userQuery: PropTypes.object,
     enableReview: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    userQuery: {},
   };
 
   constructor(props) {
@@ -28,7 +32,21 @@ class About extends Component {
   }
 
   _renderUserInformation() {
-    const { user } = this.props;
+    const {
+      userQuery: {
+        getUserByID: {
+          position,
+          organization,
+          interested_in,
+          dob,
+          bio,
+          created_at,
+          facebook_id,
+          twitter_id,
+          linkedin_id,
+        },
+      },
+    } = this.props;
     return (
       <View>
         <View style={styles.infoContainer}>
@@ -44,7 +62,7 @@ class About extends Component {
           <View style={styles.info}>
             <Text>Working places</Text>
             <Text>
-              {user.position} at {user.organization}
+              {position} at {organization}
             </Text>
           </View>
         </View>
@@ -63,7 +81,7 @@ class About extends Component {
             <Text>Lives in Da Nang, Vietnam</Text>
           </View>
         </View>
-        {user.dob ? (
+        {dob ? (
           <View style={styles.infoContainer}>
             <Icon
               name="cake"
@@ -72,7 +90,7 @@ class About extends Component {
               size={ICON_SIZE}
               iconStyle={styles.icon}
             />
-            <Text>Born on {transformServerDate.toLocal(user.dob)}</Text>
+            <Text>Born on {transformServerDate.toLocal(dob)}</Text>
           </View>
         ) : null}
         <View style={styles.infoContainer}>
@@ -87,7 +105,7 @@ class About extends Component {
           </View>
           <View style={styles.info}>
             <Text>Personal Interests</Text>
-            <Text>{user.interested_in}</Text>
+            <Text>{interested_in}</Text>
           </View>
         </View>
         <View style={styles.infoContainer}>
@@ -96,7 +114,7 @@ class About extends Component {
           </View>
           <View style={styles.info}>
             <Text>Biography</Text>
-            <Text>{user.bio}</Text>
+            <Text>{bio}</Text>
           </View>
         </View>
         <View style={styles.infoContainer}>
@@ -107,7 +125,7 @@ class About extends Component {
             size={ICON_SIZE}
             iconStyle={styles.icon}
           />
-          <Text>Joined {transformServerDate.toLocal(user.created_at)}</Text>
+          <Text>Joined {transformServerDate.toLocal(created_at)}</Text>
         </View>
         <View style={styles.infoContainer}>
           <Icon
@@ -118,7 +136,7 @@ class About extends Component {
           />
           <Text>Followed by 999 people</Text>
         </View>
-        {user.facebook_id ? (
+        {facebook_id ? (
           <View style={styles.infoContainer}>
             <View>
               <Icon
@@ -129,10 +147,10 @@ class About extends Component {
                 iconStyle={styles.icon}
               />
             </View>
-            <AnchorText href={user.facebook_id} style={styles.info} />
+            <AnchorText href={facebook_id} style={styles.info} />
           </View>
         ) : null}
-        {user.twitter_id ? (
+        {twitter_id ? (
           <View style={styles.infoContainer}>
             <Icon
               name="twitter"
@@ -141,10 +159,10 @@ class About extends Component {
               size={ICON_SIZE}
               iconStyle={styles.icon}
             />
-            <AnchorText href={user.twitter_id} style={styles.info} />
+            <AnchorText href={twitter_id} style={styles.info} />
           </View>
         ) : null}
-        {user.linkedin_id ? (
+        {linkedin_id ? (
           <View style={styles.infoContainer}>
             <Icon
               name="linkedin-box"
@@ -153,7 +171,7 @@ class About extends Component {
               size={ICON_SIZE}
               iconStyle={styles.icon}
             />
-            <AnchorText href={user.linkedin_id} style={styles.info} />
+            <AnchorText href={linkedin_id} style={styles.info} />
           </View>
         ) : null}
       </View>

@@ -8,17 +8,19 @@ import Followers from './Followers/index';
 import Following from './Following/index';
 import styles from './styles';
 
-const withAnimation = (Tab, user, enableReview) => (
+const withAnimation = (Tab, userQuery, enableReview = false, data) => (
   <AnimatableView animation="fadeIn" duaration={300}>
-    <Tab user={user} enableReview={enableReview} />
+    <Tab userQuery={userQuery} enableReview={enableReview} tabContent={data} />
   </AnimatableView>
 );
 
 class Content extends Component {
   static propTypes = {
     tab: PropTypes.string,
-    user: PropTypes.object,
+    userQuery: PropTypes.object,
+    activitiesQuery: PropTypes.object,
     enableReview: PropTypes.bool,
+    followers: PropTypes.array,
   };
 
   constructor(props) {
@@ -27,14 +29,15 @@ class Content extends Component {
   }
 
   _renderContent(tab) {
-    const { user, enableReview } = this.props;
+    const { userQuery, activitiesQuery, enableReview, followers } = this.props;
+
     switch (tab) {
       case 'About':
-        return withAnimation(About, user, enableReview);
+        return withAnimation(About, userQuery, enableReview);
       case 'Posts':
-        return withAnimation(Activities, user);
+        return withAnimation(Activities, userQuery, null, activitiesQuery);
       case 'Followers':
-        return withAnimation(Followers);
+        return withAnimation(Followers, undefined, null, followers);
       case 'Following':
         return withAnimation(Following);
       default:

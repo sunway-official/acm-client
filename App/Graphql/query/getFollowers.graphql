@@ -1,0 +1,11 @@
+{
+  getFollowers {
+    id
+    follower_id
+    conference_id
+    firstname
+    lastname
+    avatar
+    followers_count
+  }
+}

@@ -11,7 +11,6 @@ import {
   addHeaderOptions,
   closeMenu as closeHeaderMenu,
 } from 'Reduck/Toolbar/action';
-import ProfileHeader from './Header';
 import ProfileBody from './Body';
 import { DEFAULT_USER_AVATAR } from './fixture';
 import { NavigationActions } from 'Reduck/Navigation';
@@ -170,6 +169,8 @@ class ProfileScene extends Component {
     if (!me) {
       me = DEFAULT_ME;
     }
+    const userQuery = { getUserByID: { ...me } };
+
     return (
       <ScrollView
         scrollEventThrottle={16}
@@ -179,8 +180,8 @@ class ProfileScene extends Component {
         }}
         overScrollMode={'never'}
       >
-        <UserProfileHeader user={me} />
-        <ProfileBody user={me} />
+        <UserProfileHeader userQuery={userQuery} />
+        <ProfileBody userQuery={userQuery} />
         {this._renderLoading(this.state.loading)}
       </ScrollView>
     );

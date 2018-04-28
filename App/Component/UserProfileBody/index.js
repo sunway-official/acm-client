@@ -21,7 +21,7 @@ const TABS = {
   },
   Followers: {
     title: 'Followers',
-    quantity: FOLLOWERS.length,
+    quantity: 0,
   },
   Following: {
     title: 'Following',
@@ -32,11 +32,10 @@ const INITIAL_TAB = 'About';
 
 class Body extends Component {
   static propTypes = {
-    user: PropTypes.object,
-    getNewsByUserID: PropTypes.array,
-    loading: PropTypes.bool,
-    refetch: PropTypes.func,
+    userQuery: PropTypes.any,
+    activitiesQuery: PropTypes.any,
     enableReview: PropTypes.bool,
+    followers: PropTypes.array,
   };
 
   constructor(props) {
@@ -53,7 +52,7 @@ class Body extends Component {
 
   componentWillMount() {
     // refetch Activities
-    this.props.refetch();
+    this.props.activitiesQuery.refetch();
 
     // set initial tab
     this.setState({
@@ -101,23 +100,32 @@ class Body extends Component {
   }
 
   _renderContent() {
-    const { state: { currentTab }, props: { user, enableReview } } = this;
+    const { currentTab } = this.state;
+    const { userQuery, activitiesQuery, enableReview, followers } = this.props;
     return (
-      <Content tab={currentTab.title} user={user} enableReview={enableReview} />
+      <Content
+        tab={currentTab.title}
+        userQuery={userQuery}
+        activitiesQuery={activitiesQuery}
+        enableReview={enableReview}
+        followers={followers}
+      />
     );
   }
 
   render() {
     const { tabs } = this.state;
-    const { getNewsByUserID } = this.props;
+    const { activitiesQuery, followers } = this.props;
+    console.log('rendered');
+
+    tabs['Activities'].quantity =
+      activitiesQuery.getNewsByUserID && activitiesQuery.getNewsByUserID.length;
+    tabs['Followers'].quantity = followers && followers.length;
+
     return (
       <View style={styles.container}>
         <View style={styles.tabsContainer}>
           {Object.keys(tabs).map((key, index) => {
-            tabs['Activities'].quantity =
-              getNewsByUserID === undefined
-                ? tabs[key].quantity
-                : getNewsByUserID.length;
             return this._renderTab(tabs[key], key, index);
           })}
         </View>

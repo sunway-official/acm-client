@@ -7,7 +7,9 @@ import styles from './styles';
 
 class UserProfileHeader extends Component {
   static propTypes = {
-    user: PropTypes.object,
+    userQuery: PropTypes.shape({
+      getUserByID: PropTypes.object,
+    }),
   };
 
   static defaultProps = {
@@ -30,7 +32,7 @@ class UserProfileHeader extends Component {
   }
 
   _renderAvatar() {
-    let { user: { avatar, gender } } = this.props;
+    let { userQuery: { getUserByID: { avatar, gender } } } = this.props;
     return (
       <View style={styles.avatarSection}>
         <UserAvatar
@@ -44,13 +46,15 @@ class UserProfileHeader extends Component {
   }
 
   _renderInfo() {
-    const { user } = this.props;
+    const {
+      userQuery: { getUserByID: { firstname, lastname, organization } },
+    } = this.props;
     return (
       <View style={styles.infoContainer}>
         <Text style={[styles.primaryTextColor, styles.username]} bold>
-          {user.firstname} {user.lastname}
+          {firstname} {lastname}
         </Text>
-        <Text style={styles.primaryTextColor}>{user.organization}</Text>
+        <Text style={styles.primaryTextColor}>{organization}</Text>
       </View>
     );
   }
