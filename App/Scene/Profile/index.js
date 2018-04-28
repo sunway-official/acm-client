@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, gql, compose } from 'react-apollo';
 import { ScrollView, View } from 'react-native';
@@ -12,7 +12,6 @@ import {
   closeMenu as closeHeaderMenu,
 } from 'Reduck/Toolbar/action';
 import ProfileBody from './Body';
-import { DEFAULT_USER_AVATAR } from './fixture';
 import { NavigationActions } from 'Reduck/Navigation';
 import QUERY_ME from 'Graphql/query/me.graphql';
 import UPDATE_AVATAR from './updateAvatar.graphql';
@@ -63,7 +62,10 @@ class ProfileScene extends Component {
   }
 
   componentDidUpdate() {
-    const { header: { options }, setCustomHeader } = this.props;
+    const {
+      header: { options },
+      setCustomHeader,
+    } = this.props;
     if (options.menu && options.menu.actions.length === 2) {
       const { menu } = options;
       // Add new menu items
@@ -141,7 +143,10 @@ class ProfileScene extends Component {
   }
 
   _handleScrolling(e) {
-    const { data: { me }, setCustomHeader } = this.props;
+    const {
+      data: { me },
+      setCustomHeader,
+    } = this.props;
     const { y } = e.nativeEvent.contentOffset;
     if (y > 150) {
       setCustomHeader({
@@ -165,7 +170,9 @@ class ProfileScene extends Component {
   }
 
   render() {
-    let { data: { me } } = this.props;
+    let {
+      data: { me },
+    } = this.props;
     if (!me) {
       me = DEFAULT_ME;
     }
@@ -180,9 +187,15 @@ class ProfileScene extends Component {
         }}
         overScrollMode={'never'}
       >
-        <UserProfileHeader userQuery={userQuery} />
-        <ProfileBody userQuery={userQuery} />
-        {this._renderLoading(this.state.loading)}
+        {userQuery.loading ? (
+          <LoadingIndicator />
+        ) : (
+          <Fragment>
+            <UserProfileHeader userQuery={userQuery} />
+            <ProfileBody userQuery={userQuery} />
+            {this._renderLoading(this.state.loading)}
+          </Fragment>
+        )}
       </ScrollView>
     );
   }

@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
 import { graphql, gql, compose } from 'react-apollo';
-import { UserProfileBody } from 'Component';
+import { UserProfileBody, LoadingIndicator } from 'Component';
 import QUERY_ACTIVITIES from 'Graphql/query/getNewsByUserID.graphql';
 import QUERY_FOLLOWERS from 'Graphql/query/getFollowers.graphql';
+import QUERY_FOLLOWINGS from 'Graphql/query/getFollowings.graphql';
 
 class Body extends Component {
   static propTypes = {
     userQuery: PropTypes.object,
-    getActivitiesQuery: PropTypes.shape({
-      getNewsByUserID: PropTypes.array,
-      loading: PropTypes.bool,
-      refetch: PropTypes.func,
-    }),
-    getFollowersQuery: PropTypes.shape({
-      getFollowers: PropTypes.array,
-      loading: PropTypes.bool,
-      refetch: PropTypes.func,
-    }),
+    getActivitiesQuery: PropTypes.object,
+    getFollowersQuery: PropTypes.object,
+    getFollowingsQuery: PropTypes.object,
   };
 
   constructor(props) {
@@ -26,13 +19,24 @@ class Body extends Component {
   }
 
   render() {
-    const { userQuery, getActivitiesQuery, getFollowersQuery } = this.props;
+    const {
+      userQuery,
+      getActivitiesQuery,
+      getFollowersQuery,
+      getFollowingsQuery,
+    } = this.props;
 
-    return (
+    return userQuery.loading ||
+      getActivitiesQuery.loading ||
+      getFollowersQuery.loading ||
+      getFollowingsQuery.loading ? (
+      <LoadingIndicator />
+    ) : (
       <UserProfileBody
         userQuery={userQuery}
         activitiesQuery={getActivitiesQuery}
-        followers={getFollowersQuery.getFollowers}
+        followersQuery={getFollowersQuery}
+        followingsQuery={getFollowingsQuery}
       />
     );
   }
@@ -50,5 +54,8 @@ export default compose(
   }),
   graphql(gql(QUERY_FOLLOWERS), {
     name: 'getFollowersQuery',
+  }),
+  graphql(gql(QUERY_FOLLOWINGS), {
+    name: 'getFollowingsQuery',
   }),
 )(Body);

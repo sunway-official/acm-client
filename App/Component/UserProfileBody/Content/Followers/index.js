@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose, graphql, gql } from 'react-apollo';
+import { graphql, gql, compose } from 'react-apollo';
 import { NavigationActions } from 'Reduck/Navigation';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Colors, Metrics } from 'Theme';
 import { Text, UserAvatar, TouchableView, LoadingIndicator } from 'Component';
-import { FOLLOWERS } from 'Scene/Profile/fixture';
+import QUERY_ME from 'Graphql/query/me.graphql';
 import styles from './styles';
 
 class Follower extends Component {
   static propTypes = {
     navigate: PropTypes.func,
-    tabContent: PropTypes.array,
-    getUserByIDQuery: PropTypes.any,
+    tabContent: PropTypes.object,
+    queryMe: PropTypes.object,
   };
 
   constructor(props) {
@@ -32,6 +32,14 @@ class Follower extends Component {
     // });
   }
 
+  _navigateToCurentUserProfile(userId) {
+    const { queryMe } = this.props;
+    if (userId === queryMe.me.id) {
+      return true;
+    }
+    return false;
+  }
+
   _renderFollower(follower, index) {
     const { navigate } = this.props;
 
@@ -39,7 +47,15 @@ class Follower extends Component {
       <TouchableView
         key={index}
         style={styles.followerContainer}
-        onPress={() => navigate('people', follower.follower_id)}
+        onPress={() =>
+          navigate(
+            this._navigateToCurentUserProfile(follower.follower_id)
+              ? 'profile'
+              : 'people',
+            this._navigateToCurentUserProfile(follower.follower_id) ||
+              follower.follower_id,
+          )
+        }
       >
         <View style={styles.leftFollowerContainer}>
           <UserAvatar medium avatar={follower.avatar} />
@@ -57,9 +73,9 @@ class Follower extends Component {
           style={styles.rightFollowerContainer}
         >
           <Icon
-            name={follower.followByMe ? 'user-following' : 'user-follow'}
+            name={'user-follow'}
             type="simple-line-icon"
-            color={follower.followByMe ? Colors.red : Colors.black}
+            color={Colors.black}
             size={18}
           />
         </TouchableOpacity>
@@ -68,13 +84,15 @@ class Follower extends Component {
   }
 
   render() {
-    const { tabContent } = this.props;
+    const {
+      tabContent: { getFollowers },
+    } = this.props;
     return (
       <View style={styles.container}>
-        {!tabContent ? (
+        {!getFollowers ? (
           <LoadingIndicator />
         ) : (
-          tabContent.map((follower, index) =>
+          getFollowers.map((follower, index) =>
             this._renderFollower(follower, index),
           )
         )}
@@ -93,4 +111,9 @@ const mapDispatchToProps = dispatch => ({
     ),
 });
 
-export default compose(connect(undefined, mapDispatchToProps))(Follower);
+export default compose(
+  connect(undefined, mapDispatchToProps),
+  graphql(gql(QUERY_ME), {
+    name: 'queryMe',
+  }),
+)(Follower);

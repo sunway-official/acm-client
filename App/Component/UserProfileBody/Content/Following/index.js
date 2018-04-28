@@ -1,68 +1,115 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { NavigationActions } from 'Reduck/Navigation';
+import { connect } from 'react-redux';
+import { graphql, gql, compose } from 'react-apollo';
 import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Colors, Metrics } from 'Theme';
-import { Text, UserAvatar } from 'Component';
-import { FOLLOWING } from 'Scene/Profile/fixture';
+import { Text, UserAvatar, TouchableView } from 'Component';
+import QUERY_ME from 'Graphql/query/me.graphql';
 import styles from './styles';
 
 class Following extends Component {
-  static propTypes = {};
+  static propTypes = {
+    tabContent: PropTypes.object,
+    queryMe: PropTypes.object,
+    navigate: PropTypes.func,
+  };
 
   constructor(props) {
     super(props);
-    this.state = {
-      followers: FOLLOWING,
-    };
+
     this._renderFollower = this._renderFollower.bind(this);
     this._onFollowPress = this._onFollowPress.bind(this);
   }
 
   _onFollowPress(follower, index) {
-    let followers = FOLLOWING;
-    followers[index].followByMe = followers[index].followByMe ? false : true;
-    this.setState({
-      followers,
-    });
+    // let followers = FOLLOWING;
+    // followers[index].followByMe = followers[index].followByMe ? false : true;
+    // this.setState({
+    //   followers,
+    // });
   }
 
-  _renderFollower(follower, index) {
+  _navigateToCurentUserProfile(userId) {
+    const { queryMe } = this.props;
+    if (userId === queryMe.me.id) {
+      return true;
+    }
+    return false;
+  }
+
+  _renderFollower(following, index) {
+    const { navigate } = this.props;
+
     return (
-      <View key={index} style={styles.followerContainer}>
+      <TouchableView
+        key={index}
+        style={styles.followerContainer}
+        onPress={() =>
+          navigate(
+            this._navigateToCurentUserProfile(following.following_id)
+              ? 'profile'
+              : 'people',
+            this._navigateToCurentUserProfile(following.following_id) ||
+              following.following_id,
+          )
+        }
+      >
         <View style={styles.leftFollowerContainer}>
-          <UserAvatar medium avatar={follower.avatar} />
+          <UserAvatar medium avatar={following.avatar} />
           <View marginHorizontal={Metrics.baseMargin}>
-            <Text>{follower.username}</Text>
+            <Text>
+              {following.lastname} {following.firstname}
+            </Text>
             <Text style={styles.numberOfFollowerText}>
-              {follower.followers} followers
+              {following.followers_count} followers
             </Text>
           </View>
         </View>
         <TouchableOpacity
-          onPress={() => this._onFollowPress(follower, index)}
+          onPress={() => this._onFollowPress(following, index)}
           style={styles.rightFollowerContainer}
         >
           <Icon
-            name={follower.followByMe ? 'user-following' : 'user-follow'}
+            name={'user-following'}
             type="simple-line-icon"
-            color={follower.followByMe ? Colors.red : Colors.black}
+            color={Colors.red}
             size={18}
           />
         </TouchableOpacity>
-      </View>
+      </TouchableView>
     );
   }
 
   render() {
+    const {
+      tabContent: { getFollowings },
+    } = this.props;
     return (
       <View style={styles.container}>
-        {FOLLOWING.map((follower, index) =>
-          this._renderFollower(follower, index),
+        {getFollowings.map((following, index) =>
+          this._renderFollower(following, index),
         )}
       </View>
     );
   }
 }
 
-export default Following;
+const mapDispatchToProps = dispatch => ({
+  navigate: (routeName, followingId) =>
+    dispatch(
+      NavigationActions.navigate({
+        routeName,
+        params: { userId: followingId },
+      }),
+    ),
+});
+
+export default compose(
+  connect(undefined, mapDispatchToProps),
+  graphql(gql(QUERY_ME), {
+    name: 'queryMe',
+  }),
+)(Following);

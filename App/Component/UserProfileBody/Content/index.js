@@ -20,7 +20,8 @@ class Content extends Component {
     userQuery: PropTypes.object,
     activitiesQuery: PropTypes.object,
     enableReview: PropTypes.bool,
-    followers: PropTypes.array,
+    followersQuery: PropTypes.object,
+    followingsQuery: PropTypes.object,
   };
 
   constructor(props) {
@@ -29,17 +30,23 @@ class Content extends Component {
   }
 
   _renderContent(tab) {
-    const { userQuery, activitiesQuery, enableReview, followers } = this.props;
+    const {
+      userQuery,
+      activitiesQuery,
+      followersQuery,
+      followingsQuery,
+      enableReview,
+    } = this.props;
 
     switch (tab) {
       case 'About':
         return withAnimation(About, userQuery, enableReview);
       case 'Posts':
-        return withAnimation(Activities, userQuery, null, activitiesQuery);
+        return withAnimation(Activities, userQuery, false, activitiesQuery);
       case 'Followers':
-        return withAnimation(Followers, undefined, null, followers);
+        return withAnimation(Followers, null, false, followersQuery);
       case 'Following':
-        return withAnimation(Following);
+        return withAnimation(Following, null, false, followingsQuery);
       default:
         return <View />;
     }

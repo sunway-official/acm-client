@@ -6,7 +6,6 @@ import { Text, TouchableView } from 'Component';
 import { Colors } from 'Theme';
 import Content from './Content/index';
 import styles from './styles';
-import { FOLLOWERS, FOLLOWING } from './fixture';
 
 const TABS = {
   About: {
@@ -25,7 +24,7 @@ const TABS = {
   },
   Following: {
     title: 'Following',
-    quantity: FOLLOWING.length,
+    quantity: 0,
   },
 };
 const INITIAL_TAB = 'About';
@@ -35,7 +34,8 @@ class Body extends Component {
     userQuery: PropTypes.any,
     activitiesQuery: PropTypes.any,
     enableReview: PropTypes.bool,
-    followers: PropTypes.array,
+    followersQuery: PropTypes.object,
+    followingsQuery: PropTypes.object,
   };
 
   constructor(props) {
@@ -53,6 +53,8 @@ class Body extends Component {
   componentWillMount() {
     // refetch Activities
     this.props.activitiesQuery.refetch();
+    this.props.followersQuery.refetch();
+    this.props.followingsQuery.refetch();
 
     // set initial tab
     this.setState({
@@ -101,33 +103,44 @@ class Body extends Component {
 
   _renderContent() {
     const { currentTab } = this.state;
-    const { userQuery, activitiesQuery, enableReview, followers } = this.props;
+    const {
+      userQuery,
+      activitiesQuery,
+      enableReview,
+      followersQuery,
+      followingsQuery,
+    } = this.props;
     return (
       <Content
         tab={currentTab.title}
         userQuery={userQuery}
         activitiesQuery={activitiesQuery}
         enableReview={enableReview}
-        followers={followers}
+        followersQuery={followersQuery}
+        followingsQuery={followingsQuery}
       />
     );
   }
 
   render() {
     const { tabs } = this.state;
-    const { activitiesQuery, followers } = this.props;
-    console.log('rendered');
+    const {
+      activitiesQuery,
+      followersQuery: { getFollowers },
+      followingsQuery: { getFollowings },
+    } = this.props;
 
     tabs['Activities'].quantity =
       activitiesQuery.getNewsByUserID && activitiesQuery.getNewsByUserID.length;
-    tabs['Followers'].quantity = followers && followers.length;
+    tabs['Followers'].quantity = getFollowers && getFollowers.length;
+    tabs['Following'].quantity = getFollowings && getFollowings.length;
 
     return (
       <View style={styles.container}>
         <View style={styles.tabsContainer}>
-          {Object.keys(tabs).map((key, index) => {
-            return this._renderTab(tabs[key], key, index);
-          })}
+          {Object.keys(tabs).map((key, index) =>
+            this._renderTab(tabs[key], key, index),
+          )}
         </View>
         {this._renderContent()}
       </View>

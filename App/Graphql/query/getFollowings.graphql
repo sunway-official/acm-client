@@ -1,0 +1,11 @@
+query getFollowingsByUserID($user_id: ID) {
+  getFollowings(user_id: $user_id) {
+    id
+    following_id
+    conference_id
+    firstname
+    lastname
+    avatar
+    followers_count
+  }
+}

@@ -32,7 +32,11 @@ class UserProfileHeader extends Component {
   }
 
   _renderAvatar() {
-    let { userQuery: { getUserByID: { avatar, gender } } } = this.props;
+    let {
+      userQuery: {
+        getUserByID: { avatar, gender },
+      },
+    } = this.props;
     return (
       <View style={styles.avatarSection}>
         <UserAvatar
@@ -47,12 +51,14 @@ class UserProfileHeader extends Component {
 
   _renderInfo() {
     const {
-      userQuery: { getUserByID: { firstname, lastname, organization } },
+      userQuery: {
+        getUserByID: { firstname, lastname, organization },
+      },
     } = this.props;
     return (
       <View style={styles.infoContainer}>
         <Text style={[styles.primaryTextColor, styles.username]} bold>
-          {firstname} {lastname}
+          {lastname} {firstname}
         </Text>
         <Text style={styles.primaryTextColor}>{organization}</Text>
       </View>
