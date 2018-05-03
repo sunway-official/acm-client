@@ -37,7 +37,7 @@ const categories = [
     label: 'News Feed',
     icon: 'newspaper',
     iconType: 'material-community',
-    scene: '',
+    scene: 'newsFeedStatistic',
   },
 ];
 

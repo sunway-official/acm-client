@@ -1,0 +1,11 @@
+{
+  getTopCommentUsers {
+    id
+    username
+    avatar
+    position
+    newsComments {
+      id
+    }
+  }
+}
