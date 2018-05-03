@@ -27,7 +27,12 @@ const categories = [
     iconType: 'ionicon',
     scene: 'topicsStatistic',
   },
-  { label: 'Papers', icon: 'ios-paper', iconType: 'ionicon', scene: '' },
+  {
+    label: 'Papers',
+    icon: 'ios-paper',
+    iconType: 'ionicon',
+    scene: '',
+  },
   {
     label: 'News Feed',
     icon: 'newspaper',
@@ -45,7 +50,7 @@ class StatisticsScene extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Text style={styles.text}>Select statistic you want to show</Text>
+          <Text style={styles.text}> Select statistic you want to show </Text>
           <View style={styles.categoriesWrapper}>
             {categories.map((item, index) => (
               <View key={index} style={styles.categoryItem}>
@@ -62,7 +67,7 @@ class StatisticsScene extends Component {
                     />
                   </AnimatableView>
                 </TouchableOpacity>
-                <Text style={styles.categoryLabel}>{item.label}</Text>
+                <Text style={styles.categoryLabel}> {item.label} </Text>
               </View>
             ))}
           </View>
@@ -75,13 +80,15 @@ class StatisticsScene extends Component {
 StatisticsScene.header = {
   leftIcon: 'drawer',
   theme: 'dark',
-  backgroundColor: Colors.primary,
-  statusBarBackgroundColor: Colors.primary,
 };
 
 StatisticsScene.footer = {
-  activeColor: Colors.primary,
   show: true,
+  activeColor: Colors.primary,
+};
+
+StatisticsScene.drawer = {
+  primary: true,
 };
 
 StatisticsScene.propTypes = {
@@ -90,7 +97,12 @@ StatisticsScene.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  navigate: routeName => dispatch(NavigationActions.navigate({ routeName })),
+  navigate: routeName =>
+    dispatch(
+      NavigationActions.navigate({
+        routeName,
+      }),
+    ),
 });
 
 export default connect(undefined, mapDispatchToProps)(StatisticsScene);
