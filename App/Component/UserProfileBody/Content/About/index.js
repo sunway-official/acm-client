@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose, graphql, gql } from 'react-apollo';
-import { View } from 'react-native';
+import { View, ToastAndroid } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Text, AnchorText, TouchableView } from 'Component';
 import styles from './styles';
@@ -18,7 +18,7 @@ class About extends Component {
     userQuery: PropTypes.object,
     enableReview: PropTypes.bool,
     getRatingByUserID: PropTypes.object,
-    rateUser: PropTypes.func,
+    rateUserMutation: PropTypes.func,
   };
 
   static defaultProps = {
@@ -37,24 +37,25 @@ class About extends Component {
     this._onSubmitRating = this._onSubmitRating.bind(this);
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
+  componentWillReceiveProps(nextProps) {
+    const {
+      getRatingByUserID: { getUserRating: getCurrentRating },
+    } = this.props;
+    const { getRatingByUserID: { getUserRating: getNextRating } } = nextProps;
+
     if (
-      nextProps.getRatingByUserID.getUserRating &&
-      this.props.getRatingByUserID.getUserRating
+      (getNextRating && getNextRating !== getCurrentRating) ||
+      (getNextRating &&
+        getCurrentRating &&
+        getNextRating.rating !== getCurrentRating.rating)
     ) {
-      const {
-        getRatingByUserID: {
-          getUserRating: { rating: nextRating },
-        },
-      } = nextProps;
-      const {
-        getRatingByUserID: {
-          getUserRating: { rating: currentRating },
-        },
-      } = this.props;
-      if (currentRating !== nextRating) {
+      this.setState({
+        starCount: getNextRating.rating,
+      });
+    } else {
+      if (getCurrentRating) {
         this.setState({
-          starCount: nextRating,
+          starCount: getCurrentRating.rating,
         });
       }
     }
@@ -228,20 +229,29 @@ class About extends Component {
     });
   }
 
-  _onSubmitRating() {
-    const {
-      rateUser,
-      userQuery: { getUserByID },
-    } = this.props;
+  async _onSubmitRating() {
+    const { rateUserMutation, userQuery, getRatingByUserID } = this.props;
     const { starCount } = this.state;
-    rateUser({ rating: starCount, user_id: getUserByID.id });
+    await rateUserMutation({
+      variables: {
+        user_id: userQuery.getUserByID.id,
+        rating: starCount,
+      },
+    });
+    userQuery.refetch();
+    getRatingByUserID.refetch();
+
+    ToastAndroid.showWithGravityAndOffset(
+      'Rate success',
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+      0,
+      Metrics.toolBarHeight,
+    );
   }
 
   render() {
-    const {
-      enableReview,
-      getRatingByUserID: { getUserRating = {} },
-    } = this.props;
+    const { enableReview } = this.props;
     const { starCount } = this.state;
 
     return (
@@ -296,18 +306,6 @@ export default compose(
     }),
   }),
   graphql(gql(MUTATE_USER_RATING), {
-    props: ({ mutate }) => ({
-      rateUser: ({ rating, user_id }) => {
-        console.log(user_id);
-        return mutate({
-          variables: { user_id, rating },
-          refetchQueries: [
-            {
-              query: gql(GET_RATING_BY_USER_ID),
-            },
-          ],
-        });
-      },
-    }),
+    name: 'rateUserMutation',
   }),
 )(About);
