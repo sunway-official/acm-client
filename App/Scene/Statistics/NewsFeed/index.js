@@ -20,7 +20,6 @@ class NewsFeed extends Component {
 
   constructor(props) {
     super(props);
-    this._renderTopCommentUsers = this._renderTopCommentUsers.bind(this);
   }
 
   static _renderTopCommentUsers(user, index) {
