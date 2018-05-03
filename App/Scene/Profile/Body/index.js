@@ -37,6 +37,7 @@ class Body extends Component {
         activitiesQuery={getActivitiesQuery}
         followersQuery={getFollowersQuery}
         followingsQuery={getFollowingsQuery}
+        enableFollowUser
       />
     );
   }

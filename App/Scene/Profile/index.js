@@ -62,10 +62,7 @@ class ProfileScene extends Component {
   }
 
   componentDidUpdate() {
-    const {
-      header: { options },
-      setCustomHeader,
-    } = this.props;
+    const { header: { options }, setCustomHeader } = this.props;
     if (options.menu && options.menu.actions.length === 2) {
       const { menu } = options;
       // Add new menu items
@@ -143,10 +140,7 @@ class ProfileScene extends Component {
   }
 
   _handleScrolling(e) {
-    const {
-      data: { me },
-      setCustomHeader,
-    } = this.props;
+    const { data: { me }, setCustomHeader } = this.props;
     const { y } = e.nativeEvent.contentOffset;
     if (y > 150) {
       setCustomHeader({
@@ -170,9 +164,7 @@ class ProfileScene extends Component {
   }
 
   render() {
-    let {
-      data: { me },
-    } = this.props;
+    let { data: { me } } = this.props;
     if (!me) {
       me = DEFAULT_ME;
     }

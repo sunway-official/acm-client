@@ -8,9 +8,21 @@ import Followers from './Followers/index';
 import Following from './Following/index';
 import styles from './styles';
 
-const withAnimation = (Tab, userQuery, enableReview = false, data) => (
+/*eslint-disable react/prop-types*/
+const withAnimation = ({
+  Tab,
+  userQuery = null,
+  enableReview = false,
+  enableFollowUser = false,
+  data,
+}) => (
   <AnimatableView animation="fadeIn" duaration={300}>
-    <Tab userQuery={userQuery} enableReview={enableReview} tabContent={data} />
+    <Tab
+      userQuery={userQuery}
+      enableReview={enableReview}
+      enableFollowUser={enableFollowUser}
+      tabContent={data}
+    />
   </AnimatableView>
 );
 
@@ -20,6 +32,7 @@ class Content extends Component {
     userQuery: PropTypes.object,
     activitiesQuery: PropTypes.object,
     enableReview: PropTypes.bool,
+    enableFollowUser: PropTypes.bool,
     followersQuery: PropTypes.object,
     followingsQuery: PropTypes.object,
   };
@@ -36,17 +49,30 @@ class Content extends Component {
       followersQuery,
       followingsQuery,
       enableReview,
+      enableFollowUser,
     } = this.props;
 
     switch (tab) {
       case 'About':
-        return withAnimation(About, userQuery, enableReview);
+        return withAnimation({ Tab: About, userQuery, enableReview });
       case 'Posts':
-        return withAnimation(Activities, userQuery, false, activitiesQuery);
+        return withAnimation({
+          Tab: Activities,
+          userQuery,
+          data: activitiesQuery,
+        });
       case 'Followers':
-        return withAnimation(Followers, null, false, followersQuery);
+        return withAnimation({
+          Tab: Followers,
+          enableFollowUser,
+          data: followersQuery,
+        });
       case 'Following':
-        return withAnimation(Following, null, false, followingsQuery);
+        return withAnimation({
+          Tab: Following,
+          enableFollowUser,
+          data: followingsQuery,
+        });
       default:
         return <View />;
     }

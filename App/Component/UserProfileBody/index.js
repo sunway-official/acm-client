@@ -34,6 +34,7 @@ class Body extends Component {
     userQuery: PropTypes.any,
     activitiesQuery: PropTypes.any,
     enableReview: PropTypes.bool,
+    enableFollowUser: PropTypes.bool,
     followersQuery: PropTypes.object,
     followingsQuery: PropTypes.object,
   };
@@ -107,6 +108,7 @@ class Body extends Component {
       userQuery,
       activitiesQuery,
       enableReview,
+      enableFollowUser,
       followersQuery,
       followingsQuery,
     } = this.props;
@@ -116,6 +118,7 @@ class Body extends Component {
         userQuery={userQuery}
         activitiesQuery={activitiesQuery}
         enableReview={enableReview}
+        enableFollowUser={enableFollowUser}
         followersQuery={followersQuery}
         followingsQuery={followingsQuery}
       />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, ImageBackground } from 'react-native';
-import { Text, UserAvatar } from 'Component';
+import { Text, UserAvatar, LoadingIndicator } from 'Component';
 import { Images } from 'Theme';
 import styles from './styles';
 
@@ -32,11 +32,7 @@ class UserProfileHeader extends Component {
   }
 
   _renderAvatar() {
-    let {
-      userQuery: {
-        getUserByID: { avatar, gender },
-      },
-    } = this.props;
+    let { userQuery: { getUserByID: { avatar, gender } } } = this.props;
     return (
       <View style={styles.avatarSection}>
         <UserAvatar
@@ -51,9 +47,7 @@ class UserProfileHeader extends Component {
 
   _renderInfo() {
     const {
-      userQuery: {
-        getUserByID: { firstname, lastname, organization },
-      },
+      userQuery: { getUserByID: { firstname, lastname, organization } },
     } = this.props;
     return (
       <View style={styles.infoContainer}>
@@ -71,20 +65,26 @@ class UserProfileHeader extends Component {
   }
 
   render() {
+    const { userQuery: { getUserByID } } = this.props;
+
     return (
       <View style={{ height: this.state.headerHeight }}>
-        <ImageBackground
-          source={Images.materialBackground}
-          style={styles.backgroundImage}
-        >
-          <View
-            style={styles.coverPhoto}
-            onLayout={event => this._viewDimensions(event.nativeEvent.layout)}
+        {!getUserByID ? (
+          <LoadingIndicator />
+        ) : (
+          <ImageBackground
+            source={Images.materialBackground}
+            style={styles.backgroundImage}
           >
-            {this._renderAvatar()}
-            {this._renderInfo()}
-          </View>
-        </ImageBackground>
+            <View
+              style={styles.coverPhoto}
+              onLayout={event => this._viewDimensions(event.nativeEvent.layout)}
+            >
+              {this._renderAvatar()}
+              {this._renderInfo()}
+            </View>
+          </ImageBackground>
+        )}
       </View>
     );
   }
