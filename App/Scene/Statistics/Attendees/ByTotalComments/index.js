@@ -24,7 +24,7 @@ class AttendeesStatisticByTotalComments extends Component {
     return (
       <ChartComponent
         data={this.props.data.getAttendeesStatisticByTotalComments}
-        description={'getAttendeesStatisticByTotalComments'}
+        description={'The percentage of attendees based on comments'}
         unitLabel={'people'}
       />
     );

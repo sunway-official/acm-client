@@ -24,7 +24,7 @@ class AttendeesStatisticByTotalPhotos extends Component {
     return (
       <ChartComponent
         data={this.props.data.getAttendeesStatisticByTotalPhotos}
-        description={'getAttendeesStatisticByTotalPhotos'}
+        description={'The percentage of attendees based on photos'}
         unitLabel={'people'}
       />
     );
