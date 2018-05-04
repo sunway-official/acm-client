@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { LoadingIndicator, PieChart, BarChart } from 'Component';
+import { LoadingIndicator } from 'Component';
 import { compose, gql, graphql } from 'react-apollo';
 import styles from '../styles';
 import GET_ATTENDEES_STATISTIC_BY_POSITION from 'Graphql/query/getAttendeesStatisticByPosition.graphql';
-
-const color = [
-  'tomato',
-  'orange',
-  'gold',
-  'cyan',
-  'navy',
-  'black',
-  'green',
-  'red',
-];
+import { ChartComponent } from 'Scene/Statistics/ChartComponent';
 
 class AttendeesStatisticByPosition extends Component {
   static _renderLoading() {
@@ -26,50 +16,17 @@ class AttendeesStatisticByPosition extends Component {
     );
   }
 
-  filteredListToPieChart = data => {
-    return data.map(item => {
-      return {
-        x: item.key,
-        y: item.percentage,
-        label: `${item.label}\n(${item.value} people)`,
-      };
-    });
-  };
-
-  filteredListToBarChart = data => {
-    return data.map(item => {
-      return {
-        x: item.label,
-        y: item.value,
-      };
-    });
-  };
-
   render() {
     if (this.props.data.loading) {
       return AttendeesStatisticByPosition._renderLoading();
     }
 
     return (
-      <View>
-        {this.props.data.getAttendeesStatisticByPosition.length < 6 ? (
-          <PieChart
-            data={this.filteredListToPieChart(
-              this.props.data.getAttendeesStatisticByPosition,
-            )}
-            description={'The number of attendees based on language'}
-            colorScale={color}
-            labelRadius={72}
-          />
-        ) : (
-          <BarChart
-            data={this.filteredListToBarChart(
-              this.props.data.getAttendeesStatisticByPosition,
-            )}
-            description={'The number of attendees based on position'}
-          />
-        )}
-      </View>
+      <ChartComponent
+        data={this.props.data.getAttendeesStatisticByPosition}
+        description={'getAttendeesStatisticByPosition'}
+        unitLabel={'people'}
+      />
     );
   }
 }
