@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _filter from 'lodash/filter';
 import { View, FlatList } from 'react-native';
 import styles from './styles';
 import Item from '../Item';

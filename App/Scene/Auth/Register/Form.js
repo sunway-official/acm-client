@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { required, email } from 'Lib/validate';
 import { Icon } from 'react-native-elements';
-import { KeyboardAvoidingView, Image, View, ScrollView } from 'react-native';
+import { KeyboardAvoidingView, View, ScrollView } from 'react-native';
 import { Colors } from 'Theme';
 import { Text, TouchableView, FormInput, AnimatableView } from 'Component';
 import styles from '../styles';
