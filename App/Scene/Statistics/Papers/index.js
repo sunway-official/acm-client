@@ -18,11 +18,11 @@ class PapersStatisticScene extends Component {
 
   render() {
     return (
-      <ScrollView>
-        <View style={styles.container}>
+      <View style={styles.container}>
+        <ScrollView>
           <PapersStatisticByReviews />
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 }

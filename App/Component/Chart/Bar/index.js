@@ -12,7 +12,7 @@ const BarChart = ({ data, description = null }) => [
   <VictoryChart
     key={2}
     domainPadding={{ y: 20 }}
-    height={data.length * 30}
+    height={data.length * 40}
     width={Metrics.screenWidth / 1.1}
   >
     <VictoryAxis

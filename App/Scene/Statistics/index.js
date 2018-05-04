@@ -15,12 +15,12 @@ const categories = [
     iconType: 'material-icons',
     scene: 'attendeesStatistic',
   },
-  {
-    label: 'Speakers',
-    icon: 'keyboard-voice',
-    iconType: 'material-icons',
-    scene: '',
-  },
+  // {
+  //   label: 'Speakers',
+  //   icon: 'keyboard-voice',
+  //   iconType: 'material-icons',
+  //   scene: '',
+  // },
   {
     label: 'Topics',
     icon: 'ios-paper',

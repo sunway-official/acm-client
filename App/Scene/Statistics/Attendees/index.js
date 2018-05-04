@@ -23,16 +23,16 @@ class AttendeesStatisticScene extends Component {
 
   render() {
     return (
-      <ScrollView>
-        <View style={styles.container}>
+      <View style={styles.container}>
+        <ScrollView>
           <AttendeesStatisticByOrganization />
           <AttendeesStatisticByInteresting />
           <AttendeesStatisticByLanguage />
           <AttendeesStatisticByPosition />
           <AttendeesStatisticByTotalPhotos />
           <AttendeesStatisticByTotalComments />
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 }
