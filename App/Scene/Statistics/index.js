@@ -31,7 +31,7 @@ const categories = [
     label: 'Papers',
     icon: 'ios-paper',
     iconType: 'ionicon',
-    scene: '',
+    scene: 'papersStatistic',
   },
   {
     label: 'News Feed',

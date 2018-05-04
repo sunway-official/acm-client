@@ -20,6 +20,7 @@ import PapersTracker from 'Scene/PapersTracker';
 import Statistics from 'Scene/Statistics';
 import AttendeesStatisticScene from 'Scene/Statistics/Attendees';
 import TopicsStatisticScene from 'Scene/Statistics/Topics';
+import PapersStatisticScene from 'Scene/Statistics/Papers';
 
 export const ROUTES = {
   splash: {
@@ -233,6 +234,15 @@ export const ROUTES = {
     name: 'Topics Statistic',
     path: '/statistics/topics',
     screen: TopicsStatisticScene,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
+    },
+  },
+  papersStatistic: {
+    name: 'Papers Statistic',
+    path: '/statistics/papers',
+    screen: PapersStatisticScene,
     icon: {
       name: 'chart-bar',
       type: 'material-community',
