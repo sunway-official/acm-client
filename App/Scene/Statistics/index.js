@@ -15,12 +15,12 @@ const categories = [
     iconType: 'material-icons',
     scene: 'attendeesStatistic',
   },
-  {
-    label: 'Speakers',
-    icon: 'keyboard-voice',
-    iconType: 'material-icons',
-    scene: '',
-  },
+  // {
+  //   label: 'Speakers',
+  //   icon: 'keyboard-voice',
+  //   iconType: 'material-icons',
+  //   scene: '',
+  // },
   {
     label: 'Topics',
     icon: 'ios-paper',
@@ -31,7 +31,7 @@ const categories = [
     label: 'Papers',
     icon: 'ios-paper',
     iconType: 'ionicon',
-    scene: '',
+    scene: 'papersStatistic',
   },
   {
     label: 'News Feed',
