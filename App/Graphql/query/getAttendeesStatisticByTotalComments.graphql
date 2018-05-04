@@ -1,5 +1,5 @@
 {
-  getAttendeesStatisticByTotalComments {
+  getAttendeesStatisticByTotalComments(minimumValue: 5) {
     id
     key
     value

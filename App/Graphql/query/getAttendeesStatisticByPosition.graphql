@@ -1,5 +1,5 @@
 {
-  getAttendeesStatisticByPosition {
+  getAttendeesStatisticByPosition(minimumValue: 5) {
     id
     key
     value

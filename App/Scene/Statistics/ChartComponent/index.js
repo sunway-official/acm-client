@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { PieChart, BarChart } from 'Component';
+import { Colors } from 'Theme';
 
 const color = [
-  'tomato',
-  'orange',
-  'gold',
-  'cyan',
-  'navy',
-  'black',
-  'green',
-  'red',
+  Colors.green,
+  Colors.blue,
+  Colors.indigo,
+  Colors.navy,
+  Colors.amber,
+  Colors.orange,
+  Colors.red,
+  Colors.teal,
+  Colors.brown,
+  Colors.pink,
 ];
 
 export class ChartComponent extends Component {
