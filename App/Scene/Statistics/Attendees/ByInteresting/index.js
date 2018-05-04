@@ -52,7 +52,7 @@ class AttendeesStatisticByInteresting extends Component {
 
     return (
       <View>
-        {this.props.data.getAttendeesStatisticByTheirInteresting.length < 5 ? (
+        {this.props.data.getAttendeesStatisticByTheirInteresting.length < 6 ? (
           <PieChart
             data={this.filteredListToPieChart(
               this.props.data.getAttendeesStatisticByTheirInteresting,

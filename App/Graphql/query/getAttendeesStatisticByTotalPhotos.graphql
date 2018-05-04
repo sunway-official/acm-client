@@ -1,0 +1,9 @@
+{
+  getAttendeesStatisticByTotalPhotos {
+    id
+    key
+    value
+    percentage
+    label
+  }
+}

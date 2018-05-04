@@ -52,7 +52,7 @@ class AttendeesStatisticByInteresting extends Component {
 
     return (
       <View>
-        {this.props.data.getAttendeesStatisticByLanguage.length < 5 ? (
+        {this.props.data.getAttendeesStatisticByLanguage.length < 6 ? (
           <PieChart
             data={this.filteredListToPieChart(
               this.props.data.getAttendeesStatisticByLanguage,
