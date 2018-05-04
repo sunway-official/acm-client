@@ -82,11 +82,6 @@ StatisticsScene.header = {
   theme: 'dark',
 };
 
-StatisticsScene.footer = {
-  show: true,
-  activeColor: Colors.primary,
-};
-
 StatisticsScene.drawer = {
   primary: true,
 };
