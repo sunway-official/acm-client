@@ -4,10 +4,10 @@ import { View } from 'react-native';
 import { LoadingIndicator } from 'Component';
 import { compose, gql, graphql } from 'react-apollo';
 import styles from '../styles';
-import GET_ATTENDEES_STATISTIC_BY_POSITION from 'Graphql/query/getAttendeesStatisticByPosition.graphql';
+import GET_ATTENDEES_STATISTIC_BY_TOTAL_PHOTOS from 'Graphql/query/getAttendeesStatisticByTotalPhotos.graphql';
 import { ChartComponent } from 'Scene/Statistics/ChartComponent';
 
-class AttendeesStatisticByPosition extends Component {
+class AttendeesStatisticByTotalPhotos extends Component {
   static _renderLoading() {
     return (
       <View style={styles.loadingContainer}>
@@ -18,23 +18,23 @@ class AttendeesStatisticByPosition extends Component {
 
   render() {
     if (this.props.data.loading) {
-      return AttendeesStatisticByPosition._renderLoading();
+      return AttendeesStatisticByTotalPhotos._renderLoading();
     }
 
     return (
       <ChartComponent
-        data={this.props.data.getAttendeesStatisticByPosition}
-        description={'The percentage of attendees based on their positions'}
+        data={this.props.data.getAttendeesStatisticByTotalPhotos}
+        description={'The percentage of attendees based on photos'}
         unitLabel={'people'}
       />
     );
   }
 }
 
-AttendeesStatisticByPosition.propTypes = {
+AttendeesStatisticByTotalPhotos.propTypes = {
   data: PropTypes.object,
 };
 
-export default compose(graphql(gql(GET_ATTENDEES_STATISTIC_BY_POSITION)))(
-  AttendeesStatisticByPosition,
+export default compose(graphql(gql(GET_ATTENDEES_STATISTIC_BY_TOTAL_PHOTOS)))(
+  AttendeesStatisticByTotalPhotos,
 );
