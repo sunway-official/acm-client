@@ -10,6 +10,7 @@ import AttendeesStatisticByInteresting from './ByInteresting';
 import AttendeesStatisticByLanguage from './ByLanguage';
 import AttendeesStatisticByPosition from './ByPosition';
 import AttendeesStatisticByTotalPhotos from './ByTotalPhotos';
+import AttendeesStatisticByTotalComments from './ByTotalComments';
 
 class AttendeesStatisticScene extends Component {
   static _renderLoading() {
@@ -29,6 +30,7 @@ class AttendeesStatisticScene extends Component {
           <AttendeesStatisticByLanguage />
           <AttendeesStatisticByPosition />
           <AttendeesStatisticByTotalPhotos />
+          <AttendeesStatisticByTotalComments />
         </View>
       </ScrollView>
     );

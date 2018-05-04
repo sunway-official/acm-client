@@ -1,0 +1,9 @@
+{
+  getAttendeesStatisticByTotalComments {
+    id
+    key
+    value
+    percentage
+    label
+  }
+}
