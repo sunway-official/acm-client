@@ -1,0 +1,9 @@
+{
+  getAttendeesStatisticByOrganization(minimumValue: 5) {
+    id
+    key
+    value
+    percentage
+    label
+  }
+}

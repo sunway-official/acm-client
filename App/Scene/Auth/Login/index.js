@@ -5,7 +5,6 @@ import { AsyncStorage, Keyboard } from 'react-native';
 import { Notifications } from 'expo';
 import { NavigationActions } from 'Reduck/Navigation';
 import LoginForm from '../Login/Form';
-import { getInitialRoute } from 'Navigation/resolver';
 import { compose, gql, graphql, withApollo } from 'react-apollo';
 import MUTATION_LOGIN from 'Graphql/mutation/login.graphql';
 import QUERY_ME from 'Graphql/query/me.graphql';
