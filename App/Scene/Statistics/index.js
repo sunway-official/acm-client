@@ -34,10 +34,10 @@ const categories = [
     scene: 'papersStatistic',
   },
   {
-    label: 'News Feed',
-    icon: 'newspaper',
-    iconType: 'material-community',
-    scene: '',
+    label: 'Top comment users',
+    icon: 'crown',
+    iconType: 'foundation',
+    scene: 'topCommentUsersStatistic',
   },
 ];
 
