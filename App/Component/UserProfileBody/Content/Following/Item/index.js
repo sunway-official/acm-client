@@ -67,19 +67,19 @@ class Item extends Component {
             </Text>
           </View>
         </View>
-        {enableFollowUser && (
-          <TouchableOpacity
-            onPress={() => this._onFollowPress(following)}
-            style={styles.rightFollowerContainer}
-          >
-            <Icon
-              name={follow ? 'user-following' : 'user-follow'}
-              type="simple-line-icon"
-              color={follow ? Colors.red : Colors.black}
-              size={18}
-            />
-          </TouchableOpacity>
-        )}
+        {/*{enableFollowUser && (*/}
+        {/*<TouchableOpacity*/}
+        {/*onPress={() => this._onFollowPress(following)}*/}
+        {/*style={styles.rightFollowerContainer}*/}
+        {/*>*/}
+        {/*<Icon*/}
+        {/*name={follow ? 'user-following' : 'user-follow'}*/}
+        {/*type="simple-line-icon"*/}
+        {/*color={follow ? Colors.red : Colors.black}*/}
+        {/*size={18}*/}
+        {/*/>*/}
+        {/*</TouchableOpacity>*/}
+        {/*)}*/}
       </TouchableView>
     );
   }
@@ -90,11 +90,10 @@ class Item extends Component {
   }
 }
 
-export default compose(
-  graphql(gql(MUTATE_FOLLOW_USER), {
-    name: 'followUserMutation',
-  }),
-  graphql(gql(MUTATE_UNFOLLOW_USER), {
-    name: 'unfollowUserMutation',
-  }),
-)(Item);
+export default compose()(Item);
+// graphql(gql(MUTATE_FOLLOW_USER), {
+//   name: 'followUserMutation',
+// }),
+// graphql(gql(MUTATE_UNFOLLOW_USER), {
+//   name: 'unfollowUserMutation',
+// }),
