@@ -21,6 +21,7 @@ import Statistics from 'Scene/Statistics';
 import AttendeesStatisticScene from 'Scene/Statistics/Attendees';
 import TopicsStatisticScene from 'Scene/Statistics/Topics';
 import PapersStatisticScene from 'Scene/Statistics/Papers';
+import Search from 'Scene/Search';
 
 export const ROUTES = {
   splash: {
@@ -245,6 +246,14 @@ export const ROUTES = {
     icon: {
       name: 'chart-bar',
       type: 'material-community',
+    },
+  },
+  search: {
+    name: 'Search',
+    path: '/search',
+    screen: Search,
+    icon: {
+      name: 'search',
     },
   },
 };

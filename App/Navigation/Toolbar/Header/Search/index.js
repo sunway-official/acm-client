@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { connect } from 'react-redux';
 import { Icon } from 'react-native-elements';
 import { TouchableView, FormInput } from 'Component';
 import { Colors, Metrics, Fonts } from 'Theme';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, reset } from 'redux-form';
 import { compose } from 'react-apollo';
 import styles from '../styles';
 
@@ -82,13 +81,13 @@ class HeaderSearchContent extends Component {
     };
   }
 
-  _renderClear({ icon, onPress = () => {} }) {
+  _renderClear({ icon }) {
     const { dispatch } = this.props;
     return (
       <TouchableView
         {...this._touchableViewStyles()}
         style={[styles.rightIconWrapper, styles.firstRightIcon]}
-        onPress={() => onPress(dispatch)}
+        onPress={() => dispatch(reset('search'))}
       >
         <Icon
           name="more-vert"
@@ -136,7 +135,6 @@ class HeaderSearchContent extends Component {
 }
 
 export default compose(
-  connect(),
   reduxForm({
     form: 'search',
   }),
