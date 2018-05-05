@@ -65,11 +65,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  navigate: (routeName, followerId) =>
+  navigate: (routeName, userId) =>
     dispatch(
       NavigationActions.navigate({
         routeName,
-        params: { userId: followerId },
+        params: { userId },
       }),
     ),
 });
