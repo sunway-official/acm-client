@@ -12,7 +12,7 @@ const BarChart = ({ data, description = null }) => [
   <VictoryChart
     key={2}
     domainPadding={{ y: 20 }}
-    height={data.length * 40}
+    height={data.length * 70}
     width={Metrics.screenWidth / 1.1}
   >
     <VictoryAxis
@@ -20,10 +20,10 @@ const BarChart = ({ data, description = null }) => [
         axis: { stroke: Colors.primary },
         axisLabel: { fontSize: 16, fill: Colors.gray },
         ticks: { stroke: Colors.gray },
+        // hidden tick labels
         tickLabels: {
-          fontSize: 14,
+          fontSize: 1,
           fill: Colors.white,
-          fontWeight: 'bold',
         },
         grid: { stroke: Colors.lightCyan, strokeWidth: 0.25 },
       }}
@@ -48,9 +48,6 @@ const BarChart = ({ data, description = null }) => [
           fill: Colors.primary,
           fillOpacity: 0.7,
           strokeWidth: 1,
-        },
-        labels: {
-          fontSize: 10,
         },
       }}
       data={data}

@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
-import { LoadingIndicator, PieChart, BarChart } from 'Component';
+import { View, ScrollView } from 'react-native';
+import { LoadingIndicator } from 'Component';
 import { compose, gql, graphql } from 'react-apollo';
 import styles from './styles';
 import { Colors } from 'Theme';
 import GET_ATTENDEES_STATISTIC from 'Graphql/query/getTopicsStatistic.graphql';
-
-const color = [
-  'tomato',
-  'orange',
-  'gold',
-  'cyan',
-  'navy',
-  'black',
-  'green',
-  'red',
-];
+import { ChartComponent } from 'Scene/Statistics/ChartComponent';
 
 class TopicsStatisticScene extends Component {
   static _renderLoading() {
@@ -27,25 +17,6 @@ class TopicsStatisticScene extends Component {
     );
   }
 
-  filteredListToPieChart = data => {
-    return data.map(item => {
-      return {
-        x: item.key,
-        y: item.percentage,
-        label: `${item.label}\n(${item.value} topic)`,
-      };
-    });
-  };
-
-  filteredListToBarChart = data => {
-    return data.map(item => {
-      return {
-        x: item.label,
-        y: item.value,
-      };
-    });
-  };
-
   render() {
     if (this.props.data.loading) {
       return TopicsStatisticScene._renderLoading();
@@ -53,25 +24,13 @@ class TopicsStatisticScene extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.chart}>
-          {this.props.data.getTopicsStatistic.length < 6 ? (
-            <PieChart
-              data={this.filteredListToPieChart(
-                this.props.data.getTopicsStatistic,
-              )}
-              description={'The number of topics based on categories'}
-              colorScale={color}
-              labelRadius={72}
-            />
-          ) : (
-            <BarChart
-              data={this.filteredListToBarChart(
-                this.props.data.getTopicsStatistic,
-              )}
-              description={'Topics statistic'}
-            />
-          )}
-        </View>
+        <ScrollView>
+          <ChartComponent
+            data={this.props.data.getTopicsStatistic}
+            pieChartDescription={'The percentage of best topics'}
+            barChartDescription={'The number of best topics'}
+          />
+        </ScrollView>
       </View>
     );
   }

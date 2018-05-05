@@ -27,7 +27,7 @@ class AttendeesStatisticScene extends Component {
         <ScrollView>
           <AttendeesStatisticByOrganization />
           <AttendeesStatisticByInteresting />
-          <AttendeesStatisticByLanguage />
+          {/*<AttendeesStatisticByLanguage />*/}
           <AttendeesStatisticByPosition />
           <AttendeesStatisticByTotalPhotos />
           <AttendeesStatisticByTotalComments />

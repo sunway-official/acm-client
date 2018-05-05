@@ -24,7 +24,8 @@ class AttendeesStatisticByInteresting extends Component {
     return (
       <ChartComponent
         data={this.props.data.getAttendeesStatisticByLanguage}
-        description={'The percentage of attendees based on languages'}
+        pieChartDescription={'The percentage of attendees based on languages'}
+        barChartDescription={'The number of attendees based on languages'}
         unitLabel={'people'}
       />
     );
