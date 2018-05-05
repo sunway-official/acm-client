@@ -1,0 +1,9 @@
+mutation($user_id: ID!) {
+  followUser(user_id: $user_id) {
+    id
+    firstname
+    lastname
+    follower_id
+    following_id
+  }
+}

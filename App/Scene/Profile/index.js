@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, gql, compose } from 'react-apollo';
 import { ScrollView, View } from 'react-native';
 import { ImagePicker } from 'expo';
 import { connect } from 'react-redux';
-import { LoadingIndicator } from 'Component';
+import { LoadingIndicator, UserProfileHeader } from 'Component';
 import { Colors } from 'Theme';
 import { S3 } from 'Provider';
 import {
   addHeaderOptions,
   closeMenu as closeHeaderMenu,
 } from 'Reduck/Toolbar/action';
-import ProfileHeader from './Header';
 import ProfileBody from './Body';
-import { DEFAULT_USER_AVATAR } from './fixture';
 import { NavigationActions } from 'Reduck/Navigation';
 import QUERY_ME from 'Graphql/query/me.graphql';
 import UPDATE_AVATAR from './updateAvatar.graphql';
@@ -170,6 +168,8 @@ class ProfileScene extends Component {
     if (!me) {
       me = DEFAULT_ME;
     }
+    const userQuery = { getUserByID: { ...me } };
+
     return (
       <ScrollView
         scrollEventThrottle={16}
@@ -179,9 +179,15 @@ class ProfileScene extends Component {
         }}
         overScrollMode={'never'}
       >
-        <ProfileHeader avatar={DEFAULT_USER_AVATAR} user={me} />
-        <ProfileBody user={me} />
-        {this._renderLoading(this.state.loading)}
+        {userQuery.loading ? (
+          <LoadingIndicator />
+        ) : (
+          <Fragment>
+            <UserProfileHeader userQuery={userQuery} />
+            <ProfileBody userQuery={userQuery} />
+            {this._renderLoading(this.state.loading)}
+          </Fragment>
+        )}
       </ScrollView>
     );
   }

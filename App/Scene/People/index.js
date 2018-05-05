@@ -1,49 +1,45 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { View, Button } from 'react-native';
-import { Text } from 'Component';
+import {
+  Text,
+  UserProfileBody,
+  UserProfileHeader,
+  LoadingIndicator,
+} from 'Component';
 import { connect } from 'react-redux';
+import { compose, graphql, gql, withApollo } from 'react-apollo';
 import { NavigationActions } from 'Reduck/Navigation';
 import styles from './styles';
+import USER_BY_ID_QUERY from 'Graphql/query/getUserByID.graphql';
+import GET_NEWS_BY_USER_ID_QUERY from 'Graphql/query/getNewsByUserID.graphql';
+import Content from './Content';
+
 import { Colors } from 'Theme';
 
-const text = ['Welcome to People!', 'We are under developement.'];
+class PeopleScene extends Component {
+  static propTypes = {
+    navigation: PropTypes.object,
+  };
 
-const PeopleScene = ({ home }) => (
-  <View style={styles.container}>
-    <View style={styles.centerText}>
-      {text.map((text, index) => <Text key={index}>{text}</Text>)}
-    </View>
-    <Button color={Colors.green} title="Home" onPress={home} />
-  </View>
-);
+  render() {
+    const { navigation } = this.props;
+
+    return navigation && <Content userId={navigation.state.params.userId} />;
+  }
+}
 
 PeopleScene.header = {
-  leftIcon: 'drawer',
+  leftIcon: 'back',
+  hideTitle: true,
+  // float: true,
   theme: 'dark',
-  backgroundColor: Colors.green,
-  statusBarBackgroundColor: Colors.green,
-  actions: [
-    {
-      icon: {},
-      onPress: () => {
-        console.log('hello people');
-      },
-    },
-  ],
+  backgroundColor: Colors.primary,
+  statusBarBackgroundColor: Colors.primary,
 };
-
-// PeopleScene.footer = {
-//   show: true,
-//   activeColor: Colors.green,
-// };
 
 PeopleScene.propTypes = {
   home: PropTypes.func,
 };
 
-const mapDispatchToProps = dispatch => ({
-  home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
-});
-
-export default connect(undefined, mapDispatchToProps)(PeopleScene);
+export default PeopleScene;

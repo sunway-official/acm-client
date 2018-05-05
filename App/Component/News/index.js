@@ -141,7 +141,9 @@ class News extends Component {
         isLiked: true,
       });
 
-      const { data: { insertNewsLike } } = await this.props.insertNewsLike({
+      const {
+        data: { insertNewsLike },
+      } = await this.props.insertNewsLike({
         news_id: this.props.item.id,
       });
       this.setState({ like: insertNewsLike });

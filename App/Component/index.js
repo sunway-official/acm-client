@@ -13,6 +13,7 @@ export { default as LoadingIndicator } from './LoadingIndicator';
 export { default as AutoExpandingTextInput } from './AutoExpandingTextInput';
 export { default as S3Image } from './S3Image';
 export { default as EmptyCollection } from './EmptyCollection';
-
+export { default as UserProfileBody } from './UserProfileBody';
+export { default as UserProfileHeader } from './UserProfileHeader';
 export { default as PieChart } from './Chart/Pie';
 export { default as BarChart } from './Chart/Bar';

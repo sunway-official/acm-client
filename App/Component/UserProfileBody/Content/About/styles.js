@@ -2,12 +2,32 @@ import { StyleSheet } from 'react-native';
 import { Metrics, Colors, Fonts } from 'Theme';
 
 const { baseMargin, doubleBaseMargin } = Metrics;
-const { white, grey } = Colors;
+const { white, grey, primary } = Colors;
 const { size } = Fonts;
 
 export default StyleSheet.create({
   container: {
     marginBottom: baseMargin,
+  },
+  reviewContainer: {
+    backgroundColor: 'white',
+    paddingHorizontal: baseMargin,
+    paddingVertical: baseMargin,
+    marginBottom: baseMargin,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ratingTitle: { color: grey, fontWeight: 'bold' },
+  reviewTextBoxContainer: { width: '100%', marginBottom: doubleBaseMargin },
+  ratingSubmitBtn: {
+    backgroundColor: primary,
+    paddingVertical: baseMargin,
+    paddingHorizontal: doubleBaseMargin,
+  },
+  ratingSubmitTitle: {
+    // fontWeight: 'bold',
+    color: white,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -43,5 +63,9 @@ export default StyleSheet.create({
   icon: {
     marginLeft: baseMargin,
     marginRight: doubleBaseMargin,
+  },
+  rating: {
+    flex: 1,
+    alignItems: 'center',
   },
 });

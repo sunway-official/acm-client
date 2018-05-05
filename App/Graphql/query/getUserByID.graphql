@@ -1,9 +1,6 @@
-query {
-  me {
+query getUserByID($userId: ID!) {
+  getUserByID(userId: $userId) {
     id
-    currentConference {
-      id
-    }
     firstname
     lastname
     dob
