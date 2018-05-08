@@ -15,12 +15,12 @@ export default StyleSheet.create({
     backgroundColor: white,
     padding: baseMargin,
   },
-  leftNewsFeedContainer: {
+  leftTopCommentUsersContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  rightNewsFeedContainer: { paddingRight: baseMargin },
-  numberOfNewsFeedText: {
+  rightTopCommentUsersContainer: { paddingRight: baseMargin },
+  numberOfTopCommentUsersText: {
     color: grey,
     fontSize: 12,
     marginTop: smallMargin,

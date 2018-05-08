@@ -1,5 +1,5 @@
 {
-  getPaperStatisticByReviews(minimumValue: 0) {
+  getAttendeesStatisticByLikes(minimumValue: 2) {
     id
     key
     value
