@@ -8,10 +8,6 @@ import { Colors } from 'Theme';
 import AttendeesStatisticByOrganization from './ByOrganization';
 import AttendeesStatisticByInteresting from './ByInteresting';
 import AttendeesStatisticByPosition from './ByPosition';
-import AttendeesStatisticByTotalPhotos from './ByTotalPhotos';
-import AttendeesStatisticByTotalComments from './ByTotalComments';
-import AttendeesStatisticByLikes from './ByLikes';
-import AttendeesStatisticByRating from './ByRating';
 
 class AttendeesStatisticScene extends Component {
   static _renderLoading() {
@@ -29,10 +25,6 @@ class AttendeesStatisticScene extends Component {
           <AttendeesStatisticByOrganization />
           <AttendeesStatisticByInteresting />
           <AttendeesStatisticByPosition />
-          <AttendeesStatisticByTotalPhotos />
-          <AttendeesStatisticByTotalComments />
-          <AttendeesStatisticByLikes />
-          <AttendeesStatisticByRating />
         </ScrollView>
       </View>
     );

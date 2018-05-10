@@ -1,5 +1,5 @@
 {
-  getAttendeesStatisticByLikes(minimumValue: 2) {
+  getAttendeesStatisticByLikes(minimumValue: 0) {
     id
     key
     value
