@@ -21,7 +21,12 @@ import Statistics from 'Scene/Statistics';
 import AttendeesStatisticScene from 'Scene/Statistics/Attendees';
 import TopicsStatisticScene from 'Scene/Statistics/Topics';
 import PapersStatisticScene from 'Scene/Statistics/Papers';
+import Search from 'Scene/Search';
 import TopCommentUsersScene from 'Scene/Statistics/TopCommentUsers';
+import TopCommentedUsersScene from 'Scene/Statistics/TopCommentedUsers';
+import TopLikedUsersScene from 'Scene/Statistics/TopLikedUsers';
+import TopRatedUsersScene from 'Scene/Statistics/TopRatedUsers';
+import TopUploadedPhotosUsersScene from 'Scene/Statistics/TopUploadPhotosUsers';
 
 export const ROUTES = {
   splash: {
@@ -249,10 +254,54 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
+  search: {
+    name: 'Search',
+    path: '/search',
+    screen: Search,
+    icon: {
+      name: 'search',
+    },
+  },
   topCommentUsersStatistic: {
-    name: 'Top comment users - Statistic',
+    name: 'Top comment users',
     path: '/statistics/topCommentUsersStatistic',
     screen: TopCommentUsersScene,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
+    },
+  },
+  topCommentedUsersStatistic: {
+    name: 'Top commented users',
+    path: '/statistics/topCommentedUsersStatistic',
+    screen: TopCommentedUsersScene,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
+    },
+  },
+  topLikedUsersStatistic: {
+    name: 'Top liked users',
+    path: '/statistics/topLikedUsersStatistic',
+    screen: TopLikedUsersScene,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
+    },
+  },
+  topRatedUsersStatistic: {
+    name: 'Top rated users',
+    path: '/statistics/topRatedUsersStatistic',
+    screen: TopRatedUsersScene,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
+    },
+  },
+  topUploadedUsersStatistic: {
+    name: 'Top uploaded users',
+    path: '/statistics/topUploadedUsersStatistic',
+    screen: TopUploadedPhotosUsersScene,
     icon: {
       name: 'chart-bar',
       type: 'material-community',

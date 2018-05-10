@@ -35,9 +35,33 @@ const categories = [
   },
   {
     label: 'Top comment users',
-    icon: 'crown',
-    iconType: 'foundation',
+    icon: 'comment',
+    iconType: 'evilicon',
     scene: 'topCommentUsersStatistic',
+  },
+  {
+    label: 'Top commented users',
+    icon: 'comments-o',
+    iconType: 'font-awesome',
+    scene: 'topCommentedUsersStatistic',
+  },
+  {
+    label: 'Top liked users',
+    icon: 'like',
+    iconType: 'evilicon',
+    scene: 'topLikedUsersStatistic',
+  },
+  {
+    label: 'Top rated users',
+    icon: 'star',
+    iconType: 'evilicon',
+    scene: 'topRatedUsersStatistic',
+  },
+  {
+    label: 'Top uploaded users',
+    icon: 'upload',
+    iconType: 'entypo',
+    scene: 'topUploadedUsersStatistic',
   },
 ];
 

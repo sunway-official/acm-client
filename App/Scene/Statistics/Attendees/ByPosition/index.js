@@ -28,7 +28,7 @@ class AttendeesStatisticByPosition extends Component {
           'The percentage of attendees based on their positions'
         }
         barChartDescription={'The number of attendees based on their positions'}
-        unitLabel={'people'}
+        pie
       />
     );
   }

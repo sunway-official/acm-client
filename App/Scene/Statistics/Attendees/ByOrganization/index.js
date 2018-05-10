@@ -28,7 +28,7 @@ class AttendeesStatisticByOrganization extends Component {
           'The percentage of attendees based on organizations'
         }
         barChartDescription={'The number of attendees based on organizations'}
-        unitLabel={'people'}
+        pie
       />
     );
   }

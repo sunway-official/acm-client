@@ -1,0 +1,10 @@
+query searchUsers($params: String!, $pagination: UserSearchPagination) {
+  searchUsers(params: $params, pagination: $pagination) {
+    id
+    firstname
+    lastname
+    username
+    email
+    followers_count
+  }
+}

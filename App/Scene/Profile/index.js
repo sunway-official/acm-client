@@ -200,6 +200,17 @@ ProfileScene.header = {
   theme: 'dark',
   backgroundColor: Colors.transparent,
   statusBarBackgroundColor: Colors.transparent,
+  actions: [
+    {
+      title: 'Search people',
+      icon: {
+        name: 'search',
+      },
+      onPress: dispatch => {
+        dispatch(NavigationActions.navigate({ routeName: 'search' }));
+      },
+    },
+  ],
   menu: {
     icon: {
       name: 'lead-pencil',

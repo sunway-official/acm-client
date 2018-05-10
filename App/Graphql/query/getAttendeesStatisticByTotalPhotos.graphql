@@ -1,5 +1,5 @@
 {
-  getAttendeesStatisticByTotalPhotos(minimumValue: 5) {
+  getAttendeesStatisticByTotalPhotos(minimumValue: 0) {
     id
     key
     value
