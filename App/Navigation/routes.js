@@ -22,6 +22,7 @@ import AttendeesStatisticScene from 'Scene/Statistics/Attendees';
 import TopicsStatisticScene from 'Scene/Statistics/Topics';
 import PapersStatisticScene from 'Scene/Statistics/Papers';
 import Search from 'Scene/Search';
+import TopCommentUsersScene from 'Scene/Statistics/TopCommentUsers';
 
 export const ROUTES = {
   splash: {
@@ -140,7 +141,7 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    initial: true,
+    // initial: true,
   },
   profileEditing: {
     name: 'Edit Profile',
@@ -220,6 +221,7 @@ export const ROUTES = {
       name: 'chart-bar',
       type: 'material-community',
     },
+    initial: true,
   },
   attendeesStatistic: {
     name: 'Attendees Statistics',
@@ -254,6 +256,15 @@ export const ROUTES = {
     screen: Search,
     icon: {
       name: 'search',
+    },
+  },
+  topCommentUsersStatistic: {
+    name: 'Top comment users - Statistic',
+    path: '/statistics/topCommentUsersStatistic',
+    screen: TopCommentUsersScene,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
     },
   },
 };

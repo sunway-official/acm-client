@@ -1,5 +1,5 @@
 {
-  getAttendeesStatisticByTheirInteresting(minimumValue: 5) {
+  getAttendeesStatisticByTheirInteresting(minimumValue: 3) {
     id
     key
     value

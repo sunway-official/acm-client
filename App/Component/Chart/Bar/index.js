@@ -11,29 +11,47 @@ const BarChart = ({ data, description = null }) => [
   </Text>,
   <VictoryChart
     key={2}
-    domainPadding={{ y: 20 }}
-    height={data.length * 40}
+    domainPadding={{
+      y: 20,
+    }}
+    height={data.length * 70}
     width={Metrics.screenWidth / 1.1}
   >
     <VictoryAxis
       style={{
-        axis: { stroke: Colors.primary },
-        axisLabel: { fontSize: 16, fill: Colors.gray },
-        ticks: { stroke: Colors.gray },
-        tickLabels: {
-          fontSize: 14,
-          fill: Colors.white,
-          fontWeight: 'bold',
+        axis: {
+          stroke: Colors.primary,
         },
-        grid: { stroke: Colors.lightCyan, strokeWidth: 0.25 },
+        axisLabel: {
+          fontSize: 16,
+          fill: Colors.gray,
+        },
+        ticks: {
+          stroke: Colors.gray,
+        },
+        // hidden tick labels
+        tickLabels: {
+          fontSize: 1,
+          fill: Colors.white,
+        },
+        grid: {
+          stroke: Colors.lightCyan,
+          strokeWidth: 0.25,
+        },
       }}
       dependentAxis
     />
     <VictoryAxis
       style={{
-        axis: { stroke: Colors.secondary },
-        axisLabel: { fontSize: 16 },
-        ticks: { stroke: Colors.gray },
+        axis: {
+          stroke: Colors.secondary,
+        },
+        axisLabel: {
+          fontSize: 16,
+        },
+        ticks: {
+          stroke: Colors.gray,
+        },
         tickLabels: {
           fontSize: 10,
           fill: Colors.black,
@@ -48,9 +66,6 @@ const BarChart = ({ data, description = null }) => [
           fill: Colors.primary,
           fillOpacity: 0.7,
           strokeWidth: 1,
-        },
-        labels: {
-          fontSize: 10,
         },
       }}
       data={data}

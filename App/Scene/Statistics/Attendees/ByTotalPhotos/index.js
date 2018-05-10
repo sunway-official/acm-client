@@ -24,7 +24,10 @@ class AttendeesStatisticByTotalPhotos extends Component {
     return (
       <ChartComponent
         data={this.props.data.getAttendeesStatisticByTotalPhotos}
-        description={'The percentage of attendees based on photos'}
+        pieChartDescription={
+          'The percentage of attendees based on uploaded photos'
+        }
+        barChartDescription={'The number of attendees based on uploaded photos'}
         unitLabel={'people'}
       />
     );

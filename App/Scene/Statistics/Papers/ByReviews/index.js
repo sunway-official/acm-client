@@ -24,8 +24,8 @@ class AttendeesStatisticByTotalPhotos extends Component {
     return (
       <ChartComponent
         data={this.props.data.getPaperStatisticByReviews}
-        description={'Top of papers based on reviews'}
-        unitLabel={'people'}
+        pieChartDescription={'The percentage of best papers based on reviews'}
+        barChartDescription={'The number of best papers based on reviews'}
       />
     );
   }

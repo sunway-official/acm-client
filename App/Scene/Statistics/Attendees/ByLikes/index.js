@@ -4,10 +4,10 @@ import { View } from 'react-native';
 import { LoadingIndicator } from 'Component';
 import { compose, gql, graphql } from 'react-apollo';
 import styles from '../styles';
-import GET_ATTENDEES_STATISTIC_BY_TOTAL_COMMENTS from 'Graphql/query/getAttendeesStatisticByTotalComments.graphql';
+import GET_ATTENDEES_STATISTIC_BY_LIKES from 'Graphql/query/getAttendeesStatisticByLikes.graphql';
 import { ChartComponent } from 'Scene/Statistics/ChartComponent';
 
-class AttendeesStatisticByTotalComments extends Component {
+class AttendeesStatisticByLikes extends Component {
   static _renderLoading() {
     return (
       <View style={styles.loadingContainer}>
@@ -18,24 +18,24 @@ class AttendeesStatisticByTotalComments extends Component {
 
   render() {
     if (this.props.data.loading) {
-      return AttendeesStatisticByTotalComments._renderLoading();
+      return AttendeesStatisticByLikes._renderLoading();
     }
 
     return (
       <ChartComponent
-        data={this.props.data.getAttendeesStatisticByTotalComments}
-        pieChartDescription={'The percentage of attendees based on comments'}
-        barChartDescription={'The number of attendees based on comments'}
+        data={this.props.data.getAttendeesStatisticByLikes}
+        pieChartDescription={'The percentage of attendees based on likes'}
+        barChartDescription={'The number of attendees based on likes'}
         unitLabel={'people'}
       />
     );
   }
 }
 
-AttendeesStatisticByTotalComments.propTypes = {
+AttendeesStatisticByLikes.propTypes = {
   data: PropTypes.object,
 };
 
-export default compose(graphql(gql(GET_ATTENDEES_STATISTIC_BY_TOTAL_COMMENTS)))(
-  AttendeesStatisticByTotalComments,
+export default compose(graphql(gql(GET_ATTENDEES_STATISTIC_BY_LIKES)))(
+  AttendeesStatisticByLikes,
 );

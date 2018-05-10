@@ -24,7 +24,12 @@ class AttendeesStatisticByInteresting extends Component {
     return (
       <ChartComponent
         data={this.props.data.getAttendeesStatisticByTheirInteresting}
-        description={'The percentage of attendees based on their interesting'}
+        pieChartDescription={
+          'The percentage of attendees based on their interesting'
+        }
+        barChartDescription={
+          'The number of attendees based on their interesting'
+        }
         unitLabel={'people'}
       />
     );
