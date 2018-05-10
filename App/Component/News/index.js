@@ -62,13 +62,14 @@ class News extends Component {
   }
 
   _renderNewsHeader(item, createdAt) {
-    let username = `${item.user.firstname} ${item.user.lastname}`;
+    let username = `${item.user.lastname} ${item.user.firstname}`;
     let avatar = item.user.avatar;
 
     return (
       <NewsHeader
         avatar={avatar}
         gender={item.user.gender}
+        userId={item.user.id}
         username={username}
         createdAt={createdAt}
       />
@@ -141,9 +142,7 @@ class News extends Component {
         isLiked: true,
       });
 
-      const {
-        data: { insertNewsLike },
-      } = await this.props.insertNewsLike({
+      const { data: { insertNewsLike } } = await this.props.insertNewsLike({
         news_id: this.props.item.id,
       });
       this.setState({ like: insertNewsLike });
