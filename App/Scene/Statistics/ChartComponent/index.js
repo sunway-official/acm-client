@@ -5,6 +5,11 @@ import { PieChart, BarChart } from 'Component';
 import { Colors } from 'Theme';
 import { transformText } from 'Transformer';
 
+const TYPES = {
+  BAR: 'bar',
+  PIE: 'pie',
+};
+
 const color = [
   Colors.green,
   Colors.blue,
@@ -43,7 +48,7 @@ export class ChartComponent extends Component {
   render() {
     return (
       <View>
-        {this.props.data.length < 6 ? (
+        {this.props.pie ? (
           <PieChart
             data={this.filteredListToPieChart(this.props.data)}
             description={this.props.pieChartDescription}
@@ -65,5 +70,16 @@ ChartComponent.propTypes = {
   data: PropTypes.array,
   pieChartDescription: PropTypes.string,
   barChartDescription: PropTypes.string,
-  unitLabel: PropTypes.string,
+  bar: PropTypes.bool,
+  pie: PropTypes.bool,
+};
+
+// Loop through TYPES to define its propTypes
+Object.keys(TYPES).map(key => {
+  ChartComponent.propTypes[TYPES[key]] = PropTypes.bool;
+});
+
+ChartComponent.defaultProps = {
+  bar: false,
+  pie: false,
 };

@@ -26,6 +26,7 @@ class AttendeesStatisticByTotalPhotos extends Component {
         data={this.props.data.getPaperStatisticByReviews}
         pieChartDescription={'The percentage of best papers based on reviews'}
         barChartDescription={'The number of best papers based on reviews'}
+        bar
       />
     );
   }

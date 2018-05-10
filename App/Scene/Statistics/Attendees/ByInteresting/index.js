@@ -21,16 +21,21 @@ class AttendeesStatisticByInteresting extends Component {
       return AttendeesStatisticByInteresting._renderLoading();
     }
 
+    const filteredList = this.props.data.getAttendeesStatisticByTheirInteresting.slice(
+      0,
+      5,
+    );
+
     return (
       <ChartComponent
-        data={this.props.data.getAttendeesStatisticByTheirInteresting}
+        data={filteredList}
         pieChartDescription={
           'The percentage of attendees based on their interesting'
         }
         barChartDescription={
           'The number of attendees based on their interesting'
         }
-        unitLabel={'people'}
+        pie
       />
     );
   }
