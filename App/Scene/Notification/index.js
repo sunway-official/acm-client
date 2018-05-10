@@ -15,6 +15,7 @@ import { compose, gql, graphql } from 'react-apollo';
 import { NavigationActions } from 'Reduck/Navigation';
 import { Colors } from 'Theme';
 import GET_NOTIFICATIONS from 'Graphql/query/getNotifications.graphql';
+import MUTATION_MARK_ALL_NOTIFICATION_AS_READ from 'Graphql/mutation/markAllNotificationsAsRead.graphql';
 import Item from './Item';
 import styles from './styles';
 
@@ -34,6 +35,7 @@ class NotificationScene extends Component {
     };
 
     this._onRefresh = this._onRefresh.bind(this);
+    this._markAllAsRead = this._markAllAsRead.bind(this);
   }
 
   async _onRefresh() {
@@ -46,6 +48,11 @@ class NotificationScene extends Component {
     this.setState({
       refreshing: false,
     });
+  }
+
+  async _markAllAsRead() {
+    await this.props.markAllNotificationsAsReadMutation();
+    await this._onRefresh();
   }
 
   _renderNotificationList() {
@@ -68,7 +75,7 @@ class NotificationScene extends Component {
   _renderNotificationContainer() {
     return (
       <View style={styles.container}>
-        <TouchableView style={styles.header}>
+        <TouchableView style={styles.header} onPress={this._markAllAsRead}>
           <Icon
             name={closeIcon.name}
             type={closeIcon.type}
@@ -121,18 +128,24 @@ NotificationScene.footer = {
 
 NotificationScene.propTypes = {
   data: PropTypes.object,
+  markAllNotificationsAsReadMutation: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
   home: () => dispatch(NavigationActions.navigate({ routeName: 'home' })),
 });
 
+const MarkAllNotificationsAsReadWithMutation = graphql(
+  gql(MUTATION_MARK_ALL_NOTIFICATION_AS_READ),
+  {
+    name: 'markAllNotificationsAsReadMutation',
+  },
+);
+
+const GetNotificationsWithQuery = graphql(gql(GET_NOTIFICATIONS));
+
 export default compose(
-  graphql(gql(GET_NOTIFICATIONS), {
-    options: {
-      notifyOnNetworkStatusChange: true,
-      fetchPolicy: 'network-only',
-    },
-  }),
+  MarkAllNotificationsAsReadWithMutation,
+  GetNotificationsWithQuery,
   connect(undefined, mapDispatchToProps),
 )(NotificationScene);
