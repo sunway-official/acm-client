@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'react-apollo';
+import { compose, gql, withApollo } from 'react-apollo';
 import { connect } from 'react-redux';
 import { ScrollView, View, FlatList } from 'react-native';
 import SearchItem from 'Component/UserProfileBody/Content/Followers/Item';
 import { getFormValues } from 'redux-form';
-import debounce from 'lodash/debounce';
 import styles from './styles';
-import { PEOPLE } from './fixture';
 import { NavigationActions } from 'Reduck/Navigation';
+import SEARCH_USERS_QUERY from 'Graphql/query/searchUsers.graphql';
 
 class Search extends Component {
   static propTypes = {
@@ -17,19 +16,59 @@ class Search extends Component {
     tabContent: PropTypes.object,
     queryMe: PropTypes.object,
     enableFollowUser: PropTypes.bool,
+    client: PropTypes.any,
   };
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      searchUserstList: [],
+    };
+
+    this._queryUsersByKeyword = this._queryUsersByKeyword.bind(this);
+  }
+
+  async componentWillReceiveProps(nextProps) {
+    if (this.props.formValues !== nextProps.formValues) {
+      if (nextProps.formValues) {
+        console.log(nextProps.formValues);
+        const {
+          data: { searchUsers },
+          loading,
+        } = await this._queryUsersByKeyword(nextProps.formValues.value, 50, 0);
+        this.setState({ searchUserstList: searchUsers });
+      }
+    }
+  }
+
+  async _queryUsersByKeyword(keyword, limit, offset) {
+    try {
+      const result = await this.props.client.query({
+        query: gql(SEARCH_USERS_QUERY),
+        variables: {
+          params: keyword,
+          pagination: {
+            limit,
+            offset,
+          },
+        },
+      });
+
+      return result;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   render() {
     const { navigate } = this.props;
+    const { searchUserstList } = this.state;
 
     return (
       <View style={styles.container}>
         <FlatList
-          data={PEOPLE}
+          data={searchUserstList}
           renderItem={({ item }) => (
             <SearchItem
               follower={item}
@@ -74,4 +113,7 @@ const mapDispatchToProps = dispatch => ({
     ),
 });
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(Search);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withApollo,
+)(Search);
