@@ -26,7 +26,7 @@ class AttendeesStatisticByRating extends Component {
         data={this.props.data.getAttendeesStatisticByRating}
         pieChartDescription={'The percentage of attendees based on rating'}
         barChartDescription={'The number of attendees based on rating'}
-        unitLabel={'people'}
+        bar
       />
     );
   }

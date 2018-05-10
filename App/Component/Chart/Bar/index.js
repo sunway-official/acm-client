@@ -13,6 +13,7 @@ const BarChart = ({ data, description = null }) => [
     key={2}
     domainPadding={{
       y: 20,
+      x: [0, 100],
     }}
     height={data.length * 70}
     width={Metrics.screenWidth / 1.1}

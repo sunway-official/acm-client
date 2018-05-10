@@ -28,7 +28,7 @@ class AttendeesStatisticByTotalPhotos extends Component {
           'The percentage of attendees based on uploaded photos'
         }
         barChartDescription={'The number of attendees based on uploaded photos'}
-        unitLabel={'people'}
+        bar
       />
     );
   }

@@ -30,7 +30,7 @@ class AttendeesStatisticByInteresting extends Component {
         barChartDescription={
           'The number of attendees based on their interesting'
         }
-        unitLabel={'people'}
+        bar
       />
     );
   }

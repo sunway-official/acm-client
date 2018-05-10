@@ -29,6 +29,7 @@ class TopicsStatisticScene extends Component {
             data={this.props.data.getTopicsStatistic}
             pieChartDescription={'The percentage of best topics'}
             barChartDescription={'The number of best topics'}
+            bar
           />
         </ScrollView>
       </View>
