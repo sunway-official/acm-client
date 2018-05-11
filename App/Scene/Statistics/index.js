@@ -10,17 +10,23 @@ import { connect } from 'react-redux';
 
 const categories = [
   {
-    label: 'Attendees',
-    icon: 'people',
+    label: 'Attendees by Organization',
+    icon: 'group-work',
     iconType: 'material-icons',
-    scene: 'attendeesStatistic',
+    scene: 'attendeesByOrganizationStatistic',
   },
-  // {
-  //   label: 'Speakers',
-  //   icon: 'keyboard-voice',
-  //   iconType: 'material-icons',
-  //   scene: '',
-  // },
+  {
+    label: 'Attendees by Position',
+    icon: 'awareness-ribbon',
+    iconType: 'entypo',
+    scene: 'attendeesByPositionStatistic',
+  },
+  {
+    label: 'Attendees by Interesting',
+    icon: 'favorite',
+    iconType: 'material-icons',
+    scene: 'attendeesByInterestingStatistic',
+  },
   {
     label: 'Topics',
     icon: 'ios-paper',

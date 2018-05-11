@@ -18,7 +18,9 @@ import {
 } from 'Scene/Conference';
 import PapersTracker from 'Scene/PapersTracker';
 import Statistics from 'Scene/Statistics';
-import AttendeesStatisticScene from 'Scene/Statistics/Attendees';
+import AttendeesStatisticByOrganizationScene from 'Scene/Statistics/AttendeesByOrganization';
+import AttendeesStatisticByPositionScene from 'Scene/Statistics/AttendeesByPosition';
+import AttendeesStatisticByInterestingScene from 'Scene/Statistics/AttendeesByInteresting';
 import TopicsStatisticScene from 'Scene/Statistics/Topics';
 import PapersStatisticScene from 'Scene/Statistics/Papers';
 import Search from 'Scene/Search';
@@ -227,10 +229,28 @@ export const ROUTES = {
       type: 'material-community',
     },
   },
-  attendeesStatistic: {
-    name: 'Attendees Statistics',
+  attendeesByOrganizationStatistic: {
+    name: 'Attendees By Organization',
     path: '/statistics/attendees',
-    screen: AttendeesStatisticScene,
+    screen: AttendeesStatisticByOrganizationScene,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
+    },
+  },
+  attendeesByPositionStatistic: {
+    name: 'Attendees By Position',
+    path: '/statistics/attendees',
+    screen: AttendeesStatisticByPositionScene,
+    icon: {
+      name: 'chart-bar',
+      type: 'material-community',
+    },
+  },
+  attendeesByInterestingStatistic: {
+    name: 'Attendees By Interesting',
+    path: '/statistics/attendees',
+    screen: AttendeesStatisticByInterestingScene,
     icon: {
       name: 'chart-bar',
       type: 'material-community',
