@@ -15,7 +15,7 @@ const BarChart = ({ data, description = null }) => [
       y: 20,
       x: [0, 100],
     }}
-    height={data.length * 70}
+    height={Metrics.screenWidth * 1.2}
     width={Metrics.screenWidth / 1.1}
   >
     <VictoryAxis

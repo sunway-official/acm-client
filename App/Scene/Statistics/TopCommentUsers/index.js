@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { View, ScrollView } from 'react-native';
 import { Colors, Metrics } from 'Theme';
-import { Text, UserAvatar, LoadingIndicator } from 'Component';
+import { Text, UserAvatar, LoadingIndicator, TouchableView } from 'Component';
 import styles from './styles';
 import GET_TOP_COMMENT_USERS from 'Graphql/query/getTopCommentUsers.graphql';
+import QUERY_ME from 'Graphql/query/me.graphql';
 import { compose, gql, graphql } from 'react-apollo';
+import { NavigationActions } from 'Reduck/Navigation';
 
 class TopCommentUsersStatistic extends Component {
   static propTypes = {};
@@ -20,12 +23,28 @@ class TopCommentUsersStatistic extends Component {
 
   constructor(props) {
     super(props);
+
+    this._navigateToAttendeeProfile = this._navigateToAttendeeProfile.bind(
+      this,
+    );
   }
 
-  static _renderTopCommentUsers(user, index) {
+  _navigateToAttendeeProfile(userId) {
+    const { queryMe, navigate } = this.props;
+    if (userId === queryMe.me.id) {
+      navigate('profile');
+    } else {
+      navigate('people', userId);
+    }
+  }
+
+  _renderTopCommentUsers(user, index) {
     return (
       <View key={index} style={styles.userContainer}>
-        <View style={styles.leftTopCommentUsersContainer}>
+        <TouchableView
+          onPress={() => this._navigateToAttendeeProfile(user.id)}
+          style={styles.leftTopCommentUsersContainer}
+        >
           <UserAvatar medium avatar={user.avatar} />
           <View marginHorizontal={Metrics.baseMargin}>
             <Text>{user.username}</Text>
@@ -33,7 +52,7 @@ class TopCommentUsersStatistic extends Component {
               {user.position}
             </Text>
           </View>
-        </View>
+        </TouchableView>
         <View style={styles.rightTopCommentUsersContainer}>
           <Text>{user.newsComments.length} comments</Text>
         </View>
@@ -50,7 +69,7 @@ class TopCommentUsersStatistic extends Component {
       <View style={styles.container}>
         <ScrollView>
           {this.props.data.getTopCommentUsers.map((user, index) =>
-            TopCommentUsersStatistic._renderTopCommentUsers(user, index),
+            this._renderTopCommentUsers(user, index),
           )}
         </ScrollView>
       </View>
@@ -67,8 +86,24 @@ TopCommentUsersStatistic.header = {
 
 TopCommentUsersStatistic.propTypes = {
   data: PropTypes.object,
+  navigate: PropTypes.func,
+  queryMe: PropTypes.object,
 };
 
-export default compose(graphql(gql(GET_TOP_COMMENT_USERS)))(
-  TopCommentUsersStatistic,
-);
+const mapDispatchToProps = dispatch => ({
+  navigate: (routeName, userId) =>
+    dispatch(
+      NavigationActions.navigate({
+        routeName,
+        params: { userId },
+      }),
+    ),
+});
+
+export default compose(
+  connect(undefined, mapDispatchToProps),
+  graphql(gql(GET_TOP_COMMENT_USERS)),
+  graphql(gql(QUERY_ME), {
+    name: 'queryMe',
+  }),
+)(TopCommentUsersStatistic);
