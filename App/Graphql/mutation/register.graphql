@@ -3,12 +3,18 @@ mutation(
   $lastname: String!
   $email: String!
   $password: String!
+  $username: String!
+  $organization: String!
+  $bio: String!
 ) {
   register(
     firstname: $firstname
     lastname: $lastname
     email: $email
     password: $password
+    username: $username
+    organization: $organization
+    bio: $bio
   ) {
     id
     firstname

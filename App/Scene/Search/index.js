@@ -32,7 +32,6 @@ class Search extends Component {
   async componentWillReceiveProps(nextProps) {
     if (this.props.formValues !== nextProps.formValues) {
       if (nextProps.formValues) {
-        console.log(nextProps.formValues);
         const {
           data: { searchUsers },
           loading,

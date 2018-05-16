@@ -59,7 +59,7 @@ class RegisterScene extends Component {
       Keyboard.dismiss();
 
       await mutate({
-        variables: { ...values },
+        variables: { ...values, email: values.email.toLowerCase() },
       });
 
       this.setState({ loading: false, errorText: '' });
