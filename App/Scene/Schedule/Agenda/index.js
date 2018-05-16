@@ -59,11 +59,16 @@ class Agenda extends Component {
     this._handleFilter = this._handleFilter.bind(this);
   }
 
+  componentDidMount() {
+    this.props.agenda.refetch();
+  }
+
   componentWillReceiveProps({ navigationIndex }) {
     if (navigationIndex !== this.props.sceneIndex) {
       this.setState({
         lastNavigationIndex: navigationIndex,
       });
+      // this.props.agenda.refetch();
     }
   }
 
@@ -87,6 +92,7 @@ class Agenda extends Component {
       nextProps.navigationIndex === sceneIndex
     ) {
       this.setState({ lastNavigationIndex: nextProps.navigationIndex });
+      this.props.agenda.refetch();
     }
   }
 

@@ -84,6 +84,7 @@ class Item extends Component {
   render() {
     const { item } = this.state;
     const { navigate } = this.props;
+
     return (
       <View style={[styles.item, item.isBefore ? styles.blurItem : null]}>
         <TouchableView

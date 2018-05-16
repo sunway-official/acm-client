@@ -31,6 +31,7 @@ class FilterModal extends Component {
 
     this.setOnPress = this.setOnPress.bind(this);
     this.setPressToDefault = this.setPressToDefault.bind(this);
+    this._cancelModal = this._cancelModal.bind(this);
   }
 
   static defaultProps = {
@@ -39,6 +40,11 @@ class FilterModal extends Component {
     onCancelPress: () => null,
     onApplyPress: () => null,
   };
+
+  _cancelModal() {
+    this.setPressToDefault();
+    this.props.onCancelPress();
+  }
 
   // ! using composition for content filter
   _renderContents(contents) {
@@ -124,8 +130,8 @@ class FilterModal extends Component {
     const {
       isVisible,
       contents,
-      onBackdropPress,
       onCancelPress,
+      onBackdropPress,
       onApplyPress,
     } = this.props;
     return (
