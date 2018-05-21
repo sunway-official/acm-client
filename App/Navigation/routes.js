@@ -82,6 +82,7 @@ export const ROUTES = {
       name: 'newspaper',
       type: 'material-community',
     },
+    initial: true,
   },
   newsPosting: {
     name: 'New Post',
@@ -122,7 +123,6 @@ export const ROUTES = {
       name: 'calendar-range',
       type: 'material-community',
     },
-    initial: true,
   },
   activityDetail: {
     name: 'Activity Detail',
@@ -148,7 +148,6 @@ export const ROUTES = {
       name: 'face-profile',
       type: 'material-community',
     },
-    // initial: true,
   },
   profileEditing: {
     name: 'Edit Profile',
