@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Linking } from 'react-native';
 import { LoadingIndicator, EmptyCollection } from 'Component';
 import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
 import { compose, gql, graphql } from 'react-apollo';
 import { NavigationActions } from 'Reduck/Navigation';
 import GET_CURRENT_PAPER from 'Graphql/query/getCurrentPaper.graphql';
+import { PAPER_REVIEW_URL } from 'env';
 
 // import { PAPER } from './fixture';
 import Item from './Item';
 import styles from './styles';
+import { setModalState } from 'Reduck/Modal';
+import { reset } from 'Reduck/Navigation/action';
 
 class PapersTrackerScene extends Component {
   _renderPapersTrackerList() {
@@ -55,6 +58,14 @@ PapersTrackerScene.drawer = {
 PapersTrackerScene.header = {
   leftIcon: 'drawer',
   theme: 'dark',
+  actions: [
+    {
+      icon: {
+        name: 'rate-review',
+      },
+      onPress: () => Linking.openURL(PAPER_REVIEW_URL),
+    },
+  ],
 };
 
 PapersTrackerScene.propTypes = {
