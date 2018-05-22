@@ -1,13 +1,12 @@
 {
   "expo": {
     "name": "ACM Client",
-    "description":
-      "ACM Client is a cross-platforms application that can be run on both Android and iOS. This application will provide a single solution for the conferences that happen in DTU. It will help people to easily share their activities, track their schedule, take quick notes, send real time messages as well as many other features.",
+    "description": "Duy Tan University is being develop faster than ever and it now organises more and more academic conferences which include international conferences of course. People still need a lot of paperworks and tools to get manage their schedule and activities that happen during the conference.\nOur solution is to build a cross-platforms application that can be run on both Android and iOS. This application will provide a single solution for the conferences that happen in DTU. It will help people to easily share their activities, track their schedule, take quick notes, send real time messages as well as many other features.\nThere will be another web application, of course, which will be built by another team that acts as a management system for our solution.",
     "slug": "acm-client",
     "privacy": "public",
     "orientation": "portrait",
     "sdkVersion": "26.0.0",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "icon": "./App/Images/logo/white-orange-rounded-1024.png",
     "ios": {
       "bundleIdentifier": "com.sunway.acmclient"
