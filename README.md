@@ -49,6 +49,7 @@ npm start
 * Pham Van Tri
 * Le Thi Thuy Dung
 * Ly Bao Khanh
+* Man Nguyen Duc
 
 ## More information
 
