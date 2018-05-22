@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { compose, gql, withApollo } from 'react-apollo';
-import { connect } from 'react-redux';
-import { ScrollView, View, FlatList } from 'react-native';
 import SearchItem from 'Component/UserProfileBody/Content/Followers/Item';
+import SEARCH_USERS_QUERY from 'Graphql/query/searchUsers.graphql';
+import { NavigationActions } from 'Reduck/Navigation';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { compose, gql, withApollo } from 'react-apollo';
+import { FlatList, View } from 'react-native';
+import { connect } from 'react-redux';
 import { getFormValues } from 'redux-form';
 import styles from './styles';
-import { NavigationActions } from 'Reduck/Navigation';
-import SEARCH_USERS_QUERY from 'Graphql/query/searchUsers.graphql';
 
 class Search extends Component {
   static propTypes = {
@@ -85,7 +85,7 @@ Search.header = {
   leftIcon: 'drawer',
   theme: 'light',
   search: {
-    placeholder: 'Type to search...',
+    placeholder: 'Type to search for someone...',
     enable: true,
   },
 };

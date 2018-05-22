@@ -1,21 +1,7 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { View, Button } from 'react-native';
-import {
-  Text,
-  UserProfileBody,
-  UserProfileHeader,
-  LoadingIndicator,
-} from 'Component';
-import { connect } from 'react-redux';
-import { compose, graphql, gql, withApollo } from 'react-apollo';
-import { NavigationActions } from 'Reduck/Navigation';
-import styles from './styles';
-import USER_BY_ID_QUERY from 'Graphql/query/getUserByID.graphql';
-import GET_NEWS_BY_USER_ID_QUERY from 'Graphql/query/getNewsByUserID.graphql';
-import Content from './Content';
-
 import { Colors } from 'Theme';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import Content from './Content';
 
 class PeopleScene extends Component {
   static propTypes = {

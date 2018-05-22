@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Keyboard } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { TouchableView, FormInput } from 'Component';
-import { Colors, Metrics, Fonts } from 'Theme';
+import { Colors, Metrics, Fonts, Icons } from 'Theme';
 import { reduxForm, Field, reset } from 'redux-form';
 import { compose } from 'react-apollo';
 import styles from '../styles';
@@ -14,6 +14,10 @@ const THEME_LIGHT = 'light';
 class HeaderSearchContent extends Component {
   static propTypes = {
     theme: PropTypes.oneOf([THEME_DARK, THEME_LIGHT]),
+    icon: PropTypes.shape({
+      name: PropTypes.string,
+      type: PropTypes.oneOf(Icons.ICON_TYPE),
+    }),
     defaultValue: PropTypes.string,
     placeholder: PropTypes.string,
     dispatch: PropTypes.func,
@@ -100,14 +104,22 @@ class HeaderSearchContent extends Component {
   }
 
   _renderBack() {
-    const { dispatch, onIconPress = () => {} } = this.props;
+    const { dispatch, icon, onIconPress = () => {} } = this.props;
     return (
       <TouchableView
         style={styles.iconWrapper}
         {...this._touchableViewStyles()}
-        onPress={() => onIconPress(dispatch)}
+        onPress={() => {
+          onIconPress(dispatch);
+          Keyboard.dismiss();
+        }}
       >
-        <Icon name="arrow-back" onPress={undefined} {...this._iconStyles()} />
+        <Icon
+          name="menu"
+          {...icon}
+          onPress={undefined}
+          {...this._iconStyles()}
+        />
       </TouchableView>
     );
   }
