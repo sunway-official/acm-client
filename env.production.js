@@ -9,5 +9,5 @@ export default {
   S3_BUCKET_REGION: 'ap-southeast-1',
   S3_GET_PREFIX: 'https://s3-<BUCKET_REGION>.amazonaws.com/<BUCKET_NAME>/',
 
-  PAPER_REVIEW_URL: 'https://material.io/tools/icons/?style=baseline',
+  PAPER_REVIEW_URL: 'http://acm-admin.herokuapp.com/conference/papers',
 };
